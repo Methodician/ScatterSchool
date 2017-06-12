@@ -14,7 +14,7 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.db.object('/Things/thing1').subscribe(data => {
+    this.db.object('/').subscribe(data => {
       this.data = data;
     })
   }
