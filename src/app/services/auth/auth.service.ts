@@ -12,7 +12,6 @@ export class AuthService {
 
   user$: BehaviorSubject<firebase.User> = new BehaviorSubject<firebase.User>(null);
   authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthService.UNKNOWN_USER);
-  fbRef: any;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -20,13 +19,12 @@ export class AuthService {
   ) {
     this.afAuth.authState.subscribe(info => {
       if (info) {
-        console.log(info);
+        console.log('AuthState from Auth Service constructor:', info);
         this.user$.next(info);
         const authInfo = new AuthInfo(info.uid, info.emailVerified);
         this.authInfo$.next(authInfo);
       }
     });
-    //this.fbRef = fbRef;
   }
 
   /*login(email, password): Observable<FirebaseAuthState> {
@@ -48,6 +46,11 @@ export class AuthService {
   register(email, password) {
     return this.fromFirebaseAuthPromise(this.afAuth.auth.createUserWithEmailAndPassword(email, password));
   }
+  setDispalyName(alias) { // (later create option by making args "(alias, user?)")
+    //let userToSet = user || this.afAuth.auth.currentUser;
+    let userToSet = this.afAuth.auth.currentUser;
+    userToSet.updateProfile({ displayName: alias, photoURL: null });
+  }
 
   fromFirebaseAuthPromise(promise): Observable<any> {
     const subject = new Subject<any>();
@@ -55,7 +58,9 @@ export class AuthService {
     promise
       .then(res => {
         console.log('Auth Service promise result:', res);
-        console.log('Auth State:', this.afAuth.authState);
+        this.afAuth.authState.subscribe(state => {
+          console.log('Auth State:', state);
+        });
         const authInfo = new AuthInfo(this.afAuth.auth.currentUser.uid, res.emailVerified);
         //const authInfo = new AuthInfo('figure out how to get uid', false);
         this.authInfo$.next(authInfo);

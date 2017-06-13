@@ -1,3 +1,24 @@
-<p>
-  login works!
-</p>
+<form autocomplete="off" novalidate class="login-form" [formGroup]="form" class="form-group">
+
+  <fieldset>
+    <legend>Login</legend>
+    <div class="form-bg">
+      <div class="form-field">
+        <label>Email</label>
+        <input [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" formControlName="email"
+          type="email" class="form-control">
+        <div class="field-error-message" *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</div>
+        <div class="field-error-message" *ngIf="isErrorVisible('email','validEmail')">Please enter a valid e-mail address.</div>
+      </div>
+      <div class="form-field">
+        <label>Password</label>
+        <input [class.input-error]="isErrorVisible('password','required')" name="password" formControlName="password" type="password"
+          class="form-control">
+        <div class="field-error-message" *ngIf="isErrorVisible('password','required')">A password is required.</div>
+      </div>
+    </div>
+
+
+  </fieldset>
+  <button (click)="login()" [disabled]="!formValid()" class="btn btn-default">Login</button>
+</form>
