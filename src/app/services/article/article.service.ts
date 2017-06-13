@@ -17,7 +17,7 @@ export class ArticleService {
     let tags = article.tags.replace(/\s/g, '').split(',');
     let tagsObject = {};
     for (let tag of tags) {
-      //this.db.object(`articleData/tags/${tag}`).set(true);
+      this.db.object(`articleData/tags/${tag}`).set(true);
       tagsObject[tag] = true;
     }
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
