@@ -1,0 +1,19 @@
+<form autocomplete="off" novalidate [formGroup]="form">
+  <fieldset class="form-group">
+    <div class="form-bg">
+      <div class="form-field">
+        <label>*Title</label>
+        <input name="title" formControlName="title" type="text" [class.input-error]="isErrorVisible('title', 'required')" class="form-control">
+        <div class="field-error-message" *ngIf="isErrorVisible('title','required')">Please give your article a title.</div>
+      </div>
+      <div class="form-field">
+        <label>*Body</label>
+        <textarea name="body" formControlName="body" type="text" class="form-control" id="body" colx="30" rows="5"></textarea>
+      </div>
+      <div class="form-field">
+        <label>Tags (separate by comma)</label>
+        <input type="text" name="tags" formControlName="tags" class="form-control">
+      </div>
+    </div>
+  </fieldset>
+</form>

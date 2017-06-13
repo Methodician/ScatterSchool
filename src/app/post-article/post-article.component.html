@@ -1,0 +1,11 @@
+<app-article-form #article>
+</app-article-form>
+
+<!--<button (click)="save(article)" [disabled]="!formValid(article.valid)" class="btn btn-default">Submit</button> Preview:-->
+<button (click)="save(article)" class="btn btn-default">Submit</button>
+<br>
+<br>
+<br> Preview:
+<pre>
+    {{ article.value | json }}
+</pre>

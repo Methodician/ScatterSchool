@@ -17,6 +17,9 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { PostArticleComponent } from './post-article/post-article.component';
 import { ArticleFormComponent } from './article-form/article-form.component';
+import { CkTestComponent } from './ck-test/ck-test.component';
+import { CKEditorModule } from 'ng2-ckeditor';
+
 
 const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -77,7 +80,8 @@ const routes: Routes = [
     LoginComponent,
     AccountComponent,
     PostArticleComponent,
-    ArticleFormComponent
+    ArticleFormComponent,
+    CkTestComponent
   ],
   imports: [
     BrowserModule,
@@ -86,7 +90,8 @@ const routes: Routes = [
     HttpModule,
     AngularFireModule.initializeApp(fbConfig),
     RouterModule.forRoot(routes),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    CKEditorModule
   ],
   providers: [
     AngularFireDatabase,

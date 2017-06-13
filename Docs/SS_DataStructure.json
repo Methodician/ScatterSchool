@@ -44,6 +44,10 @@
       "last_updated": "timestamp"
     }
   },
+  "articleBodies": {
+    "body2": "This is new body text",
+    "body1": "this is the origial text"
+  },
   "history_per_article": {
     "article1": {
       "version1": {
@@ -65,8 +69,8 @@
     "article2": true
   },
   "articles_per_author": {
-    "article1": {
-      "user1": true
+    "user1": {
+      "article1": true
     }
   },
   "editors_per_article": {
@@ -74,7 +78,7 @@
       "user2": true
     }
   },
-  "articles_per_user": {
+  "articles_per_editor": {
     "user1": {
       "article1": true
     },
