@@ -20,14 +20,16 @@ export class PostArticleComponent implements OnInit {
     private router: Router,
     authSvc: AuthService
   ) {
-    authSvc.authInfo$.subscribe(info => this.authInfo = info);
+    authSvc.authInfo$.subscribe(info => {
+      this.authInfo = info;
+    });
   }
 
   ngOnInit() {
   }
 
   save(form) {
-    this.articleSvc.createNewArticle(this.authInfo.uid, form.value);
+    this.articleSvc.createNewArticle(this.authInfo.$uid, form.value);
   }
 
 }

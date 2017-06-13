@@ -8,7 +8,8 @@
       "bio": "a little about user1",
       "city": "California",
       "state": "Chico",
-      "follower_count": "0"
+      "follower_count": "0",
+      "timestamp": "firebase.database.ServerValue.TIMESTAMP"
     },
     "user2": {
       "first_name": "user2 first name",
@@ -16,7 +17,8 @@
       "email": "user2@email.com",
       "bio": "a little about user2",
       "city": "Washington",
-      "state": "Seattle"
+      "state": "Seattle",
+      "timestamp": "firebase.database.ServerValue.TIMESTAMP"
     }
   },
   "followers_per_user": {
@@ -41,12 +43,19 @@
       "version": "2",
       "review_count": "1",
       "created_by": "user1",
-      "last_updated": "timestamp"
+      "last_updated": "timestamp",
+      "timestamp": "firebase.database.ServerValue.TIMESTAMP"
     }
   },
   "articleBodies": {
-    "body2": "This is new body text",
-    "body1": "this is the origial text"
+    "body2": {
+      "text": "This is new body text",
+      "timestamp": "timestamp"
+    },
+    "body1": {
+      "text": "this is the origial text",
+      "timestamp": "timestamp"
+    }
   },
   "history_per_article": {
     "article1": {
@@ -96,7 +105,8 @@
       "article": "article1",
       "author": "user2",
       "review": "This is user2's review of the Basic JavaScript article",
-      "stars": "4"
+      "stars": "4",
+      "timestamp": "timestamp"
     }
   },
   "reviews_per_article": {
@@ -114,7 +124,12 @@
       "article": "article1",
       "author": "user2",
       "comment": "This is a great article, made a few tweaks cause it was out of date, thank you!",
-      "comment_time": "timestamp"
+      "timestamp": "timestamp"
+    }
+  },
+  "comments_per_article": {
+    "article1": {
+      "comment1": true
     }
   },
   "replies": {
@@ -122,13 +137,13 @@
       "article": "article1",
       "author": "user1",
       "reply": "Thank you for updating it!",
-      "reply_time": "timestamp"
+      "timestamp": "timestamp"
     },
     "reply2": {
       "article": "article1",
       "author": "user2",
       "reply": "Cant wait to see what you come out with next!",
-      "reply_time": "timestamp"
+      "timestamp": "timestamp"
     }
   },
   "replies_per_comment": {
