@@ -1,0 +1,140 @@
+{
+  "users": {
+    "user1": {
+      "first_name": "user1 first name",
+      "last_name": "user1 last name",
+      "alias": "user1 alias",
+      "email": "user1@email.com",
+      "bio": "a little about user1",
+      "city": "California",
+      "state": "Chico",
+      "follower_count": "0"
+    },
+    "user2": {
+      "first_name": "user2 first name",
+      "last_name": "user2 last name",
+      "email": "user2@email.com",
+      "bio": "a little about user2",
+      "city": "Washington",
+      "state": "Seattle"
+    }
+  },
+  "followers_per_user": {
+    "userIDs": {
+      "user1": {
+        "user2": true
+      },
+      "user2": {
+        "user1": true
+      }
+    }
+  },
+  "articles": {
+    "article1": {
+      "title": "Basic JavaScript",
+      "bodyID": "body2",
+      "tags": {
+        "programming": true,
+        "beginner": true,
+        "javascript": true
+      },
+      "version": "2",
+      "review_count": "1",
+      "created_by": "user1",
+      "last_updated": "timestamp"
+    }
+  },
+  "history_per_article": {
+    "article1": {
+      "version1": {
+        "title": "A Beginners Article To JavaScript",
+        "bodyID": "body1",
+        "tags": {
+          "programming": true,
+          "beginner": true,
+          "javascript": true
+        },
+        "version": "1",
+        "created_by": "user1",
+        "last_updated": "timestamp"
+      }
+    }
+  },
+  "featured_articles": {
+    "article1": true,
+    "article2": true
+  },
+  "articles_per_author": {
+    "article1": {
+      "user1": true
+    }
+  },
+  "editors_per_article": {
+    "article1": {
+      "user2": true
+    }
+  },
+  "articles_per_user": {
+    "user1": {
+      "article1": true
+    },
+    "user2": {
+      "article1": true
+    }
+  },
+  "tags": {
+    "programming": true,
+    "begginer": true,
+    "javascript": true
+  },
+  "reviews": {
+    "review1": {
+      "article": "article1",
+      "author": "user2",
+      "review": "This is user2's review of the Basic JavaScript article",
+      "stars": "4"
+    }
+  },
+  "reviews_per_article": {
+    "article1": {
+      "review1": true
+    }
+  },
+  "reviews_per_user": {
+    "user2": {
+      "review1": true
+    }
+  },
+  "comments": {
+    "comment1": {
+      "article": "article1",
+      "author": "user2",
+      "comment": "This is a great article, made a few tweaks cause it was out of date, thank you!",
+      "comment_time": "timestamp"
+    }
+  },
+  "replies": {
+    "reply1": {
+      "article": "article1",
+      "author": "user1",
+      "reply": "Thank you for updating it!",
+      "reply_time": "timestamp"
+    },
+    "reply2": {
+      "article": "article1",
+      "author": "user2",
+      "reply": "Cant wait to see what you come out with next!",
+      "reply_time": "timestamp"
+    }
+  },
+  "replies_per_comment": {
+    "comment1": {
+      "reply1": true
+    }
+  },
+  "replies_per_reply": {
+    "reply1": {
+      "reply2": true
+    }
+  }
+}

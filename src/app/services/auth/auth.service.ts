@@ -1,0 +1,81 @@
+import { AuthInfo } from './auth-info';
+import { Injectable, Inject } from '@angular/core';
+import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
+import * as firebase from 'firebase';
+import { AngularFireAuth } from 'angularfire2/auth';
+
+
+@Injectable()
+export class AuthService {
+
+  static UNKNOWN_USER = new AuthInfo(null);
+
+  user$: BehaviorSubject<firebase.User> = new BehaviorSubject<firebase.User>(null);
+  authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthService.UNKNOWN_USER);
+  fbRef: any;
+
+  constructor(
+    private afAuth: AngularFireAuth,
+    //@Inject(FirebaseRef) fbRef
+  ) {
+    this.afAuth.authState.subscribe(info => {
+      if (info) {
+        console.log(info);
+        this.user$.next(info);
+        const authInfo = new AuthInfo(info.uid, info.emailVerified);
+        this.authInfo$.next(authInfo);
+      }
+    });
+    //this.fbRef = fbRef;
+  }
+
+  /*login(email, password): Observable<FirebaseAuthState> {
+    return this.fromFirebaseAuthPromise(this.auth.login({ email, password }));
+  }*/
+  login(email, password) {
+    return this.fromFirebaseAuthPromise(this.afAuth.auth.signInWithEmailAndPassword(email, password));
+  }
+
+  logout() {
+    this.afAuth.auth.signOut();
+    this.authInfo$.next(AuthService.UNKNOWN_USER);
+    this.user$.next(null);
+  }
+
+  /*signUp(email, password): Observable<FirebaseAuthState> {
+    return this.fromFirebaseAuthPromise(this.auth.createUser({ email, password }));
+  }*/
+  register(email, password) {
+    return this.fromFirebaseAuthPromise(this.afAuth.auth.createUserWithEmailAndPassword(email, password));
+  }
+
+  fromFirebaseAuthPromise(promise): Observable<any> {
+    const subject = new Subject<any>();
+
+    promise
+      .then(res => {
+        console.log('Auth Service promise result:', res);
+        console.log('Auth State:', this.afAuth.authState);
+        const authInfo = new AuthInfo(this.afAuth.auth.currentUser.uid, res.emailVerified);
+        //const authInfo = new AuthInfo('figure out how to get uid', false);
+        this.authInfo$.next(authInfo);
+        subject.next(res);
+        subject.complete();
+      },
+      err => {
+        this.authInfo$.error(err);
+        subject.error(err);
+        subject.complete();
+      });
+    return subject.asObservable();
+  }
+
+  sendVerificationEmail() {
+    let user = this.afAuth.auth.currentUser;
+    console.log('afAuth.auth.currentUser:', user);
+    user.sendEmailVerification().then(() => {
+    }, (error) => {
+      alert('It looks like your verification email was not sent. Please try again or contact support.');
+    });
+  }
+}

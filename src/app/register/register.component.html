@@ -1,3 +1,59 @@
-<p>
-  register works!
-</p>
+<form autocomplete="off" novalidate class="login-form" [formGroup]="form" class="form-group">
+
+  <fieldset>
+    <legend>Register</legend>
+    <!--REP FORM-->
+    <div class="form-bg">
+      <!--<h3>Representative:</h3>-->
+      <div class="form-field">
+        <label>*Email</label>
+        <input [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" formControlName="email"
+          type="email" class="form-control">
+        <div class="field-error-message" *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</div>
+        <div class="field-error-message" *ngIf="isErrorVisible('email','validEmail')">Please enter a valid e-mail address.</div>
+      </div>
+      <div class="form-field">
+        <label>*Password</label>
+        <input [class.input-error]="isErrorVisible('password','required')" name="password" formControlName="password" type="password"
+          class="form-control">
+        <div class="field-error-message" *ngIf="isErrorVisible('password','required')">A password is required.</div>
+      </div>
+      <div class="form-field">
+        <label>*Confirm Password:</label>
+        <input [class.input-error]="isErrorVisible('confirmPass','required') || !isPasswordMatch() && isControlDirty('confirmPass')"
+          name="confirmPass" formControlName="confirmPass" type="password" class="form-control">
+        <div class="field-error-message" *ngIf="isErrorVisible('confirmPass','required')">Please confirm your password.</div>
+        <div class="field-error-message" *ngIf="!isPasswordMatch() && isControlDirty('confirmPass')">Oops! Your password does not match yet.</div>
+      </div>
+      <div class="form-field">
+        <label>*First Name</label>
+        <input [class.input-error]="isErrorVisible('fName','required')" name="fName" formControlName="fName" type="text" class="form-control">
+        <div class="field-error-message" *ngIf="isErrorVisible('fName','required')">Please provide your first name</div>
+      </div>
+      <div class="form-field">
+        <label>*Last Name</label>
+        <input [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName" type="text" class="form-control">
+        <div class="field-error-message" *ngIf="isErrorVisible('lName','required')">Please provide your last name</div>
+      </div>
+      <div class="form-field">
+        <label>Alias (Optional, will appear instead of name)</label>
+        <input type="text" name="alias" formControlName="alias" class="form-control">
+      </div>
+      <div class="form-field">
+        <label>Bio (Optional, a short bio)</label>
+        <input type="text" name="bio" formControlName="bio" class="form-control">
+      </div>
+      <div class="form-field">
+        <label>City</label>
+        <input type="text" name="city" formControlName="city" class="form-control">
+      </div>
+      <div class="form-field">
+        <label>State</label>
+        <input type="text" name="state" formControlName="state" class="form-control">
+      </div>
+    </div>
+
+
+  </fieldset>
+  <button (click)="register()" [disabled]="!isPasswordMatch() || !formValid()" class="btn btn-default">Register User</button>
+</form>

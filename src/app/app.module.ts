@@ -1,15 +1,22 @@
-import { AuthService } from './auth.service';
+import { UserService } from './services/user/user.service';
+import { ArticleService } from './services/article/article.service';
+//import * as firebase from 'firebase';
+import { AccountComponent } from './account/account.component';
+import { AuthService } from './services/auth/auth.service';
 import { HomeComponent } from './home/home.component';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
+import { PostArticleComponent } from './post-article/post-article.component';
+import { ArticleFormComponent } from './article-form/article-form.component';
 
 const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -23,10 +30,35 @@ const fbConfig = {
 const routes: Routes = [
   {
     path: 'home',
-    component: HomeComponent
+    children: [
+      {
+        path: ':mystring',
+        component: HomeComponent
+      },
+      {
+        path: '',
+        component: HomeComponent
+      }
+    ]
   },
   {
-    path: 'home/:mystring',
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'account',
+    component: AccountComponent
+  },
+  {
+    path: 'postarticle',
+    component: PostArticleComponent
+  },
+  {
+    path: ':mystring',
     component: HomeComponent
   },
   {
@@ -42,18 +74,25 @@ const routes: Routes = [
     AppComponent,
     HomeComponent,
     RegisterComponent,
-    LoginComponent
+    LoginComponent,
+    AccountComponent,
+    PostArticleComponent,
+    ArticleFormComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpModule,
     AngularFireModule.initializeApp(fbConfig),
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    AngularFireAuthModule
   ],
   providers: [
     AngularFireDatabase,
-    AuthService
+    AuthService,
+    UserService,
+    ArticleService
   ],
   bootstrap: [AppComponent]
 })
