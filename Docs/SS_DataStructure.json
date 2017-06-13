@@ -95,8 +95,10 @@
       "article1": true
     }
   },
-  "tags": {
-    "programming": true,
+  "articles_per_tag": {
+    "programming": {
+      "article1": true
+    },
     "begginer": true,
     "javascript": true
   },
