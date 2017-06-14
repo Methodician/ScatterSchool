@@ -17,7 +17,12 @@ export class ArticleService {
     let tags = article.tags.replace(/\s/g, '').split(',');
     let tagsObject = {};
     for (let tag of tags) {
-      this.db.object(`articleData/tags/${tag}`).set(true);
+      this.db.object(`articleData/tags/${tag}`)
+        .take(1)
+        .subscribe(data => {
+          if (!data.$value)
+            this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
+        });
       tagsObject[tag] = true;
     }
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
