@@ -1,0 +1,5 @@
+<h1>Testing getAllArticles</h1>
+<ul *ngFor="let article of allArticles | async">
+  <button (click)="setFeatured(article.$key)">{{article.title}}</button>
+</ul>
+<h1>End of getAllArticles Test</h1>

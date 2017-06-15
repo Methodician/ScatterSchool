@@ -46,40 +46,42 @@ export class ArticleService {
   }
 
   // Refactor by writing function within snapshot? Or leave it as is for readability
-  setFeaturedArticle(articleID: string) {
+  setFeaturedArticle(articleKey: string) {
     var nodeExists = false;
     var articleExists = false;
     var ref = firebase.database().ref('articleData/featuredArticles');
     ref.once("value")
       .then(function(snapshot) {
         nodeExists = snapshot.exists(); // True if featuredArticles has been created
-        articleExists = snapshot.child('articleData/FeaturedArticles/' + articleID).exists(); // True if article id is already in featuredArticles
+        articleExists = snapshot.child('articleData/FeaturedArticles/' + articleKey).exists(); // True if article id is already in featuredArticles
       }); 
-    // If featuredArticles doesnt exist, create it and push articleID into it
+    // If featuredArticles doesnt exist, create it and push articleKey into it
     if(!nodeExists) {
-      this.db.list('articleData/featuredArticles').push(articleID);
+      this.db.list('articleData/featuredArticles').push(articleKey);
+      this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
     } else {
-      // If featuredArticles exists, and the articleID doesnt exist, push articleID into it
+      // If featuredArticles exists, and the articleKey doesnt exist, push articleKey into it
       if(!articleExists) {
-        this.db.list('articleData/featuredArticles').push(articleID); 
+        this.db.list('articleData/featuredArticles').push(articleKey); 
+        this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
       }
     }
   }
 
-  //   Refactored setFeaturedArticle, haven't checked if it works yet
-  //   setFeaturedArticle(articleID: string) {
+  //   Refactored setFeaturedArticle, errors: cannot read property 'db' of undefined
+  //   setFeaturedArticle(articleKey: string) {
   //   var nodeExists = false;
   //   var articleExists = false;
   //   var ref = firebase.database().ref('articleData/featuredArticles');
   //   ref.once("value")
   //     .then(function(snapshot) {
-  //       // If featuredArticles doesnt exist, create it and push articleID into it
-  //       if(snapshot.exists()) {
-  //         this.db.list('articleData/featuredArticles').push(articleID);
+  //       // If featuredArticles doesnt exist, create it and push articleKey into it
+  //       if(!snapshot.exists()) {
+  //         this.db.list('articleData/featuredArticles').push(articleKey);
   //       } else {
-  //         // If featuredArticles exists, and the articleID doesnt exist, push articleID into it
-  //         if(!snapshot.child('articleData/FeaturedArticles/' + articleID).exists()) {
-  //           this.db.list('articleData/featuredArticles').push(articleID); 
+  //         // If featuredArticles exists, and the articleKey doesnt exist, push articleKey into it
+  //         if(!snapshot.child('articleData/FeaturedArticles/' + articleKey).exists()) {
+  //           this.db.list('articleData/featuredArticles').push(articleKey); 
   //         }
   //       }
   //     }); 

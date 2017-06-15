@@ -19,6 +19,7 @@ import { PostArticleComponent } from './post-article/post-article.component';
 import { ArticleFormComponent } from './article-form/article-form.component';
 import { CkTestComponent } from './ck-test/ck-test.component';
 import { CKEditorModule } from 'ng2-ckeditor';
+import { TestArticleServiceComponent } from './test-article-service/test-article-service.component';
 
 
 const fbConfig = {
@@ -61,6 +62,10 @@ const routes: Routes = [
     component: PostArticleComponent
   },
   {
+    path: 'test-article',
+    component: TestArticleServiceComponent
+  },
+  {
     path: ':mystring',
     component: HomeComponent
   },
@@ -81,7 +86,8 @@ const routes: Routes = [
     AccountComponent,
     PostArticleComponent,
     ArticleFormComponent,
-    CkTestComponent
+    CkTestComponent,
+    TestArticleServiceComponent
   ],
   imports: [
     BrowserModule,
