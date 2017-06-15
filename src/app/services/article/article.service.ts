@@ -45,33 +45,25 @@ export class ArticleService {
 
   }
 
-  // Refactor by writing function within snapshot? Or leave it as is for readability
   setFeaturedArticle(articleKey: string) {
-    var nodeExists = false;
-    var articleExists = false;
-    var ref = firebase.database().ref('articleData/featuredArticles');
-    ref.once("value")
-      .then(function(snapshot) {
-        nodeExists = snapshot.exists(); // True if featuredArticles has been created
-        articleExists = snapshot.child('articleData/FeaturedArticles/' + articleKey).exists(); // True if article id is already in featuredArticles
-      }); 
-    // If featuredArticles doesnt exist, create it and push articleKey into it
-    if(!nodeExists) {
-      this.db.list('articleData/featuredArticles').push(articleKey);
       this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
-    } else {
-      // If featuredArticles exists, and the articleKey doesnt exist, push articleKey into it
-      if(!articleExists) {
-        this.db.list('articleData/featuredArticles').push(articleKey); 
-        this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
-      }
-    }
   }
 
   unsetFeaturedArticle(articleKey: string) {
-    var articleExists = false;
-    var ref = firebase.database().ref('articleData/featuredArticles');
-    ref.child(articleKey).remove();
+    firebase.database().ref('articleData/featuredArticles').child(articleKey).remove();
+  }
 
+  getAllFeatured() {
+    var featuredArticles: Object[];
+    var featuredKeys = this.db.list('articleData/featuredArticles');
+    
+    featuredKeys.subscribe(
+    featuredKeys => {
+        featuredKeys.map(featuredKeys =>
+            // featuredArticles.push(this.db.object(`articleData/articles/${featuredKeys.$key}`))
+            this.db.object(`articleData/articles/${featuredKeys.$key}`).subscribe((result) => console.log(result))
+        )
+    })
+    return featuredKeys;
   }
 }

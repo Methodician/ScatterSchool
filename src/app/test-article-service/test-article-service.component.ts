@@ -9,12 +9,13 @@ import { ArticleService } from './../services/article/article.service';
   providers: [ArticleService]
 })
 export class TestArticleServiceComponent implements OnInit {
-
   allArticles;
+  allFeatured;
   constructor(private articleService: ArticleService) { }
   
   ngOnInit() {
     this.allArticles = this.articleService.getAllArticles();
+    this.allFeatured = this.articleService.getAllFeatured();
   }
 
   setFeatured(articleKey: string) {
