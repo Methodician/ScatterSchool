@@ -45,4 +45,43 @@ export class ArticleService {
 
   }
 
+  // Refactor by writing function within snapshot? Or leave it as is for readability
+  setFeaturedArticle(articleID: string) {
+    var nodeExists = false;
+    var articleExists = false;
+    var ref = firebase.database().ref('articleData/featuredArticles');
+    ref.once("value")
+      .then(function(snapshot) {
+        nodeExists = snapshot.exists(); // True if featuredArticles has been created
+        articleExists = snapshot.child('articleData/FeaturedArticles/' + articleID).exists(); // True if article id is already in featuredArticles
+      }); 
+    // If featuredArticles doesnt exist, create it and push articleID into it
+    if(!nodeExists) {
+      this.db.list('articleData/featuredArticles').push(articleID);
+    } else {
+      // If featuredArticles exists, and the articleID doesnt exist, push articleID into it
+      if(!articleExists) {
+        this.db.list('articleData/featuredArticles').push(articleID); 
+      }
+    }
+  }
+
+  //   Refactored setFeaturedArticle, haven't checked if it works yet
+  //   setFeaturedArticle(articleID: string) {
+  //   var nodeExists = false;
+  //   var articleExists = false;
+  //   var ref = firebase.database().ref('articleData/featuredArticles');
+  //   ref.once("value")
+  //     .then(function(snapshot) {
+  //       // If featuredArticles doesnt exist, create it and push articleID into it
+  //       if(snapshot.exists()) {
+  //         this.db.list('articleData/featuredArticles').push(articleID);
+  //       } else {
+  //         // If featuredArticles exists, and the articleID doesnt exist, push articleID into it
+  //         if(!snapshot.child('articleData/FeaturedArticles/' + articleID).exists()) {
+  //           this.db.list('articleData/featuredArticles').push(articleID); 
+  //         }
+  //       }
+  //     }); 
+  // }
 }
