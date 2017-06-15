@@ -68,22 +68,10 @@ export class ArticleService {
     }
   }
 
-  //   Refactored setFeaturedArticle, errors: cannot read property 'db' of undefined
-  //   setFeaturedArticle(articleKey: string) {
-  //   var nodeExists = false;
-  //   var articleExists = false;
-  //   var ref = firebase.database().ref('articleData/featuredArticles');
-  //   ref.once("value")
-  //     .then(function(snapshot) {
-  //       // If featuredArticles doesnt exist, create it and push articleKey into it
-  //       if(!snapshot.exists()) {
-  //         this.db.list('articleData/featuredArticles').push(articleKey);
-  //       } else {
-  //         // If featuredArticles exists, and the articleKey doesnt exist, push articleKey into it
-  //         if(!snapshot.child('articleData/FeaturedArticles/' + articleKey).exists()) {
-  //           this.db.list('articleData/featuredArticles').push(articleKey); 
-  //         }
-  //       }
-  //     }); 
-  // }
+  unsetFeaturedArticle(articleKey: string) {
+    var articleExists = false;
+    var ref = firebase.database().ref('articleData/featuredArticles');
+    ref.child(articleKey).remove();
+
+  }
 }

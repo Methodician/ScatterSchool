@@ -17,8 +17,12 @@ export class TestArticleServiceComponent implements OnInit {
     this.allArticles = this.articleService.getAllArticles();
   }
 
-  setFeatured(articleID: string)
-  {
-    this.articleService.setFeaturedArticle(articleID);
+  setFeatured(articleKey: string) {
+    this.articleService.setFeaturedArticle(articleKey);
   }
+
+  unsetFeatured(articleKey: string) {
+    this.articleService.unsetFeaturedArticle(articleKey);
+  }
+
 }
