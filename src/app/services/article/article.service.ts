@@ -45,8 +45,12 @@ export class ArticleService {
 
   }
 
+  getArticleById(articleKey: string) {
+    return this.db.object(`articleData/articles/${articleKey}`);
+  }
+
   setFeaturedArticle(articleKey: string) {
-      this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+    this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
   }
 
   unsetFeaturedArticle(articleKey: string) {
@@ -54,7 +58,7 @@ export class ArticleService {
   }
 
   getAllFeatured() {
-    var featuredArticles: Object[];
+    var featuredArticles;
     var featuredKeys = this.db.list('articleData/featuredArticles');
     
     featuredKeys.subscribe(
