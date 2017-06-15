@@ -51,6 +51,11 @@
         <label>State</label>
         <input type="text" name="state" formControlName="state" class="form-control">
       </div>
+      <div class="form-field">
+        <label>Zip Code*</label>
+        <input type="text" name="zipCode" formControlName="zipCode" class="form-control">
+        <div class="field-error-message" *ngIf="isErrorVisible('zipCode','required')">Please provide a zip code. City and state are optional.</div>
+      </div>
     </div>
 
 

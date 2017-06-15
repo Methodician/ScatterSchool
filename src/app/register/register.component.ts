@@ -30,7 +30,8 @@ export class RegisterComponent implements OnInit {
       alias: '',
       bio: '',
       city: '',
-      state: ''
+      state: '',
+      zipCode: ['', Validators.required]
     });
   }
 
