@@ -10,8 +10,7 @@ import { ArticleService } from './../services/article/article.service';
 })
 export class TestArticleServiceComponent implements OnInit {
   allArticles;
-  allFeatured;
-  // : FirebaseListObservable<Array<any>>;
+  allFeatured: any[];
   constructor(private articleService: ArticleService) { }
   
   ngOnInit() {

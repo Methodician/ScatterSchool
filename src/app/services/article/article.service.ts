@@ -62,9 +62,10 @@ export class ArticleService {
     var featuredArticles = new Array();
     featuredKeys.forEach(key => {
       key.forEach(index => {
-        this.getArticleById(index.$key).subscribe(dataLastEmittedFromObserver => {
+        this.getArticleById(index.$key).
+        subscribe(dataLastEmittedFromObserver => {
           featuredArticles.push(dataLastEmittedFromObserver);
-        })
+      })
       })
     })
     return featuredArticles;
