@@ -60,16 +60,13 @@ export class ArticleService {
   getAllFeatured() {
     var featuredKeys = this.db.list('articleData/featuredArticles');
     var featuredArticles = new Array();
-    var counter = 0;
     featuredKeys.forEach(key => {
       key.forEach(index => {
         this.getArticleById(index.$key).subscribe(dataLastEmittedFromObserver => {
           featuredArticles.push(dataLastEmittedFromObserver);
         })
-        // counter++;
       })
     })
-    console.log(featuredArticles);
     return featuredArticles;
   }
 }

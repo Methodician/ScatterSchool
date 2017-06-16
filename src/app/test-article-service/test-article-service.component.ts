@@ -11,11 +11,13 @@ import { ArticleService } from './../services/article/article.service';
 export class TestArticleServiceComponent implements OnInit {
   allArticles;
   allFeatured;
+  // : FirebaseListObservable<Array<any>>;
   constructor(private articleService: ArticleService) { }
   
   ngOnInit() {
     this.allArticles = this.articleService.getAllArticles();
     this.allFeatured = this.articleService.getAllFeatured();
+    console.log(this.allFeatured);
   }
 
   setFeatured(articleKey: string) {
