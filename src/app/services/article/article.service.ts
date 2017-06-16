@@ -58,16 +58,18 @@ export class ArticleService {
   }
 
   getAllFeatured() {
-    var featuredArticles;
     var featuredKeys = this.db.list('articleData/featuredArticles');
-    
-    featuredKeys.subscribe(
-    featuredKeys => {
-        featuredKeys.map(featuredKeys =>
-            // featuredArticles.push(this.db.object(`articleData/articles/${featuredKeys.$key}`))
-            this.db.object(`articleData/articles/${featuredKeys.$key}`).subscribe((result) => console.log(result))
-        )
+    var featuredArticles = new Array();
+    var counter = 0;
+    featuredKeys.forEach(key => {
+      key.forEach(index => {
+        this.getArticleById(index.$key).subscribe(dataLastEmittedFromObserver => {
+          featuredArticles.push(dataLastEmittedFromObserver);
+        })
+        // counter++;
+      })
     })
-    return featuredKeys;
+    console.log(featuredArticles);
+    return featuredArticles;
   }
 }
