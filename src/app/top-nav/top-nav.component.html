@@ -8,12 +8,12 @@
         </button>
       <a routerLink="home" class="navbar-brand">
         <!--<img height="50px" src="../../assets/images/aid2assist_logo.png" alt="a2a">-->
-        SS
+        Scatter School
       </a>
     </div>
     <form class="navbar-form pull-right" role="search">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2">
+        <input type="text" class="form-control"  aria-describedby="basic-addon2">
         <span class="input-group-addon" id="basic-addon2">
             <img src="../../assets/images/scatter-search-icon.png" alt="Search">
           </span>
@@ -24,11 +24,11 @@
         <li class="nav-item"><a class="nav-link" routerLink="postarticle">Post an article</a></li>
       </ul>
 
-      <ul class="nav navbar-nav navbar-right">
+      <ul class="nav navbar-nav navbar-right" id="nav-links">
         <li *ngIf="authInfo.$uid"><a routerLink="account"><span class="fa fa-user"></span> Hello {{ displayName }}</a></li>
         <li *ngIf="!authInfo.$uid"><a routerLink="register"><span class="fa fa-user-plus"></span> Sign Up</a></li>
-        <li *ngIf="!authInfo.$uid"><a routerLink="login"><span class="fa fa-sign-in"></span> Login</a></li>
         <li *ngIf="authInfo.$uid"><a routerLink="login" (click)="logout()"><span class="fa fa-sign-out"></span> Logout</a></li>
+        <li *ngIf="!authInfo.$uid"><a routerLink="login"><span class="fa fa-sign-in"></span> Sign In</a></li>
       </ul>
     </div>
   </div>

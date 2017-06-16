@@ -1,5 +1,40 @@
-pre {
-  width: 500px;
-  border: 1px solid #243237;
+nav {
+  margin-top: 5rem;
   background-color: #fff;
+  border-top: 1px solid #263237;
+  border-bottom: 1px solid #263237;
+  width: 90%;
+  margin-left: 10%;
+}
+
+a {
+  font-family: STHeitiSC-Light;
+  letter-spacing: 0.5px;
+  font-size: 1.6rem;
+}
+
+.navbar-brand {
+  color: #31C2D7;
+  font-size: 3rem;
+}
+
+.form-control {
+  border-radius: 0;
+  border-bottom:1px solid #263237;
+  height: 4.5rem;
+}
+
+#nav-links {
+  margin-right: 2rem;
+}
+
+#nav-links > li > a {
+  color: #C4275F;
+}
+
+#basic-addon2 {
+  background-color: #fff;
+  border-radius: 0;
+  border-bottom:1px solid #263237;
+  height: 4rem;
 }
