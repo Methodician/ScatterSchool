@@ -1,0 +1,25 @@
+button {
+  font-family: STHeitiSC-Light;
+  letter-spacing: 0.5px;
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 100;
+  background-color: #C4275F;
+  border-radius: 10px;
+  width:14.3rem;
+  height: 4.5rem;
+  margin: 0 auto;
+  /*flex attributes*/
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+pre {
+  width: 75rem;
+  border: 1px solid #C4275F;
+  border-radius: 0;
+  background-color: #fff;
+  margin: 0 auto;
+}

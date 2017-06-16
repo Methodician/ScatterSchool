@@ -1,3 +1,11 @@
 router-outlet {
     top: 50px;
 }
+
+pre {
+  width: 75rem;
+  border: 1px solid #31C2D7;
+  border-radius: 0;
+  background-color: #fff;
+  margin: 0 auto;
+}

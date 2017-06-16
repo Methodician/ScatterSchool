@@ -1,0 +1,32 @@
+label {
+  color: #243237;
+  font-family: AvenirNext-Italic;
+  font-size: 2.5rem;
+  font-style: italic;
+  font-weight: 200;
+  letter-spacing: 0.5px;
+  margin-bottom: 1.111rem;
+}
+
+input, textarea {
+  border: 1px solid #243237;
+  border-radius: 0;
+}
+
+.form-field:first-child {
+  margin-top: 9rem;
+}
+
+.form-field {
+  width: 500px;
+  margin: 0 auto;
+  margin-bottom: 5rem;
+}
+
+.form-control {
+  height: 4rem;
+}
+
+#body{
+  height: 36rem;
+}
