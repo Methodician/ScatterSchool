@@ -13,12 +13,18 @@ a {
   font-size: 1.6rem;
 }
 
+.container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 .navbar-brand {
   color: #31C2D7;
   font-size: 3rem;
 }
 
-.form-control {
+input {
   border-radius: 0;
   border-bottom:1px solid #263237;
   height: 4.5rem;
