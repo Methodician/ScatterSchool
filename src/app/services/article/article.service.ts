@@ -60,14 +60,23 @@ export class ArticleService {
   getAllFeatured() {
     var featuredKeys = this.db.list('articleData/featuredArticles');
     var featuredArticles = new Array();
-    featuredKeys.forEach(key => {
-      key.forEach(index => {
-        this.getArticleById(index.$key).
-        subscribe(dataLastEmittedFromObserver => {
-          featuredArticles.push(dataLastEmittedFromObserver);
-      })
+    featuredKeys.subscribe(keys => {
+      keys.forEach(index => {
+              this.getArticleById(index.$key).
+              subscribe(dataLastEmittedFromObserver => {
+                featuredArticles.push(dataLastEmittedFromObserver);
+            })
       })
     })
     return featuredArticles;
+  }
+
+  getLatest() {
+    return this.db.list('articleData/articles', {
+      query: {
+        orderByChild: 'timeStamp',
+        limitToLast: 5
+      }
+    }).map((array) => array.reverse());
   }
 }

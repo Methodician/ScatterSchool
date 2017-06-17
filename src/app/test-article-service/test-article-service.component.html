@@ -5,8 +5,12 @@
   <button (click)="unsetFeatured(article.$key)">Unset as featured</button>
   </li>
 </ul>
-
+<h1>Testing getAllFeatured</h1>
 <ul>
   <li *ngFor="let article of allFeatured">{{article.title}}</li>
 </ul>
-<h1>End of getAllArticles Test</h1>
+<h1>Testing getLatest</h1>
+<ul>
+  <li *ngFor="let article of allLatest | async">{{article.title}}</li>
+</ul>
+<h1>End of article service test</h1>
