@@ -28,6 +28,7 @@ export class ArticleService {
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
     let articleToSave = {
       title: article.title,
+      introduction: article.introduction,
       bodyId: bodyKey,
       tags: tagsObject,
       version: 1,

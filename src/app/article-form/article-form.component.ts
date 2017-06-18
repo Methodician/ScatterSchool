@@ -18,6 +18,7 @@ export class ArticleFormComponent implements OnInit {
   ) {
     this.form = fb.group({
       title: ['', Validators.required],
+      introduction: ['', Validators.required],
       body: ['', Validators.required],
       tags: ''
     });
