@@ -13,4 +13,8 @@
 <ul>
   <li *ngFor="let article of allLatest | async">{{article.title}}</li>
 </ul>
+<h1>Testing searchArticles</h1>
+<ul>
+  <li *ngFor="let article of searchedArticle">{{article.title}}</li>
+</ul>
 <h1>End of article service test</h1>

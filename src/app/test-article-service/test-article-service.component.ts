@@ -12,12 +12,15 @@ export class TestArticleServiceComponent implements OnInit {
   allArticles;
   allFeatured;
   allLatest;
+  searchedArticle;
   constructor(private articleService: ArticleService) { }
   
   ngOnInit() {
     this.allArticles = this.articleService.getAllArticles();
     this.allFeatured = this.articleService.getAllFeatured();
     this.allLatest = this.articleService.getLatest();
+    this.searchedArticle = this.articleService.searchArticles("tag");
+    console.log(this.searchedArticle);
   }
 
   setFeatured(articleKey: string) {

@@ -58,9 +58,8 @@ export class ArticleService {
   }
 
   getAllFeatured() {
-    var featuredKeys = this.db.list('articleData/featuredArticles');
     var featuredArticles = new Array();
-    featuredKeys.subscribe(keys => {
+    this.db.list('articleData/featuredArticles').subscribe(keys => {
       keys.forEach(index => {
               this.getArticleById(index.$key).
               subscribe(dataLastEmittedFromObserver => {
@@ -78,5 +77,17 @@ export class ArticleService {
         limitToLast: 5
       }
     }).map((array) => array.reverse());
+  }
+
+  searchArticles(searchRef: string) {
+    var foundArticles = new Array();
+    this.getAllArticles().subscribe(articles => {
+      articles.forEach(index => {
+        if(index.title.includes(searchRef)) {
+          foundArticles.push(index);
+        }
+      })
+    });
+    return foundArticles;
   }
 }
