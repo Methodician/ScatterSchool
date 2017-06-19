@@ -19,7 +19,7 @@ export class TestArticleServiceComponent implements OnInit {
     this.allArticles = this.articleService.getAllArticles();
     this.allFeatured = this.articleService.getAllFeatured();
     this.allLatest = this.articleService.getLatest();
-    this.searchedArticle = this.articleService.searchArticles("tag");
+    this.searchedArticle = this.articleService.searchArticles("angular2");
     console.log(this.searchedArticle);
   }
 
