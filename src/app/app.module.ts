@@ -21,7 +21,7 @@ import { CkTestComponent } from './ck-test/ck-test.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-
+import { TestArticleServiceComponent } from './test-article-service/test-article-service.component';
 
 const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -63,6 +63,10 @@ const routes: Routes = [
     component: PostArticleComponent
   },
   {
+    path: 'test-article',
+    component: TestArticleServiceComponent
+  },
+  {
     path: ':mystring',
     component: HomeComponent
   },
@@ -84,7 +88,8 @@ const routes: Routes = [
     PostArticleComponent,
     ArticleFormComponent,
     CkTestComponent,
-    TopNavComponent
+    TopNavComponent,
+    TestArticleServiceComponent
   ],
   imports: [
     BrowserModule,

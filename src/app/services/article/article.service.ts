@@ -45,4 +45,38 @@ export class ArticleService {
 
   }
 
+  getArticleById(articleKey: string) {
+    return this.db.object(`articleData/articles/${articleKey}`);
+  }
+
+  setFeaturedArticle(articleKey: string) {
+    this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+  }
+
+  unsetFeaturedArticle(articleKey: string) {
+    firebase.database().ref('articleData/featuredArticles').child(articleKey).remove();
+  }
+
+  getAllFeatured() {
+    var featuredKeys = this.db.list('articleData/featuredArticles');
+    var featuredArticles = new Array();
+    featuredKeys.subscribe(keys => {
+      keys.forEach(index => {
+              this.getArticleById(index.$key).
+              subscribe(dataLastEmittedFromObserver => {
+                featuredArticles.push(dataLastEmittedFromObserver);
+            })
+      })
+    })
+    return featuredArticles;
+  }
+
+  getLatest() {
+    return this.db.list('articleData/articles', {
+      query: {
+        orderByChild: 'timeStamp',
+        limitToLast: 5
+      }
+    }).map((array) => array.reverse());
+  }
 }
