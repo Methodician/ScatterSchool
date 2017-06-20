@@ -1,4 +1,4 @@
-import { AngularFireDatabase, FirebaseObjectObservable} from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 
@@ -6,7 +6,7 @@ import * as firebase from 'firebase';
 export class ArticleService {
 
   articles: FirebaseObjectObservable<any[]>;
-  article: FirebaseObjectObservable<any>;
+  article: FirebaseListObservable<any>;
   folder: any;
 
   constructor(
@@ -18,9 +18,8 @@ export class ArticleService {
   }
 
   //getAllArticles by id
-  getArticleById(id) {
-    this.article = this.db.object('/articles/' + id) as FirebaseObjectObservable<any>
-    return this.article;
+  getArticleById(id: string) {
+    return this.db.object('/articles/' + id);
   }
 
   createNewArticle(uid: string, article: any) {
