@@ -20,6 +20,8 @@ import { ArticleFormComponent } from './article-form/article-form.component';
 import { CkTestComponent } from './ck-test/ck-test.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { EditArticleComponent } from './edit-article/edit-article.component';
+import { TopNavComponent } from './top-nav/top-nav.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 
 const fbConfig = {
@@ -87,7 +89,8 @@ const routes: Routes = [
     PostArticleComponent,
     ArticleFormComponent,
     CkTestComponent,
-    EditArticleComponent
+    EditArticleComponent,
+    TopNavComponent
   ],
   imports: [
     BrowserModule,
@@ -95,6 +98,7 @@ const routes: Routes = [
     ReactiveFormsModule,
     HttpModule,
     AngularFireModule.initializeApp(fbConfig),
+    CollapseModule.forRoot(),
     RouterModule.forRoot(routes),
     AngularFireAuthModule,
     CKEditorModule

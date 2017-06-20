@@ -21,9 +21,11 @@
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
     "angularfire2": "^4.0.0-rc0",
+    "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "firebase": "^4.1.2",
     "ng2-ckeditor": "^1.1.8",
+    "ngx-bootstrap": "^1.7.1",
     "rxjs": "^5.1.0",
     "zone.js": "^0.8.4"
   },

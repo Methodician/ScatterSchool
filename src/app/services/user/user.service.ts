@@ -1,3 +1,4 @@
+import { UserInfoOpen } from './user-info';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
@@ -6,7 +7,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 @Injectable()
 export class UserService {
 
-  userInfo$: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  userInfo$: BehaviorSubject<UserInfoOpen> = new BehaviorSubject<UserInfoOpen>(null);
 
   constructor(
     private authSvc: AuthService,
@@ -15,7 +16,7 @@ export class UserService {
     this.authSvc.authInfo$.subscribe(authInfo => {
       this.getUserInfo(authInfo.$uid).subscribe(info => {
         if (info.$key != "null") {
-          info.$uid = info.$key;
+          //info.$uid = info.$key;
           this.userInfo$.next(info);
         }
       })

@@ -69,6 +69,7 @@
         },
         "version": "1",
         "created_by": "user1",
+        "edited_by": "user1",
         "last_updated": "timestamp"
       }
     }
