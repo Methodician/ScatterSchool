@@ -1,0 +1,30 @@
+.horizontalScroll {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.articleTile {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    border-style: outset;    
+}
+/*
+.horizontal-scroll-wrapper {
+    width: 100px;
+    height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transform-origin: right top;
+    transform:rotate(-90deg) translateY(-100px);
+}
+
+.horizontal-scroll-wrapper > div {
+    width: 100px;
+    height: 100px;
+    transform: rotate(90deg);
+    transform-origin: right top;
+}*/
