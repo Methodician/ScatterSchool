@@ -104,4 +104,10 @@ export class ArticleService {
     });
     return foundArticles;
   }
+
+  getAuthorById(authorKey: string) {
+    var author;
+    this.db.object(`userInfo/open/${authorKey}`).subscribe(data => author = data);
+    return author;
+  }
 }

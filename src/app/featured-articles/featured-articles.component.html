@@ -1,0 +1,8 @@
+<div class="featuredList">
+  <br>
+  <br>
+  <br>
+  <div class="horizontalScroll" style ="width: 70%; height:24rem; border:1px solid black; overflow-x:scroll">
+    <div class="articleTile" *ngFor="let article of featuredArticles"><app-feature-preview [authorKey]="article.author" [articleData]="article"></app-feature-preview></div>
+  </div>
+</div>
