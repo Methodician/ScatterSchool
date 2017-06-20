@@ -9,7 +9,7 @@ export class CkTestComponent implements OnInit {
   ckeditorContent;
 
   constructor() {
-    this.ckeditorContent = `<p>My HTML</p>`;
+    this.ckeditorContent = `<h1>Hello</h1>`;
   }
 
   ngOnInit() {

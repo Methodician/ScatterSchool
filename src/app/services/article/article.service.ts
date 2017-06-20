@@ -1,8 +1,13 @@
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable} from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
+
 @Injectable()
 export class ArticleService {
+
+  articles: FirebaseObjectObservable<any[]>;
+  article: FirebaseObjectObservable<any>;
+  folder: any;
 
   constructor(
     private db: AngularFireDatabase
@@ -10,6 +15,12 @@ export class ArticleService {
 
   getAllArticles() {
     return this.db.list('articleData/articles');
+  }
+
+  //getAllArticles by id
+  getArticleById(id) {
+    this.article = this.db.object('/articles/' + id) as FirebaseObjectObservable<any>
+    return this.article;
   }
 
   createNewArticle(uid: string, article: any) {
@@ -42,7 +53,15 @@ export class ArticleService {
     for (let tag of tags) {
       this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
     }
-
   }
 
+  updateArticle(userid, article) {
+  //construct an object for the article to save
+
+    //break tags into an array of objects and treat the tags like create articleSvc
+    //create a new article body with a new key and save the key
+    //do not include the articlesPerAuthor key
+    //you might need to include a version number if it's not included
+    //create a loop for the tag of tags and for each of the tags you have to see if the tag
+  }
 }
