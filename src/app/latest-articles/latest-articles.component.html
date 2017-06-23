@@ -1,3 +1,10 @@
-<p>
-  latest-articles works!
-</p>
+<div class="latestList">
+  <br>
+  <br>
+  <br>
+  <h1 class="latestHeader">Latest:</h1>
+  <br>
+  <div class="latestDisplay">
+    <div class="latestTile" *ngFor="let article of latestArticles"><app-latest-preview [authorKey]="article.author" [articleData]="article"></app-latest-preview></div>
+  </div>
+</div>

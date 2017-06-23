@@ -71,12 +71,18 @@ export class ArticleService {
   }
 
   getLatest() {
-    return this.db.list('articleData/articles', {
+    var latestArticles = new Array();
+    this.db.list('articleData/articles', {
       query: {
         orderByChild: 'timeStamp',
-        limitToLast: 5
+        limitToLast: 7
       }
-    }).map((array) => array.reverse());
+    }).map((array) => array.reverse()).subscribe(articles => {
+      articles.forEach(index => {
+        latestArticles.push(index);
+      })
+    })
+    return latestArticles;
   }
 
   searchArticles(searchStr: string) {

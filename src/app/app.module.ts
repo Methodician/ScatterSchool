@@ -25,6 +25,7 @@ import { TestArticleServiceComponent } from './test-article-service/test-article
 import { FeaturedArticlesComponent } from './featured-articles/featured-articles.component';
 import { LatestArticlesComponent } from './latest-articles/latest-articles.component';
 import { FeaturePreviewComponent } from './feature-preview/feature-preview.component';
+import { LatestPreviewComponent } from './latest-preview/latest-preview.component';
 
 const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -95,7 +96,8 @@ const routes: Routes = [
     TestArticleServiceComponent,
     FeaturedArticlesComponent,
     LatestArticlesComponent,
-    FeaturePreviewComponent
+    FeaturePreviewComponent,
+    LatestPreviewComponent
   ],
   imports: [
     BrowserModule,
