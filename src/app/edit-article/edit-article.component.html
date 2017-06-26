@@ -1,6 +1,6 @@
 {{id}}
 {{routeParams}}
-<app-article-form #article initialValue="inputArticle"></app-article-form>
+<app-article-form #article [initialValue]="inputArticle"></app-article-form>
 
 <button (click)="edit(article.value)">Edit Article</button>
 
