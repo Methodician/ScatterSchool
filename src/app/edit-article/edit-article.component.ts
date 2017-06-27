@@ -36,9 +36,14 @@ export class EditArticleComponent implements OnInit {
         let articleBodyId = articleToEdit.bodyId;
         this.articleSvc.getArticleBodyById(articleBodyId).subscribe(articleBody => {
           articleToEdit.body = articleBody.$value;
-          //create var for tag object and another variable for tag string
+        //create var for tag object and another variable for tag string
+        let tagsObject = articleToEdit.tags.value;
+        let tagsString = articleToEdit.tagsString;
+        for(tagsObject of articleToEdit) {
           //loop through articleToEdit.tags and for each tag the tag string += tag.value+,
-          //set articleToEdit.tags = tags string 
+          tagsString += tagsString;
+        }
+          //set articleToEdit.tags = tags string
           this.inputArticle = articleToEdit;
         })
       });
