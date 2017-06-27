@@ -77,6 +77,8 @@ export class ArticleService {
     }
     //create a new article body with a new key and save the key
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
+    console.log("version!!"); 
+    console.log(article.version);
     let articleToUpdate = {
       title: article.title,
       bodyId: bodyKey,
