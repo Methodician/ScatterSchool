@@ -18,8 +18,14 @@ export class ArticleFormComponent implements OnInit {
   ) {
     this.form = fb.group({
       title: ['', Validators.required],
+      introduction: ['', Validators.required],
       body: ['', Validators.required],
-      tags: ''
+      tags: '',
+      bodyId: '',
+      lastUpdated: 0,
+      timeStamp: 0,
+      version: 1,
+      articleId: ''
     });
   }
 
@@ -28,8 +34,8 @@ export class ArticleFormComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges) {
     //  Must make sure form is initalized before checking...
-    //if (changes['initialValue'] && changes['initialValue'].currentValue) {
-    if (changes['initialValue']) {
+    if (changes['initialValue'] && changes['initialValue'].currentValue) {
+      //if (changes['initialValue']) {
       // We have two methods to set a form's value: setValue and patchValue.
       this.form.patchValue(changes['initialValue'].currentValue);
     }

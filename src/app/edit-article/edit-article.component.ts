@@ -10,11 +10,11 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./edit-article.component.css']
 })
 export class EditArticleComponent implements OnInit {
-  @Input()
+  articleEditing: any;
   id: any;
   routeParams: any;
   authInfo = null;
-  inputArticle: any;
+
 
   constructor(
     private articleSvc: ArticleService,
@@ -31,35 +31,24 @@ export class EditArticleComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      //this is where the article service will be called
       this.articleSvc.getArticleById(this.id).subscribe(articleToEdit => {
         let articleBodyId = articleToEdit.bodyId;
         this.articleSvc.getArticleBodyById(articleBodyId).subscribe(articleBody => {
           articleToEdit.body = articleBody.$value;
-        //create var for tag object and another variable for tag string
-        let tagsObject = articleToEdit.tags;
-        console.log(tagsObject);
-        let tagsString = "";
-        for(let tag in tagsObject) {
+          let tagsObject = articleToEdit.tags;
+          let tagsString = "";
+          for (let tag in tagsObject) {
             tagsString += tag + ", ";
-        }
-
-        console.log(tagsString);
-        
-        articleToEdit.tags = tagsString;
-
-        for(tagsObject of articleToEdit) {
-          //loop through articleToEdit.tags and for each tag the tag string += tag.value+,
-          tagsString += tagsString;
-        }
-          //set articleToEdit.tags = tags string
-          this.inputArticle = articleToEdit;
+          }
+          articleToEdit.tags = tagsString;
+          articleToEdit.articleId = articleToEdit.$key;
+          this.articleEditing = articleToEdit;
         })
       });
     })
   }
 
-  edit(article, value){
+  edit(article, value) {
     console.log(article);
     this.articleSvc.updateArticle(this.authInfo.$uid, article)
   }
