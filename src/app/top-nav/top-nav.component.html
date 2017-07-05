@@ -25,14 +25,14 @@
       </form>
       <div class="collapse navbar-collapse" id="topNavbar" [collapse]="isCollapsed" (click)="isCollapsed = true">
         <ul class="nav navbar-nav" routerLinkActive="active">
-          <li class="nav-item"><a class="nav-link" routerLink="postarticle">Post an article</a></li>
+          <li class="nav-item"><a class="nav-link" id="post-article" routerLink="postarticle">Post an article</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right" id="nav-links">
           <li *ngIf="authInfo.$uid"><a routerLink="account"><span class="fa fa-user"></span> Hello {{ displayName }}</a></li>
-          <li *ngIf="!authInfo.$uid"><a routerLink="register"><span class="fa fa-user-plus"></span> Sign Up</a></li>
-          <li *ngIf="authInfo.$uid"><a routerLink="login" (click)="logout()"><span class="fa fa-sign-out"></span> Logout</a></li>
-          <li *ngIf="!authInfo.$uid"><a routerLink="login"><span class="fa fa-sign-in"></span> Sign In</a></li>
+          <li *ngIf="!authInfo.$uid"><a routerLink="register" id="sign-up"><span class="fa fa-user-plus"></span> Sign Up</a></li>
+          <li *ngIf="authInfo.$uid"><a routerLink="login" (click)="logout()" id="logout"><span class="fa fa-sign-out"></span> Logout</a></li>
+          <li *ngIf="!authInfo.$uid"><a routerLink="login" id="sign-in"><span class="fa fa-sign-in"></span> Sign In</a></li>
         </ul>
       </div>
 

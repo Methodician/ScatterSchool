@@ -22,6 +22,7 @@ input {
   border-bottom:1px solid #263237;
   height: 4.5rem;
   width: 250px;
+  margin-left: 1px;
 }
 
 input:focus {
@@ -72,7 +73,10 @@ input:focus {
 }
 
 #nav-links > li > a {
-  color: #C4275F;
+  border-radius: 8px;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
 
 #basic-addon2 {
@@ -90,4 +94,29 @@ input:focus {
   transition: background-color 0.3s ease-in-out;
   background-color: #31C2D7;
   border-bottom:1px solid #31C2D7;
+}
+
+#sign-in {
+  color: #fff;
+  background-color: #C4275F;
+}
+
+#sign-up {
+  color: #fff;
+  background-color: #00BE9C;
+  margin: 0 20px;
+}
+
+#logout {
+  color: #fff;
+  background-color: #00BE9C;
+}
+
+#post-article {
+  color: #fff;
+  background-color: #31C2D7;
+  border-radius: 8px;
+  height: 40px;
+  display: flex;
+  align-items: center;
 }
