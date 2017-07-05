@@ -3,8 +3,9 @@ nav {
   background-color: #fff;
   border-top: 1px solid #263237;
   border-bottom: 1px solid #263237;
-  width: 90%;
-  margin-left: 10%;
+  border-right: 1px solid #263237;
+  width: 95%;
+  margin-left: 4%;
 }
 
 a {
@@ -17,16 +18,29 @@ input {
   border-radius: 0;
   border-bottom:1px solid #263237;
   height: 4.5rem;
-}
 
-.logo-name {
-  height: 50px;
 }
 
 .container-fluid {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-end;
+  padding: 0;
+  margin-right: 30px
+}
+
+.logo-name {
+  position: absolute;
+  top: 6px;
+  left: 0;
+}
+
+.search-andButton-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: -3%
 }
 
 .navbar-brand {
