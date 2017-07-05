@@ -13,6 +13,16 @@ a {
   font-size: 1.6rem;
 }
 
+input {
+  border-radius: 0;
+  border-bottom:1px solid #263237;
+  height: 4.5rem;
+}
+
+.logo-name {
+  height: 50px;
+}
+
 .container-fluid {
   display: flex;
   align-items: center;
@@ -22,13 +32,14 @@ a {
 .navbar-brand {
   color: #31C2D7;
   font-size: 3rem;
+  display: flex;
+  flex-direction: row;
 }
 
-input {
-  border-radius: 0;
-  border-bottom:1px solid #263237;
-  height: 4.5rem;
+.navbar-brand img {
+  margin-top: -40px;
 }
+
 
 #nav-links {
   margin-right: 2rem;
