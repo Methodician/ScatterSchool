@@ -16,10 +16,22 @@ a {
 
 input {
   border-radius: 0;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
   border-bottom:1px solid #263237;
   height: 4.5rem;
-
+  width: 250px;
 }
+
+input:focus {
+  box-shadow: none;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-bottom:1px solid #31C2D7;
+}
+
 
 .container-fluid {
   display: flex;
@@ -66,6 +78,16 @@ input {
 #basic-addon2 {
   background-color: #fff;
   border-radius: 0;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
   border-bottom:1px solid #263237;
   height: 4rem;
+  cursor: pointer;
+}
+
+#basic-addon2:hover {
+  transition: background-color 0.3s ease-in-out;
+  background-color: #31C2D7;
+  border-bottom:1px solid #31C2D7;
 }
