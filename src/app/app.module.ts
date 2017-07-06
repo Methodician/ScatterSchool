@@ -93,17 +93,12 @@ const routes: Routes = [
     PostArticleComponent,
     ArticleFormComponent,
     CkTestComponent,
-<<<<<<< HEAD
     EditArticleComponent,
-    TopNavComponent
-=======
     TopNavComponent,
-    TestArticleServiceComponent,
     FeaturedArticlesComponent,
     LatestArticlesComponent,
     FeaturePreviewComponent,
     LatestPreviewComponent
->>>>>>> origin/chad-article
   ],
   imports: [
     BrowserModule,
