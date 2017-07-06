@@ -13,7 +13,8 @@ export class FeaturedArticlesComponent implements OnInit {
   constructor(private articleService: ArticleService) { }
 
   ngOnInit() {
-  this.featuredArticles = this.articleService.getAllFeatured();
+    this.featuredArticles = this.articleService.getAllFeatured();
   }
+
 
 }
