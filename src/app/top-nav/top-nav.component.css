@@ -5,7 +5,7 @@ nav {
   border-bottom: 1px solid #263237;
   border-right: 1px solid #263237;
   width: 95%;
-  margin-left: 4%;
+  margin-left: 2%;
 }
 
 a {
@@ -53,7 +53,7 @@ input:focus {
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  margin-right: -3%
+  margin-right: -2%
 }
 
 .navbar-brand {
@@ -79,7 +79,7 @@ input:focus {
   align-items: center;
 }
 
-#basic-addon2 {
+#searchBar {
   background-color: #fff;
   border-radius: 0;
   border-top: 1px solid #fff;
@@ -90,7 +90,7 @@ input:focus {
   cursor: pointer;
 }
 
-#basic-addon2:hover {
+#searchBar:hover {
   transition: background-color 0.3s ease-in-out;
   background-color: #31C2D7;
   border-bottom:1px solid #31C2D7;
@@ -119,4 +119,55 @@ input:focus {
   height: 40px;
   display: flex;
   align-items: center;
+}
+
+/*Media Queries**********************/
+@media only screen and (max-width: 1004px) {
+  .navbar-brand {
+    color: #fff;
+  }
+}
+
+@media only screen and (max-width:768px) {
+  .container-fluid {
+    height: 60px;
+  }
+  .navbar-toggle {
+    height: 45px;
+    background-color: #31C2D7;
+    color: #000;
+    position: absolute;
+    top: 80px;
+    left: 0;
+    border: 1px solid #000;
+  }
+  .navbar-toggle span {
+    background-color: #000;
+    border-radius: 7px;
+    margin: 5px 0;
+  }
+  .navbar-collapse {
+    max-height: 0;
+    position: absolute;
+    top: 80px;
+    right: -40px;
+
+  }
+  .input-group {
+    max-width: 440px;
+  }
+
+  #sign-in {
+    width: 147px;
+  }
+
+  #sign-up {
+    margin: 0;
+    width: 147px;
+    margin-bottom: 10px;
+  }
+
+  #post-article {
+    width: 147px;
+  }
 }
