@@ -2,13 +2,19 @@
   <fieldset class="form-group">
     <div class="form-bg">
       <div class="form-field">
-        <label>*Title</label>
+        <label>Title</label>
         <input name="title" formControlName="title" type="text" [class.input-error]="isErrorVisible('title', 'required')" class="form-control">
         <div class="field-error-message" *ngIf="isErrorVisible('title','required')">Please give your article a title.</div>
       </div>
       <div class="form-field">
-        <label>*Body</label>
-        <textarea name="body" formControlName="body" type="text" class="form-control" id="body" colx="30" rows="5"></textarea>
+        <label>Introduction</label>
+        <input name="introduction" formControlName="introduction" type="text" [class.input-error]="isErrorVisible('introduction', 'required')"
+          class="form-control">
+        <div class="field-error-message" *ngIf="isErrorVisible('introduction','required')">Please tell us a little something about what this article is about.</div>
+      </div>
+      <div class="form-field">
+        <label>Body</label>
+        <textarea name="body" formControlName="body" type="text" class="form-control" id="body" colx="30" rows="10"></textarea>
       </div>
       <div class="form-field">
         <label>Tags (separate by comma)</label>

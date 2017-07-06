@@ -1,35 +1,42 @@
-<nav class="navbar navbar-fixed-top navbar-inverse">
+<nav class="navbar navbar-fixed-top">
   <div class="container-fluid">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed" data-target="#topNavbar">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-        </button>
-      <a routerLink="home" class="navbar-brand">
-        <!--<img height="50px" src="../../assets/images/aid2assist_logo.png" alt="a2a">-->
-        SS
-      </a>
+      </button>
+      <div class="logo-name">
+        <a routerLink="home" class="navbar-brand">
+          <img height="100px" src="../../assets/images/spiral_7.png" alt="SS"> Scatter School
+        </a>
+      </div>
     </div>
-    <form class="navbar-form pull-right" role="search">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search" aria-describedby="basic-addon2">
-        <span class="input-group-addon" id="basic-addon2">
+
+    <div class="search-andButton-wrapper">
+
+      <form class="navbar-form pull-right" role="search">
+        <div class="input-group">
+          <input type="text" class="form-control" aria-describedby="basic-addon2">
+          <span class="input-group-addon" id="basic-addon2">
             <img src="../../assets/images/scatter-search-icon.png" alt="Search">
           </span>
-      </div>
-    </form>
-    <div class="collapse navbar-collapse" id="topNavbar" [collapse]="isCollapsed" (click)="isCollapsed = true">
-      <ul class="nav navbar-nav" routerLinkActive="active">
-        <li class="nav-item"><a class="nav-link" routerLink="postarticle">Post an article</a></li>
-      </ul>
+        </div>
+      </form>
+      <div class="collapse navbar-collapse" id="topNavbar" [collapse]="isCollapsed" (click)="isCollapsed = true">
+        <ul class="nav navbar-nav" routerLinkActive="active">
+          <li class="nav-item"><a class="nav-link" id="post-article" routerLink="postarticle">Post an article</a></li>
+        </ul>
 
-      <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="authInfo.$uid"><a routerLink="account"><span class="fa fa-user"></span> Hello {{ displayName }}</a></li>
-        <li *ngIf="!authInfo.$uid"><a routerLink="register"><span class="fa fa-user-plus"></span> Sign Up</a></li>
-        <li *ngIf="!authInfo.$uid"><a routerLink="login"><span class="fa fa-sign-in"></span> Login</a></li>
-        <li *ngIf="authInfo.$uid"><a routerLink="login" (click)="logout()"><span class="fa fa-sign-out"></span> Logout</a></li>
-      </ul>
+        <ul class="nav navbar-nav navbar-right" id="nav-links">
+          <li *ngIf="authInfo.$uid"><a routerLink="account"><span class="fa fa-user"></span> Hello {{ displayName }}</a></li>
+          <li *ngIf="!authInfo.$uid"><a routerLink="register" id="sign-up"><span class="fa fa-user-plus"></span> Sign Up</a></li>
+          <li *ngIf="authInfo.$uid"><a routerLink="login" (click)="logout()" id="logout"><span class="fa fa-sign-out"></span> Logout</a></li>
+          <li *ngIf="!authInfo.$uid"><a routerLink="login" id="sign-in"><span class="fa fa-sign-in"></span> Sign In</a></li>
+        </ul>
+      </div>
+
     </div>
+
   </div>
 </nav>

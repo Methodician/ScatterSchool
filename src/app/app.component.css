@@ -1,3 +1,17 @@
-router-outlet {
-    top: 50px;
+pre {
+  width: 75rem;
+  border: 1px solid #31C2D7;
+  border-radius: 0;
+  background-color: #fff;
+  margin: 0 auto;
+}
+
+.slogan {
+  margin-top: 170px;
+  color: #C4275F;
+  font-family: STHeitiSC-Light;
+  letter-spacing: 0.5px;
+  font-size: 1.8rem;
+  display: flex;
+  justify-content: center;
 }
