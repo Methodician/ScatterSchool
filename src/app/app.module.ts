@@ -22,7 +22,11 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-
+import { TestArticleServiceComponent } from './test-article-service/test-article-service.component';
+import { FeaturedArticlesComponent } from './featured-articles/featured-articles.component';
+import { LatestArticlesComponent } from './latest-articles/latest-articles.component';
+import { FeaturePreviewComponent } from './feature-preview/feature-preview.component';
+import { LatestPreviewComponent } from './latest-preview/latest-preview.component';
 
 const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -89,8 +93,17 @@ const routes: Routes = [
     PostArticleComponent,
     ArticleFormComponent,
     CkTestComponent,
+<<<<<<< HEAD
     EditArticleComponent,
     TopNavComponent
+=======
+    TopNavComponent,
+    TestArticleServiceComponent,
+    FeaturedArticlesComponent,
+    LatestArticlesComponent,
+    FeaturePreviewComponent,
+    LatestPreviewComponent
+>>>>>>> origin/chad-article
   ],
   imports: [
     BrowserModule,

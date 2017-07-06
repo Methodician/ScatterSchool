@@ -1,0 +1,28 @@
+.horizontalScroll {
+    background-color: #333;
+    overflow: auto;
+    white-space: nowrap;
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-right: 100px;
+    margin-left: 100px;
+    height: 300px;
+}
+
+.featuredTile {
+    display: inline-block;
+    background-color: white;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    border-style: outset;
+    padding: 14px;
+    margin: 10px;
+    width: 200px;
+    height: 80%;
+    
+}
+
+.featureHeader {
+    margin-left: 70px;
+}

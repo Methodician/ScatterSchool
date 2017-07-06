@@ -19,11 +19,10 @@ export class ArticleService {
     return this.db.list('articleData/articles');
   }
 
-  //getAllArticles by id
-  getArticleById(id: string) {
-    return this.db.object('articleData/articles/' + id);
+  getArticleById(articleKey: string) {
+    return this.db.object(`articleData/articles/${articleKey}`);
   }
-  //getArticleBody which will also take an id
+
   getArticleBodyById(id: string) {
     return this.db.object('articleData/articleBodies/' + id);
   }
@@ -100,4 +99,73 @@ export class ArticleService {
   //you might need to include a version number if it's not included
   //create a loop for the tag of tags and for each of the tags you have to see if the tag
   //increment versions, articleToUpdate = article.version +1
+ 
+
+  setFeaturedArticle(articleKey: string) {
+    this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+  }
+
+  unsetFeaturedArticle(articleKey: string) {
+    firebase.database().ref('articleData/featuredArticles').child(articleKey).remove();
+  }
+
+  getAllFeatured() {
+    var featuredArticles = new Array();
+    this.db.list('articleData/featuredArticles').subscribe(keys => {
+      keys.forEach(index => {
+              this.getArticleById(index.$key).
+              subscribe(dataLastEmittedFromObserver => {
+                featuredArticles.push(dataLastEmittedFromObserver);
+            })
+      })
+    })
+    return featuredArticles;
+  }
+
+  getLatest() {
+    var latestArticles = new Array();
+    this.db.list('articleData/articles', {
+      query: {
+        orderByChild: 'timeStamp',
+        limitToLast: 7
+      }
+    }).map((array) => array.reverse()).subscribe(articles => {
+      articles.forEach(index => {
+        latestArticles.push(index);
+      })
+    })
+    return latestArticles;
+  }
+
+  searchArticles(searchStr: string) {
+    // Lowercase the search string so you can compared to lowercase titles and tags for cap sensitivity
+    var searchRef = searchStr.toLowerCase();
+    var foundArticles = new Array();
+    // Iterate through all the articles
+    this.getAllArticles().subscribe(articles => {
+      articles.forEach(index => {
+        // If the title contains the search string
+        if(index.title.toLowerCase().includes(searchRef)) {
+          // If the title contains the search string add the article to the array
+          foundArticles.push(index);
+        } else {
+          for(var i = 0; i < Object.keys(index.tags).length; i++) {
+            // If the title doesn't contain the string, iterate through the tags and check if the tags contain the search string
+            if(Object.keys(index.tags)[i].toString().toLowerCase().includes(searchRef)) {
+              // If the tags contain the search string add the article to the array and break out of for loop
+              foundArticles.push(index);
+              break;
+            }
+          }
+        }
+      })
+    });
+    return foundArticles;
+  }
+
+  getAuthorById(authorKey: string) {
+    var author;
+    this.db.object(`userInfo/open/${authorKey}`).subscribe(data => author = data);
+    return author;
+  }
 }
