@@ -12,10 +12,13 @@
           class="form-control">
         <div class="field-error-message" *ngIf="isErrorVisible('introduction','required')">Please tell us a little something about what this article is about.</div>
       </div>
-      <div class="form-field">
+      <!-- <div class="form-field">
         <label>Body</label>
         <textarea name="body" formControlName="body" type="text" class="form-control" id="body" colx="30" rows="10"></textarea>
-      </div>
+      </div> -->
+      <ckeditor name="body" formControlName="body" [(ngModel)]="ckeditorContent" [config]="{uiColor: '##dee2e8'}" (change)="onChange($event)" (ready)="onReady($event)"
+        (focus)="onFocus($event)" (blur)="onBlur($event)" debounce="500">
+      </ckeditor>
       <div class="form-field">
         <label>Tags (separate by comma)</label>
         <input type="text" name="tags" formControlName="tags" class="form-control">
