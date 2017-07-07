@@ -67,6 +67,10 @@ input:focus {
   margin-top: -40px;
 }
 
+.navbar-collapse {
+  background-color: #DCDCDC;
+}
+
 
 #nav-links {
   margin-right: 2rem;
@@ -147,27 +151,41 @@ input:focus {
     margin: 5px 0;
   }
   .navbar-collapse {
-    max-height: 0;
+    margin: 0 10px;
+    max-height: 200px;
     position: absolute;
     top: 80px;
     right: -40px;
-
+    background-color: #fff;
+    border: 1px solid #263237;
   }
+
   .input-group {
     max-width: 440px;
+    min-width: 350px;
+  }
+
+  #nav-links {
+    margin-left: 10px;
+  }
+
+  #nav-links > li > a {
+    padding-left: 46px;
+    width: 147px;
   }
 
   #sign-in {
-    width: 147px;
+    margin-bottom: 20px;
   }
 
   #sign-up {
     margin: 0;
-    width: 147px;
     margin-bottom: 10px;
   }
 
   #post-article {
     width: 147px;
+    margin-top: 20px;
+    margin-left: 25px;
   }
 }
