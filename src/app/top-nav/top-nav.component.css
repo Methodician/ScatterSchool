@@ -1,5 +1,5 @@
 nav {
-  margin-top: 5rem;
+  margin-top: 4rem;
   background-color: #fff;
   border-top: 1px solid #263237;
   border-bottom: 1px solid #263237;
@@ -128,12 +128,20 @@ input:focus {
 }
 
 @media only screen and (max-width: 769px) and (min-width: 768px) {
+
   .navbar-collapse {
     display: none !important;
   }
+
 }
 
 @media only screen and (max-width:768px) {
+
+  nav {
+    transition: margin-top 0.3s ease-in-out;
+    margin: 1rem;
+  }
+
   .container-fluid {
     height: 60px;
   }
@@ -153,7 +161,7 @@ input:focus {
     background-color: #31C2D7;
     color: #000;
     position: absolute;
-    top: 80px;
+    top: 60px;
     left: 0;
     border: 1px solid #000;
   }
@@ -175,6 +183,8 @@ input:focus {
   .input-group {
     max-width: 440px;
     min-width: 350px;
+    margin-right: 20px;
+    margin-bottom: 5px;
     display: flex;
     justify-content: flex-end;
     align-items: flex-end;
