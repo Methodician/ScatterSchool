@@ -67,11 +67,6 @@ input:focus {
   margin-top: -40px;
 }
 
-.navbar-collapse {
-  background-color: #DCDCDC;
-}
-
-
 #nav-links {
   margin-right: 2rem;
 }
@@ -132,10 +127,27 @@ input:focus {
   }
 }
 
+@media only screen and (max-width: 769px) and (min-width: 768px) {
+  .navbar-collapse {
+    display: none !important;
+  }
+}
+
 @media only screen and (max-width:768px) {
   .container-fluid {
     height: 60px;
   }
+
+  .navbar-brand img {
+    height: 60px;
+    margin-top: -21px;
+    margin-left: -21px;
+  }
+
+  .navbar-form {
+    padding: 0;
+  }
+
   .navbar-toggle {
     height: 45px;
     background-color: #31C2D7;
@@ -163,6 +175,17 @@ input:focus {
   .input-group {
     max-width: 440px;
     min-width: 350px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+
+  .form-control {
+    width: 200px;
+  }
+
+  #searchBar {
+    width: 50px;
   }
 
   #nav-links {
