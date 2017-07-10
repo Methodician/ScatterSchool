@@ -48,6 +48,7 @@ export class EditArticleComponent implements OnInit {
     })
   }
 
+
   edit(article, value) {
     console.log(article);
     this.articleSvc.updateArticle(this.authInfo.$uid, article)

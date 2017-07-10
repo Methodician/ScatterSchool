@@ -30,6 +30,7 @@ export class PostArticleComponent implements OnInit {
 
   save(form) {
     this.articleSvc.createNewArticle(this.authInfo.$uid, form.value);
+    console.log(form.value); 
   }
 
 }

@@ -8,6 +8,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 })
 export class ArticleFormComponent implements OnInit {
 
+  ckeditorContent;
   @Input()
   initialValue: any;
 
@@ -27,6 +28,8 @@ export class ArticleFormComponent implements OnInit {
       version: 1,
       articleId: ''
     });
+    this.ckeditorContent = ``;
+
   }
 
   ngOnInit() {
@@ -41,6 +44,23 @@ export class ArticleFormComponent implements OnInit {
     }
 
   }
+
+  onReady($event) {
+    console.log('CKEditor Ready event:', $event);
+  }
+
+  onFocus($event) {
+    console.log('CKEditor Focus event:', $event);
+  }
+
+  onBlur($event) {
+    console.log('CKEditor Blur event:', $event);
+  }
+
+  onChange($event) {
+    console.log('CKEditor Change event:', $event);
+  }
+
 
   isErrorVisible(field: string, error: string) {
     let control = this.form.controls[field];

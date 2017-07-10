@@ -100,7 +100,7 @@ export class ArticleService {
   //you might need to include a version number if it's not included
   //create a loop for the tag of tags and for each of the tags you have to see if the tag
   //increment versions, articleToUpdate = article.version +1
- 
+
 
   setFeaturedArticle(articleKey: string) {
     this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);

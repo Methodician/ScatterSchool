@@ -14,8 +14,14 @@
       </div>
       <div class="form-field">
         <label>Body</label>
-        <textarea name="body" formControlName="body" type="text" class="form-control" id="body" colx="30" rows="10"></textarea>
+        <ckeditor name="body" formControlName="body" [config]="{uiColor: '##dee2e8'}" (change)="onChange($event)" (ready)="onReady($event)"
+          (focus)="onFocus($event)" (blur)="onBlur($event)" debounce="500">
+        </ckeditor>
+        <!--<textarea name="body" formControlName="body" type="text" class="form-control" id="body" colx="30" rows="10"></textarea>-->
       </div>
+      <!--<ckeditor name="body" formControlName="body" [(ngModel)]="ckeditorContent" [config]="{uiColor: '##dee2e8'}" (change)="onChange($event)" (ready)="onReady($event)"
+        (focus)="onFocus($event)" (blur)="onBlur($event)" debounce="500">
+      </ckeditor>-->
       <div class="form-field">
         <label>Tags (separate by comma)</label>
         <input type="text" name="tags" formControlName="tags" class="form-control">
