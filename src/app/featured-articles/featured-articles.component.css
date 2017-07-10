@@ -7,25 +7,22 @@
 }
 
 .horizontalScroll {
+  display: flex;
+  font-family: STHeitiSC-Light;
   background-color: #fff;
   border: 1px solid #263237;
   overflow: auto;
-  white-space: nowrap;
-  padding-left: 10px;
   margin-right: 100px;
   margin-left: 100px;
   height: 275px;
 }
 
 .featuredTile {
-  display: inline-block;
   background-color: white;
-  border: 1px solid #263237;
-  color: #243237;
+  border: 10px solid #9D9D9D;
   text-decoration: none;
-  border-style: outset;
-  padding: 14px;
+  padding: 10px;
   margin: 10px;
-  width: 200px;
+  min-width: 210px;
   height: 92%;
 }
