@@ -45,6 +45,23 @@ export class ArticleFormComponent implements OnInit {
 
   }
 
+  onReady($event) {
+    console.log('CKEditor Ready event:', $event);
+  }
+
+  onFocus($event) {
+    console.log('CKEditor Focus event:', $event);
+  }
+
+  onBlur($event) {
+    console.log('CKEditor Blur event:', $event);
+  }
+
+  onChange($event) {
+    console.log('CKEditor Change event:', $event);
+  }
+
+
   isErrorVisible(field: string, error: string) {
     let control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
