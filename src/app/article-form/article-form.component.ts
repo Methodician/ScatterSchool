@@ -8,6 +8,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 })
 export class ArticleFormComponent implements OnInit {
 
+  ckeditorContent;
   @Input()
   initialValue: any;
 
@@ -27,6 +28,8 @@ export class ArticleFormComponent implements OnInit {
       version: 1,
       articleId: ''
     });
+    this.ckeditorContent = ``;
+
   }
 
   ngOnInit() {
