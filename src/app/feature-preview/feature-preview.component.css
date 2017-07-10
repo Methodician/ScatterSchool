@@ -1,4 +1,21 @@
-.featurePreview {
-    /*overflow-x: hidden;*/
-    /*white-space: normal;*/
+.featurePreview:hover {
+  transition: color 0.1s ease-in-out;
+  color: #31C2D7;
+}
+
+.title {
+  margin-top: 10px;
+}
+
+.author {
+  color: #C4275F;
+}
+
+.author:hover {
+  text-decoration: underline;
+}
+
+.intro {
+  color: #00BE9C;
+  font-weight: bold;
 }
