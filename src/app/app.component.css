@@ -18,6 +18,11 @@ pre {
 
 @media only screen and (max-width:768px) {
   .slogan {
-    margin-top: 200px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+    font-size: 1.4rem;
+    margin-top: 165px;
+    margin-bottom: 0;
   }
 }
