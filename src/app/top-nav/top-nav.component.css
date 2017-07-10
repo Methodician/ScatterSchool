@@ -34,7 +34,7 @@ input:focus {
 }
 
 
-.container-fluid {
+.navMainWrapper {
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -42,7 +42,7 @@ input:focus {
   margin-right: 30px
 }
 
-.logo-name {
+.logoAbsolute {
   position: absolute;
   top: 6px;
   left: 0;
@@ -56,14 +56,14 @@ input:focus {
   margin-right: -2%
 }
 
-.navbar-brand {
+.logoLinkAndPhoto {
   color: #31C2D7;
   font-size: 3rem;
   display: flex;
   flex-direction: row;
 }
 
-.navbar-brand img {
+.logoLinkAndPhoto img {
   margin-top: -40px;
 }
 
@@ -122,14 +122,14 @@ input:focus {
 
 /*Media Queries**********************/
 @media only screen and (max-width: 1004px) {
-  .navbar-brand {
+  .logoLinkAndPhoto {
     color: #fff;
   }
 }
 
 @media only screen and (max-width: 769px) and (min-width: 768px) {
 
-  .navbar-collapse {
+  .collapsedNavFix {
     display: none !important;
   }
 
@@ -142,21 +142,21 @@ input:focus {
     margin: 1rem;
   }
 
-  .container-fluid {
+  .navMainWrapper {
     height: 60px;
   }
 
-  .navbar-brand img {
+  .logoLinkAndPhoto img {
     height: 60px;
     margin-top: -21px;
     margin-left: -21px;
   }
 
-  .navbar-form {
+  .searchBarForm {
     padding: 0;
   }
 
-  .navbar-toggle {
+  .navHamburger {
     height: 45px;
     background-color: #31C2D7;
     color: #000;
@@ -165,12 +165,12 @@ input:focus {
     left: 0;
     border: 1px solid #000;
   }
-  .navbar-toggle span {
+  .navHamburger span {
     background-color: #000;
     border-radius: 7px;
     margin: 5px 0;
   }
-  .navbar-collapse {
+  .collapsedNavFix {
     margin: 0 10px;
     max-height: 200px;
     position: absolute;
@@ -180,9 +180,9 @@ input:focus {
     border: 1px solid #263237;
   }
 
-  .input-group {
+  .searchInputDiv {
     max-width: 440px;
-    min-width: 350px;
+    min-width: 290px;
     margin-right: 20px;
     margin-bottom: 5px;
     display: flex;
@@ -190,8 +190,8 @@ input:focus {
     align-items: flex-end;
   }
 
-  .form-control {
-    width: 200px;
+  .searchInputControl {
+    width: 240px;
   }
 
   #searchBar {

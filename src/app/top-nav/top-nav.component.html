@@ -1,13 +1,13 @@
 <nav class="navbar navbar-fixed-top">
-  <div class="container-fluid">
+  <div class="container-fluid navMainWrapper">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" (click)="isCollapsed = !isCollapsed" data-target="#topNavbar">
+      <button type="button" class="navbar-toggle collapsed navHamburger" data-toggle="collapse" (click)="isCollapsed = !isCollapsed" data-target="#topNavbar">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
       </button>
-      <div class="logo-name">
-        <a routerLink="home" class="navbar-brand">
+      <div class="logoAbsolute">
+        <a routerLink="home" class="navbar-brand logoLinkAndPhoto">
           <img height="100px" src="../../assets/images/spiral_7.png" alt="SS"> Scatter School
         </a>
       </div>
@@ -15,15 +15,15 @@
 
     <div class="search-andButton-wrapper">
 
-      <form class="navbar-form pull-right" role="search">
-        <div class="input-group">
-          <input type="text" class="form-control" aria-describedby="basic-addon2">
+      <form class="navbar-form pull-right searchBarForm" role="search">
+        <div class="input-group searchInputDiv">
+          <input type="text" class="form-control searchInputControl" aria-describedby="basic-addon2">
           <span class="input-group-addon" id="searchBar">
             <img src="../../assets/images/scatter-search-icon.png" alt="Search">
           </span>
         </div>
       </form>
-      <div class="collapse navbar-collapse" id="topNavbar" [collapse]="isCollapsed" (click)="isCollapsed = true">
+      <div class="collapse navbar-collapse collapsedNavFix" id="topNavbar" [collapse]="isCollapsed" (click)="isCollapsed = true">
         <ul class="nav navbar-nav" routerLinkActive="active">
           <li class="nav-item"><a class="nav-link" id="post-article" routerLink="postarticle">Post an article</a></li>
         </ul>
