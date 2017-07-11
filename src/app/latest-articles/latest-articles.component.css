@@ -1,0 +1,25 @@
+.latestHeader {
+  font-family: STHeitiSC-Light;
+  letter-spacing: 0.5px;
+  font-size: 30px;
+  color: #31C2D7;
+  margin-left: 98px;
+  cursor: default;
+}
+
+.latestDisplay {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-right: 100px;
+  margin-left: 100px;
+}
+
+.latestTile {
+  background-color: #fff;
+  border: 1px solid #263237;
+  height: 275px;
+  width: 500px;
+  margin-bottom: 20px;
+}
