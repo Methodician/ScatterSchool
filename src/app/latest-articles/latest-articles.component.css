@@ -20,7 +20,18 @@
   font-family: STHeitiSC-Light;
   background-color: #fff;
   border: 1px solid #263237;
-  height: 300px;
+  height: 320px;
   width: 500px;
   margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 1750px) {
+
+  .latestDisplay {
+    justify-content: space-around;
+  }
+
+  .latestTile {
+    margin-right: 20px;
+  }
 }
