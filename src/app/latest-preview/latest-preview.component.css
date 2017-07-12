@@ -6,9 +6,9 @@
 .textPreview {
   display: flex;
   flex-direction: column;
-  padding: 10px;
+  padding: 10px 20px;
   width: 100%;
-  /*max-height: */
+  justify-content: flex-end;
 }
 
 .latestPreview:hover {
@@ -17,13 +17,13 @@
 }
 
 .imagePreview img {
-  height: 273px;
+  height: 297px;
   width: 250px;
   object-fit: cover;
 }
 
 .title {
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 .userPhotoDateWrapper {
@@ -60,6 +60,7 @@
 
 .rating {
   align-self: flex-end;
+  margin: 0;
 }
 
 .tagWrapper {
@@ -68,9 +69,9 @@
 
   background-color: #DCDCDC;
   border-top: 1px solid #263237;
-  margin-left: -10px;
+  margin-left: -20px;
   margin-bottom: -10px;
-  margin-right: -10px;
+  margin-right: -20px;
 }
 
 .tagWrapper img {
