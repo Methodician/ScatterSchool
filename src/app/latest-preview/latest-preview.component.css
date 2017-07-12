@@ -7,6 +7,8 @@
   display: flex;
   flex-direction: column;
   padding: 10px;
+  width: 100%;
+  /*max-height: */
 }
 
 .latestPreview:hover {
@@ -24,6 +26,20 @@
   margin-top: 10px;
 }
 
+.userPhotoDateWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.userTextWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 10px;
+}
+
 .author {
   color: #C4275F;
   margin-top: 0;
@@ -33,7 +49,36 @@
   text-decoration: underline;
 }
 
+.date {
+  margin: 0;
+}
+
 .intro {
   color: #00BE9C;
   font-weight: bold;
+}
+
+.rating {
+  align-self: flex-end;
+}
+
+.tagWrapper {
+  display: flex;
+  flex-direction: row;
+
+  background-color: #DCDCDC;
+  border-top: 1px solid #263237;
+  margin-left: -10px;
+  margin-bottom: -10px;
+  margin-right: -10px;
+}
+
+.tagWrapper img {
+  margin: 10px;
+}
+
+.tags {
+  align-self: center;
+  color: #C4275F;
+  margin: 0;
 }

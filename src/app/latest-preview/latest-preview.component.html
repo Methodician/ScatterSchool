@@ -4,10 +4,18 @@
   </div>
   <div class="textPreview">
     <h3 class="title">Title: {{articleData.title}}</h3>
-    <h4 class="author">By: {{author.alias}}</h4>
-    <p class="date">Apr 04.17</p>
+    <div class="userPhotoDateWrapper">
+      <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
+      <div class="userTextWrapper">
+        <h4 class="author">By: {{author.alias}}</h4>
+        <p class="date">Apr 04.17</p>
+      </div>
+    </div>
     <p class="intro">Intro... {{articleData.introduction}}</p>
     <p class="rating">RATING HERE<p>
-    <p class="tags">TAGS HERE?</p>
+    <div class="tagWrapper">
+      <img src="../../assets/images/ss-tag-icon.png" alt="A tag icon of all the catagories this tutoral fits under.">
+      <p class="tags">TAGS HERE</p>
+    </div>
   </div>
 </div>
