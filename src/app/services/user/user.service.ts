@@ -28,6 +28,7 @@ export class UserService {
   }
 
   createUser(userInfo, uid) {
+    this.setUserRank(2, uid);
     return this.db.object(`userInfo/open/${uid}`).set(userInfo);
   }
 

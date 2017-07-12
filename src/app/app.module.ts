@@ -1,3 +1,4 @@
+import { AppRoutingModule } from './app-routing.module';
 import { UserService } from './services/user/user.service';
 import { ArticleService } from './services/article/article.service';
 //import * as firebase from 'firebase';
@@ -37,7 +38,7 @@ const fbConfig = {
   messagingSenderId: "946494517942"
 };
 
-const routes: Routes = [
+/* const routes: Routes = [
   {
     path: 'home',
     children: [
@@ -79,7 +80,7 @@ const routes: Routes = [
     path: '',
     component: HomeComponent
   }
-];
+]; */
 
 
 
@@ -107,7 +108,7 @@ const routes: Routes = [
     HttpModule,
     AngularFireModule.initializeApp(fbConfig),
     CollapseModule.forRoot(),
-    RouterModule.forRoot(routes),
+    AppRoutingModule,
     AngularFireAuthModule,
     CKEditorModule
   ],
