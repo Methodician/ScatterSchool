@@ -14,11 +14,26 @@ export class TopNavComponent implements OnInit {
 
   authInfo: AuthInfo = new AuthInfo(null, false);
   displayName: string = '';
+  scrollEvent: any;
+  lastScrollY: number;
+  lastScrollDirection: string = 'up';
 
   constructor(
     private authSvc: AuthService,
     private userSvc: UserService
-  ) { }
+  ) {
+    window.onscroll = (event) => {
+      this.scrollEvent = event;
+      let currentScrollY =  this.scrollEvent.path[1].scrollY;
+
+      if(currentScrollY > this.lastScrollY) {
+        this.lastScrollDirection = 'down';
+      } else if(currentScrollY < this.lastScrollY) {
+        this.lastScrollDirection = 'up';
+      }
+      this.lastScrollY = currentScrollY;
+    }
+  }
 
   ngOnInit() {
     this.authSvc.authInfo$.subscribe(authInfo => {
@@ -35,4 +50,7 @@ export class TopNavComponent implements OnInit {
     this.authSvc.logout();
   }
 
+  lastScrolledUp(){
+     return this.lastScrollDirection == 'up' ? true : false;
+  }
 }

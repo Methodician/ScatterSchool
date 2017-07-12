@@ -1,4 +1,4 @@
-<nav class="navbar navbar-fixed-top">
+<nav class="navbar navbar-fixed-top" [ngClass]="lastScrolledUp() ? 'blue' : 'red'">
   <div class="container-fluid navMainWrapper">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed navHamburger" data-toggle="collapse" (click)="isCollapsed = !isCollapsed" data-target="#topNavbar">
@@ -8,7 +8,7 @@
       </button>
       <div class="logoAbsolute">
         <a routerLink="home" class="navbar-brand logoLinkAndPhoto">
-          <img height="100px" src="../../assets/images/spiral_7.png" alt="SS"> Scatter School
+          <img height="100px" src="../../assets/images/spiral_7.png" alt="Logo of Scatter School: community made open source tutorials"> Scatter School
         </a>
       </div>
     </div>

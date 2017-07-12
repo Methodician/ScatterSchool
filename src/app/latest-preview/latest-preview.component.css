@@ -1,0 +1,85 @@
+.latestPreview {
+  display: flex;
+  flex-direction: row;
+}
+
+.textPreview {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  width: 100%;
+  justify-content: space-between;
+  border-left: 1px solid #263237;
+}
+
+.latestPreview:hover {
+  transition: color 0.1s ease-in-out;
+  color: #31C2D7;
+}
+
+.imagePreview img {
+  height: 317px;
+  width: 250px;
+  object-fit: cover;
+}
+
+.title {
+  margin-top: 0;
+}
+
+.userPhotoDateWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.userTextWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 10px;
+}
+
+.author {
+  color: #C4275F;
+  margin-top: 0;
+}
+
+.author:hover {
+  text-decoration: underline;
+}
+
+.date {
+  margin: 0;
+}
+
+.intro {
+  color: #00BE9C;
+  font-weight: bold;
+}
+
+.rating {
+  align-self: flex-end;
+  margin: 0;
+}
+
+.tagWrapper {
+  display: flex;
+  flex-direction: row;
+  background-color: #DCDCDC;
+  border-top: 1px solid #263237;
+  margin-left: -20px;
+  margin-bottom: -20px;
+  margin-right: -20px;
+}
+
+.tagWrapper img {
+  margin: 10px;
+}
+
+.tags {
+  align-self: center;
+  color: #C4275F;
+  margin: 0;
+}
