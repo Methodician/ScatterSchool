@@ -9,6 +9,7 @@
   padding: 10px 20px;
   width: 100%;
   justify-content: flex-end;
+  border-left: 1px solid #263237;
 }
 
 .latestPreview:hover {
@@ -66,7 +67,6 @@
 .tagWrapper {
   display: flex;
   flex-direction: row;
-
   background-color: #DCDCDC;
   border-top: 1px solid #263237;
   margin-left: -20px;
