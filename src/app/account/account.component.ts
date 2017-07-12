@@ -1,3 +1,4 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { UserInfoOpen } from './../services/user/user-info';
 import { AuthService } from './../services/auth/auth.service';
 import { UserService } from './../services/user/user.service';
@@ -17,14 +18,29 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private userSvc: UserService,
-    private authSvc: AuthService
-  ) { }
+    authSvc: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {
+    authSvc.authInfo$.subscribe(info => {
+      this.loggedInUid = info.$uid;
+      if (!this.userInfo)
+        this.setUser();
+    });
+  }
 
   ngOnInit() {
-    this.authSvc.authInfo$.subscribe(info => {
-      this.loggedInUid = info.$uid;
-      this.getUserInfo(this.accountUid || this.loggedInUid);
+    this.route.params.subscribe(params => {
+      if (params['id'])
+        this.accountUid = params['id'];
+      if (!this.userInfo)
+        this.setUser();
     })
+  }
+
+  setUser() {
+    if (this.accountUid || this.loggedInUid)
+      this.getUserInfo(this.accountUid || this.loggedInUid);
   }
 
   getUserInfo(uid: string) {

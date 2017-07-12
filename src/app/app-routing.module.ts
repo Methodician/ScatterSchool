@@ -4,23 +4,14 @@ import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
     {
         path: 'home',
-        children: [
-            {
-                path: ':mystring',
-                component: HomeComponent
-            },
-            {
-                path: '',
-                component: HomeComponent
-            }
-        ]
+        component: HomeComponent
     },
     {
         path: 'register',
@@ -32,7 +23,18 @@ const routes: Routes = [
     },
     {
         path: 'account',
-        component: AccountComponent
+        children: [
+            {
+                path: ':id',
+                component: AccountComponent
+            },
+            {
+                path: '',
+                component: AccountComponent
+            }
+
+        ]
+
     },
     {
         path: 'postarticle',
