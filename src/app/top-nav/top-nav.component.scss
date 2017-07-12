@@ -68,7 +68,7 @@ input:focus {
 }
 
 /*nav scroll down transition styles*/
-.blue {
+.scrolledUp {
   //nav styles .blue
   transition: margin-top 0.3s ease-in-out;
 
@@ -87,7 +87,7 @@ input:focus {
 }
 
 /*nav scroll up transition styles*/
-.red {
+.scrolledDown {
   //nav styles .red
   transition: margin-top 0.3s ease-in-out;
   margin-top: 0;
