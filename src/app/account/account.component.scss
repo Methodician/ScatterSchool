@@ -6,6 +6,7 @@ h1 {
   cursor: default;
   margin-top: 100px;
   margin-bottom: 40px;
+  margin-left: 100px;
 }
 
 input {
@@ -16,6 +17,14 @@ input {
   border-bottom:1px solid #263237;
   width: 200px;
   margin-bottom: 40px;
+}
+
+input:focus {
+  box-shadow: none;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-bottom:1px solid #31C2D7;
 }
 
 button {

@@ -63,8 +63,8 @@ export class AccountComponent implements OnInit {
       this.userInfo = userInfo;
     })
   }
-  
-  //from register component - import later?
+
+  //from register component - service later?
   isErrorVisible(field: string, error: string) {
     let control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
