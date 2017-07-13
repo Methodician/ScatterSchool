@@ -3,12 +3,19 @@ h1 {
   letter-spacing: 0.5px;
   font-size: 30px;
   color: #31C2D7;
-  margin-left: 98px;
   cursor: default;
+  margin-top: 100px;
+  margin-bottom: 40px;
 }
 
-.form-field {
-  margin-left: 100px;
+input {
+  border-radius: 0;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-bottom:1px solid #263237;
+  width: 200px;
+  margin-bottom: 40px;
 }
 
 button {
@@ -16,9 +23,32 @@ button {
   background-color: #C4275F;
   border-radius: 2px;
   margin-left: 100px;
+  align-self: flex-end;
+}
+
+textarea {
+  margin-bottom: 20px;
+}
+
+.accountWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .flexWrapper {
   display: flex;
   flex-direction: row;
+}
+
+.form-group {
+  margin: 0 auto;
+}
+
+.form-field {
+  margin-left: 100px;
+}
+
+.form-field > * {
+  font-family: STHeitiSC-Light;
 }
