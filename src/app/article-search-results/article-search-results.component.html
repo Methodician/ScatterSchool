@@ -1,0 +1,7 @@
+<div>
+  <h3>Search Results:</h3>
+  {{ queryString }}
+  <pre>
+  {{ allArticles | articleSearch: queryString | json }}
+  </pre>
+</div>

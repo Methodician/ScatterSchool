@@ -1,7 +1,8 @@
 <nav class="navbar navbar-fixed-top" [ngClass]="lastScrolledUp() ? 'blue' : 'red'">
   <div class="container-fluid navMainWrapper">
     <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed navHamburger" data-toggle="collapse" (click)="isCollapsed = !isCollapsed" data-target="#topNavbar">
+      <button type="button" class="navbar-toggle collapsed navHamburger" data-toggle="collapse" (click)="isCollapsed = !isCollapsed"
+        data-target="#topNavbar">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
@@ -17,8 +18,9 @@
 
       <form class="navbar-form pull-right searchBarForm" role="search">
         <div class="input-group searchInputDiv">
-          <input type="text" class="form-control searchInputControl" aria-describedby="basic-addon2">
-          <span class="input-group-addon" id="searchBar">
+          <input #searchInput type="text" (keyup.enter)="search(searchInput.value)" class="form-control searchInputControl" aria-describedby="basic-addon2">
+          <!-- <span [routerLink]="['articlesearch/', {query: searchInput.value}]" class="input-group-addon" id="searchBar"> -->
+          <span (click)="search(searchInput.value)" class="input-group-addon" id="searchBar">
             <img src="../../assets/images/scatter-search-icon.png" alt="Search">
           </span>
         </div>

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { UserInfoOpen } from './../services/user/user-info';
 import { UserService } from './../services/user/user.service';
 import { AuthService } from './../services/auth/auth.service';
@@ -17,18 +18,20 @@ export class TopNavComponent implements OnInit {
   scrollEvent: any;
   lastScrollY: number;
   lastScrollDirection: string = 'up';
+  searchInput: string;
 
   constructor(
     private authSvc: AuthService,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private router: Router
   ) {
     window.onscroll = (event) => {
       this.scrollEvent = event;
-      let currentScrollY =  this.scrollEvent.path[1].scrollY;
+      let currentScrollY = this.scrollEvent.path[1].scrollY;
 
-      if(currentScrollY > this.lastScrollY) {
+      if (currentScrollY > this.lastScrollY) {
         this.lastScrollDirection = 'down';
-      } else if(currentScrollY < this.lastScrollY) {
+      } else if (currentScrollY < this.lastScrollY) {
         this.lastScrollDirection = 'up';
       }
       this.lastScrollY = currentScrollY;
@@ -46,11 +49,15 @@ export class TopNavComponent implements OnInit {
     });
   }
 
+  search(query: string) {
+    this.router.navigate([`articlesearch/${query}`]);
+  }
+
   logout() {
     this.authSvc.logout();
   }
 
-  lastScrolledUp(){
-     return this.lastScrollDirection == 'up' ? true : false;
+  lastScrolledUp() {
+    return this.lastScrollDirection == 'up' ? true : false;
   }
 }

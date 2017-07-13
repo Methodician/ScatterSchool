@@ -3,7 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
 
 @Component({
-  selector: 'app-latest-preview',
+  selector: 'latest-preview',
   templateUrl: './latest-preview.component.html',
   styleUrls: ['./latest-preview.component.css'],
   providers: [ArticleService]

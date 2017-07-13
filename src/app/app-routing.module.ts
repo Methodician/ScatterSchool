@@ -1,3 +1,4 @@
+import { ArticleSearchResultsComponent } from './article-search-results/article-search-results.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { PostArticleComponent } from './post-article/post-article.component';
 import { AccountComponent } from './account/account.component';
@@ -20,6 +21,19 @@ const routes: Routes = [
     {
         path: 'login',
         component: LoginComponent
+    },
+    {
+        path: 'articlesearch',
+        children: [
+            {
+                path: ':query',
+                component: ArticleSearchResultsComponent
+            },
+            {
+                path: '',
+                component: ArticleSearchResultsComponent
+            }
+        ]
     },
     {
         path: 'account',
