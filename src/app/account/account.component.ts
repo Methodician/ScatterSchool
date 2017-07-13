@@ -3,6 +3,7 @@ import { UserInfoOpen } from './../services/user/user-info';
 import { AuthService } from './../services/auth/auth.service';
 import { UserService } from './../services/user/user.service';
 import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
 @Component({
@@ -48,5 +49,4 @@ export class AccountComponent implements OnInit {
       this.userInfo = userInfo;
     })
   }
-
 }

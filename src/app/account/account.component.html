@@ -1,6 +1,32 @@
-<p>
-  account works!
-</p>
+<h1>Your Account Information:</h1>
+<form class="form-group">
+  <div class="flexWrapper">
+    <div class="form-field">
+      <h4>First Name:</h4>
+      <input type="text" placeholder="{{userInfo.fName}}">
+      <h4>Last Name:</h4>
+      <input type="text" placeholder="{{userInfo.lName}}">
+      <h4>User Alias:</h4>
+      <input type="text" placeholder="{{userInfo.alias}}">
+    </div>
+    <div class="form-field">
+      <h4>City:</h4>
+      <input type="text" placeholder="{{userInfo.city}}">
+      <h4>State:</h4>
+      <input type="text" placeholder="{{userInfo.state}}">
+      <h4>Zip Code:</h4>
+      <input type="text" placeholder="{{userInfo.zipCode}}">
+    </div>
+  </div>
+  <div class="form-field">
+    <h4>Your Bio:</h4>
+    <textarea type="text" rows="3" cols="50" placeholder="{{userInfo.bio}}"></textarea>
+  </div>
+  <button class="btn">Save Settings</button>
+</form>
+<br>
+<br>
+<br>
 <p>
   Logged In UID: {{ loggedInUid }}
 </p>
