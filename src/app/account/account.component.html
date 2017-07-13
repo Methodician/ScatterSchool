@@ -3,24 +3,34 @@
   <form [formGroup]="form" class="form-group">
     <div class="flexWrapper">
       <div class="form-field">
+
         <h4>First Name:</h4>
-        <input type="text" placeholder="{{userInfo?.fName}}" [class.input-error]="isErrorVisible('fName','required')" name="fName" formControlName="fName" type="text" class="form-control">
         <h6 class="field-error-message" *ngIf="isErrorVisible('fName','required')">Please provide your first name</h6>
+        <input type="text" placeholder="{{userInfo?.fName}}" [class.input-error]="isErrorVisible('fName','required')" name="fName" formControlName="fName" type="text" class="form-control">
+
         <h4>Last Name:</h4>
-        <input type="text" placeholder="{{userInfo?.lName}}">
+        <h6 class="field-error-message" *ngIf="isErrorVisible('lName','required')">Please provide your last name</h6>
+        <input [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName" type="text" placeholder="{{userInfo?.lName}}">
+
         <h4>User Alias:</h4>
         <input type="text" placeholder="{{userInfo?.alias}}">
       </div>
+
       <div class="form-field">
         <h4>City:</h4>
         <input type="text" placeholder="{{userInfo?.city}}">
         <h4>State:</h4>
         <input type="text" placeholder="{{userInfo?.state}}">
         <h4>Zip Code:</h4>
-        <input type="text" placeholder="{{userInfo?.zipCode}}">
+        <h6 class="field-error-message" *ngIf="isErrorVisible('zipCode','required')">Please provide your zip code.</h6>
+        <input [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode" formControlName="zipCode" type="text" placeholder="{{userInfo?.zipCode}}">
       </div>
     </div>
     <div class="form-field">
+      <h4>Your email:</h4>
+      <h6 class="field-error-message" *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</h6>
+      <input [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" formControlName="email"
+        type="email" class="form-control" placeholder="{{userInfo?.email}}">
       <h4>Your Bio:</h4>
       <textarea type="text" rows="3" cols="50" placeholder="{{userInfo?.bio}}"></textarea>
     </div>
