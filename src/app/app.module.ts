@@ -28,6 +28,8 @@ import { FeaturedArticlesComponent } from './featured-articles/featured-articles
 import { LatestArticlesComponent } from './latest-articles/latest-articles.component';
 import { FeaturePreviewComponent } from './feature-preview/feature-preview.component';
 import { LatestPreviewComponent } from './latest-preview/latest-preview.component';
+import { ArticleSearchPipe } from './pipes/article-search.pipe';
+import { ArticleSearchResultsComponent } from './article-search-results/article-search-results.component';
 
 const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -99,7 +101,9 @@ const fbConfig = {
     FeaturedArticlesComponent,
     LatestArticlesComponent,
     FeaturePreviewComponent,
-    LatestPreviewComponent
+    LatestPreviewComponent,
+    ArticleSearchPipe,
+    ArticleSearchResultsComponent
   ],
   imports: [
     BrowserModule,
