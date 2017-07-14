@@ -24,7 +24,7 @@ export class ArticleDetailComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       if (params['id'])
-        this.articleDetails = params['id'];
+        this.articleData = params['id'];
     })
   }
 
