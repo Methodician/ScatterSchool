@@ -1,3 +1,4 @@
+import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { ArticleSearchResultsComponent } from './article-search-results/article-search-results.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { PostArticleComponent } from './post-article/post-article.component';
@@ -61,6 +62,10 @@ const routes: Routes = [
     {
         path: '',
         component: HomeComponent
+    },
+    {
+      path: 'articledetail',
+      component: ArticleDetailComponent
     }
 ];
 
