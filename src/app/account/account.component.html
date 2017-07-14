@@ -5,25 +5,27 @@
       <div class="form-field">
 
         <h4>First Name:</h4>
-        <h6 class="field-error-message" *ngIf="isErrorVisible('fName','required')">Please provide your first name</h6>
+        <h6 class="field-error-message" *ngIf="isErrorVisible('fName','required')">Please provide your first name.</h6>
         <input type="text" placeholder="{{userInfo?.fName}}" [class.input-error]="isErrorVisible('fName','required')" name="fName" formControlName="fName" type="text" class="form-control">
 
         <h4>Last Name:</h4>
-        <h6 class="field-error-message" *ngIf="isErrorVisible('lName','required')">Please provide your last name</h6>
-        <input [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName" type="text" placeholder="{{userInfo?.lName}}">
+        <h6 class="field-error-message" *ngIf="isErrorVisible('lName','required')">Please provide your last name.</h6>
+        <input type="text" placeholder="{{userInfo?.lName}}" [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName" class="form-control">
 
         <h4>User Alias:</h4>
-        <input type="text" placeholder="{{userInfo?.alias}}">
+        <input type="text" placeholder="{{userInfo?.alias}}" class="form-control">
       </div>
 
       <div class="form-field">
         <h4>City:</h4>
-        <input type="text" placeholder="{{userInfo?.city}}">
+        <input type="text" placeholder="{{userInfo?.city}}" class="form-control">
+
         <h4>State:</h4>
-        <input type="text" placeholder="{{userInfo?.state}}">
+        <input type="text" placeholder="{{userInfo?.state}}" class="form-control">
+
         <h4>Zip Code:</h4>
         <h6 class="field-error-message" *ngIf="isErrorVisible('zipCode','required')">Please provide your zip code.</h6>
-        <input [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode" formControlName="zipCode" type="text" placeholder="{{userInfo?.zipCode}}">
+        <input [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode" formControlName="zipCode" type="text" placeholder="{{userInfo?.zipCode}}" class="form-control">
       </div>
     </div>
     <div class="form-field">
@@ -32,7 +34,7 @@
       <input [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" formControlName="email"
         type="email" class="form-control" placeholder="{{userInfo?.email}}">
       <h4>Your Bio:</h4>
-      <textarea type="text" rows="3" cols="50" placeholder="{{userInfo?.bio}}"></textarea>
+      <textarea type="text" rows="3" cols="50" placeholder="{{userInfo?.bio}}" class="form-control"></textarea>
     </div>
     <button class="btn">Save Settings</button>
   </form>

@@ -50,18 +50,32 @@ textarea {
 }
 
 .flexWrapper {
+  width: 500px;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .form-group {
   margin: 0 auto;
 }
 
-.form-field {
-  margin-left: 100px;
-}
-
 .form-field > * {
   font-family: STHeitiSC-Light;
+}
+
+@media only screen and (max-width:768px) {
+  input {
+    width: 290px;
+  }
+  .accountWrapper {
+    width: 290px;
+  }
+  .flexWrapper {
+    flex-direction: column;
+  }
+
+  .form-group {
+    width: 290px;
+  }
 }
