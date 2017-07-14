@@ -31,7 +31,7 @@ button {
   color: #fff;
   background-color: #C4275F;
   border-radius: 2px;
-  margin-left: 100px;
+  margin-left: 400px;
   align-self: flex-end;
 }
 
@@ -68,9 +68,16 @@ textarea {
   input {
     width: 290px;
   }
+
+  button {
+    margin-left: 180px;
+  }
+
   .accountWrapper {
     width: 290px;
+    margin: 0 auto;
   }
+
   .flexWrapper {
     flex-direction: column;
   }
