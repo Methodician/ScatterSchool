@@ -9,13 +9,23 @@ import { ArticleService } from './../services/article/article.service';
   providers: [ArticleService]
 })
 export class ArticleDetailComponent implements OnInit {
+
   @Input() articleData: Object;
   @Input() articleKey;
   articleDetails;
-  constructor(private articleService: ArticleService) { }
+  constructor(
+    private articleService: ArticleService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.articleDetails = this.articleService.getArticleById(this.articleKey);
+
+    this.route.params.subscribe(params => {
+      if (params['id'])
+        this.articleDetails = params['id'];
+    })
   }
 
 }
