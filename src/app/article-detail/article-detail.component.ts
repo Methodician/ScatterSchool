@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
 
@@ -9,10 +9,9 @@ import { ArticleService } from './../services/article/article.service';
   providers: [ArticleService]
 })
 export class ArticleDetailComponent implements OnInit {
-
-  @Input() articleData: Object;
-  @Input() articleKey;
-  articleDetails;
+  articleKey: string;
+  //articleKey = '-KmYx0adsf9thosQFk8o';
+  articleDetail;
   constructor(
     private articleService: ArticleService,
     private router: Router,
@@ -20,12 +19,14 @@ export class ArticleDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.articleDetails = this.articleService.getArticleById(this.articleKey);
+
 
     this.route.params.subscribe(params => {
       if (params['id'])
-        this.articleData = params['id'];
+        this.articleKey = params['id'];
+        this.articleService.getArticleById(this.articleKey).subscribe(articleData => {
+          this.articleDetail = articleData;
+        });
     })
   }
-
 }

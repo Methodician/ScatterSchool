@@ -9,13 +9,19 @@ import { ArticleService } from './../services/article/article.service';
   providers: [ArticleService]
 })
 export class LatestPreviewComponent implements OnInit {
-  @Input() articleData: Object;
+  @Input() articleData: any;
   @Input() authorKey;
   author;
-  constructor(private articleService: ArticleService) { }
+  constructor(
+    private articleService: ArticleService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.author = this.articleService.getAuthorById(this.authorKey);
   }
 
+  navigateToArticleDetail() {
+    this.router.navigate([`articledetail/${this.articleData.$key}`]);
+  }
 }

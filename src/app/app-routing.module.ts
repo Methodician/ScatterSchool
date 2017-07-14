@@ -64,7 +64,7 @@ const routes: Routes = [
         component: HomeComponent
     },
     {
-      path: 'articledetail',
+      path: 'articledetail/:id',
       component: ArticleDetailComponent
     }
 ];
