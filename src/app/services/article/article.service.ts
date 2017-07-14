@@ -1,16 +1,19 @@
+import { Input } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
+import { Router } from '@angular/router'
 
 @Injectable()
 export class ArticleService {
-
+  @Input() articleData: any;
   articles: FirebaseListObservable<any[]>;
   article: FirebaseObjectObservable<any>;
   folder: any;
 
   constructor(
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private router: Router
   ) {
     this.articles = this.db.list('/articles') as FirebaseListObservable<ArticleService[]>
   }
@@ -168,5 +171,9 @@ export class ArticleService {
     var author;
     this.db.object(`userInfo/open/${authorKey}`).subscribe(data => author = data);
     return author;
+  }
+
+  navigateToArticleDetail() {
+    this.router.navigate([`articledetail/${this.articleData.$key}`]);
   }
 }

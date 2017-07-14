@@ -12,6 +12,7 @@ export class LatestPreviewComponent implements OnInit {
   @Input() articleData: any;
   @Input() authorKey;
   author;
+  navigateToArticle;
   constructor(
     private articleService: ArticleService,
     private router: Router
@@ -19,9 +20,6 @@ export class LatestPreviewComponent implements OnInit {
 
   ngOnInit() {
     this.author = this.articleService.getAuthorById(this.authorKey);
-  }
-
-  navigateToArticleDetail() {
-    this.router.navigate([`articledetail/${this.articleData.$key}`]);
+    this.navigateToArticle = this.articleService.navigateToArticleDetail();
   }
 }
