@@ -1,0 +1,26 @@
+.userPhotoDateWrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.userTextWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 10px;
+}
+
+.author {
+  color: #C4275F;
+  margin-top: 0;
+}
+
+.author:hover {
+  text-decoration: underline;
+}
+
+.date {
+  margin: 0;
+}

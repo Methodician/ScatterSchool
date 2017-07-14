@@ -1,7 +1,19 @@
-<p>
-  article-detail works!
-</p>
-<h1>{{articleDetail?.title}}</h1>
+<div class="userPhotoDateWrapper">
+  <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
+  <div class="userTextWrapper">
+    <h4 class="author">By: {{articleDetail?.author}}</h4>
+    <p class="date">Date: (need to put in the database)</p>
+  </div>
+</div>
+<div class="headlineWrapper">
+  <h1>{{articleDetail?.title}}</h1>
+  <p class="rating">RATING HERE<p>
+</div>
+<div class="bodyWrapper">
+  <p class="intro">Intro... {{articleDetail?.introduction}}</p>
+  <br>
+  <p class="copyText">{{articleDetail?.bodyID}}</p>
+</div>
 <pre>
   Article Details:
   {{ articleDetail | json }}

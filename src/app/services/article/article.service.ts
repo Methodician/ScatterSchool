@@ -169,8 +169,4 @@ export class ArticleService {
     this.db.object(`userInfo/open/${authorKey}`).subscribe(data => author = data);
     return author;
   }
-
-  getArticleDetails() {
-    console.log("You got the Article Details, friend.")
-  }
 }
