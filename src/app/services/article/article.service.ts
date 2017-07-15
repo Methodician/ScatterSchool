@@ -6,17 +6,14 @@ import { Router } from '@angular/router'
 
 @Injectable()
 export class ArticleService {
-  @Input() articleData: any;
-  articles: FirebaseListObservable<any[]>;
-  article: FirebaseObjectObservable<any>;
-  folder: any;
+  // KYLE -> Not sure if you just addeed this @input. I'm also removing these old things below it... See my notes by your function.
+  //@Input() articleData: any;
+
 
   constructor(
     private db: AngularFireDatabase,
     private router: Router
-  ) {
-    this.articles = this.db.list('/articles') as FirebaseListObservable<ArticleService[]>
-  }
+  ) { }
 
   getAllArticles() {
     return this.db.list('articleData/articles');
@@ -99,11 +96,6 @@ export class ArticleService {
     console.log('EDITING ARTICLE:', articleToUpdate);
     return this.db.object(`articleData/articles/${articleKey}`).update(articleToUpdate);
   }
-  //do not include the articlesPerAuthor key
-  //you might need to include a version number if it's not included
-  //create a loop for the tag of tags and for each of the tags you have to see if the tag
-  //increment versions, articleToUpdate = article.version +1
-
 
   setFeaturedArticle(articleKey: string) {
     this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
@@ -117,10 +109,10 @@ export class ArticleService {
     var featuredArticles = new Array();
     this.db.list('articleData/featuredArticles').subscribe(keys => {
       keys.forEach(index => {
-              this.getArticleById(index.$key).
-              subscribe(dataLastEmittedFromObserver => {
-                featuredArticles.push(dataLastEmittedFromObserver);
-            })
+        this.getArticleById(index.$key).
+          subscribe(dataLastEmittedFromObserver => {
+            featuredArticles.push(dataLastEmittedFromObserver);
+          })
       })
     })
     return featuredArticles;
@@ -149,13 +141,13 @@ export class ArticleService {
     this.getAllArticles().subscribe(articles => {
       articles.forEach(index => {
         // If the title contains the search string
-        if(index.title.toLowerCase().includes(searchRef)) {
+        if (index.title.toLowerCase().includes(searchRef)) {
           // If the title contains the search string add the article to the array
           foundArticles.push(index);
         } else {
-          for(var i = 0; i < Object.keys(index.tags).length; i++) {
+          for (var i = 0; i < Object.keys(index.tags).length; i++) {
             // If the title doesn't contain the string, iterate through the tags and check if the tags contain the search string
-            if(Object.keys(index.tags)[i].toString().toLowerCase().includes(searchRef)) {
+            if (Object.keys(index.tags)[i].toString().toLowerCase().includes(searchRef)) {
               // If the tags contain the search string add the article to the array and break out of for loop
               foundArticles.push(index);
               break;
@@ -173,7 +165,11 @@ export class ArticleService {
     return author;
   }
 
-  navigateToArticleDetail() {
-    this.router.navigate([`articledetail/${this.articleData.$key}`]);
+  // KYLE -> I'm adding the parameter articleId here. Use that instead of this.articleData.$key.
+  //  The reason is that we won't be storing the id/key here. That will come from whatever component calls this function.
+  navigateToArticleDetail(articleId: any) {
+    //navigateToArticleDetail() {
+    this.router.navigate([`articledetail/${articleId}`]);
+    //this.router.navigate([`articledetail/${this.articleData.$key}`]);
   }
 }

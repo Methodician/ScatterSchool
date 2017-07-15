@@ -23,6 +23,7 @@ export class FeaturePreviewComponent implements OnInit {
   }
 
   navigateToArticleDetail() {
-    this.router.navigate([`articledetail/${this.articleData.$key}`]);
+    //this.router.navigate([`articledetail/${this.articleData.$key}`]);
+    this.articleService.navigateToArticleDetail(this.articleData.$key);
   }
 }
