@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
 
@@ -11,7 +11,10 @@ import { ArticleService } from './../services/article/article.service';
 export class ArticleDetailComponent implements OnInit {
   articleKey: string;
   isArticleFeatured: boolean;
+  @Input() articleData: any;
+  @Input() authorKey;
   //articleKey = '-KmYx0adsf9thosQFk8o';
+  author;
   articleDetail;
   constructor(
     private articleService: ArticleService,
@@ -20,6 +23,9 @@ export class ArticleDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    //JACOB -> I'm not sure if I need this function, or if it is covered with the .subscribe:
+    this.author = this.articleService.getAuthorById(this.authorKey);
+
     this.route.params.subscribe(params => {
       if (params['id'])
         this.articleKey = params['id'];
@@ -39,6 +45,10 @@ export class ArticleDetailComponent implements OnInit {
     });
 
 
+  }
+
+  navigateToAuthor() {
+    this.articleService.navigateToAuthor(this.articleData.$key);
   }
 
   edit() {
