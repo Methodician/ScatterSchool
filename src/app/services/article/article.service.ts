@@ -97,6 +97,13 @@ export class ArticleService {
     return this.db.object(`articleData/articles/${articleKey}`).update(articleToUpdate);
   }
 
+  isArticleFeatured(articleKey: string) {
+    return this.db.object(`articleData/featuredArticles/${articleKey}`).map(res => {
+      if (res.$value)
+        return true;
+      return false;
+    });
+  }
   setFeaturedArticle(articleKey: string) {
     this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
   }
