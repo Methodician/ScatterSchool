@@ -12,8 +12,6 @@ export class ArticleDetailComponent implements OnInit {
   articleKey: string;
   isArticleFeatured: boolean;
   @Input() articleData: any;
-  //@Input() authorKey;
-  //articleKey = '-KmYx0adsf9thosQFk8o';
   author;
   articleDetail;
   constructor(
@@ -23,9 +21,6 @@ export class ArticleDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //JACOB -> I'm not sure if I need this function, or if it is covered with the .subscribe:
-    //this.author = this.articleService.getAuthorById(this.authorKey);
-
 
     this.route.params.subscribe(params => {
       if (params['id'])
@@ -34,9 +29,6 @@ export class ArticleDetailComponent implements OnInit {
         this.isArticleFeatured = featured;
       });
       this.articleService.getArticleById(this.articleKey).subscribe(articleData => {
-        // KYLE => While I was at it, I figured I'd set up this nested subscription for too.
-        // Note how I also moved setting this.articleDetail = articleData inside that
-        // nested subscription, so it's not set until everything is ready.
         this.articleService.getArticleBodyById(articleData.bodyId).subscribe(articleBody => {
           articleData.body = articleBody.$value;
           this.articleDetail = articleData;
@@ -47,12 +39,9 @@ export class ArticleDetailComponent implements OnInit {
         //this.articleDetail = articleData;
       });
     });
-
-
   }
 
   navigateToAuthor() {
-    //this.articleService.navigateToAuthor(this.articleData.$key);
     this.articleService.navigateToAuthor(this.author.$key);
   }
 
