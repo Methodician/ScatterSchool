@@ -179,4 +179,8 @@ export class ArticleService {
     this.router.navigate([`articledetail/${articleId}`]);
     //this.router.navigate([`articledetail/${this.articleData.$key}`]);
   }
+
+  navigateToAuthor(authorId: any) {
+    this.router.navigate([`author/${authorId}`]);
+  }
 }

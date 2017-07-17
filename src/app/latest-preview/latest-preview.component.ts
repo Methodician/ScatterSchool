@@ -36,4 +36,8 @@ export class LatestPreviewComponent implements OnInit {
   navigateToArticleDetail() {
     this.articleService.navigateToArticleDetail(this.articleData.$key);
   }
+
+  navigateToAuthor() {
+    this.articleService.navigateToAuthor(this.articleData.$key);
+  }
 }
