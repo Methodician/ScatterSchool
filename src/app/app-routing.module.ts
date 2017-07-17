@@ -1,3 +1,4 @@
+import { AuthorComponent } from './author/author.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { ArticleSearchResultsComponent } from './article-search-results/article-search-results.component';
 import { EditArticleComponent } from './edit-article/edit-article.component';
@@ -12,60 +13,71 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
     {
-        path: 'home',
-        component: HomeComponent
+      path: 'home',
+      component: HomeComponent
     },
     {
-        path: 'register',
-        component: RegisterComponent
+      path: 'register',
+      component: RegisterComponent
     },
     {
-        path: 'login',
-        component: LoginComponent
+      path: 'login',
+      component: LoginComponent
     },
     {
-        path: 'articlesearch',
-        children: [
-            {
-                path: ':query',
-                component: ArticleSearchResultsComponent
-            },
-            {
-                path: '',
-                component: ArticleSearchResultsComponent
-            }
-        ]
+      path: 'articlesearch',
+      children: [
+        {
+          path: ':query',
+          component: ArticleSearchResultsComponent
+        },
+        {
+          path: '',
+          component: ArticleSearchResultsComponent
+        }
+      ]
     },
     {
-        path: 'account',
-        children: [
-            {
-                path: ':id',
-                component: AccountComponent
-            },
-            {
-                path: '',
-                component: AccountComponent
-            }
-
-        ]
-
+      path: 'account',
+      children: [
+        {
+          path: ':id',
+          component: AccountComponent
+        },
+        {
+          path: '',
+          component: AccountComponent
+        }
+      ]
     },
     {
-        path: 'postarticle',
-        component: PostArticleComponent
+      path: 'postarticle',
+      component: PostArticleComponent
     },
     {
-        path: 'editarticle/:id',
-        component: EditArticleComponent
-    },
-    {
-        path: '',
-        component: HomeComponent
+      path: 'editarticle/:id',
+      component: EditArticleComponent
     },
     {
       path: 'articledetail/:id',
       component: ArticleDetailComponent
+    },
+    {
+      path: 'author',
+      children: [
+        {
+          path: ':id',
+          component: AuthorComponent
+        },
+        {
+          path: '',
+          component: AuthorComponent
+        }
+      ]
+    },
+    {
+      path: '',
+      component: HomeComponent
     }
 ];
 

@@ -31,6 +31,7 @@ import { LatestPreviewComponent } from './latest-preview/latest-preview.componen
 import { ArticleSearchPipe } from './pipes/article-search.pipe';
 import { ArticleSearchResultsComponent } from './article-search-results/article-search-results.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
+import { AuthorComponent } from './author/author.component';
 
 const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -105,7 +106,8 @@ const fbConfig = {
     LatestPreviewComponent,
     ArticleSearchPipe,
     ArticleSearchResultsComponent,
-    ArticleDetailComponent
+    ArticleDetailComponent,
+    AuthorComponent
   ],
   imports: [
     BrowserModule,
