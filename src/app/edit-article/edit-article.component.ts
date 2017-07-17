@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 @Component({
   selector: 'app-edit-article',
   templateUrl: './edit-article.component.html',
-  styleUrls: ['./edit-article.component.css']
+  styleUrls: ['./edit-article.component.css', '../post-article/post-article.component.css']
 })
 export class EditArticleComponent implements OnInit {
   articleEditing: any;
@@ -51,7 +51,10 @@ export class EditArticleComponent implements OnInit {
 
   edit(article, value) {
     console.log(article);
-    this.articleSvc.updateArticle(this.authInfo.$uid, article)
+    this.articleSvc.updateArticle(this.authInfo.$uid, article).then(res => {
+      console.log(res);
+      /* this.router.navigate() */
+    });
   }
 
 }

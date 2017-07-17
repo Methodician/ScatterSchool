@@ -28,18 +28,9 @@ export class ArticleService {
   }
 
   createNewArticle(uid: string, article: any) {
-    // ToDo: We need better code to remove spaces only before and after the comma because this code prevents spaces in tags
-    let tags = article.tags.replace(/\s/g, '').split(',');
+    let tags = article.tags;
     let tagsObject = {};
-    for (let tag of tags) {
-      this.db.object(`articleData/tags/${tag}`)
-        .take(1)
-        .subscribe(data => {
-          if (!data.$value)
-            this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
-        });
-      tagsObject[tag] = true;
-    }
+    this.processTags(tags, tagsObject);
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
     let articleToSave = {
       title: article.title,
@@ -61,23 +52,20 @@ export class ArticleService {
   }
 
   updateArticle(uid: string, article: any) {
-    //construct an object for the article to save
-    //break tags into an array of objects and treat the tags like create articleSvc
-    console.log('UPDATING ARTICLE:', article);
-    let tags = article.tags.replace(/\s/g, '').split(',');
+    let tags = article.tags;
     let tagsObject = {};
-    console.log('TAGS IN ARTICLE', tags);
-    for (let tag of tags) {
-      this.db.object(`articleData/tags/${tag}`)
-        .take(1)
-        .subscribe(data => {
-          if (!data.$value)
-            this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
-        });
-      tagsObject[tag] = true;
-    }
+    let newBodyKey = '';
+    this.processTags(tags, tagsObject);
     console.log('TAGS OBJECT', tagsObject);
-    //create a new article body with a new key and save the key
+    this.db.object(`articleData/articleBodies/${article.bodyId}`).subscribe(body => {
+      let bodyLogObject: any = {};
+      bodyLogObject.body = body.$value;
+      bodyLogObject.parentKey = article.$key;
+      bodyLogObject.version = article.version;
+      bodyLogObject.nextEditorId = uid;
+      this.db.object(`articleData/bodyLog/${body.$key}`).set(bodyLogObject);
+      this.db.object(`articleData/bodysPerArticle/${article.$key}/${body.$key}`).set(firebase.database.ServerValue.TIMESTAMP);
+    });
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
     let articleToUpdate = {
       title: article.title,
@@ -95,6 +83,23 @@ export class ArticleService {
     }
     console.log('EDITING ARTICLE:', articleToUpdate);
     return this.db.object(`articleData/articles/${articleKey}`).update(articleToUpdate);
+  }
+
+  processTags(tagsToProcess, outputTagsObject) {
+    // ToDo: We need better code to remove spaces only before and after the comma because this code prevents spaces in tags
+    // Need to process further to avoid bugs. Firebase error: ERROR Error: Firebase.child failed: First argument was an invalid path: "articleData/tags/WEREGOINGTOFRANCE.". Paths must be non-empty strings and can't contain ".", "#", "$", "[", or "]"
+    let tags = tagsToProcess.replace(/\s/g, '').split(',');
+    for (let tag of tags) {
+      tag = tag.toUpperCase();
+      this.db.object(`articleData/tags/${tag}`)
+        .take(1)
+        .subscribe(data => {
+          if (!data.$value)
+            this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
+        });
+      outputTagsObject[tag] = true;
+    }
+    tagsToProcess = tags;
   }
 
   setFeaturedArticle(articleKey: string) {
@@ -133,6 +138,7 @@ export class ArticleService {
     return latestArticles;
   }
 
+  // Deprecated - only here still for demonstration in case Chad wants to compare with new search pipe
   searchArticles(searchStr: string) {
     // Lowercase the search string so you can compared to lowercase titles and tags for cap sensitivity
     var searchRef = searchStr.toLowerCase();

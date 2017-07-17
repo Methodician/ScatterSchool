@@ -1,6 +1,11 @@
 <app-article-form #article [initialValue]="articleEditing">
 </app-article-form>
 
-<button (click)="edit(article.value)">Edit Article</button>
+<button (click)="edit(article.value)" class="btn btn-default">Save Changes</button>
 
-<h1>edit works!</h1>
+<br>
+<br>
+<br> Preview:
+<pre>
+    {{ article.value | json }}
+</pre>
