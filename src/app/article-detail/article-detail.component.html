@@ -1,7 +1,7 @@
 <div class="userPhotoDateWrapper">
   <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
   <div class="userTextWrapper">
-    <h4 class="author">By: {{articleDetail?.author}}</h4>
+    <h4 class="author" (click)="navigateToAuthor()">By: {{articleDetail?.author}}</h4>
     <!-- KYLE -> While I was at the navigate ToArticle function I figured I'd show you this -->
     <!-- Feel free to change the date format. Referene here: https://angular.io/api/common/DatePipe  -->
     <p class="date">Last Updated: {{ articleDetail?.lastUpdated | date }}</p>
