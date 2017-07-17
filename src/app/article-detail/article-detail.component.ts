@@ -12,7 +12,7 @@ export class ArticleDetailComponent implements OnInit {
   articleKey: string;
   isArticleFeatured: boolean;
   @Input() articleData: any;
-  @Input() authorKey;
+  //@Input() authorKey;
   //articleKey = '-KmYx0adsf9thosQFk8o';
   author;
   articleDetail;
@@ -24,7 +24,8 @@ export class ArticleDetailComponent implements OnInit {
 
   ngOnInit() {
     //JACOB -> I'm not sure if I need this function, or if it is covered with the .subscribe:
-    this.author = this.articleService.getAuthorById(this.authorKey);
+    //this.author = this.articleService.getAuthorById(this.authorKey);
+
 
     this.route.params.subscribe(params => {
       if (params['id'])
@@ -40,6 +41,9 @@ export class ArticleDetailComponent implements OnInit {
           articleData.body = articleBody.$value;
           this.articleDetail = articleData;
         });
+        this.articleService.getAuthorById(articleData.author).subscribe(author => {
+          this.author = author;
+        });
         //this.articleDetail = articleData;
       });
     });
@@ -48,7 +52,8 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   navigateToAuthor() {
-    this.articleService.navigateToAuthor(this.articleData.$key);
+    //this.articleService.navigateToAuthor(this.articleData.$key);
+    this.articleService.navigateToAuthor(this.author.$key);
   }
 
   edit() {

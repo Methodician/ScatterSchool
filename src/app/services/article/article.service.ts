@@ -167,9 +167,7 @@ export class ArticleService {
   }
 
   getAuthorById(authorKey: string) {
-    var author;
-    this.db.object(`userInfo/open/${authorKey}`).subscribe(data => author = data);
-    return author;
+    return this.db.object(`userInfo/open/${authorKey}`);
   }
 
   // KYLE -> I'm adding the parameter articleId here. Use that instead of this.articleData.$key.
