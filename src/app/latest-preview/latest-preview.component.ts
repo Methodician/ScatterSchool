@@ -33,7 +33,7 @@ export class LatestPreviewComponent implements OnInit {
   // you were doing in feature-preview before we went down this path except
   // instead of using an exisig articleData object, it's just getting the key
   // passed in from here.
-  navigateToArticle() {
+  navigateToArticleDetail() {
     this.articleService.navigateToArticleDetail(this.articleData.$key);
   }
 }

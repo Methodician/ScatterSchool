@@ -17,6 +17,9 @@
   <br>
   <p class="copyText">{{articleDetail?.bodyID}}</p>
 </div>
+
+<button class="btn btn-primary" (click)="edit()">Edit</button>
+<button class="btn btn-primary" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'make featured'}}</button>
 <pre>
   Article Details:
   {{ articleDetail | json }}

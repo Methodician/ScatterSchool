@@ -10,6 +10,7 @@ import { ArticleService } from './../services/article/article.service';
 })
 export class ArticleDetailComponent implements OnInit {
   articleKey: string;
+  isArticleFeatured: boolean;
   //articleKey = '-KmYx0adsf9thosQFk8o';
   articleDetail;
   constructor(
@@ -19,11 +20,12 @@ export class ArticleDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
-
     this.route.params.subscribe(params => {
       if (params['id'])
         this.articleKey = params['id'];
+      this.articleService.isArticleFeatured(this.articleKey).subscribe(featured => {
+        this.isArticleFeatured = featured;
+      });
       this.articleService.getArticleById(this.articleKey).subscribe(articleData => {
         // KYLE => While I was at it, I figured I'd set up this nested subscription for too.
         // Note how I also moved setting this.articleDetail = articleData inside that
@@ -34,6 +36,20 @@ export class ArticleDetailComponent implements OnInit {
         });
         //this.articleDetail = articleData;
       });
-    })
+    });
+
+
   }
+
+  edit() {
+    this.router.navigate([`editarticle/${this.articleKey}`]);
+  }
+
+  toggleFeatured() {
+    if (this.isArticleFeatured)
+      this.articleService.unsetFeaturedArticle(this.articleKey);
+    else
+      this.articleService.setFeaturedArticle(this.articleKey);
+  }
+
 }
