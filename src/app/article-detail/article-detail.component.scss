@@ -29,9 +29,6 @@
   flex-direction: column;
   justify-content: flex-start;
   margin-left: 10px;
-  h4 {
-    font-size: 18px;
-  }
   > * {
     font-family: STHeitiSC-Light;
   }
@@ -42,20 +39,24 @@
 }
 
 .headlineWrapper h1 {
-  margin-bottom: 0;
+  font-size: 38px;
+  margin-top: 40px;
+  margin-bottom: 5px;
 }
 
 .rating {
   margin-bottom: 40px;
 }
 
-.intro{
+.intro {
+  color: #00BE9C;
   font-style: italic;
-  font-size: 18px;
+  font-size: 20px;
   margin-bottom: 40px;
 }
 
 .author {
+  font-size: 20px;
   color: #C4275F;
   margin-top: 0;
 }
@@ -69,5 +70,16 @@
 }
 
 .copyText {
-  font-size: 16px;
+  font-size: 18px;
+}
+
+@media only screen and (max-width:768px) {
+  .articleDetailWrapper {
+    width: 320px;
+  }
+
+  .followButtonWrapper {
+    width: 260px;
+    margin-bottom: 5px;
+  }
 }
