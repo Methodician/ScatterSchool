@@ -19,7 +19,9 @@ export class LatestPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.articleService.getAuthorById(this.articleData.author).subscribe(author => {
+     this.author = author;
+   });
   }
 
   navigateToArticleDetail() {

@@ -1,3 +1,9 @@
+.articleDetailWrapper {
+  margin: 0 auto;
+  width: 500px;
+  margin-top: 80px;
+}
+
 .userPhotoDateWrapper {
   display: flex;
   flex-direction: row;
@@ -5,11 +11,48 @@
   margin-bottom: 10px;
 }
 
+.followButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 420px;
+}
+
+.followBtn {
+  color: #fff;
+  background-color: #C4275F;
+  font-family: STHeitiSC-Light;
+}
+
 .userTextWrapper {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   margin-left: 10px;
+  h4 {
+    font-size: 18px;
+  }
+  > * {
+    font-family: STHeitiSC-Light;
+  }
+}
+
+.headlineWrapper h1, p {
+  font-family: STHeitiSC-Light;
+}
+
+.headlineWrapper h1 {
+  margin-bottom: 0;
+}
+
+.rating {
+  margin-bottom: 40px;
+}
+
+.intro{
+  font-style: italic;
+  font-size: 18px;
+  margin-bottom: 40px;
 }
 
 .author {
@@ -23,4 +66,8 @@
 
 .date {
   margin: 0;
+}
+
+.copyText {
+  font-size: 16px;
 }

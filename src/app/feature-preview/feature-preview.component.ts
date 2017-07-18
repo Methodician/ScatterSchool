@@ -13,17 +13,19 @@ export class FeaturePreviewComponent implements OnInit {
   @Input() articleData: any;
   @Input() authorKey;
   author;
+
   constructor(
     private articleService: ArticleService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.author = this.articleService.getAuthorById(this.authorKey);
+    this.articleService.getAuthorById(this.articleData.author).subscribe(author => {
+     this.author = author;
+   });
   }
 
   navigateToArticleDetail() {
-    //this.router.navigate([`articledetail/${this.articleData.$key}`]);
     this.articleService.navigateToArticleDetail(this.articleData.$key);
   }
 

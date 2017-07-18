@@ -1,26 +1,29 @@
-<div class="userPhotoDateWrapper">
-  <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
-  <div class="userTextWrapper">
-    <!-- <h4 class="author" (click)="navigateToAuthor()">By: {{articleDetail?.author}}</h4> -->
-    <h4 class="author" (click)="navigateToAuthor()">By: {{author?.alias}}</h4>
-    <!-- KYLE -> While I was at the navigate ToArticle function I figured I'd show you this -->
-    <!-- Feel free to change the date format. Referene here: https://angular.io/api/common/DatePipe  -->
-    <p class="date">Last Updated: {{ articleDetail?.lastUpdated | date }}</p>
+<div class="articleDetailWrapper">
+  <div class="userPhotoDateWrapper">
+    <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
+    <div class="userTextWrapper">
+      <div class="followButtonWrapper">
+        <h4 class="author" (click)="navigateToAuthor()">By: {{author?.alias}}</h4>
+        <button type="button" class="btn followBtn" >Follow</button>
+      </div>
+      <!-- Feel free to change the date format. Reference here: https://angular.io/api/common/DatePipe  -->
+      <p class="date">Last Updated: {{ articleDetail?.lastUpdated | date }}</p>
+    </div>
   </div>
-</div>
-<div class="headlineWrapper">
-  <h1>{{articleDetail?.title}}</h1>
-  <p class="rating">RATING HERE
-    <p>
-</div>
-<div class="bodyWrapper">
-  <p class="intro">Intro... {{articleDetail?.introduction}}</p>
-  <br>
-  <p class="copyText">{{articleDetail?.body}}</p>
-</div>
+  <div class="headlineWrapper">
+    <h1>{{articleDetail?.title}}</h1>
+    <p class="rating">RATING HERE
+      <p>
+      </div>
+      <div class="bodyWrapper">
+        <p class="intro">{{articleDetail?.introduction}}</p>
+        <br>
+        <p class="copyText">{{articleDetail?.body}}</p>
+      </div>
 
-<button class="btn btn-primary" (click)="edit()">Edit</button>
-<button class="btn btn-primary" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'make featured'}}</button>
+      <button class="btn btn-primary" (click)="edit()">Edit</button>
+      <button class="btn btn-primary" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'make featured'}}</button>
+</div>
 <pre>
   Article Details:
   {{ articleDetail | json }}
