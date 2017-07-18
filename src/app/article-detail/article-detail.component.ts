@@ -5,8 +5,7 @@ import { ArticleService } from './../services/article/article.service';
 @Component({
   selector: 'article-detail',
   templateUrl: './article-detail.component.html',
-  styleUrls: ['./article-detail.component.scss'],
-  providers: [ArticleService]
+  styleUrls: ['./article-detail.component.scss']
 })
 export class ArticleDetailComponent implements OnInit {
   articleKey: string;
@@ -15,7 +14,7 @@ export class ArticleDetailComponent implements OnInit {
   author;
   articleDetail;
   constructor(
-    private articleService: ArticleService,
+    private articleSvc: ArticleService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -25,15 +24,15 @@ export class ArticleDetailComponent implements OnInit {
     this.route.params.subscribe(params => {
       if (params['id'])
         this.articleKey = params['id'];
-      this.articleService.isArticleFeatured(this.articleKey).subscribe(featured => {
+      this.articleSvc.isArticleFeatured(this.articleKey).subscribe(featured => {
         this.isArticleFeatured = featured;
       });
-      this.articleService.getArticleById(this.articleKey).subscribe(articleData => {
-        this.articleService.getArticleBodyById(articleData.bodyId).subscribe(articleBody => {
+      this.articleSvc.getArticleById(this.articleKey).subscribe(articleData => {
+        this.articleSvc.getArticleBodyById(articleData.bodyId).subscribe(articleBody => {
           articleData.body = articleBody.$value;
           this.articleDetail = articleData;
         });
-        this.articleService.getAuthorById(articleData.author).subscribe(author => {
+        this.articleSvc.getAuthorById(articleData.author).subscribe(author => {
           this.author = author;
         });
         //this.articleDetail = articleData;
@@ -42,7 +41,7 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   navigateToAuthor() {
-    this.articleService.navigateToAuthor(this.author.$key);
+    this.articleSvc.navigateToAuthor(this.author.$key);
   }
 
   edit() {
@@ -51,9 +50,9 @@ export class ArticleDetailComponent implements OnInit {
 
   toggleFeatured() {
     if (this.isArticleFeatured)
-      this.articleService.unsetFeaturedArticle(this.articleKey);
+      this.articleSvc.unsetFeaturedArticle(this.articleKey);
     else
-      this.articleService.setFeaturedArticle(this.articleKey);
+      this.articleSvc.setFeaturedArticle(this.articleKey);
   }
 
 }

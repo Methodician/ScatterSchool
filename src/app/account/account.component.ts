@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.scss']
 })
+
 export class AccountComponent implements OnInit {
 
   loggedInUid: string;
