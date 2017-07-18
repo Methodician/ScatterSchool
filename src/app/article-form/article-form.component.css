@@ -27,6 +27,10 @@ input, textarea {
   height: 4rem;
 }
 
+.ckEditor {
+  width: 90%;
+}
+
 #body{
   height: 36rem;
 }
