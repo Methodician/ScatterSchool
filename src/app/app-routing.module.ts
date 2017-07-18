@@ -1,3 +1,4 @@
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthorComponent } from './author/author.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { ArticleSearchResultsComponent } from './article-search-results/article-search-results.component';
@@ -78,6 +79,11 @@ const routes: Routes = [
     {
       path: '',
       component: HomeComponent
+    },
+    //ATTN: this route MUST live at the end of all the routes in this array.
+    {
+      path: '**',
+      component: PageNotFoundComponent
     }
 ];
 

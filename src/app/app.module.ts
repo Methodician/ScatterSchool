@@ -32,6 +32,7 @@ import { ArticleSearchPipe } from './pipes/article-search.pipe';
 import { ArticleSearchResultsComponent } from './article-search-results/article-search-results.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { AuthorComponent } from './author/author.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -107,7 +108,8 @@ const fbConfig = {
     ArticleSearchPipe,
     ArticleSearchResultsComponent,
     ArticleDetailComponent,
-    AuthorComponent
+    AuthorComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
