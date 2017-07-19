@@ -6,24 +6,11 @@
     </div>
     <h4>{{userInfo?.bio}}</h4>
   </div>
-
-  //ngFor look HERE
-  <div class="articleWrapper">
-    <div class="picTitleWrapper">
-      <img src="../../assets/images/kid-art.jpg" alt="default main tutorial image: a picture of kid art">
-      <h3 class="title">Article Title</h3>
-    </div>
-    <div class="dateVersionWrapper">
-      <p class="lastUpdated">Date: last updated</p>
-      <p class="version">Version: #?</p>
-    </div>
+  <div class="articleWrapper" *ngFor="let article of articlesPerAuthor">
+    <author-article-preview [articleData]="article" ></author-article-preview>
   </div>
 </div>
 
-<h3>Articles by Author</h3>
-<div class="articleWrapper" *ngFor="let article of articlesPerAuthor">
-  <author-article-preview [articleData]="article" ></author-article-preview>
-</div>
 <pre *ngFor="let article of articlesPerAuthor">
   {{ article | json }}
 </pre>
