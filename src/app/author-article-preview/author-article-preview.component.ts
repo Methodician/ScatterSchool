@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 //import { UserService } from './../services/user/user.service';
-//import { ArticleService } from './../services/article/article.service';
+import { ArticleService } from './../services/article/article.service';
 //import { UserInfoOpen } from './../services/user/user-info';
 //import { ArticleDetailOpen } from './../services/article/article-info';
 
@@ -21,7 +21,7 @@ export class AuthorArticlePreviewComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     //private userSvc: UserService,
-    //private articleSvc: ArticleService
+    private articleSvc: ArticleService
   ) { }
 
   ngOnInit() {
@@ -33,6 +33,10 @@ export class AuthorArticlePreviewComponent implements OnInit {
     //     this.getArticlesPerEditor(userId);
     //   }
     // })
+  }
+
+  navigateToArticleDetail() {
+    this.articleSvc.navigateToArticleDetail(this.articleData.$key);
   }
 
   // getArticlesPerAuthor(uid: string) {
