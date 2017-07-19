@@ -4,6 +4,8 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router'
 
+import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
+
 @Injectable()
 export class ArticleService {
   // KYLE -> Not sure if you just addeed this @input. I'm also removing these old things below it... See my notes by your function.
@@ -28,9 +30,14 @@ export class ArticleService {
   }
 
   createNewArticle(uid: string, article: any) {
-    let tags = article.tags;
+    //const subject = new Subject<string>();
     let tagsObject = {};
-    this.processTags(tags, tagsObject);
+    let tags = article.tags;
+
+    if (article.tags && article.tags != '') {
+      this.processTags(tags, tagsObject);
+    }
+
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
     let articleToSave = {
       title: article.title,
@@ -46,9 +53,14 @@ export class ArticleService {
     this.db.object(`articleData/articlesPerAuthor/${uid}/${articleKey}`).set(true);
     this.db.object(`articleData/editorsPerArticle/${articleKey}/${uid}`).set(true);
     this.db.object(`articleData/articlesPerEditor/${uid}/${articleKey}`).set(true);
-    for (let tag of tags) {
-      this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
+    if (article.tags && article.tags != '') {
+      for (let tag of tags) {
+        this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
+      }
     }
+    return articleKey;
+    //subject.next(articleKey);
+    //return subject.asObservable();
   }
 
   updateArticle(uid: string, article: any) {

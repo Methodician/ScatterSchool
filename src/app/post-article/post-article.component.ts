@@ -29,8 +29,11 @@ export class PostArticleComponent implements OnInit {
   }
 
   save(form) {
-    this.articleSvc.createNewArticle(this.authInfo.$uid, form.value);
-    console.log(form.value); 
+    let articleId = this.articleSvc.createNewArticle(this.authInfo.$uid, form.value);
+    this.router.navigate([`articledetail/${articleId}`]);
+    /* this.articleSvc.createNewArticle(this.authInfo.$uid, form.value).subscribe(articleId => {
+      this.router.navigate([`articledetail/${articleId}`]);
+    }); */
   }
 
 }
