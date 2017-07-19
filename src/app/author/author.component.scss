@@ -82,9 +82,42 @@
   border-top: 1px solid #263237;
 }
 
+@media only screen and (max-width: 1004px) {
+  .authorEditorWrapper {
+    flex-direction: column;
+  }
+
+  .articleAuthorBlock {
+    width: 100%;
+  }
+
+  .articleEditorBlock {
+    width: 100%;
+  }
+  h3 {
+    margin-top: 60px;
+  }
+}
+
 @media only screen and (max-width:768px) {
+  .userInfoWrapper {
+    width: 370px;
+    padding-left: 10px;
+  }
+
+  .photoNameWrapper {
+    margin-top: 60px;
+  }
+
   .followButtonWrapper {
-    width: 260px;
+    width: 270px;
+    margin: 0 auto;
     margin-bottom: 5px;
+  }
+}
+
+@media only screen and (max-width:460px) {
+  .followButtonWrapper {
+    margin: 0;
   }
 }
