@@ -10,6 +10,7 @@ import { ArticleService } from './../services/article/article.service';
 
 export class FeaturePreviewComponent implements OnInit {
   @Input() articleData: any;
+
   author;
 
   constructor(
@@ -18,7 +19,7 @@ export class FeaturePreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.articleService.getAuthorById(this.articleData.author).subscribe(author => {
+    this.articleService.getAuthorById(this.articleData.authorId).subscribe(author => {
      this.author = author;
    });
   }

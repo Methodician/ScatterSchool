@@ -32,7 +32,7 @@ export class ArticleDetailComponent implements OnInit {
           articleData.body = articleBody.$value;
           this.articleDetail = articleData;
         });
-        this.articleSvc.getAuthorById(articleData.author).subscribe(author => {
+        this.articleSvc.getAuthorById(articleData.authorId).subscribe(author => {
           this.author = author;
         });
         //this.articleDetail = articleData;
