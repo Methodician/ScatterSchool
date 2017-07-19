@@ -9,16 +9,22 @@
     </div>
     <h4>{{userInfo?.bio}}</h4>
   </div>
-  <h3>Articles as the Original Author</h3>
-  <div class="authorLoop">
-    <div *ngFor="let article of articlesPerAuthor">
-      <author-article-preview [articleData]="article" ></author-article-preview>
+  <div class="authorEditorWrapper">
+    <div class="articleAuthorBlock">
+      <h3>Articles as the Original Author</h3>
+      <div class="authorLoop">
+        <div *ngFor="let article of articlesPerAuthor">
+          <author-article-preview [articleData]="article" ></author-article-preview>
+        </div>
+      </div>
     </div>
-  </div>
-  <h3>Articles as an Editor</h3>
-  <div class="editorLoop">
-    <div *ngFor="let article of articlesPerEditor">
-      <author-article-preview [articleData]="article" ></author-article-preview>
+    <div class="articleEditorBlock">
+      <h3>Articles as an Editor</h3>
+      <div class="editorLoop">
+        <div *ngFor="let article of articlesPerEditor">
+          <author-article-preview [articleData]="article" ></author-article-preview>
+        </div>
+      </div>
     </div>
   </div>
 </div>

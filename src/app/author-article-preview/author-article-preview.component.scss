@@ -9,8 +9,8 @@
 .picTitleWrapper {
   display: flex;
   img {
-    width: 100px;
-    height: 100px;
+    width: 80px;
+    height: 80px;
     margin-right: 20px;
   }
 }
@@ -24,13 +24,14 @@
 .title {
   margin: 0;
   align-self: center;
+  font-size: 18px;
 }
 
 .title:hover {
   color: #31C2D7;
+  cursor: pointer;
 }
 
 .version {
-  color: #31C2D7;
-  cursor: pointer;
+  color: #00BE9C;
 }

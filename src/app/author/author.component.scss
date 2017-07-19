@@ -44,14 +44,40 @@
   color: #00BE9C;
 }
 
-.authorLoop {
+.authorEditorWrapper {
+  display: flex;
   width: 95%;
+  margin: 0 auto;
+}
+
+.articleAuthorBlock {
+  width: 48%;
+  margin: 0 auto;
+  h3 {
+    color: #31C2D7;
+    cursor: default;
+    margin-bottom: 40px;
+  }
+}
+
+.articleEditorBlock {
+  width: 48%;
+  margin: 0 auto;
+  h3 {
+    color: #31C2D7;
+    cursor: default;
+    margin-bottom: 40px;
+  }
+}
+
+.authorLoop {
+  width: 100%;
   margin: 0 auto;
   border-top: 1px solid #263237;
 }
 
 .editorLoop {
-  width: 95%;
+  width: 100%;
   margin: 0 auto;
   border-top: 1px solid #263237;
 }
