@@ -6,6 +6,8 @@
     </div>
     <h4>{{userInfo?.bio}}</h4>
   </div>
+
+  //ngFor look HERE
   <div class="articleWrapper">
     <div class="picTitleWrapper">
       <img src="../../assets/images/kid-art.jpg" alt="default main tutorial image: a picture of kid art">
@@ -18,12 +20,15 @@
   </div>
 </div>
 
-<h2>Articles by Author</h2>
+<h3>Articles by Author</h3>
+<div class="articleWrapper" *ngFor="let article of articlesPerAuthor">
+  <author-article-preview [articleData]="article" ></author-article-preview>
+</div>
 <pre *ngFor="let article of articlesPerAuthor">
   {{ article | json }}
 </pre>
 
-<h2>Articles by Editor</h2>
+<h3>Articles by Editor</h3>
 <pre *ngFor="let article of articlesPerEditor">
   {{ article | json }}
 </pre>
