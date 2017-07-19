@@ -2,9 +2,9 @@
   <div class="userInfoWrapper">
     <div class="photoNameWrapper">
       <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
-      <h3>{{userInfo.alias || userInfo.fName + ' ' + userInfo.lName}}</h3>
+      <h3>{{userInfo?.alias || userInfo?.fName + ' ' + userInfo?.lName}}</h3>
     </div>
-    <h4>{{userInfo.bio}}</h4>
+    <h4>{{userInfo?.bio}}</h4>
   </div>
   <div class="articleWrapper">
     <div class="picTitleWrapper">
@@ -20,10 +20,10 @@
 
 <h2>Articles by Author</h2>
 <pre *ngFor="let article of articlesPerAuthor">
-  {{ article | json | async }}
+  {{ article | json }}
 </pre>
 
 <h2>Articles by Editor</h2>
 <pre *ngFor="let article of articlesPerEditor">
-  {{ article | async | json }}
+  {{ article | json }}
 </pre>

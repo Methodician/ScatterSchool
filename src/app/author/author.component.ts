@@ -42,11 +42,15 @@ export class AuthorComponent implements OnInit {
   }
 
   getArticlesPerAuthor(uid: string) {
-    this.articleSvc.findArticlesPerAuthor(uid).subscribe(articles => this.articlesPerAuthor = articles);
+    this.articleSvc.findArticlesPerAuthor(uid).subscribe(articles =>
+      this.articlesPerAuthor = articles
+    );
   }
 
   getArticlesPerEditor(uid: string) {
-    this.articleSvc.findArticlesPerEditor(uid).subscribe(articles => this.articlesPerEditor = articles);
+    this.articleSvc.findArticlesPerEditor(uid).subscribe(articles =>
+      this.articlesPerEditor = articles
+    );
   }
 
 }

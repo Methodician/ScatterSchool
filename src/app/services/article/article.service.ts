@@ -34,7 +34,7 @@ export class ArticleService {
     return articleKeys$
       .map(articlesPerKey =>
         articlesPerKey.map(article =>
-          this.db.object(`articleData/${article.$key}`)))
+          this.db.object(`articleData/articles/${article.$key}`)))
       .flatMap(firebaseObjects =>
         Observable.combineLatest(firebaseObjects));
   }
