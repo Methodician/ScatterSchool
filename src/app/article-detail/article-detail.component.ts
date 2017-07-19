@@ -1,39 +1,58 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
 
 @Component({
   selector: 'article-detail',
   templateUrl: './article-detail.component.html',
-  styleUrls: ['./article-detail.component.scss'],
-  providers: [ArticleService]
+  styleUrls: ['./article-detail.component.scss']
 })
 export class ArticleDetailComponent implements OnInit {
   articleKey: string;
-  //articleKey = '-KmYx0adsf9thosQFk8o';
+  isArticleFeatured: boolean;
+  @Input() articleData: any;
+  author;
   articleDetail;
   constructor(
-    private articleService: ArticleService,
+    private articleSvc: ArticleService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
 
-
     this.route.params.subscribe(params => {
       if (params['id'])
         this.articleKey = params['id'];
-      this.articleService.getArticleById(this.articleKey).subscribe(articleData => {
-        // KYLE => While I was at it, I figured I'd set up this nested subscription for too.
-        // Note how I also moved setting this.articleDetail = articleData inside that
-        // nested subscription, so it's not set until everything is ready.
-        this.articleService.getArticleBodyById(articleData.bodyId).subscribe(articleBody => {
+      this.articleSvc.isArticleFeatured(this.articleKey).subscribe(featured => {
+        this.isArticleFeatured = featured;
+      });
+      this.articleSvc.getArticleById(this.articleKey).subscribe(articleData => {
+        this.articleSvc.getArticleBodyById(articleData.bodyId).subscribe(articleBody => {
           articleData.body = articleBody.$value;
           this.articleDetail = articleData;
         });
+        this.articleSvc.getAuthorById(articleData.authorId).subscribe(author => {
+          this.author = author;
+        });
         //this.articleDetail = articleData;
       });
-    })
+    });
   }
+
+  navigateToAuthor() {
+    this.articleSvc.navigateToAuthor(this.author.$key);
+  }
+
+  edit() {
+    this.router.navigate([`editarticle/${this.articleKey}`]);
+  }
+
+  toggleFeatured() {
+    if (this.isArticleFeatured)
+      this.articleSvc.unsetFeaturedArticle(this.articleKey);
+    else
+      this.articleSvc.setFeaturedArticle(this.articleKey);
+  }
+
 }

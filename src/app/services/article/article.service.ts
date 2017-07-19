@@ -85,6 +85,7 @@ export class ArticleService {
     return this.db.object(`articleData/articles/${articleKey}`).update(articleToUpdate);
   }
 
+<<<<<<< HEAD
   processTags(tagsToProcess, outputTagsObject) {
     // ToDo: We need better code to remove spaces only before and after the comma because this code prevents spaces in tags
     // Need to process further to avoid bugs. Firebase error: ERROR Error: Firebase.child failed: First argument was an invalid path: "articleData/tags/WEREGOINGTOFRANCE.". Paths must be non-empty strings and can't contain ".", "#", "$", "[", or "]"
@@ -102,6 +103,15 @@ export class ArticleService {
     tagsToProcess = tags;
   }
 
+=======
+  isArticleFeatured(articleKey: string) {
+    return this.db.object(`articleData/featuredArticles/${articleKey}`).map(res => {
+      if (res.$value)
+        return true;
+      return false;
+    });
+  }
+>>>>>>> master
   setFeaturedArticle(articleKey: string) {
     this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
   }
@@ -166,9 +176,7 @@ export class ArticleService {
   }
 
   getAuthorById(authorKey: string) {
-    var author;
-    this.db.object(`userInfo/open/${authorKey}`).subscribe(data => author = data);
-    return author;
+    return this.db.object(`userInfo/open/${authorKey}`);
   }
 
   // KYLE -> I'm adding the parameter articleId here. Use that instead of this.articleData.$key.
@@ -177,5 +185,9 @@ export class ArticleService {
     //navigateToArticleDetail() {
     this.router.navigate([`articledetail/${articleId}`]);
     //this.router.navigate([`articledetail/${this.articleData.$key}`]);
+  }
+
+  navigateToAuthor(authorId: any) {
+    this.router.navigate([`author/${authorId}`]);
   }
 }

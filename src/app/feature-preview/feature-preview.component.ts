@@ -5,25 +5,30 @@ import { ArticleService } from './../services/article/article.service';
 @Component({
   selector: 'app-feature-preview',
   templateUrl: './feature-preview.component.html',
-  styleUrls: ['./feature-preview.component.css'],
-  providers: [ArticleService]
+  styleUrls: ['./feature-preview.component.css']
 })
 
 export class FeaturePreviewComponent implements OnInit {
   @Input() articleData: any;
-  @Input() authorKey;
+
   author;
+
   constructor(
     private articleService: ArticleService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.author = this.articleService.getAuthorById(this.authorKey);
+    this.articleService.getAuthorById(this.articleData.authorId).subscribe(author => {
+     this.author = author;
+   });
   }
 
   navigateToArticleDetail() {
-    //this.router.navigate([`articledetail/${this.articleData.$key}`]);
     this.articleService.navigateToArticleDetail(this.articleData.$key);
+  }
+
+  navigateToAuthor() {
+    this.articleService.navigateToAuthor(this.articleData.authorId);
   }
 }

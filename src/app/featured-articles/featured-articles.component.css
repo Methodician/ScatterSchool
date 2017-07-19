@@ -24,7 +24,8 @@
   text-decoration: none;
   padding: 10px;
   margin: 10px;
-  min-width: 210px;
+  width: 225px;
+  min-width: 225px;
   height: 92%;
 }
 

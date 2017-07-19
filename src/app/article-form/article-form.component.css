@@ -1,20 +1,32 @@
 label {
   color: #243237;
-  font-family: AvenirNext-Italic;
-  font-size: 2.5rem;
-  font-style: italic;
+  font-size: 2.3rem;
   font-weight: 200;
   letter-spacing: 0.5px;
-  margin-bottom: 1.111rem;
 }
 
 input, textarea {
-  border: 1px solid #243237;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-bottom:1px solid #263237;
   border-radius: 0;
 }
 
+input:focus {
+  box-shadow: none;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-bottom:1px solid #31C2D7;
+}
+
+.form-field > * {
+  font-family: STHeitiSC-Light;
+}
+
 .form-field:first-child {
-  margin-top: 16rem;
+  margin-top: 5rem;
 }
 
 .form-field {
@@ -25,6 +37,10 @@ input, textarea {
 
 .form-control {
   height: 4rem;
+}
+
+.ckEditor {
+  width: 90%;
 }
 
 #body{
