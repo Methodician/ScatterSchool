@@ -12,7 +12,7 @@ export class ArticleDetailComponent implements OnInit {
   isArticleFeatured: boolean;
   @Input() articleData: any;
   author;
-  articleDetail;
+  article;
   constructor(
     private articleSvc: ArticleService,
     private router: Router,
@@ -30,12 +30,12 @@ export class ArticleDetailComponent implements OnInit {
       this.articleSvc.getArticleById(this.articleKey).subscribe(articleData => {
         this.articleSvc.getArticleBodyById(articleData.bodyId).subscribe(articleBody => {
           articleData.body = articleBody.$value;
-          this.articleDetail = articleData;
+          this.article = articleData;
         });
         this.articleSvc.getAuthorById(articleData.authorId).subscribe(author => {
           this.author = author;
         });
-        //this.articleDetail = articleData;
+        //this.article = articleData;
       });
     });
   }
