@@ -1,0 +1,22 @@
+.userInfoWrapper {
+  width: 500px;
+  margin: 0 auto;
+}
+
+.photoNameWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.articleWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.picTitleWrapper {
+  display: flex;
+  img {
+    width: 100px;
+    height: 100px;
+  }
+}

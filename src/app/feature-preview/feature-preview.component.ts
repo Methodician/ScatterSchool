@@ -5,13 +5,11 @@ import { ArticleService } from './../services/article/article.service';
 @Component({
   selector: 'app-feature-preview',
   templateUrl: './feature-preview.component.html',
-  styleUrls: ['./feature-preview.component.css'],
-  providers: [ArticleService]
+  styleUrls: ['./feature-preview.component.css']
 })
 
 export class FeaturePreviewComponent implements OnInit {
   @Input() articleData: any;
-  @Input() authorKey;
   author;
 
   constructor(
@@ -30,6 +28,6 @@ export class FeaturePreviewComponent implements OnInit {
   }
 
   navigateToAuthor() {
-    this.articleService.navigateToAuthor(this.articleData.$key);
+    this.articleService.navigateToAuthor(this.articleData.authorId);
   }
 }
