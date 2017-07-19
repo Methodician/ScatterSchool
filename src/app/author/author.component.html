@@ -6,8 +6,10 @@
     </div>
     <h4>{{userInfo?.bio}}</h4>
   </div>
-  <div class="articleWrapper" *ngFor="let article of articlesPerAuthor">
-    <author-article-preview [articleData]="article" ></author-article-preview>
+  <div class="authorLoop">
+    <div *ngFor="let article of articlesPerAuthor">
+      <author-article-preview [articleData]="article" ></author-article-preview>
+    </div>
   </div>
 </div>
 

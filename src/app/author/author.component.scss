@@ -28,41 +28,8 @@
   color: #00BE9C;
 }
 
-.articleWrapper {
-  display: flex;
-  justify-content: space-between;
+.authorLoop {
   width: 95%;
   margin: 0 auto;
-  padding: 5px;
-  border-bottom: 1px solid #263237;
-  /*temporary style*/
-  //border-top: 1px solid #263237;
-}
-
-// .articleWrapper:first-child {
-//   border-top: 1px solid #263237;
-// }
-
-.picTitleWrapper {
-  display: flex;
-  img {
-    width: 100px;
-    height: 100px;
-    margin-right: 20px;
-  }
-}
-
-.dateVersionWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.title {
-  margin: 0;
-  align-self: center;
-}
-
-.version {
-  color: #31C2D7;
+  border-top: 1px solid #263237;
 }
