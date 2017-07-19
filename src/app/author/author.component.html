@@ -2,7 +2,10 @@
   <div class="userInfoWrapper">
     <div class="photoNameWrapper">
       <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
-      <h3>{{userInfo?.alias || userInfo?.fName + ' ' + userInfo?.lName}}</h3>
+      <div class="followButtonWrapper">
+        <h3 class="author">{{userInfo?.alias || userInfo?.fName + ' ' + userInfo?.lName}}</h3>
+        <button type="button" class="btn followBtn" >Follow</button>
+      </div>
     </div>
     <h4>{{userInfo?.bio}}</h4>
   </div>
@@ -14,15 +17,18 @@
   </div>
   <h3>Articles as an Editor</h3>
   <div class="editorLoop">
-
+    <div *ngFor="let article of articlesPerEditor">
+      <author-article-preview [articleData]="article" ></author-article-preview>
+    </div>
   </div>
 </div>
 
+<h3>Author JSON</h3>
 <pre *ngFor="let article of articlesPerAuthor">
   {{ article | json }}
 </pre>
 
-<h3>Articles by Editor</h3>
+<h3>Editor JSON</h3>
 <pre *ngFor="let article of articlesPerEditor">
   {{ article | json }}
 </pre>

@@ -18,9 +18,23 @@
   }
 }
 
+.followButtonWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 420px;
+}
+
 .author {
   color: #C4275F;
   margin: 0;
+}
+
+.followBtn {
+  height: 38px;
+  color: #fff;
+  background-color: #C4275F;
+  font-family: STHeitiSC-Light;
 }
 
 .bio {
@@ -38,4 +52,11 @@
   width: 95%;
   margin: 0 auto;
   border-top: 1px solid #263237;
+}
+
+@media only screen and (max-width:768px) {
+  .followButtonWrapper {
+    width: 260px;
+    margin-bottom: 5px;
+  }
 }
