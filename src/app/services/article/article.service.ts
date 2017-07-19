@@ -1,3 +1,4 @@
+import { ArticleDetailOpen } from './article-info';
 import { Input } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
@@ -27,6 +28,23 @@ export class ArticleService {
 
   getArticleBodyById(id: string) {
     return this.db.object('articleData/articleBodies/' + id);
+  }
+
+  findArticlesForKeys(articleKeys$: Observable<any[]>): Observable<ArticleDetailOpen[]> {
+    return articleKeys$
+      .map(articlesPerKey =>
+        articlesPerKey.map(article =>
+          this.db.object(`articleData/${article.$key}`)))
+      .flatMap(firebaseObjects =>
+        Observable.combineLatest(firebaseObjects));
+  }
+
+  findArticlesPerEditor(editorId: string): Observable<ArticleDetailOpen[]> {
+    return this.findArticlesForKeys(this.db.list(`articleData/articlesPerEditor/${editorId}`));
+  }
+
+  findArticlesPerAuthor(authorId: string): Observable<ArticleDetailOpen[]> {
+    return this.findArticlesForKeys(this.db.list(`articleData/articlesPerAuthor/${authorId}`));
   }
 
   createNewArticle(uid: string, article: any) {

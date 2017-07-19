@@ -17,3 +17,13 @@
     </div>
   </div>
 </div>
+
+<h2>Articles by Author</h2>
+<pre *ngFor="let article of articlesPerAuthor">
+  {{ article | json | async }}
+</pre>
+
+<h2>Articles by Editor</h2>
+<pre *ngFor="let article of articlesPerEditor">
+  {{ article | async | json }}
+</pre>

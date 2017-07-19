@@ -6,11 +6,6 @@ export class ArticleDetailOpen {
         public lastUpdated: number,
         public timeStamp: number,
         public version: number,
-        public tags: {
-          first: true,
-          post: true,
-          tags: true,
-          with: true,
-        }
+        public tags?: {}
     ) { }
 }

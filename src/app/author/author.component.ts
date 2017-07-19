@@ -14,6 +14,8 @@ import { ArticleDetailOpen } from './../services/article/article-info';
 export class AuthorComponent implements OnInit {
 
   userInfo: UserInfoOpen;
+  articlesPerAuthor: ArticleDetailOpen[];
+  articlesPerEditor: ArticleDetailOpen[];
 
   constructor(
     private router: Router,
@@ -27,6 +29,8 @@ export class AuthorComponent implements OnInit {
       if (params['id']) {
         let userId = params['id'];
         this.getUserInfo(userId);
+        this.getArticlesPerAuthor(userId);
+        this.getArticlesPerEditor(userId);
       }
     })
   }
@@ -35,6 +39,14 @@ export class AuthorComponent implements OnInit {
     this.userSvc.getUserInfo(uid).subscribe(userInfo => {
       this.userInfo = userInfo;
     })
+  }
+
+  getArticlesPerAuthor(uid: string) {
+    this.articleSvc.findArticlesPerAuthor(uid).subscribe(articles => this.articlesPerAuthor = articles);
+  }
+
+  getArticlesPerEditor(uid: string) {
+    this.articleSvc.findArticlesPerEditor(uid).subscribe(articles => this.articlesPerEditor = articles);
   }
 
 }
