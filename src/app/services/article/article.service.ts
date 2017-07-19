@@ -85,7 +85,6 @@ export class ArticleService {
     return this.db.object(`articleData/articles/${articleKey}`).update(articleToUpdate);
   }
 
-<<<<<<< HEAD
   processTags(tagsToProcess, outputTagsObject) {
     // ToDo: We need better code to remove spaces only before and after the comma because this code prevents spaces in tags
     // Need to process further to avoid bugs. Firebase error: ERROR Error: Firebase.child failed: First argument was an invalid path: "articleData/tags/WEREGOINGTOFRANCE.". Paths must be non-empty strings and can't contain ".", "#", "$", "[", or "]"
@@ -103,7 +102,6 @@ export class ArticleService {
     tagsToProcess = tags;
   }
 
-=======
   isArticleFeatured(articleKey: string) {
     return this.db.object(`articleData/featuredArticles/${articleKey}`).map(res => {
       if (res.$value)
@@ -111,7 +109,6 @@ export class ArticleService {
       return false;
     });
   }
->>>>>>> master
   setFeaturedArticle(articleKey: string) {
     this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
   }
