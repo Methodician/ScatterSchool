@@ -1,3 +1,12 @@
+.searchList {
+  width: 95%;
+  margin: 0 auto;
+  font-family: STHeitiSC-Light;
+}
+
+.headline {
+  color: #31C2D7;
+}
 
 // inner component styles
 .searchWrapper {
@@ -33,6 +42,19 @@
 
 .title:hover {
   color: #31C2D7;
+  cursor: pointer;
+}
+
+.author {
+  color: #C4275F;
+  margin: 0;
+  align-self: center;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.title:hover {
+  text-decoration: underline;
   cursor: pointer;
 }
 

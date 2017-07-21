@@ -7,7 +7,7 @@
     <div class="userPhotoDateWrapper">
       <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
       <div class="userTextWrapper">
-        <h4 class="author" (click)="navigateToAuthor()">By: {{author?.alias}}</h4>
+        <h4 class="author" (click)="navigateToAuthor()">By: {{author?.alias | truncate:20}}</h4>
         <p class="date">{{ articleData?.lastUpdated | date }}</p>
       </div>
     </div>
