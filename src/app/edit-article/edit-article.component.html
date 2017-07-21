@@ -6,6 +6,9 @@
 <br>
 <br>
 <br> Preview:
+
+<app-article-detail *ngIf="articleEditing" [articleData]="article.value" [editingPreview]="true"></app-article-detail>
+
 <pre>
     {{ article.value | json }}
 </pre>
