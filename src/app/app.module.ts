@@ -34,6 +34,8 @@ import { ArticleDetailComponent } from './article-detail/article-detail.componen
 import { AuthorComponent } from './author/author.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthorArticlePreviewComponent } from './author-article-preview/author-article-preview.component';
+import { FooterComponent } from './footer/footer.component';
+import { TruncatePipe } from './pipes/truncate.pipe';
 
 const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -111,7 +113,9 @@ const fbConfig = {
     ArticleDetailComponent,
     AuthorComponent,
     PageNotFoundComponent,
-    AuthorArticlePreviewComponent
+    AuthorArticlePreviewComponent,
+    FooterComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,

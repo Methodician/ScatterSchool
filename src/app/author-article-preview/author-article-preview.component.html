@@ -4,7 +4,7 @@
     <h3 class="title" (click)="navigateToArticleDetail()">{{articleData.title}}</h3>
   </div>
   <div class="dateVersionWrapper">
-    <p class="lastUpdated">Pipe here:{{articleData.lastUpdated}}</p>
+    <p class="lastUpdated">{{articleData?.lastUpdated | date}}</p>
     <p class="version">Version {{articleData.version}}</p>
   </div>
 </div>
