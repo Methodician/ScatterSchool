@@ -1,6 +1,6 @@
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-article-search-results',
@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./article-search-results.component.scss']
 })
 export class ArticleSearchResultsComponent implements OnInit {
+
+  @Input() articleData: any;
 
   allArticles: any;
   searchResults: any;
@@ -34,4 +36,7 @@ export class ArticleSearchResultsComponent implements OnInit {
     })
   }
 
+  navigateToArticleDetail() {
+    this.articleSvc.navigateToArticleDetail(this.articleData.$key);
+  }
 }

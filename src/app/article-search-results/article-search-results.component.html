@@ -1,6 +1,22 @@
-<div>
-  <h3>Search Results:</h3>
+<div class="searchList">
+  <h3 searchHeader>Search Results:</h3>
   {{ queryString }}
+  <div class="searchDisplay">
+    <div class="searchTile" ngFor="let article of searchArticles">
+      <!-- to be moved to it's own component VVV -->
+      <div class="searchWrapper">
+        <div class="picTitleWrapper">
+          <img src="../../assets/images/kid-art.jpg" alt="default main tutorial image: a picture of kid art">
+          <h3 class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:120}}</h3>
+        </div>
+        <div class="dateVersionWrapper">
+          <p class="lastUpdated">{{articleData?.lastUpdated | date}}</p>
+          <p class="version">Version {{articleData.version}}</p>
+        </div>
+      </div>
+      <!-- <search-preview [articleData]="article"></search-preview> -->
+    </div>
+  </div>
   <pre>
   {{ allArticles | articleSearch: queryString | json }}
   </pre>
