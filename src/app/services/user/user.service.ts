@@ -23,12 +23,12 @@ export class UserService {
     })
   }
 
-  setUserRank(rank: number, uid: string) {
+  setUserAccess(rank: number, uid: string) {
     return this.db.object(`userInfo/rank/${uid}`).set(rank);
   }
 
   createUser(userInfo, uid) {
-    this.setUserRank(2, uid);
+    this.setUserAccess(2, uid);
     return this.db.object(`userInfo/open/${uid}`).set(userInfo);
   }
 

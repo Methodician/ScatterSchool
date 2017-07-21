@@ -63,14 +63,14 @@ export class ArticleService {
       bodyId: bodyKey,
       tags: tagsObject,
       version: 1,
-      author: uid,
+      authorId: uid,
       timeStamp: firebase.database.ServerValue.TIMESTAMP,
       lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
     let articleKey = this.db.list('articleData/articles').push(articleToSave).key;
     this.db.object(`articleData/articlesPerAuthor/${uid}/${articleKey}`).set(true);
-    this.db.object(`articleData/editorsPerArticle/${articleKey}/${uid}`).set(true);
-    this.db.object(`articleData/articlesPerEditor/${uid}/${articleKey}`).set(true);
+    //this.db.object(`articleData/editorsPerArticle/${articleKey}/${uid}`).set(true);
+    //this.db.object(`articleData/articlesPerEditor/${uid}/${articleKey}`).set(true);
     if (article.tags && article.tags != '') {
       for (let tag of tags) {
         this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
@@ -82,18 +82,35 @@ export class ArticleService {
   }
 
   updateArticle(uid: string, article: any) {
+    const oldBodyId = article.bodyId;
+    const articleId = article.articleId;
     let tags = article.tags;
     let tagsObject = {};
+    //let oldTagsObject = {};
     let newBodyKey = '';
-    this.processTags(tags, tagsObject);
-    console.log('TAGS OBJECT', tagsObject);
-    this.db.object(`articleData/articleBodies/${article.bodyId}`).subscribe(body => {
+    //  Really wanted to reduce trips to the db...
+    this.db.object(`articleData/articles/${articleId}/tags`).subscribe(oldTags => {
+      //oldTagsObject = tags;
+      if ((article.tags && article.tags != '') || (oldTags && oldTags != '')) {
+        this.processTags(tags, tagsObject, oldTags, articleId);
+      }
+    })
+    this.archiveArticle(articleId);
+    /* this.archiveArticle(articleId).subscribe(oldTags => {
+      if ((article.tags && article.tags != '') || (oldTags && oldTags != '')) {
+        this.processTags(tags, tagsObject, oldTags, articleId);
+      }
+    }); */
+    //console.log('TAGS OBJECT', tagsObject);
+    this.db.object(`articleData/articleBodies/${oldBodyId}`).subscribe(body => {
       let bodyLogObject: any = {};
       bodyLogObject.body = body.$value;
-      bodyLogObject.parentKey = article.$key;
+      bodyLogObject.articleKey = articleId;
       bodyLogObject.version = article.version;
       bodyLogObject.nextEditorId = uid;
-      this.db.object(`articleData/bodyLog/${body.$key}`).set(bodyLogObject);
+      this.db.object(`articleData/articleBodyArchive/${oldBodyId}`).set(bodyLogObject).then(res => {
+        this.db.object(`articleData/articleBodies/${oldBodyId}`).remove();
+      });
       this.db.object(`articleData/bodysPerArticle/${article.$key}/${body.$key}`).set(firebase.database.ServerValue.TIMESTAMP);
     });
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
@@ -105,31 +122,61 @@ export class ArticleService {
       version: article.version + 1,
       lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
-    let articleKey = article.articleId;
-    this.db.object(`articleData/editorsPerArticle/${articleKey}/${uid}`).set(true);
-    this.db.object(`articleData/articlesPerEditor/${uid}/${articleKey}`).set(true);
-    for (let tag of tags) {
-      this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
-    }
-    console.log('EDITING ARTICLE:', articleToUpdate);
-    return this.db.object(`articleData/articles/${articleKey}`).update(articleToUpdate);
+    this.db.object(`articleData/editorsPerArticle/${articleId}/${uid}`).set(true);
+    this.db.object(`articleData/articlesPerEditor/${uid}/${articleId}`).set(true);
+
+    //console.log('EDITING ARTICLE:', articleToUpdate);
+    return this.db.object(`articleData/articles/${articleId}`).update(articleToUpdate);
   }
 
-  processTags(tagsToProcess, outputTagsObject) {
+  processTags(tagsToProcess, outputTagsObject, oldTagsToProcess?, articleId?) {
     // ToDo: We need better code to remove spaces only before and after the comma because this code prevents spaces in tags
     // Need to process further to avoid bugs. Firebase error: ERROR Error: Firebase.child failed: First argument was an invalid path: "articleData/tags/WEREGOINGTOFRANCE.". Paths must be non-empty strings and can't contain ".", "#", "$", "[", or "]"
     let tags = tagsToProcess.replace(/\s/g, '').split(',');
+    let oldTags = [];
+    let deletedTags = [];
+    console.log('NEW TAGS', tags);
+    for (let key in oldTagsToProcess) {
+      oldTags.push(key);
+    }
+    console.log('OLD TAGS', oldTags);
     for (let tag of tags) {
-      tag = tag.toUpperCase();
-      this.db.object(`articleData/tags/${tag}`)
-        .take(1)
-        .subscribe(data => {
-          if (!data.$value)
-            this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
-        });
-      outputTagsObject[tag] = true;
+      if (tag != '') {
+        tag = tag.toUpperCase();
+        if (articleId) {
+          this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).set(true);
+        }
+        this.db.object(`articleData/tags/${tag}`)
+          .take(1)
+          .subscribe(data => {
+            if (!data.$value)
+              this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
+          });
+        outputTagsObject[tag] = true;
+      }
+    }
+    for (let tag of oldTags) {
+      if (!tags.includes(tag)) {
+        deletedTags.push(tag);
+      }
+    }
+    console.log('DELETED TAGS', deletedTags)
+    for (let tag of deletedTags) {
+      this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).remove();
+
     }
     tagsToProcess = tags;
+  }
+
+  archiveArticle(articleId) {
+    //  I'd like to get this observable working to reduce the trips back to the DB (may as well use the tags when we get this)
+    //const subject = new BehaviorSubject<any>(null);
+    this.db.object(`articleData/articles/${articleId}`).take(1).subscribe(article => {
+      this.db.object(`articleData/articleArchive/${articleId}/${article.version}`).set(article);
+      //subject.next(article.tags || {});
+      //subject.complete();
+    });
+    //return subject.asObservable();
   }
 
   isArticleFeatured(articleKey: string) {
