@@ -14,12 +14,16 @@ export class ArticleSearchResultsComponent implements OnInit {
   allArticles: any;
   searchResults: any;
   queryString: string;
+  searchArticles;
   constructor(
     private articleSvc: ArticleService,
+    private router: Router,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    this.searchArticles = this.articleSvc.getAllArticles();
+    
     this.articleSvc.getAllArticles().subscribe(articles => {
       for (let article of articles) {
         this.articleSvc.getArticleBodyById(article.bodyId).subscribe(body => {
