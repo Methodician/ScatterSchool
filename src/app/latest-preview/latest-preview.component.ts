@@ -13,21 +13,21 @@ export class LatestPreviewComponent implements OnInit {
   author;
 
   constructor(
-    private articleSvc: ArticleService,
+    private articleService: ArticleService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.articleSvc.getAuthorById(this.articleData.authorId).subscribe(author => {
+    this.articleService.getAuthorById(this.articleData.authorId).subscribe(author => {
      this.author = author;
    });
   }
 
   navigateToArticleDetail() {
-    this.articleSvc.navigateToArticleDetail(this.articleData.$key);
+    this.articleService.navigateToArticleDetail(this.articleData.$key);
   }
 
   navigateToAuthor() {
-    this.articleSvc.navigateToAuthor(this.articleData.authorId);
+    this.articleService.navigateToAuthor(this.articleData.authorId);
   }
 }
