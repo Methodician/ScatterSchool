@@ -63,7 +63,7 @@ export class ArticleService {
       bodyId: bodyKey,
       tags: tagsObject,
       version: 1,
-      author: uid,
+      authorId: uid,
       timeStamp: firebase.database.ServerValue.TIMESTAMP,
       lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
