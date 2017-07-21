@@ -5,8 +5,7 @@ import { ArticleService } from './../services/article/article.service';
 @Component({
   selector: 'latest-preview',
   templateUrl: './latest-preview.component.html',
-  styleUrls: ['./latest-preview.component.css'],
-  providers: [ArticleService]
+  styleUrls: ['./latest-preview.component.css']
 })
 export class LatestPreviewComponent implements OnInit {
   @Input() articleData: any;
@@ -14,21 +13,21 @@ export class LatestPreviewComponent implements OnInit {
   author;
 
   constructor(
-    private articleService: ArticleService,
+    private articleSvc: ArticleService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.articleService.getAuthorById(this.articleData.authorId).subscribe(author => {
+    this.articleSvc.getAuthorById(this.articleData.authorId).subscribe(author => {
      this.author = author;
    });
   }
 
   navigateToArticleDetail() {
-    this.articleService.navigateToArticleDetail(this.articleData.$key);
+    this.articleSvc.navigateToArticleDetail(this.articleData.$key);
   }
 
   navigateToAuthor() {
-    this.articleService.navigateToAuthor(this.articleData.authorId);
+    this.articleSvc.navigateToAuthor(this.articleData.authorId);
   }
 }

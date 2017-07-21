@@ -5,8 +5,7 @@ import { ArticleService } from './../services/article/article.service';
 @Component({
   selector: 'app-latest-articles',
   templateUrl: './latest-articles.component.html',
-  styleUrls: ['./latest-articles.component.css'],
-  providers: [ArticleService]
+  styleUrls: ['./latest-articles.component.css']
 })
 export class LatestArticlesComponent implements OnInit {
   latestArticles;

@@ -11,7 +11,7 @@
         <p class="date">Apr 04.17</p>
       </div>
     </div>
-    <p class="intro">Intro... {{articleData.introduction}}</p>
+    <p class="intro">{{articleData.introduction | truncate:40 }}</p>
     <p class="rating">RATING HERE<p>
     <div class="tagWrapper">
       <img src="../../assets/images/ss-tag-icon.png" alt="A tag icon of all the catagories this tutoral fits under.">
