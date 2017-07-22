@@ -1,3 +1,4 @@
+import { fbConfig } from './config';
 import { AppRoutingModule } from './app-routing.module';
 import { UserService } from './services/user/user.service';
 import { ArticleService } from './services/article/article.service';
@@ -36,60 +37,17 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthorArticlePreviewComponent } from './author-article-preview/author-article-preview.component';
 import { FooterComponent } from './footer/footer.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
+import { TagInputModule } from 'ng2-tag-input'; // good documentation: https://www.npmjs.com/package/ng2-tag-input 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed for ng2-tag-input!
 
-const fbConfig = {
+/* const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
   authDomain: "scatterschool-77900.firebaseapp.com",
   databaseURL: "https://scatterschool-77900.firebaseio.com",
   projectId: "scatterschool-77900",
   storageBucket: "scatterschool-77900.appspot.com",
   messagingSenderId: "946494517942"
-};
-
-/* const routes: Routes = [
-  {
-    path: 'home',
-    children: [
-      {
-        path: ':mystring',
-        component: HomeComponent
-      },
-      {
-        path: '',
-        component: HomeComponent
-      }
-    ]
-  },
-  {
-    path: 'register',
-    component: RegisterComponent
-  },
-  {
-    path: 'login',
-    component: LoginComponent
-  },
-  {
-    path: 'account',
-    component: AccountComponent
-  },
-  {
-    path: 'postarticle',
-    component: PostArticleComponent
-  },
-  {
-    path: 'editarticle/:id',
-    component: EditArticleComponent
-  },
-  {
-    path: ':mystring',
-    component: HomeComponent
-  },
-  {
-    path: '',
-    component: HomeComponent
-  }
-]; */
-
+}; */
 
 
 @NgModule({
@@ -126,7 +84,9 @@ const fbConfig = {
     CollapseModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
-    CKEditorModule
+    CKEditorModule,
+    TagInputModule,
+    BrowserAnimationsModule
   ],
   providers: [
     AngularFireDatabase,

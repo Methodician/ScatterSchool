@@ -85,87 +85,107 @@ export class ArticleService {
     const oldBodyId = article.bodyId;
     const articleId = article.articleId;
     let tags = article.tags;
-    let tagsObject = {};
+    //let tagsObject = {};
     //let oldTagsObject = {};
     let newBodyKey = '';
     //  Really wanted to reduce trips to the db...
     this.db.object(`articleData/articles/${articleId}/tags`).subscribe(oldTags => {
       //oldTagsObject = tags;
       if ((article.tags && article.tags != '') || (oldTags && oldTags != '')) {
-        this.processTags(tags, tagsObject, oldTags, articleId);
+        this.processTags(tags, oldTags, articleId);
+        //this.processTags(tags, tagsObject, oldTags, articleId);
       }
     })
-    this.archiveArticle(articleId);
-    /* this.archiveArticle(articleId).subscribe(oldTags => {
-      if ((article.tags && article.tags != '') || (oldTags && oldTags != '')) {
-        this.processTags(tags, tagsObject, oldTags, articleId);
-      }
-    }); */
-    //console.log('TAGS OBJECT', tagsObject);
-    this.db.object(`articleData/articleBodies/${oldBodyId}`).subscribe(body => {
-      let bodyLogObject: any = {};
-      bodyLogObject.body = body.$value;
-      bodyLogObject.articleKey = articleId;
-      bodyLogObject.version = article.version;
-      bodyLogObject.nextEditorId = uid;
-      this.db.object(`articleData/articleBodyArchive/${oldBodyId}`).set(bodyLogObject).then(res => {
-        this.db.object(`articleData/articleBodies/${oldBodyId}`).remove();
-      });
-      this.db.object(`articleData/bodysPerArticle/${article.$key}/${body.$key}`).set(firebase.database.ServerValue.TIMESTAMP);
-    });
-    let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
-    let articleToUpdate = {
-      title: article.title,
-      introduction: article.introduction,
-      bodyId: bodyKey,
-      tags: tagsObject,
-      version: article.version + 1,
-      lastUpdated: firebase.database.ServerValue.TIMESTAMP
-    }
-    this.db.object(`articleData/editorsPerArticle/${articleId}/${uid}`).set(true);
-    this.db.object(`articleData/articlesPerEditor/${uid}/${articleId}`).set(true);
-
-    //console.log('EDITING ARTICLE:', articleToUpdate);
-    return this.db.object(`articleData/articles/${articleId}`).update(articleToUpdate);
+    /*  this.archiveArticle(articleId);
+     this.db.object(`articleData/articleBodies/${oldBodyId}`).subscribe(body => {
+       let bodyLogObject: any = {};
+       bodyLogObject.body = body.$value;
+       bodyLogObject.articleKey = articleId;
+       bodyLogObject.version = article.version;
+       bodyLogObject.nextEditorId = uid;
+       this.db.object(`articleData/articleBodyArchive/${oldBodyId}`).set(bodyLogObject).then(res => {
+         this.db.object(`articleData/articleBodies/${oldBodyId}`).remove();
+       });
+       this.db.object(`articleData/bodysPerArticle/${article.$key}/${body.$key}`).set(firebase.database.ServerValue.TIMESTAMP);
+     });
+     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
+     let articleToUpdate = {
+       title: article.title,
+       introduction: article.introduction,
+       bodyId: bodyKey,
+       tags: tagsObject,
+       version: article.version + 1,
+       lastUpdated: firebase.database.ServerValue.TIMESTAMP
+     }
+     this.db.object(`articleData/editorsPerArticle/${articleId}/${uid}`).set(true);
+     this.db.object(`articleData/articlesPerEditor/${uid}/${articleId}`).set(true);
+ 
+     //console.log('EDITING ARTICLE:', articleToUpdate);
+     return this.db.object(`articleData/articles/${articleId}`).update(articleToUpdate); */
   }
 
-  processTags(tagsToProcess, outputTagsObject, oldTagsToProcess?, articleId?) {
-    // ToDo: We need better code to remove spaces only before and after the comma because this code prevents spaces in tags
-    // Need to process further to avoid bugs. Firebase error: ERROR Error: Firebase.child failed: First argument was an invalid path: "articleData/tags/WEREGOINGTOFRANCE.". Paths must be non-empty strings and can't contain ".", "#", "$", "[", or "]"
-    let tags = tagsToProcess.replace(/\s/g, '').split(',');
+  processTags(tagsToProcess, oldTagsToProcess?, articleId?) {
+    let newTags = [];
     let oldTags = [];
     let deletedTags = [];
-    console.log('NEW TAGS', tags);
     for (let key in oldTagsToProcess) {
       oldTags.push(key);
     }
     console.log('OLD TAGS', oldTags);
-    for (let tag of tags) {
-      if (tag != '') {
-        tag = tag.toUpperCase();
+    for (let key in tagsToProcess) {
+      newTags.push(key);
+    }
+    console.log('NEW TAGS', newTags);
+    for (let i in newTags) {
+      if (newTags[i] != '') {
+        let upperTag = newTags[i].toUpperCase();
+        if (newTags[i] != upperTag) {
+          tagsToProcess[upperTag] = true;
+          delete tagsToProcess[newTags[i]];
+          newTags[i] = upperTag;
+        }
         if (articleId) {
-          this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).set(true);
+          //this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).set(true);
+        }
+        this.db.object(`articleData/tags/${newTags[i]}`)
+          .take(1)
+          .subscribe(data => {
+            //if (!data.$value)
+            //this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
+          });
+        //outputTagsObject[tag] = true;
+      }
+    }
+    /* for (let tag of newTags) {
+      if (tag != '') {
+        let upperTag = tag.toUpperCase();
+        if (tag != upperTag) {
+          tagsToProcess[upperTag] = true;
+          delete tagsToProcess[tag];
+          tag = upperTag;
+        }
+        if (articleId) {
+          //this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).set(true);
         }
         this.db.object(`articleData/tags/${tag}`)
           .take(1)
           .subscribe(data => {
-            if (!data.$value)
-              this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
+            //if (!data.$value)
+            //this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
           });
-        outputTagsObject[tag] = true;
+        //outputTagsObject[tag] = true;
       }
-    }
+    } */
     for (let tag of oldTags) {
-      if (!tags.includes(tag)) {
+      if (!newTags.includes(tag)) {
         deletedTags.push(tag);
       }
     }
     console.log('DELETED TAGS', deletedTags)
     for (let tag of deletedTags) {
-      this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).remove();
-
+      //this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).remove();
     }
-    tagsToProcess = tags;
+    //tagsToProcess = newTags;
   }
 
   archiveArticle(articleId) {

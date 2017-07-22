@@ -13,6 +13,8 @@ export class ArticleFormComponent implements OnInit {
   initialValue: any;
 
   form: FormGroup;
+  formTags = [];
+  articleTags = [];
 
   constructor(
     fb: FormBuilder
@@ -21,13 +23,14 @@ export class ArticleFormComponent implements OnInit {
       title: ['', Validators.required],
       introduction: ['', Validators.required],
       body: ['', Validators.required],
-      tags: '',
+      //tags: '',
       bodyId: '',
       lastUpdated: 0,
       timeStamp: 0,
       version: 1,
       articleId: ''
     });
+    //this.articleTags = this.initialValue.tags;
     this.ckeditorContent = ``;
 
   }
@@ -41,24 +44,26 @@ export class ArticleFormComponent implements OnInit {
       //if (changes['initialValue']) {
       // We have two methods to set a form's value: setValue and patchValue.
       this.form.patchValue(changes['initialValue'].currentValue);
+      this.initializeTags(changes['initialValue'].currentValue.tags);
     }
 
   }
 
-  onReady($event) {
-    //console.log('CKEditor Ready event:', $event);
+  initializeTags(articleTags) {
+    this.articleTags = articleTags;
+    for (let tag in articleTags) {
+      this.formTags.push({ 'display': tag, 'value': tag });
+    }
   }
 
-  onFocus($event) {
-    //console.log('CKEditor Focus event:', $event);
+  onTagAdded($event) {
+    //console.log($event);
+    this.articleTags[$event.value] = true;
   }
 
-  onBlur($event) {
-    //console.log('CKEditor Blur event:', $event);
-  }
-
-  onChange($event) {
-    //console.log('CKEditor Change event:', $event);
+  onTagRemoved($event) {
+    //console.log($event);
+    delete this.articleTags[$event.value];
   }
 
 
@@ -77,6 +82,10 @@ export class ArticleFormComponent implements OnInit {
 
   get value() {
     return this.form.value;
+  }
+
+  get tags() {
+    return this.articleTags;
   }
 
 }
