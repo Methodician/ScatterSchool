@@ -9,11 +9,10 @@ import { ArticleService } from './../services/article/article.service';
 })
 export class ArticleSearchResultsComponent implements OnInit {
 
-  @Input() articleData: any;
-
   allArticles: any;
   searchResults: any;
   queryString: string;
+  
 
   constructor(
     private articleSvc: ArticleService,
@@ -36,9 +35,5 @@ export class ArticleSearchResultsComponent implements OnInit {
       }
       else console.log('No query found');
     })
-  }
-
-  navigateToArticleDetail() {
-    this.articleSvc.navigateToArticleDetail(this.articleData.$key);
   }
 }

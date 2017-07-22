@@ -1,0 +1,11 @@
+<div class="searchWrapper">
+  <div class="picTitleWrapper">
+    <img src="../../assets/images/kid-art.jpg" alt="default main tutorial image: a picture of kid art">
+    <h3 class="title" (click)="navigateToArticleDetail()">{{articleData?.title | truncate:120}}</h3>
+    <h3 class="author">By:{{articleData?.authorId}}</h3>
+  </div>
+  <div class="dateVersionWrapper">
+    <p class="lastUpdated">{{articleData?.lastUpdated | date}}</p>
+    <p class="version">Version {{articleData?.version}}</p>
+  </div>
+</div>
