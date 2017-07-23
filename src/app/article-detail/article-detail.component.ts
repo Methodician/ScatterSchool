@@ -21,6 +21,7 @@ export class ArticleDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    window.scrollTo(0,0)
     if (!this.editingPreview) {
       this.route.params.subscribe(params => {
         if (params['id'])

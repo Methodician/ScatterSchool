@@ -3,6 +3,9 @@
   height: 60px;
   border-top: 1px solid #31C2D7;
   margin-top: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
 
 .blue1 {
@@ -21,4 +24,17 @@
   width: 100%;
   height: 10px;
   background-color: #31C2D7;
+}
+
+.aboutUsLink {
+  font-family: STHeitiSC-Light;
+  font-size: 18px;
+  color: #31C2D7;
+}
+
+#post-article {
+  font-family: STHeitiSC-Light;
+  font-size: 18px;
+  color: #31C2D7;
+  width: 150px;
 }
