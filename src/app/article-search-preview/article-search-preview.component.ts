@@ -9,7 +9,9 @@ import { ArticleService } from './../services/article/article.service';
 })
 export class ArticleSearchPreviewComponent implements OnInit {
 
+  articleKey: string;
   @Input() articleData: any;
+  author;
 
   constructor(
     private router: Router,
@@ -18,10 +20,16 @@ export class ArticleSearchPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.articleSvc.getAuthorById(this.articleData.authorId).subscribe(author => {
+     this.author = author;
+   });
   }
 
   navigateToArticleDetail() {
     this.articleSvc.navigateToArticleDetail(this.articleData.$key);
+  }
+
+  navigateToAuthor() {
+    this.articleSvc.navigateToAuthor(this.author.$key);
   }
 }
