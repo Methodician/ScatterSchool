@@ -1,7 +1,7 @@
 <form autocomplete="off" novalidate class="login-form" [formGroup]="form" class="form-group loginWrapper">
 
-  <fieldset>
-    <legend>Login</legend>
+  <fieldset class="formWrapper">
+    <h1>Login :</h1>
     <div class="form-bg">
       <div class="form-field">
         <label>Email</label>
@@ -20,5 +20,7 @@
 
 
   </fieldset>
-  <button (click)="login()" [disabled]="!formValid()" class="btn btn-default">Login</button>
+  <div class="buttonWrapper">
+    <button (click)="login()" [disabled]="!formValid()" class="btn btn-default">Login</button>
+  </div>
 </form>
