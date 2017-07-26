@@ -8,6 +8,30 @@
   align-items: center;
 }
 
+.footerLinks {
+  width: 95%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  a:hover {
+    color: #263237;
+    text-decoration: none;
+  }
+}
+
+.aboutUsLink {
+  font-family: STHeitiSC-Light;
+  font-size: 18px;
+  color: #31C2D7;
+}
+
+.post-article {
+  font-family: STHeitiSC-Light;
+  font-size: 18px;
+  color: #31C2D7;
+  width: 150px;
+}
+
 .blue1 {
   width: 100%;
   height: 3px;
@@ -24,17 +48,4 @@
   width: 100%;
   height: 10px;
   background-color: #31C2D7;
-}
-
-.aboutUsLink {
-  font-family: STHeitiSC-Light;
-  font-size: 18px;
-  color: #31C2D7;
-}
-
-#post-article {
-  font-family: STHeitiSC-Light;
-  font-size: 18px;
-  color: #31C2D7;
-  width: 150px;
 }
