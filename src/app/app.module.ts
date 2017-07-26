@@ -37,6 +37,7 @@ import { AuthorArticlePreviewComponent } from './author-article-preview/author-a
 import { FooterComponent } from './footer/footer.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ArticleSearchPreviewComponent } from './article-search-preview/article-search-preview.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -117,7 +118,8 @@ const fbConfig = {
     AuthorArticlePreviewComponent,
     FooterComponent,
     TruncatePipe,
-    ArticleSearchPreviewComponent
+    ArticleSearchPreviewComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,
