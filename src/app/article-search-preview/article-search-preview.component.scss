@@ -28,6 +28,7 @@
   margin: 0;
   align-self: center;
   font-size: 18px;
+  max-width: 500px;
 }
 
 .title:hover {
@@ -37,6 +38,7 @@
 
 .author {
   color: #C4275F;
+  width: 130px;
   margin: 0;
   align-self: center;
   font-size: 14px;
@@ -53,7 +55,18 @@
 }
 
 @media only screen and (max-width:768px) {
+
   .picTitleWrapper img {
     display: none;
+  }
+
+  .title {
+    width: 160px;
+    font-size: 14px;
+  }
+
+  .author {
+    margin-right: 10px;
+    width: 65px;
   }
 }
