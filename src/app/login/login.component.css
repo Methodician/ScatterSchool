@@ -1,0 +1,7 @@
+.loginWrapper {
+  margin-top: 95px;
+}
+
+.loginWrapper * {
+  font-family: STHeitiSC-Light;
+}
