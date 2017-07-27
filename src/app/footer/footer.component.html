@@ -1,12 +1,10 @@
 <div class="footerWrapper">
   <div class="footerLinks">
     <a class="post-article" routerLink="postarticle">Post an article</a>
-    <ul class="" >
-      <li *ngIf="authInfo.$uid"><a routerLink="account"><span class="fa fa-user"></span> Hello {{ displayName }}</a></li>
-      <li *ngIf="!authInfo.$uid"><a routerLink="register"><span class="fa fa-user-plus"></span> Sign Up</a></li>
-      <li *ngIf="authInfo.$uid"><a routerLink="login" (click)="logout()" id="logout"><span class="fa fa-sign-out"></span> Logout</a></li>
-      <li *ngIf="!authInfo.$uid"><a routerLink="login"><span class="fa fa-sign-in"></span> Sign In</a></li>
-    </ul>
+    <a *ngIf="authInfo.$uid" class="hiddenLink" routerLink="login" (click)="logout()"><span class="fa fa-sign-out hiddenLink"></span> Logout</a>
+    <a *ngIf="!authInfo.$uid" class="hiddenLink" routerLink="login"><span class="fa fa-sign-in"></span> Sign In</a>
+    <a *ngIf="authInfo.$uid" class="hiddenLink" routerLink="account"><span class="fa fa-user"></span> Hello {{ displayName }}</a>
+    <a *ngIf="!authInfo.$uid" routerLink="register" class="hiddenLink"><span class="fa fa-user-plus"></span> Sign Up</a>
     <a class="aboutUsLink"  routerLink="aboutus">About Scatter School</a>
   </div>
 
