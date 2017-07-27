@@ -42,13 +42,13 @@ button {
   height: 4.5rem;
 }
 
-.loginWrapper {
+.registerWrapper {
   width: 95%;
   margin: 0 auto;
   margin-top: 90px;
 }
 
-.loginWrapper * {
+.registerWrapper * {
   font-family: STHeitiSC-Light;
 }
 
@@ -58,7 +58,7 @@ button {
 }
 
 .buttonWrapper {
-  width: 500px;
+  width: 150px;
   display: flex;
   justify-content: center;
   margin: 0 auto;

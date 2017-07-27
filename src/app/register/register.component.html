@@ -1,7 +1,7 @@
-<form autocomplete="off" novalidate class="login-form" [formGroup]="form" class="form-group">
+<form autocomplete="off" novalidate class="login-form" [formGroup]="form" class="form-group registerWrapper">
 
-  <fieldset>
-    <legend>Register</legend>
+  <fieldset class="formWrapper">
+    <h1>Register :</h1>
     <!--REP FORM-->
     <div class="form-bg">
       <!--<h3>Representative:</h3>-->
@@ -60,5 +60,5 @@
 
 
   </fieldset>
-  <button (click)="register()" [disabled]="!isPasswordMatch() || !formValid()" class="btn btn-default">Register User</button>
+  <button (click)="register()" [disabled]="!isPasswordMatch() || !formValid()" class="btn btn-default buttonWrapper">Register User</button>
 </form>
