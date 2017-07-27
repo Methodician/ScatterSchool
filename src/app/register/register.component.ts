@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    window.scrollTo(0,0)
   }
 
   register() {
