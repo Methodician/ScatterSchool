@@ -56,11 +56,12 @@ button {
   width: 95%;
   margin: 0 auto;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
 
 .columnOne {
   width: 400px;
+  margin-right: 40px;
 }
 
 .columnTwo {
@@ -81,9 +82,16 @@ button {
 @media only screen and (max-width:768px) {
   .formWrapper {
     width: 80%;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .buttonWrapper {
-    width: 80%;
+  .columnOne {
+    width: 380px;
+    margin-right: 0;
+  }
+
+  .columnTwo {
+    width: 380px;
   }
 }
