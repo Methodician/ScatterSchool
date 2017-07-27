@@ -1,10 +1,9 @@
 <form autocomplete="off" novalidate class="login-form" [formGroup]="form" class="form-group registerWrapper">
 
-  <fieldset class="formWrapper">
-    <h1>Register :</h1>
-    <!--REP FORM-->
-    <div class="form-bg">
-      <!--<h3>Representative:</h3>-->
+  <h1>Register :</h1>
+  <div class="formWrapper">
+<!--From Column ONE-->
+    <div class="columnOne">
       <div class="form-field">
         <label>*Email</label>
         <input [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" formControlName="email"
@@ -35,12 +34,15 @@
         <input [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName" type="text" class="form-control">
         <div class="field-error-message" *ngIf="isErrorVisible('lName','required')">Please provide your last name</div>
       </div>
+    </div>
+<!-- Form Column TWO -->
+    <div class="columnTwo">
       <div class="form-field">
-        <label>Alias (Optional, will appear instead of name)</label>
+        <label>Alias <span class="smallText">(Optional, will appear instead of name)</span></label>
         <input type="text" name="alias" formControlName="alias" class="form-control">
       </div>
       <div class="form-field">
-        <label>Bio (Optional, a short bio)</label>
+        <label>Bio <span class="smallText">(Optional, a short bio)</span></label>
         <input type="text" name="bio" formControlName="bio" class="form-control">
       </div>
       <div class="form-field">
@@ -59,6 +61,6 @@
     </div>
 
 
-  </fieldset>
+  </div>
   <button (click)="register()" [disabled]="!isPasswordMatch() || !formValid()" class="btn btn-default buttonWrapper">Register User</button>
 </form>

@@ -7,7 +7,7 @@ h1 {
 
 label {
   color: #243237;
-  font-size: 2.3rem;
+  font-size: 18px;
   font-weight: 200;
   letter-spacing: 0.5px;
   margin: 10px 0;
@@ -53,8 +53,22 @@ button {
 }
 
 .formWrapper {
-  width: 500px;
+  width: 95%;
   margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.columnOne {
+  width: 400px;
+}
+
+.columnTwo {
+  width: 400px;
+}
+
+.smallText{
+  font-size: 14px;
 }
 
 .buttonWrapper {
