@@ -21,19 +21,19 @@ input:focus {
   border-bottom:1px solid #31C2D7;
 }
 
-.form-group {
+.formGroup {
   padding-top: 10px;
 }
 
-.form-field > * {
+.formSection > * {
   font-family: STHeitiSC-Light;
 }
 
-.form-field:first-child {
+.formSection:first-child {
   margin-top: 5rem;
 }
 
-.form-field {
+.formSection {
   width: 500px;
   margin: 0 auto;
   margin-bottom: 5rem;
