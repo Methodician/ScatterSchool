@@ -56,11 +56,11 @@ textarea {
   justify-content: space-between;
 }
 
-.form-group {
+.formGroup {
   margin: 0 auto;
 }
 
-.form-field > * {
+.formSection > * {
   font-family: STHeitiSC-Light;
 }
 
@@ -82,7 +82,7 @@ textarea {
     flex-direction: column;
   }
 
-  .form-group {
+  .formGroup {
     width: 290px;
   }
 }

@@ -1,8 +1,8 @@
 <h1>Your Account Information:</h1>
 <div class="accountWrapper">
-  <form [formGroup]="form" class="form-group">
+  <form [formGroup]="form" class="form-group formGroup">
     <div class="flexWrapper">
-      <div class="form-field">
+      <div class="form-field formSection">
 
         <h4>First Name:</h4>
         <h6 class="field-error-message" *ngIf="isErrorVisible('fName','required')">Please provide your first name.</h6>
@@ -16,7 +16,7 @@
         <input type="text" placeholder="{{userInfo?.alias}}" class="form-control">
       </div>
 
-      <div class="form-field">
+      <div class="form-field formSection">
         <h4>City:</h4>
         <input type="text" placeholder="{{userInfo?.city}}" class="form-control">
 
@@ -28,7 +28,7 @@
         <input [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode" formControlName="zipCode" type="text" placeholder="{{userInfo?.zipCode}}" class="form-control">
       </div>
     </div>
-    <div class="form-field">
+    <div class="form-field formSection">
       <h4>Your email:</h4>
       <h6 class="field-error-message" *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</h6>
       <input [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" formControlName="email"
