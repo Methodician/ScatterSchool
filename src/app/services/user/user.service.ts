@@ -42,6 +42,12 @@ export class UserService {
     //}
   }
 
+  followUser(userFollowsId: string, followsUserId: string ) {
+    //test with a hard coded example in the database?)
+    this.db.object(`userInfo/open/${userFollowsId}/${followsUserId}`).set(true);
+    this.db.object(`userInfo/open/${followsUserId}/${userFollowsId}`).set(true);
+  }
+
   /*isAdmin() {
     let sub = new Subject();
     this.authSvc.authInfo$.subscribe(info => {

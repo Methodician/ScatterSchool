@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
+import { UserService } from './../services/user/user.service';
 
 @Component({
   selector: 'app-article-detail',
@@ -14,8 +15,11 @@ export class ArticleDetailComponent implements OnInit {
   @Input() editingPreview = false;
   author;
   article;
+  userInfo = null;
+
   constructor(
     private articleSvc: ArticleService,
+    private userSvc: UserService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -43,7 +47,6 @@ export class ArticleDetailComponent implements OnInit {
       // We have two methods to set a form's value: setValue and patchValue.
       this.article = changes['articleData'].currentValue;
     }
-
   }
 
   navigateToAuthor() {
@@ -85,6 +88,10 @@ export class ArticleDetailComponent implements OnInit {
     this.articleSvc.getAuthorById(authorId).subscribe(author => {
       this.author = author;
     });
+  }
+
+  followClick() {
+    let followId = this.userSvc.followUser(this.userInfo.open.useuserFollowsId, this.userInfo.open.followsUserId);
   }
 
 }
