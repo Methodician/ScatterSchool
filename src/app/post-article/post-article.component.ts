@@ -16,7 +16,6 @@ export class PostArticleComponent implements OnInit {
 
   constructor(
     private articleSvc: ArticleService,
-    //private userSvc: UserService,
     private router: Router,
     authSvc: AuthService
   ) {

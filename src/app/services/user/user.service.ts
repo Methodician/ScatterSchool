@@ -8,6 +8,7 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 export class UserService {
 
   userInfo$: BehaviorSubject<UserInfoOpen> = new BehaviorSubject<UserInfoOpen>(null);
+  loggedInUserId: string;
 
   constructor(
     private authSvc: AuthService,
@@ -18,6 +19,7 @@ export class UserService {
         if (info.$key != "null") {
           //info.$uid = info.$key;
           this.userInfo$.next(info);
+          this.loggedInUserId = info.$key;
         }
       })
     })
@@ -42,12 +44,12 @@ export class UserService {
     //}
   }
 
-  followUser(userFollowsId: string, followsUserId: string ) {
-    //test with a hard coded example in the database?)
-    this.db.object(`userInfo/open/${userFollowsId}/${followsUserId}`).set(true);
-    this.db.object(`userInfo/open/${followsUserId}/${userFollowsId}`).set(true);
+  followUser(followedUserId: string) {
+    let followingAuthorId = this.loggedInUserId;
+    this.db.object(`userInfo/usersFollowed/${followingAuthorId}/${followedUserId}`).set(true);
+    this.db.object(`userInfo/followersPerUser/${followedUserId}/${followingAuthorId}`).set(true);
+    console.log('service worked');
   }
-
   /*isAdmin() {
     let sub = new Subject();
     this.authSvc.authInfo$.subscribe(info => {

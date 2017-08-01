@@ -15,6 +15,8 @@ export class ArticleDetailComponent implements OnInit {
   @Input() editingPreview = false;
   author;
   article;
+  iFollow: any;
+  followsMe: any;
   userInfo = null;
 
   constructor(
@@ -91,7 +93,8 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   followClick() {
-    let followId = this.userSvc.followUser(this.userInfo.open.useuserFollowsId, this.userInfo.open.followsUserId);
+    let followId = this.article.authorId;
+    this.userSvc.followUser(followId);
   }
 
 }

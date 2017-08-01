@@ -4,7 +4,7 @@
     <div class="userTextWrapper">
       <div class="followButtonWrapper">
         <h4 class="author" (click)="navigateToAuthor()">By: {{author?.alias}}</h4>
-        <button type="button" class="btn followBtn" (click)="followClick">Follow</button>
+        <button type="button" class="btn followBtn" (click)="followClick()">Follow</button>
       </div>
       <!-- Feel free to change the date format. Reference here: https://angular.io/api/common/DatePipe  -->
       <p class="date">Last Updated: {{ article?.lastUpdated | date }}</p>
@@ -26,6 +26,6 @@
   <button class="btn btn-primary" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'feature article'}}</button>
 </div>
 <pre>
-  Article Details:
-  {{ article | json }}
+  Author Details:
+  {{ author | json }}
 </pre>
