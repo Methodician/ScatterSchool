@@ -69,6 +69,7 @@ export class ArticleService {
     }
     let articleKey = this.db.list('articleData/articles').push(articleToSave).key;
     this.db.object(`articleData/articlesPerAuthor/${uid}/${articleKey}`).set(true);
+    //Kyle DO THIS below VVVV
     //this.db.object(`articleData/editorsPerArticle/${articleKey}/${uid}`).set(true);
     //this.db.object(`articleData/articlesPerEditor/${uid}/${articleKey}`).set(true);
     if (article.tags && article.tags != '') {
