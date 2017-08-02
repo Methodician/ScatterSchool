@@ -55,8 +55,8 @@ export class UserService {
   findUsersForKeys(userIds$: Observable<string[]>): Observable<UserInfoOpen[]> {
     return userIds$
       .map(usersPerKey =>
-      usersPerKey.map((user: any) =>
-      this.db.object(`userInfo/usersFollowed/${user.$key}`)))
+        usersPerKey.map((user: any) =>
+          this.db.object(`userInfo/open/${user.$key}`)))
       .flatMap(firebaseObjects =>
         Observable.combineLatest(firebaseObjects));
   }
