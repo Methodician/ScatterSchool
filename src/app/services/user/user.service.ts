@@ -51,6 +51,20 @@ export class UserService {
     this.db.object(`userInfo/followersPerUser/${followedUserId}/${followingAuthorId}`).set(firebase.database.ServerValue.TIMESTAMP);
     console.log('service worked');
   }
+
+  findUsersForKeys(userIds$: Observable<string[]>): Observable<UserInfoOpen[]> {
+    return userIds$
+      .map(usersPerKey =>
+      usersPerKey.map((user: any) =>
+      this.db.object(`userInfo/usersFollowed/${user.$key}`)))
+      .flatMap(firebaseObjects =>
+        Observable.combineLatest(firebaseObjects));
+  }
+
+  getAuthorsFollowed(uid: string): Observable<UserInfoOpen[]> {
+    return this.findUsersForKeys(this.db.list(`userInfo/usersFollowed/${uid}`));
+  }
+
   /*isAdmin() {
     let sub = new Subject();
     this.authSvc.authInfo$.subscribe(info => {

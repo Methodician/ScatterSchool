@@ -15,6 +15,7 @@ import { FollowUsersComponent } from './../follow-users/follow-users.component';
 export class AuthorComponent implements OnInit {
 
   userInfo: UserInfoOpen;
+  usersFollowed: UserInfoOpen[];
   articlesPerAuthor: ArticleDetailOpen[];
   articlesPerEditor: ArticleDetailOpen[];
 
@@ -33,14 +34,21 @@ export class AuthorComponent implements OnInit {
         this.getUserInfo(userId);
         this.getArticlesPerAuthor(userId);
         this.getArticlesPerEditor(userId);
+        this.getAuthorsFollowed(userId);
       }
     })
   }
 
   getUserInfo(uid: string) {
-    this.userSvc.getUserInfo(uid).subscribe(userInfo => {
-      this.userInfo = userInfo;
-    })
+    this.userSvc.getUserInfo(uid).subscribe(userInfo =>
+      this.userInfo = userInfo
+    );
+  }
+
+  getAuthorsFollowed(uid: string) {
+    this.userSvc.getAuthorsFollowed(uid).subscribe(followed =>
+      this.usersFollowed = followed
+    );
   }
 
   getArticlesPerAuthor(uid: string) {
