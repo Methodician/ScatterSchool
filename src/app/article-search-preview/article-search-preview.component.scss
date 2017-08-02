@@ -1,0 +1,72 @@
+// inner component styles
+.searchWrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px;
+  border-bottom: 1px solid #263237;
+}
+
+.picTitleWrapper {
+  display: flex;
+  img {
+    width: 80px;
+    height: 80px;
+    margin-right: 20px;
+  }
+}
+
+.dateVersionWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 39%;
+}
+
+.title {
+  margin: 0;
+  align-self: center;
+  font-size: 18px;
+  max-width: 500px;
+}
+
+.title:hover {
+  color: #31C2D7;
+  cursor: pointer;
+}
+
+.author {
+  color: #C4275F;
+  width: 130px;
+  margin: 0;
+  align-self: center;
+  font-size: 14px;
+  margin-left: 20px;
+}
+
+.author:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.version {
+  color: #00BE9C;
+}
+
+@media only screen and (max-width:768px) {
+
+  .picTitleWrapper img {
+    display: none;
+  }
+
+  .title {
+    width: 160px;
+    font-size: 14px;
+  }
+
+  .author {
+    margin-right: 10px;
+    width: 65px;
+  }
+}

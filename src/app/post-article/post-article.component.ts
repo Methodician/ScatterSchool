@@ -26,6 +26,7 @@ export class PostArticleComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.scrollTo(0,0)
   }
 
   save(article, tags) {

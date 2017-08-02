@@ -7,6 +7,7 @@ import { PostArticleComponent } from './post-article/post-article.component';
 import { AccountComponent } from './account/account.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -75,6 +76,10 @@ const routes: Routes = [
           component: AuthorComponent
         }
       ]
+    },
+    {
+      path: 'aboutus',
+      component: AboutUsComponent
     },
     {
       path: '',

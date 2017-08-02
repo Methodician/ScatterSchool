@@ -39,6 +39,8 @@ import { FooterComponent } from './footer/footer.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { TagInputModule } from 'ng2-tag-input'; // good documentation: https://www.npmjs.com/package/ng2-tag-input 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed for ng2-tag-input!
+import { ArticleSearchPreviewComponent } from './article-search-preview/article-search-preview.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 /* const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -73,7 +75,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
     PageNotFoundComponent,
     AuthorArticlePreviewComponent,
     FooterComponent,
-    TruncatePipe
+    TruncatePipe,
+    ArticleSearchPreviewComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,

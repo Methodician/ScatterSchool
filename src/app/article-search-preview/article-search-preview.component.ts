@@ -2,15 +2,16 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
 
-
 @Component({
-  selector: 'author-article-preview',
-  templateUrl: './author-article-preview.component.html',
-  styleUrls: ['./author-article-preview.component.scss']
+  selector: 'article-search-preview',
+  templateUrl: './article-search-preview.component.html',
+  styleUrls: ['./article-search-preview.component.scss']
 })
-export class AuthorArticlePreviewComponent implements OnInit {
+export class ArticleSearchPreviewComponent implements OnInit {
 
+  articleKey: string;
   @Input() articleData: any;
+  author;
 
   constructor(
     private router: Router,
@@ -19,10 +20,16 @@ export class AuthorArticlePreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.articleSvc.getAuthorById(this.articleData.authorId).subscribe(author => {
+     this.author = author;
+   });
   }
 
   navigateToArticleDetail() {
     this.articleSvc.navigateToArticleDetail(this.articleData.$key);
+  }
+
+  navigateToAuthor() {
+    this.articleSvc.navigateToAuthor(this.author.$key);
   }
 }

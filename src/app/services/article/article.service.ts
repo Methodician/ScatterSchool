@@ -273,8 +273,6 @@ export class ArticleService {
     return this.db.object(`userInfo/open/${authorKey}`);
   }
 
-  // KYLE -> I'm adding the parameter articleId here. Use that instead of this.articleData.$key.
-  //  The reason is that we won't be storing the id/key here. That will come from whatever component calls this function.
   navigateToArticleDetail(articleId: any) {
     //navigateToArticleDetail() {
     this.router.navigate([`articledetail/${articleId}`]);

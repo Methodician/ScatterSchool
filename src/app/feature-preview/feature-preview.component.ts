@@ -10,7 +10,6 @@ import { ArticleService } from './../services/article/article.service';
 
 export class FeaturePreviewComponent implements OnInit {
   @Input() articleData: any;
-
   author;
 
   constructor(

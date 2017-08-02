@@ -1,6 +1,6 @@
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
-import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-article-search-results',
@@ -12,8 +12,11 @@ export class ArticleSearchResultsComponent implements OnInit {
   allArticles: any;
   searchResults: any;
   queryString: string;
+  
+
   constructor(
     private articleSvc: ArticleService,
+    private router: Router,
     private route: ActivatedRoute
   ) { }
 
@@ -33,5 +36,4 @@ export class ArticleSearchResultsComponent implements OnInit {
       else console.log('No query found');
     })
   }
-
 }
