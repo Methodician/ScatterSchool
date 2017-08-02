@@ -33,6 +33,7 @@
     </div>
   </div>
   <div class="followersWrapper">
+
     <div class="followAuthorBlock">
       <h3>Following</h3>
       <div class="followAuthorLoop">
@@ -41,14 +42,23 @@
         </div>
       </div>
     </div>
+
     <div class="followingUserBlock">
       <h3>Followers</h3>
       <div class="followingUserLoop">
-
+        <div *ngFor="let following of followingUsers">
+          <following-users [followingUsers]="following"></following-users>
+        </div>
       </div>
     </div>
+
   </div>
   <pre>
+  Authors that follow the current user
+  {{ followingUsers | json }}
+  </pre>
+  <pre>
+  Authors the current user is following
   {{ usersFollowed | json }}
   </pre>
 </div>

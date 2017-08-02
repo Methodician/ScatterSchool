@@ -5,6 +5,7 @@ import { ArticleService } from './../services/article/article.service';
 import { UserInfoOpen } from './../services/user/user-info';
 import { ArticleDetailOpen } from './../services/article/article-info';
 import { FollowUsersComponent } from './../follow-users/follow-users.component';
+import { FollowingUsersComponent } from './../following-users/following-users.component';
 
 @Component({
   selector: 'author',
@@ -16,6 +17,7 @@ export class AuthorComponent implements OnInit {
 
   userInfo: UserInfoOpen;
   usersFollowed: UserInfoOpen[];
+  followingUsers: UserInfoOpen[];
   articlesPerAuthor: ArticleDetailOpen[];
   articlesPerEditor: ArticleDetailOpen[];
 
@@ -35,6 +37,7 @@ export class AuthorComponent implements OnInit {
         this.getArticlesPerAuthor(userId);
         this.getArticlesPerEditor(userId);
         this.getAuthorsFollowed(userId);
+        this.getFollowingUsers(userId);
       }
     })
   }
@@ -48,6 +51,12 @@ export class AuthorComponent implements OnInit {
   getAuthorsFollowed(uid: string) {
     this.userSvc.getAuthorsFollowed(uid).subscribe(followed =>
       this.usersFollowed = followed
+    );
+  }
+
+  getFollowingUsers(uid: string) {
+    this.userSvc.getFollowingUsers(uid).subscribe(following =>
+      this.followingUsers = following
     );
   }
 

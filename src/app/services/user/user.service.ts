@@ -65,6 +65,10 @@ export class UserService {
     return this.findUsersForKeys(this.db.list(`userInfo/usersFollowed/${uid}`));
   }
 
+  getFollowingUsers(uid: string): Observable<UserInfoOpen[]> {
+    return this.findUsersForKeys(this.db.list(`userInfo/followersPerUser/${uid}`));
+  }
+  
   /*isAdmin() {
     let sub = new Subject();
     this.authSvc.authInfo$.subscribe(info => {

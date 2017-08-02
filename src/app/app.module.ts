@@ -39,6 +39,7 @@ import { TruncatePipe } from './pipes/truncate.pipe';
 import { ArticleSearchPreviewComponent } from './article-search-preview/article-search-preview.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { FollowUsersComponent } from './follow-users/follow-users.component';
+import { FollowingUsersComponent } from './following-users/following-users.component';
 
 const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -121,7 +122,8 @@ const fbConfig = {
     TruncatePipe,
     ArticleSearchPreviewComponent,
     AboutUsComponent,
-    FollowUsersComponent
+    FollowUsersComponent,
+    FollowingUsersComponent
   ],
   imports: [
     BrowserModule,
