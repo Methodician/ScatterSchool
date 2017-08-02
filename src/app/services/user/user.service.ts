@@ -3,6 +3,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
+import * as firebase from 'firebase';
 
 @Injectable()
 export class UserService {
@@ -46,8 +47,8 @@ export class UserService {
 
   followUser(followedUserId: string) {
     let followingAuthorId = this.loggedInUserId;
-    this.db.object(`userInfo/usersFollowed/${followingAuthorId}/${followedUserId}`).set(true);
-    this.db.object(`userInfo/followersPerUser/${followedUserId}/${followingAuthorId}`).set(true);
+    this.db.object(`userInfo/usersFollowed/${followingAuthorId}/${followedUserId}`).set(firebase.database.ServerValue.TIMESTAMP);
+    this.db.object(`userInfo/followersPerUser/${followedUserId}/${followingAuthorId}`).set(firebase.database.ServerValue.TIMESTAMP);
     console.log('service worked');
   }
   /*isAdmin() {
