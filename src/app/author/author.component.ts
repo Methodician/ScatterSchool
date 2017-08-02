@@ -4,6 +4,7 @@ import { UserService } from './../services/user/user.service';
 import { ArticleService } from './../services/article/article.service';
 import { UserInfoOpen } from './../services/user/user-info';
 import { ArticleDetailOpen } from './../services/article/article-info';
+import { FollowUsersComponent } from './../follow-users/follow-users.component';
 
 @Component({
   selector: 'author',

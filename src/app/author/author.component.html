@@ -7,7 +7,12 @@
         <button type="button" class="btn followBtn" >Follow</button>
       </div>
     </div>
-    <h4>{{userInfo?.bio}}</h4>
+    <h4 class="bio">{{userInfo?.bio}}</h4>
+    <!-- these are to be used when we can change the virtual DOM to ONLY show the followers/ees on the page -->
+    <div class="followPageLinks">
+      <a>Following</a>
+      <a>Followers</a>
+    </div>
   </div>
   <div class="authorEditorWrapper">
     <div class="articleAuthorBlock">
@@ -24,6 +29,20 @@
         <div *ngFor="let article of articlesPerEditor">
           <author-article-preview [articleData]="article" ></author-article-preview>
         </div>
+      </div>
+    </div>
+  </div>
+  <div class="followersWrapper">
+    <div class="followAuthorBlock">
+      <h3>Following</h3>
+      <div class="followAuthorLoop">
+        <follow-users></follow-users>
+      </div>
+    </div>
+    <div class="followingUserBlock">
+      <h3>Followers</h3>
+      <div class="followingUserLoop">
+
       </div>
     </div>
   </div>

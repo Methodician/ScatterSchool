@@ -29,6 +29,16 @@
   width: 420px;
 }
 
+.followPageLinks {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 40px;
+  a {
+    color: #263237;
+    font-size: 14px;
+  }
+}
+
 .author {
   color: #C4275F;
   margin: 0;
@@ -46,6 +56,7 @@
 .bio {
   font-style: italic;
   color: #00BE9C;
+  margin-top: 20px;
 }
 
 .authorEditorWrapper {
@@ -81,6 +92,45 @@
 }
 
 .editorLoop {
+  width: 100%;
+  margin: 0 auto;
+  border-top: 1px solid #263237;
+}
+
+.followersWrapper {
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  margin-top: 60px;
+}
+
+.followAuthorBlock {
+  width: 48%;
+  margin: 0 auto;
+  h3 {
+    color: #31C2D7;
+    cursor: default;
+    margin-bottom: 40px;
+  }
+}
+
+.followingUserBlock {
+  width: 48%;
+  margin: 0 auto;
+  h3 {
+    color: #31C2D7;
+    cursor: default;
+    margin-bottom: 40px;
+  }
+}
+
+.followAuthorLoop {
+  width: 100%;
+  margin: 0 auto;
+  border-top: 1px solid #263237;
+}
+
+.followingUserLoop {
   width: 100%;
   margin: 0 auto;
   border-top: 1px solid #263237;

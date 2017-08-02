@@ -1,4 +1,5 @@
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+//import { FollowUsersComponent } from './follow-users/follow-users.component';
 import { AuthorComponent } from './author/author.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { ArticleSearchResultsComponent } from './article-search-results/article-search-results.component';
@@ -77,6 +78,19 @@ const routes: Routes = [
         }
       ]
     },
+    // {
+    //   path: 'follow',
+    //   children: [
+    //     {
+    //       path: ':id',
+    //       component: FollowUsersComponent
+    //     },
+    //     {
+    //       path: '',
+    //       component: FollowUsersComponent
+    //     }
+    //   ]
+    // },
     {
       path: 'aboutus',
       component: AboutUsComponent
