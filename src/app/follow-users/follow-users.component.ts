@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { UserService } from './../services/user/user.service';
+import { UserInfoOpen } from './../services/user/user-info';
 
 @Component({
   selector: 'follow-users',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FollowUsersComponent implements OnInit {
 
-  constructor() { }
+  @Input() usersFollowed: any;
+
+  constructor(
+    private userSvc: UserService
+  ) { }
 
   ngOnInit() {
   }

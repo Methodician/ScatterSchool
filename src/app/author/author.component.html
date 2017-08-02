@@ -36,7 +36,9 @@
     <div class="followAuthorBlock">
       <h3>Following</h3>
       <div class="followAuthorLoop">
-        <follow-users></follow-users>
+        <div *ngFor="let follow of usersFollowed">
+          <follow-users [usersFollowed]="follow"></follow-users>
+        </div>
       </div>
     </div>
     <div class="followingUserBlock">
