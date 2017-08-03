@@ -1,3 +1,8 @@
+pre {
+  border: 1px solid firebrick;
+  width: 95%;
+}
+
 .authorWrapper {
   margin-top: 95px;
 }
@@ -141,6 +146,10 @@
     flex-direction: column;
   }
 
+  .followersWrapper {
+    flex-direction: column;
+  }
+
   .articleAuthorBlock {
     width: 100%;
   }
@@ -150,6 +159,14 @@
   }
   h3 {
     margin-top: 60px;
+  }
+
+  .followAuthorBlock {
+    width: 100%;
+  }
+
+  .followingUserBlock {
+    width: 100%;
   }
 }
 
