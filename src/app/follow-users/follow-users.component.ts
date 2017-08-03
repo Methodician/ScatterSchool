@@ -15,6 +15,7 @@ export class FollowUsersComponent implements OnInit {
   @Input() usersFollowed: any;
   @Input() articleData: any;
   user;
+  article;
 
   constructor(
     private userSvc: UserService,
@@ -28,7 +29,13 @@ export class FollowUsersComponent implements OnInit {
   }
 
   navigateToUser() {
-    this.userSvc.navigateToUser(this.usersFollowed.$key);
+    this.userSvc.navigateToUser(this.usersFollowed.uid);
+  }
+
+  followClick() {
+    let followId = this.usersFollowed.uid;
+    this.userSvc.followUser(followId);
+    console.log('ts worked!')
   }
 
 }
