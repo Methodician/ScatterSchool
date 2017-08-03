@@ -19,7 +19,7 @@ export class FollowUsersComponent implements OnInit {
 
   constructor(
     private userSvc: UserService,
-    private articleSvc: ArticleService,
+    private articleSvc: ArticleService
   ) { }
 
   ngOnInit() {
