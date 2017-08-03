@@ -1,7 +1,7 @@
 <div class="followWrapper">
   <div class="followPhoto">
     <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
-    <a>{{usersFollowed.alias}}</a>
+    <a (click)="navigateToUser()">{{usersFollowed.alias}}</a>
     <button type="button" class="btn followBtn" >Follow</button>
   </div>
   <div class="bioWrapper">

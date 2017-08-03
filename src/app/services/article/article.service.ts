@@ -3,8 +3,7 @@ import { Input } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { Router } from '@angular/router'
-
+import { Router } from '@angular/router';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 
 @Injectable()

@@ -4,6 +4,7 @@ import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import * as firebase from 'firebase';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class UserService {
@@ -13,7 +14,8 @@ export class UserService {
 
   constructor(
     private authSvc: AuthService,
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
+    private router: Router
   ) {
     this.authSvc.authInfo$.subscribe(authInfo => {
       this.getUserInfo(authInfo.$uid).subscribe(info => {
@@ -68,7 +70,11 @@ export class UserService {
   getFollowingUsers(uid: string): Observable<UserInfoOpen[]> {
     return this.findUsersForKeys(this.db.list(`userInfo/followersPerUser/${uid}`));
   }
-  
+
+  navigateToUser(uid: any) {
+    this.router.navigate([`usersFollowed/${uid}`])
+  }
+
   /*isAdmin() {
     let sub = new Subject();
     this.authSvc.authInfo$.subscribe(info => {
