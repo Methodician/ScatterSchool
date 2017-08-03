@@ -14,7 +14,7 @@ export class ArticleFormComponent implements OnInit {
 
   form: FormGroup;
   formTags = [];
-  articleTags = [];
+  articleTags = {};
 
   constructor(
     fb: FormBuilder
@@ -23,7 +23,7 @@ export class ArticleFormComponent implements OnInit {
       title: ['', Validators.required],
       introduction: ['', Validators.required],
       body: ['', Validators.required],
-      //tags: '',
+      tags: [{}],
       bodyId: '',
       lastUpdated: 0,
       timeStamp: 0,
@@ -57,13 +57,16 @@ export class ArticleFormComponent implements OnInit {
   }
 
   onTagAdded($event) {
-    //console.log($event);
-    this.articleTags[$event.value] = true;
+    this.articleTags[$event.value.toUpperCase()] = true;
+    this.form.controls.tags.patchValue(this.articleTags);
+    //this.form.controls.tags.setValue(this.articleTags);
+    //this.form.title[upperTag] = true;
   }
 
   onTagRemoved($event) {
     //console.log($event);
-    delete this.articleTags[$event.value];
+    delete this.articleTags[$event.value.toUpperCase()];
+    this.form.controls.tags.patchValue(this.articleTags);
   }
 
 

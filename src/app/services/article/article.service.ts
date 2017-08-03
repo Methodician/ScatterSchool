@@ -23,7 +23,10 @@ export class ArticleService {
   }
 
   getArticleById(articleKey: string) {
-    return this.db.object(`articleData/articles/${articleKey}`);
+    return this.db.object(`articleData/articles/${articleKey}`).map(article => {
+      article.tags = this.arrayFromTagsObject(article.tags);
+      return article;
+    });
   }
 
   getArticleBodyById(id: string) {
@@ -48,37 +51,48 @@ export class ArticleService {
   }
 
   createNewArticle(uid: string, article: any) {
-    //const subject = new Subject<string>();
-    let tagsObject = {};
-    let tags = article.tags;
-
-    if (article.tags && article.tags != '') {
-      this.processTags(tags, tagsObject);
-    }
 
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
     let articleToSave = {
       title: article.title,
       introduction: article.introduction,
       bodyId: bodyKey,
-      tags: tagsObject,
+      tags: article.tags,
       version: 1,
       authorId: uid,
       timeStamp: firebase.database.ServerValue.TIMESTAMP,
       lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
+
     let articleKey = this.db.list('articleData/articles').push(articleToSave).key;
     this.db.object(`articleData/articlesPerAuthor/${uid}/${articleKey}`).set(true);
-    //this.db.object(`articleData/editorsPerArticle/${articleKey}/${uid}`).set(true);
-    //this.db.object(`articleData/articlesPerEditor/${uid}/${articleKey}`).set(true);
-    if (article.tags && article.tags != '') {
+
+    let tags = this.arrayFromTagsObject(article.tags);
+    if (tags) {
       for (let tag of tags) {
         this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
+        this.addGlobalTag(tag);
       }
     }
     return articleKey;
-    //subject.next(articleKey);
-    //return subject.asObservable();
+  }
+
+  arrayFromTagsObject(articleTags): string[] {
+    if (articleTags === {})
+      return null;
+
+    let tagArray = [];
+    for (let tag in articleTags) {
+      tagArray.push(tag);
+    }
+    return tagArray;
+  }
+
+  addGlobalTag(tag: string) {
+    this.db.object(`articleData/tags/${tag}`).take(1).subscribe(data => {
+      if (!data.$value)
+        this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
+    });
   }
 
   updateArticle(uid: string, article: any) {
@@ -138,12 +152,6 @@ export class ArticleService {
     console.log('NEW TAGS', newTags);
     for (let i in newTags) {
       if (newTags[i] != '') {
-        let upperTag = newTags[i].toUpperCase();
-        if (newTags[i] != upperTag) {
-          tagsToProcess[upperTag] = true;
-          delete tagsToProcess[newTags[i]];
-          newTags[i] = upperTag;
-        }
         if (articleId) {
           //this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).set(true);
         }
