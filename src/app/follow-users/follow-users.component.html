@@ -1,10 +1,11 @@
 
-<div class="followingWrapper">
-  <div class="followingPhoto">
+<div class="followWrapper">
+  <div class="followPhoto">
     <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
-    <p>{{usersFollowed.alias}}</p>
+    <a>{{usersFollowed.alias}}</a>
     <button type="button" class="btn followBtn" >Follow</button>
   </div>
-  <p>{{usersFollowed.bio}}</p>
-  <button type="button" class="btn followBtnMobile" >Follow</button>
+  <div class="bioWrapper">
+    <p>{{usersFollowed.bio}}</p>
+  </div>
 </div>
