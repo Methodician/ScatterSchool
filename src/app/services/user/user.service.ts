@@ -66,7 +66,9 @@ export class UserService {
         Observable.combineLatest(firebaseObjects));
   }
 
-
+  // getAuthor(uid: string): Observable<UserInfoOpen[]> {
+  //   return this.findUsersForKeys(this.db.list(`userInfo/usersFollowed/${uid}`));
+  // }
 
   getAuthorsFollowed(uid: string): Observable<UserInfoOpen[]> {
     return this.findUsersForKeys(this.db.list(`userInfo/usersFollowed/${uid}`));

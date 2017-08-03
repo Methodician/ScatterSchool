@@ -20,6 +20,7 @@ export class AuthorComponent implements OnInit {
   followingUsers: UserInfoOpen[];
   articlesPerAuthor: ArticleDetailOpen[];
   articlesPerEditor: ArticleDetailOpen[];
+  user;
 
   constructor(
     private router: Router,
@@ -40,6 +41,9 @@ export class AuthorComponent implements OnInit {
         this.getFollowingUsers(userId);
       }
     })
+  //   this.userSvc.getAuthor(this.userInfo.uid).subscribe(user => {
+  //    this.user = user;
+  //  });
   }
 
   getUserInfo(uid: string) {
@@ -71,5 +75,11 @@ export class AuthorComponent implements OnInit {
       this.articlesPerEditor = articles
     );
   }
+
+  // followClick() {
+  //   let followId = this.usersFollowed.uid;
+  //   this.userSvc.followUser(followId);
+  //   console.log('ts worked!')
+  // }
 
 }

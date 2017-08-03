@@ -4,7 +4,7 @@
       <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
       <div class="followButtonWrapper">
         <h3 class="author">{{userInfo?.alias || userInfo?.fName + ' ' + userInfo?.lName}}</h3>
-        <button type="button" class="btn followBtn" >Follow</button>
+        <button type="button" class="btn followBtn" (click)="followClick()" >Follow</button>
       </div>
     </div>
     <h4 class="bio">{{userInfo?.bio}}</h4>
