@@ -13,7 +13,6 @@ export class FollowingUsersComponent implements OnInit {
 
   @Input() followingUsers: any;
   @Input() articleData: any;
-  @Input() usersFollowed: any;
   user;
   article;
 
@@ -23,7 +22,7 @@ export class FollowingUsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userSvc.getFollowingUsers(this.usersFollowed.uid).subscribe(user => {
+    this.userSvc.getFollowingUsers(this.followingUsers.uid).subscribe(user => {
      this.user = user;
    });
   }
