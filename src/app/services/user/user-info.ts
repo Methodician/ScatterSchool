@@ -5,6 +5,7 @@ export class UserInfoOpen {
         public lName: string,
         public zipCode: string,
         public $key?: string,
+        public uid?: string,
         public bio?: string,
         public city?: string,
         public state?: string,

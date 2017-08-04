@@ -30,7 +30,7 @@ export class AuthorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
     this.route.params.subscribe(params => {
       if (params['id']) {
         let userId = params['id'];
@@ -74,7 +74,7 @@ export class AuthorComponent implements OnInit {
   }
 
   followClick() {
-    let followId = this.usersFollowed.uid;
+    let followId = this.userInfo.uid;
     this.userSvc.followUser(followId);
     console.log('ts worked!')
   }
