@@ -67,7 +67,7 @@ export class UserService {
   }
 
   // getAuthor(uid: string): Observable<UserInfoOpen[]> {
-  //   return this.findUsersForKeys(this.db.list(`userInfo/usersFollowed/${uid}`));
+  //   return this.findUsersForKeys(this.db.list(`userInfo/open/${uid}`));
   // }
 
   getAuthorsFollowed(uid: string): Observable<UserInfoOpen[]> {
