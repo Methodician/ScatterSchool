@@ -41,10 +41,11 @@ export class UserService {
     return this.db.list('userInfo/open');
   }
 
-  getUserInfo(uid): Observable<any> {
-    //if (!!uid) {
-    return this.db.object(`userInfo/open/${uid}`);
-    //}
+  getUserInfo(uid) {
+    return this.db.object(`userInfo/open/${uid}`).map( user => {
+      user.uid = uid;
+      return user;
+    })
   }
 
   followUser(followedUserId: string) {
@@ -79,7 +80,7 @@ export class UserService {
   }
 
   navigateToUser(uid: any) {
-    this.router.navigate([`usersFollowed/${uid}`])
+    this.router.navigate([`author/${uid}`])
   }
 
   /*isAdmin() {

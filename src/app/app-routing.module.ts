@@ -78,19 +78,6 @@ const routes: Routes = [
         }
       ]
     },
-    // {
-    //   path: 'follow',
-    //   children: [
-    //     {
-    //       path: ':id',
-    //       component: FollowUsersComponent
-    //     },
-    //     {
-    //       path: '',
-    //       component: FollowUsersComponent
-    //     }
-    //   ]
-    // },
     {
       path: 'aboutus',
       component: AboutUsComponent
