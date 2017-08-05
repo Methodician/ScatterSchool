@@ -1,6 +1,10 @@
 <app-article-form #article>
 </app-article-form>
-<button (click)="save(article)" class="btn btn-default">Post</button>
+
+<!-- <ck-test #ckeditorContent>
+</ck-test> -->
+<!--<button (click)="save(article)" [disabled]="!formValid(article.valid)" class="btn btn-default">Submit</button> Preview:-->
+<button (click)="save(article.value, article.tags)" class="btn btn-default">Post</button>
 <br>
 <br>
 <br> Preview:

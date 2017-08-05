@@ -25,15 +25,12 @@ export class PostArticleComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
   }
 
-  save(form) {
-    let articleId = this.articleSvc.createNewArticle(this.authInfo.$uid, form.value);
+  save(article) {
+    let articleId = this.articleSvc.createNewArticle(this.authInfo.$uid, article);
     this.router.navigate([`articledetail/${articleId}`]);
-    /* this.articleSvc.createNewArticle(this.authInfo.$uid, form.value).subscribe(articleId => {
-      this.router.navigate([`articledetail/${articleId}`]);
-    }); */
   }
 
 }

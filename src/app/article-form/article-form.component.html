@@ -14,18 +14,24 @@
       </div>
       <div class="form-field formSection ckEditor">
         <label>Body</label>
-        <ckeditor name="body" formControlName="body" [config]="{uiColor: '##dee2e8'}" (change)="onChange($event)" (ready)="onReady($event)"
+        <!-- <ckeditor name="body" formControlName="body" [config]="{uiColor: '##dee2e8'}" (change)="onChange($event)" (ready)="onReady($event)"
           (focus)="onFocus($event)" (blur)="onBlur($event)" debounce="500">
+        </ckeditor> -->
+        <ckeditor name="body" formControlName="body" [config]="{uiColor: '##dee2e8'}" debounce="500">
         </ckeditor>
       </div>
       <div class="form-field formSection">
+        <!-- <div class="form-field">
         <label>Tags (separate by comma)</label>
         <input type="text" name="tags" formControlName="tags" class="form-control">
+      </div> -->
       </div>
-    </div>
   </fieldset>
 </form>
-
-<!-- <pre>
-  {{initialValue | json}}
-</pre> -->
+<tag-input class="form-field ckEditor" [(ngModel)]="formTags" (onAdd)="onTagAdded($event)" (onRemove)="onTagRemoved($event)"></tag-input>
+<pre>
+  {{ articleTags | json }}
+</pre>
+<pre>
+  {{ formTags | json }}
+</pre>

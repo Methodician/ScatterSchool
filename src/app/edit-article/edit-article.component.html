@@ -1,7 +1,7 @@
 <app-article-form #article [initialValue]="articleEditing">
 </app-article-form>
 
-<button (click)="edit(article.value)" class="btn btn-default">Save Changes</button>
+<button (click)="edit(article.value, article.tags)" class="btn btn-default">Save Changes</button>
 
 <br>
 <br>
@@ -10,5 +10,5 @@
 <app-article-detail *ngIf="articleEditing" [articleData]="article.value" [editingPreview]="true"></app-article-detail>
 
 <pre>
-    {{ article.value | json }}
+    {{ articleEditing | json }}
 </pre>
