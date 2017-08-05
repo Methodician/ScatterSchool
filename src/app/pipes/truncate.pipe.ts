@@ -7,8 +7,12 @@ export class TruncatePipe implements PipeTransform {
 
   transform(value: string, args?: number): any {
     let max = args ? args : 30;
+
+    if (!value)
+      return;
+
     if (value.length > max) {
-      return `${value.substr(0,max)}...`
+      return `${value.substr(0, max)}...`
     }
     return value;
   }
