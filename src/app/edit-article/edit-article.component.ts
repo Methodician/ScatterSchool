@@ -49,13 +49,12 @@ export class EditArticleComponent implements OnInit {
   }
 
 
-  edit(article, tags) {
-    article.tags = tags;
-    //console.log(article);
-    this.articleSvc.updateArticle(this.authInfo.$uid, article)/* .then(res => {
-      console.log(res);
-      this.router.navigate([`articledetail/${this.articleEditing.articleId}`]);
-    }) */;
+  //edit(article, tags) {
+  edit(article) {
+    //article.tags = tags;
+    this.articleSvc.updateArticle(this.authInfo.$uid, article)
+    this.router.navigate([`articledetail/${article.articleId}`]);
+
   }
 
 }

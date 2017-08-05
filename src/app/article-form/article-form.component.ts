@@ -14,7 +14,7 @@ export class ArticleFormComponent implements OnInit {
 
   form: FormGroup;
   formTags = [];
-  articleTags = {};
+  articleTags = [];
 
   constructor(
     fb: FormBuilder
@@ -23,7 +23,7 @@ export class ArticleFormComponent implements OnInit {
       title: ['', Validators.required],
       introduction: ['', Validators.required],
       body: ['', Validators.required],
-      tags: [{}],
+      tags: [[]],
       bodyId: '',
       lastUpdated: 0,
       timeStamp: 0,
@@ -51,22 +51,33 @@ export class ArticleFormComponent implements OnInit {
 
   initializeTags(articleTags) {
     this.articleTags = articleTags;
-    for (let tag in articleTags) {
+    for (let tag of articleTags) {
       this.formTags.push({ 'display': tag, 'value': tag });
     }
   }
 
   onTagAdded($event) {
-    this.articleTags[$event.value.toUpperCase()] = true;
+    this.articleTags.push($event.value.toUpperCase());
     this.form.controls.tags.patchValue(this.articleTags);
     //this.form.controls.tags.setValue(this.articleTags);
     //this.form.title[upperTag] = true;
   }
 
   onTagRemoved($event) {
-    //console.log($event);
-    delete this.articleTags[$event.value.toUpperCase()];
+    console.log($event);
+    let tagToRemove = $event.value.toUpperCase();
+    this.removeTag(tagToRemove);
     this.form.controls.tags.patchValue(this.articleTags);
+  }
+
+  removeTag(tag) {
+    let arteTags = this.articleTags;
+    let index = arteTags.indexOf(tag);
+
+    while (index !== -1) {
+      arteTags.splice(index, 1);
+      index = arteTags.indexOf(tag);
+    }
   }
 
 

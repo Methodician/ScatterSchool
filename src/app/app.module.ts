@@ -37,7 +37,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AuthorArticlePreviewComponent } from './author-article-preview/author-article-preview.component';
 import { FooterComponent } from './footer/footer.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
-import { TagInputModule } from 'ng2-tag-input'; // good documentation: https://www.npmjs.com/package/ng2-tag-input 
+import { TagInputModule } from 'ngx-chips'; // good documentation: https://www.npmjs.com/package/ng2-tag-input 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed for ng2-tag-input!
 import { ArticleSearchPreviewComponent } from './article-search-preview/article-search-preview.component';
 import { AboutUsComponent } from './about-us/about-us.component';

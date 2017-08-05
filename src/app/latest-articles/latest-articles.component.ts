@@ -12,7 +12,9 @@ export class LatestArticlesComponent implements OnInit {
   constructor(private articleService: ArticleService) { }
 
   ngOnInit() {
-  this.latestArticles = this.articleService.getLatest();
+    this.articleService.getLatest().subscribe(latest => {
+      this.latestArticles = latest;
+    });
   }
 
 }
