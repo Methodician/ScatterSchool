@@ -10,10 +10,7 @@ export class AboutUsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-<<<<<<< HEAD
-    window.scrollTo(0,0)
-=======
->>>>>>> tagger
+    window.scrollTo(0, 0)
   }
 
 }
