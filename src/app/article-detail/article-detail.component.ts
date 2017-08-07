@@ -97,4 +97,8 @@ export class ArticleDetailComponent implements OnInit {
     this.userSvc.followUser(followId);
   }
 
+  tagSearch(tag: string) {
+    this.router.navigate([`/articlesearch/${tag}`]);
+  }
+
 }

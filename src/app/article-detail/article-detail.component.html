@@ -26,6 +26,11 @@
   <button class="btn btn-primary" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'feature article'}}</button>
 </div>
 <pre>
-  Author Details:
-  {{ author | json }}
+  Article Details:
+  {{ article | json }}
 </pre>
+<div class="tag-bar">
+  <ul>
+    <li *ngFor="let tag of article.tags"><a (click)="tagSearch(tag)">{{tag}}</a></li>
+  </ul>
+</div>

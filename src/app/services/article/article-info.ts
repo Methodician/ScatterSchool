@@ -6,6 +6,6 @@ export class ArticleDetailOpen {
         public lastUpdated: number,
         public timeStamp: number,
         public version: number,
-        public tags?: {}
+        public tags?: string[]
     ) { }
 }
