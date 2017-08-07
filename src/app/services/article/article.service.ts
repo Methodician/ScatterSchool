@@ -22,7 +22,10 @@ export class ArticleService {
   }
 
   getArticleById(articleKey: string) {
-    return this.db.object(`articleData/articles/${articleKey}`);
+    return this.db.object(`articleData/articles/${articleKey}`).map(article => {
+      article.tags = this.arrayFromTagsObject(article.tags);
+      return article;
+    });
   }
 
   getArticleBodyById(id: string) {
@@ -31,9 +34,13 @@ export class ArticleService {
 
   findArticlesForKeys(articleKeys$: Observable<any[]>): Observable<ArticleDetailOpen[]> {
     return articleKeys$
-      .map(articlesPerKey =>
-        articlesPerKey.map(article =>
-          this.db.object(`articleData/articles/${article.$key}`)))
+      .map(articlesPerKey => articlesPerKey
+        .map(article =>
+          this.db.object(`articleData/articles/${article.$key}`)
+            .map(article => {
+              article.tags = this.arrayFromTagsObject(article.tags);
+              return article;
+            })))
       .flatMap(firebaseObjects =>
         Observable.combineLatest(firebaseObjects));
   }
@@ -47,15 +54,10 @@ export class ArticleService {
   }
 
   createNewArticle(uid: string, article: any) {
-    //const subject = new Subject<string>();
-    let tagsObject = {};
-    let tags = article.tags;
-
-    if (article.tags && article.tags != '') {
-      this.processTags(tags, tagsObject);
-    }
 
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
+    let tagsObject = this.tagsObjectFromStringArray(article.tags);
+
     let articleToSave = {
       title: article.title,
       introduction: article.introduction,
@@ -66,42 +68,35 @@ export class ArticleService {
       timeStamp: firebase.database.ServerValue.TIMESTAMP,
       lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
+
     let articleKey = this.db.list('articleData/articles').push(articleToSave).key;
     this.db.object(`articleData/articlesPerAuthor/${uid}/${articleKey}`).set(true);
-    //Kyle DO THIS below VVVV
-    //this.db.object(`articleData/editorsPerArticle/${articleKey}/${uid}`).set(true);
-    //this.db.object(`articleData/articlesPerEditor/${uid}/${articleKey}`).set(true);
-    if (article.tags && article.tags != '') {
+
+    let tags = article.tags;
+    if (tags) {
       for (let tag of tags) {
         this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
+        this.addGlobalTag(tag);
       }
     }
     return articleKey;
-    //subject.next(articleKey);
-    //return subject.asObservable();
   }
 
   updateArticle(uid: string, article: any) {
     const oldBodyId = article.bodyId;
     const articleId = article.articleId;
-    let tags = article.tags;
-    let tagsObject = {};
-    //let oldTagsObject = {};
-    let newBodyKey = '';
+    let tagsObject = this.tagsObjectFromStringArray(article.tags);
+
     //  Really wanted to reduce trips to the db...
-    this.db.object(`articleData/articles/${articleId}/tags`).subscribe(oldTags => {
-      //oldTagsObject = tags;
-      if ((article.tags && article.tags != '') || (oldTags && oldTags != '')) {
-        this.processTags(tags, tagsObject, oldTags, articleId);
-      }
-    })
+    this.db.object(`articleData/articles/${articleId}/tags`)
+      .map(tags => this.arrayFromTagsObject(tags))
+      .subscribe(oldTags => {
+        if ((article.tags && article.tags != []) || (oldTags && oldTags != [])) {
+          this.processTagsEdit(article.tags, oldTags, articleId);
+        }
+      });
+
     this.archiveArticle(articleId);
-    /* this.archiveArticle(articleId).subscribe(oldTags => {
-      if ((article.tags && article.tags != '') || (oldTags && oldTags != '')) {
-        this.processTags(tags, tagsObject, oldTags, articleId);
-      }
-    }); */
-    //console.log('TAGS OBJECT', tagsObject);
     this.db.object(`articleData/articleBodies/${oldBodyId}`).subscribe(body => {
       let bodyLogObject: any = {};
       bodyLogObject.body = body.$value;
@@ -125,47 +120,55 @@ export class ArticleService {
     this.db.object(`articleData/editorsPerArticle/${articleId}/${uid}`).set(true);
     this.db.object(`articleData/articlesPerEditor/${uid}/${articleId}`).set(true);
 
-    //console.log('EDITING ARTICLE:', articleToUpdate);
-    return this.db.object(`articleData/articles/${articleId}`).update(articleToUpdate);
+    return this.db.object(`articleData/articles/${articleId}`).set(articleToUpdate);
   }
 
-  processTags(tagsToProcess, outputTagsObject, oldTagsToProcess?, articleId?) {
-    // ToDo: We need better code to remove spaces only before and after the comma because this code prevents spaces in tags
-    // Need to process further to avoid bugs. Firebase error: ERROR Error: Firebase.child failed: First argument was an invalid path: "articleData/tags/WEREGOINGTOFRANCE.". Paths must be non-empty strings and can't contain ".", "#", "$", "[", or "]"
-    let tags = tagsToProcess.replace(/\s/g, '').split(',');
-    let oldTags = [];
+  arrayFromTagsObject(articleTags): string[] {
+    if (articleTags == {})
+      return null;
+
+    let tagArray = [];
+    for (let tag in articleTags) {
+      tagArray.push(tag);
+    }
+    return tagArray;
+  }
+
+  tagsObjectFromStringArray(tagsArray: string[]): object {
+    if (!tagsArray || tagsArray == [])
+      return null;
+
+    let tagsObject = {};
+    for (let tag of tagsArray) {
+      tagsObject[tag.toUpperCase()] = true;
+    }
+
+    return tagsObject;
+  }
+
+  addGlobalTag(tag: string) {
+    this.db.object(`articleData/tags/${tag}`).take(1).subscribe(data => {
+      if (!data.$value)
+        this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
+    });
+  }
+
+  processTagsEdit(newTags, oldTags, articleId) {
     let deletedTags = [];
-    console.log('NEW TAGS', tags);
-    for (let key in oldTagsToProcess) {
-      oldTags.push(key);
+
+    for (let tag of newTags) {
+      this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).set(true);
+      this.addGlobalTag(tag);
     }
-    console.log('OLD TAGS', oldTags);
-    for (let tag of tags) {
-      if (tag != '') {
-        tag = tag.toUpperCase();
-        if (articleId) {
-          this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).set(true);
-        }
-        this.db.object(`articleData/tags/${tag}`)
-          .take(1)
-          .subscribe(data => {
-            if (!data.$value)
-              this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
-          });
-        outputTagsObject[tag] = true;
-      }
-    }
+
     for (let tag of oldTags) {
-      if (!tags.includes(tag)) {
+      if (!newTags.includes(tag)) {
         deletedTags.push(tag);
       }
     }
-    console.log('DELETED TAGS', deletedTags)
     for (let tag of deletedTags) {
       this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).remove();
-
     }
-    tagsToProcess = tags;
   }
 
   archiveArticle(articleId) {
@@ -186,6 +189,7 @@ export class ArticleService {
       return false;
     });
   }
+
   setFeaturedArticle(articleKey: string) {
     this.db.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
   }
@@ -195,7 +199,9 @@ export class ArticleService {
   }
 
   getAllFeatured() {
-    var featuredArticles = new Array();
+    return this.findArticlesForKeys(this.db.list('articleData/featuredArticles'));
+
+    /* var featuredArticles = new Array();
     this.db.list('articleData/featuredArticles').subscribe(keys => {
       keys.forEach(index => {
         this.getArticleById(index.$key).
@@ -204,22 +210,23 @@ export class ArticleService {
           })
       })
     })
-    return featuredArticles;
+    console.log(featuredArticles);
+    return featuredArticles; */
   }
 
   getLatest() {
-    var latestArticles = new Array();
-    this.db.list('articleData/articles', {
+    return this.db.list('articleData/articles', {
       query: {
         orderByChild: 'timeStamp',
         limitToLast: 7
       }
-    }).map((array) => array.reverse()).subscribe(articles => {
-      articles.forEach(index => {
-        latestArticles.push(index);
-      })
-    })
-    return latestArticles;
+    }).map(articles => {
+      articles.map(article => {
+        article.tags = this.arrayFromTagsObject(article.tags);
+        return article;
+      });
+      return articles;
+    });
   }
 
   // Deprecated - only here still for demonstration in case Chad wants to compare with new search pipe

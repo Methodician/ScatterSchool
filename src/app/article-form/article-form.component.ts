@@ -13,6 +13,8 @@ export class ArticleFormComponent implements OnInit {
   initialValue: any;
 
   form: FormGroup;
+  formTags = [];
+  articleTags = [];
 
   constructor(
     fb: FormBuilder
@@ -21,13 +23,14 @@ export class ArticleFormComponent implements OnInit {
       title: ['', Validators.required],
       introduction: ['', Validators.required],
       body: ['', Validators.required],
-      tags: '',
+      tags: [[]],
       bodyId: '',
       lastUpdated: 0,
       timeStamp: 0,
       version: 1,
       articleId: ''
     });
+    //this.articleTags = this.initialValue.tags;
     this.ckeditorContent = ``;
 
   }
@@ -41,24 +44,40 @@ export class ArticleFormComponent implements OnInit {
       //if (changes['initialValue']) {
       // We have two methods to set a form's value: setValue and patchValue.
       this.form.patchValue(changes['initialValue'].currentValue);
+      this.initializeTags(changes['initialValue'].currentValue.tags);
     }
 
   }
 
-  onReady($event) {
-    //console.log('CKEditor Ready event:', $event);
+  initializeTags(articleTags) {
+    this.articleTags = articleTags;
+    for (let tag of articleTags) {
+      this.formTags.push({ 'display': tag, 'value': tag });
+    }
   }
 
-  onFocus($event) {
-    //console.log('CKEditor Focus event:', $event);
+  onTagAdded($event) {
+    this.articleTags.push($event.value.toUpperCase());
+    this.form.controls.tags.patchValue(this.articleTags);
+    //this.form.controls.tags.setValue(this.articleTags);
+    //this.form.title[upperTag] = true;
   }
 
-  onBlur($event) {
-    //console.log('CKEditor Blur event:', $event);
+  onTagRemoved($event) {
+    console.log($event);
+    let tagToRemove = $event.value.toUpperCase();
+    this.removeTag(tagToRemove);
+    this.form.controls.tags.patchValue(this.articleTags);
   }
 
-  onChange($event) {
-    //console.log('CKEditor Change event:', $event);
+  removeTag(tag) {
+    let arteTags = this.articleTags;
+    let index = arteTags.indexOf(tag);
+
+    while (index !== -1) {
+      arteTags.splice(index, 1);
+      index = arteTags.indexOf(tag);
+    }
   }
 
 
@@ -77,6 +96,10 @@ export class ArticleFormComponent implements OnInit {
 
   get value() {
     return this.form.value;
+  }
+
+  get tags() {
+    return this.articleTags;
   }
 
 }

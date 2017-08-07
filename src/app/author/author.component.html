@@ -4,7 +4,7 @@
       <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
       <div class="followButtonWrapper">
         <h3 class="author">{{userInfo?.alias || userInfo?.fName + ' ' + userInfo?.lName}}</h3>
-        <button type="button" class="btn followBtn" (click)="followClick()" >Follow</button>
+        <button type="button" class="btn followBtn" (click)="followClick()">Follow</button>
       </div>
     </div>
     <h4 class="bio">{{userInfo?.bio}}</h4>
@@ -22,7 +22,7 @@
       <h3>Articles as the Original Author</h3>
       <div class="authorLoop">
         <div *ngFor="let article of articlesPerAuthor">
-          <author-article-preview [articleData]="article" ></author-article-preview>
+          <author-article-preview [articleData]="article"></author-article-preview>
         </div>
       </div>
     </div>
@@ -30,7 +30,7 @@
       <h3>Articles as an Editor</h3>
       <div class="editorLoop">
         <div *ngFor="let article of articlesPerEditor">
-          <author-article-preview [articleData]="article" ></author-article-preview>
+          <author-article-preview [articleData]="article"></author-article-preview>
         </div>
       </div>
     </div>
@@ -40,7 +40,7 @@
       <h3>Following</h3>
       <div class="followAuthorLoop">
         <div *ngFor="let follow of usersFollowed">
-          <follow-users [usersFollowed]="follow" ></follow-users>
+          <follow-users [usersFollowed]="follow"></follow-users>
         </div>
       </div>
     </div>

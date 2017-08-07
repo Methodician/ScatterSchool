@@ -12,10 +12,11 @@
       </div>
     </div>
     <p class="intro">{{articleData.introduction | truncate:60 }}</p>
-    <p class="rating">RATING HERE<p>
-    <div class="tagWrapper">
-      <img src="../../assets/images/ss-tag-icon.png" alt="A tag icon of all the catagories this tutoral fits under.">
-      <p class="tags">TAGS HERE</p>
-    </div>
+    <p class="rating">RATING HERE
+      <p>
+        <div class="tagWrapper">
+          <img src="../../assets/images/ss-tag-icon.png" alt="A tag icon of all the catagories this tutoral fits under.">
+          <p class="tags">{{articleData.tags | json}}</p>
+        </div>
   </div>
 </div>

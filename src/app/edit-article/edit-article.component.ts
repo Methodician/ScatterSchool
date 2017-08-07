@@ -35,12 +35,12 @@ export class EditArticleComponent implements OnInit {
         let articleBodyId = articleToEdit.bodyId;
         this.articleSvc.getArticleBodyById(articleBodyId).subscribe(articleBody => {
           articleToEdit.body = articleBody.$value;
-          let tagsObject = articleToEdit.tags;
+          /* let tagsObject = articleToEdit.tags;
           let tagsString = "";
           for (let tag in tagsObject) {
             tagsString += tag + ", ";
-          }
-          articleToEdit.tags = tagsString;
+          } */
+          //articleToEdit.tags = tagsString;
           articleToEdit.articleId = articleToEdit.$key;
           this.articleEditing = articleToEdit;
         })
@@ -49,12 +49,12 @@ export class EditArticleComponent implements OnInit {
   }
 
 
-  edit(article, value) {
-    console.log(article);
-    this.articleSvc.updateArticle(this.authInfo.$uid, article).then(res => {
-      console.log(res);
-      /* this.router.navigate() */
-    });
+  //edit(article, tags) {
+  edit(article) {
+    //article.tags = tags;
+    this.articleSvc.updateArticle(this.authInfo.$uid, article)
+    this.router.navigate([`articledetail/${article.articleId}`]);
+
   }
 
 }
