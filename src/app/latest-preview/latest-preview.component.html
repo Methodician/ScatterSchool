@@ -16,7 +16,7 @@
       <p>
         <div class="tagWrapper">
           <img src="../../assets/images/ss-tag-icon.png" alt="A tag icon of all the catagories this tutoral fits under.">
-          <p class="tags">{{articleData.tags | json}}</p>
+          <p class="tags">{{articleData.tags | truncateTags:10 | json}}</p>
         </div>
   </div>
 </div>
