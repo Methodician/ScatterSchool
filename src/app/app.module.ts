@@ -43,7 +43,8 @@ import { FollowUsersComponent } from './follow-users/follow-users.component';
 import { FollowingUsersComponent } from './following-users/following-users.component';
 import { TagInputModule } from 'ngx-chips'; // good documentation: https://www.npmjs.com/package/ng2-tag-input 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TruncateTagsPipe } from './pipes/truncate-tags.pipe'; // this is needed for ng2-tag-input!
+import { TruncateTagsPipe } from './pipes/truncate-tags.pipe';
+import { FollowBtnComponent } from './follow-btn/follow-btn.component'; // this is needed for ng2-tag-input!
 
 /* const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -83,7 +84,8 @@ import { TruncateTagsPipe } from './pipes/truncate-tags.pipe'; // this is needed
     AboutUsComponent,
     FollowUsersComponent,
     FollowingUsersComponent,
-    TruncateTagsPipe
+    TruncateTagsPipe,
+    FollowBtnComponent
   ],
   imports: [
     BrowserModule,

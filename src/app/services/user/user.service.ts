@@ -55,6 +55,13 @@ export class UserService {
     console.log('service worked');
   }
 
+  unfollowUser (followedUserId: string) {
+    let followingAuthorId = this.loggedInUserId;
+    this.db.object(`userInfo/usersFollowed/${followingAuthorId}/${followedUserId}`).remove();
+    this.db.object(`userInfo/followersPerUser/${followedUserId}/${followingAuthorId}`).remove();
+    console.log('unfollow service worked');
+  }
+
   findUsersForKeys(userIds$: Observable<string[]>): Observable<UserInfoOpen[]> {
     return userIds$
       .map(usersPerKey =>
@@ -80,7 +87,15 @@ export class UserService {
   }
 
   navigateToUser(uid: any) {
-    this.router.navigate([`author/${uid}`])
+    this.router.navigate([`author/${uid}`]);
+  }
+
+  isFollowingUser(uid: string) {
+    return this.db.object(`userInfo/usersFollowed/${this.loggedInUserId}/${uid}`).map(res => {
+      if (res.$value)
+        return true;
+      return false;
+    });
   }
 
   /*isAdmin() {

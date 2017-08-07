@@ -2,12 +2,13 @@
   <div class="followPhoto">
     <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
     <a>{{followingUsers.alias}}</a>
-    <button type="button" class="btn followBtn" (click)="followClick()" >Follow</button>
+    <follow-btn [uid]="followingUsers.uid" ></follow-btn>
+
   </div>
   <div class="bioWrapper">
     <p>{{followingUsers.bio}}</p>
   </div>
-  <!-- <pre>
+  <pre>
     {{ followingUsers | json }}
-  </pre> -->
+  </pre>
 </div>
