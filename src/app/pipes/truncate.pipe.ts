@@ -11,7 +11,6 @@ export class TruncatePipe implements PipeTransform {
     if (!value)
       return;
 
-
     if (value.length > max) {
       return `${value.substr(0, max)}...`
     }
