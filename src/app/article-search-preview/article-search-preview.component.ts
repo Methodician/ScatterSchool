@@ -20,9 +20,9 @@ export class ArticleSearchPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.articleSvc.getAuthorById(this.articleData.authorId).subscribe(author => {
-     this.author = author;
-   });
+    this.articleSvc.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
+      this.author = author;
+    });
   }
 
   navigateToArticleDetail() {

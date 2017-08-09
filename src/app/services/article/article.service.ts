@@ -21,15 +21,15 @@ export class ArticleService {
     return this.db.list('articleData/articles');
   }
 
-  getArticleById(articleKey: string) {
+  getArticleByKey(articleKey: string) {
     return this.db.object(`articleData/articles/${articleKey}`).map(article => {
       article.tags = this.arrayFromTagsObject(article.tags);
       return article;
     });
   }
 
-  getArticleBodyById(id: string) {
-    return this.db.object('articleData/articleBodies/' + id);
+  getArticleBodyByKey(bodyKey: string) {
+    return this.db.object('articleData/articleBodies/' + bodyKey);
   }
 
   findArticlesForKeys(articleKeys$: Observable<any[]>): Observable<ArticleDetailOpen[]> {
@@ -45,15 +45,15 @@ export class ArticleService {
         Observable.combineLatest(firebaseObjects));
   }
 
-  findArticlesPerEditor(editorId: string): Observable<ArticleDetailOpen[]> {
-    return this.findArticlesForKeys(this.db.list(`articleData/articlesPerEditor/${editorId}`));
+  findArticlesPerEditor(editorKey: string): Observable<ArticleDetailOpen[]> {
+    return this.findArticlesForKeys(this.db.list(`articleData/articlesPerEditor/${editorKey}`));
   }
 
-  findArticlesPerAuthor(authorId: string): Observable<ArticleDetailOpen[]> {
-    return this.findArticlesForKeys(this.db.list(`articleData/articlesPerAuthor/${authorId}`));
+  findArticlesPerAuthor(authorKey: string): Observable<ArticleDetailOpen[]> {
+    return this.findArticlesForKeys(this.db.list(`articleData/articlesPerAuthor/${authorKey}`));
   }
 
-  createNewArticle(uid: string, article: any) {
+  createNewArticle(AuthorKey: string, article: any) {
 
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
     let tagsObject = this.tagsObjectFromStringArray(article.tags);
@@ -61,16 +61,16 @@ export class ArticleService {
     let articleToSave = {
       title: article.title,
       introduction: article.introduction,
-      bodyId: bodyKey,
+      bodyKey: bodyKey,
       tags: tagsObject,
       version: 1,
-      authorId: uid,
+      authorKey: AuthorKey,
       timeStamp: firebase.database.ServerValue.TIMESTAMP,
       lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
 
     let articleKey = this.db.list('articleData/articles').push(articleToSave).key;
-    this.db.object(`articleData/articlesPerAuthor/${uid}/${articleKey}`).set(true);
+    this.db.object(`articleData/articlesPerAuthor/${AuthorKey}/${articleKey}`).set(true);
 
     let tags = article.tags;
     if (tags) {
@@ -82,29 +82,29 @@ export class ArticleService {
     return articleKey;
   }
 
-  updateArticle(uid: string, article: any) {
-    const oldBodyId = article.bodyId;
-    const articleId = article.articleId;
+  updateArticle(editorKey: string, article: any) {
+    const oldBodyKey = article.bodyKey;
+    const articleKey = article.articleKey;
     let tagsObject = this.tagsObjectFromStringArray(article.tags);
 
     //  Really wanted to reduce trips to the db...
-    this.db.object(`articleData/articles/${articleId}/tags`)
+    this.db.object(`articleData/articles/${articleKey}/tags`)
       .map(tags => this.arrayFromTagsObject(tags))
       .subscribe(oldTags => {
         if ((article.tags && article.tags != []) || (oldTags && oldTags != [])) {
-          this.processTagsEdit(article.tags, oldTags, articleId);
+          this.processTagsEdit(article.tags, oldTags, articleKey);
         }
       });
 
-    this.archiveArticle(articleId);
-    this.db.object(`articleData/articleBodies/${oldBodyId}`).subscribe(body => {
+    this.archiveArticle(articleKey);
+    this.db.object(`articleData/articleBodies/${oldBodyKey}`).subscribe(body => {
       let bodyLogObject: any = {};
       bodyLogObject.body = body.$value;
-      bodyLogObject.articleKey = articleId;
+      bodyLogObject.articleKey = articleKey;
       bodyLogObject.version = article.version;
-      bodyLogObject.nextEditorId = uid;
-      this.db.object(`articleData/articleBodyArchive/${oldBodyId}`).set(bodyLogObject).then(res => {
-        this.db.object(`articleData/articleBodies/${oldBodyId}`).remove();
+      bodyLogObject.nextEditorKey = editorKey;
+      this.db.object(`articleData/articleBodyArchive/${oldBodyKey}`).set(bodyLogObject).then(res => {
+        this.db.object(`articleData/articleBodies/${oldBodyKey}`).remove();
       });
       this.db.object(`articleData/bodysPerArticle/${article.$key}/${body.$key}`).set(firebase.database.ServerValue.TIMESTAMP);
     });
@@ -112,15 +112,15 @@ export class ArticleService {
     let articleToUpdate = {
       title: article.title,
       introduction: article.introduction,
-      bodyId: bodyKey,
+      bodyKey: bodyKey,
       tags: tagsObject,
       version: article.version + 1,
       lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
-    this.db.object(`articleData/editorsPerArticle/${articleId}/${uid}`).set(true);
-    this.db.object(`articleData/articlesPerEditor/${uid}/${articleId}`).set(true);
+    this.db.object(`articleData/editorsPerArticle/${articleKey}/${editorKey}`).set(true);
+    this.db.object(`articleData/articlesPerEditor/${editorKey}/${articleKey}`).set(true);
 
-    return this.db.object(`articleData/articles/${articleId}`).set(articleToUpdate);
+    return this.db.object(`articleData/articles/${articleKey}`).set(articleToUpdate);
   }
 
   arrayFromTagsObject(articleTags): string[] {
@@ -153,11 +153,11 @@ export class ArticleService {
     });
   }
 
-  processTagsEdit(newTags, oldTags, articleId) {
+  processTagsEdit(newTags, oldTags, articleKey) {
     let deletedTags = [];
 
     for (let tag of newTags) {
-      this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).set(true);
+      this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
       this.addGlobalTag(tag);
     }
 
@@ -167,15 +167,15 @@ export class ArticleService {
       }
     }
     for (let tag of deletedTags) {
-      this.db.object(`articleData/articlesPerTag/${tag}/${articleId}`).remove();
+      this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).remove();
     }
   }
 
-  archiveArticle(articleId) {
+  archiveArticle(articleKey) {
     //  I'd like to get this observable working to reduce the trips back to the DB (may as well use the tags when we get this)
     //const subject = new BehaviorSubject<any>(null);
-    this.db.object(`articleData/articles/${articleId}`).take(1).subscribe(article => {
-      this.db.object(`articleData/articleArchive/${articleId}/${article.version}`).set(article);
+    this.db.object(`articleData/articles/${articleKey}`).take(1).subscribe(article => {
+      this.db.object(`articleData/articleArchive/${articleKey}/${article.version}`).set(article);
       //subject.next(article.tags || {});
       //subject.complete();
     });
@@ -204,7 +204,7 @@ export class ArticleService {
     /* var featuredArticles = new Array();
     this.db.list('articleData/featuredArticles').subscribe(keys => {
       keys.forEach(index => {
-        this.getArticleById(index.$key).
+        this.getArticleByKey(index.$key).
           subscribe(dataLastEmittedFromObserver => {
             featuredArticles.push(dataLastEmittedFromObserver);
           })
@@ -256,17 +256,17 @@ export class ArticleService {
     return foundArticles;
   }
 
-  getAuthorById(authorKey: string) {
+  getAuthorByKey(authorKey: string) {
     return this.db.object(`userInfo/open/${authorKey}`);
   }
 
-  navigateToArticleDetail(articleId: any) {
+  navigateToArticleDetail(articleKey: any) {
     //navigateToArticleDetail() {
-    this.router.navigate([`articledetail/${articleId}`]);
+    this.router.navigate([`articledetail/${articleKey}`]);
     //this.router.navigate([`articledetail/${this.articleData.$key}`]);
   }
 
-  navigateToAuthor(authorId: any) {
-    this.router.navigate([`author/${authorId}`]);
+  navigateToAuthor(authorKey: any) {
+    this.router.navigate([`author/${authorKey}`]);
   }
 }

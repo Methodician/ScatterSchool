@@ -27,7 +27,7 @@ export class ArticleDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
     if (!this.editingPreview) {
       this.route.params.subscribe(params => {
         if (params['id'])
@@ -73,31 +73,32 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   getArticleData() {
-    this.articleSvc.getArticleById(this.articleKey).subscribe(articleData => {
+    this.articleSvc.getArticleByKey(this.articleKey).subscribe(articleData => {
       this.getArticleBody(articleData);
-      this.getAuthor(articleData.authorId);
+      this.getAuthor(articleData.authorKey);
     });
   }
 
   getArticleBody(articleData: any) {
-    this.articleSvc.getArticleBodyById(articleData.bodyId).subscribe(articleBody => {
+    this.articleSvc.getArticleBodyByKey(articleData.bodyKey).subscribe(articleBody => {
       articleData.body = articleBody.$value;
       this.article = articleData;
     });
   }
 
-  getAuthor(authorId: string) {
-    this.articleSvc.getAuthorById(authorId).subscribe(author => {
+  getAuthor(authorKey: string) {
+    this.articleSvc.getAuthorByKey(authorKey).subscribe(author => {
       this.author = author;
     });
   }
 
   followClick() {
-    let followId = this.article.authorId;
-    this.userSvc.followUser(followId);
+    let followKey = this.article.authorKey;
+    this.userSvc.followUser(followKey);
   }
 
   tagSearch(tag: string) {
+    //  ToDo: create new route and search pipe for tags only. Should be easy as it's a subset of search pipe. Might also use new tagSearchPipe inside search pipe to avoid code duplication
     this.router.navigate([`/articlesearch/${tag}`]);
   }
 

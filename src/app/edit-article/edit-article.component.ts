@@ -31,9 +31,9 @@ export class EditArticleComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.id = params['id'];
-      this.articleSvc.getArticleById(this.id).subscribe(articleToEdit => {
-        let articleBodyId = articleToEdit.bodyId;
-        this.articleSvc.getArticleBodyById(articleBodyId).subscribe(articleBody => {
+      this.articleSvc.getArticleByKey(this.id).subscribe(articleToEdit => {
+        let articleBodyKey = articleToEdit.bodyKey;
+        this.articleSvc.getArticleBodyByKey(articleBodyKey).subscribe(articleBody => {
           articleToEdit.body = articleBody.$value;
           /* let tagsObject = articleToEdit.tags;
           let tagsString = "";
@@ -41,7 +41,7 @@ export class EditArticleComponent implements OnInit {
             tagsString += tag + ", ";
           } */
           //articleToEdit.tags = tagsString;
-          articleToEdit.articleId = articleToEdit.$key;
+          articleToEdit.articleKey = articleToEdit.$key;
           this.articleEditing = articleToEdit;
         })
       });
@@ -53,7 +53,7 @@ export class EditArticleComponent implements OnInit {
   edit(article) {
     //article.tags = tags;
     this.articleSvc.updateArticle(this.authInfo.$uid, article)
-    this.router.navigate([`articledetail/${article.articleId}`]);
+    this.router.navigate([`articledetail/${article.articleKey}`]);
 
   }
 

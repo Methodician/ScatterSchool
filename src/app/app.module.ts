@@ -1,3 +1,4 @@
+import { DataCleanupService } from './data-cleanup.service';
 import { fbConfig } from './config';
 import { AppRoutingModule } from './app-routing.module';
 import { UserService } from './services/user/user.service';
@@ -42,7 +43,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { FollowUsersComponent } from './follow-users/follow-users.component';
 import { FollowingUsersComponent } from './following-users/following-users.component';
 import { TagInputModule } from 'ngx-chips'; // good documentation: https://www.npmjs.com/package/ng2-tag-input 
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // this is needed for ng2-tag-input!
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DataCleanupComponent } from './data-cleanup/data-cleanup.component'; // this is needed for ng2-tag-input!
 
 /* const fbConfig = {
   apiKey: "AIzaSyCHmMp6nCKnQH-uex9_XsuihiT0V7FcbpA",
@@ -81,7 +83,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
     ArticleSearchPreviewComponent,
     AboutUsComponent,
     FollowUsersComponent,
-    FollowingUsersComponent
+    FollowingUsersComponent,
+    DataCleanupComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +103,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
     AngularFireDatabase,
     AuthService,
     UserService,
-    ArticleService
+    ArticleService,
+    DataCleanupService
   ],
   bootstrap: [AppComponent]
 })

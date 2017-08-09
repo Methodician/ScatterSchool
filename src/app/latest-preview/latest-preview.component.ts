@@ -18,9 +18,9 @@ export class LatestPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.articleService.getAuthorById(this.articleData.authorId).subscribe(author => {
-     this.author = author;
-   });
+    this.articleService.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
+      this.author = author;
+    });
   }
 
   navigateToArticleDetail() {
@@ -28,6 +28,6 @@ export class LatestPreviewComponent implements OnInit {
   }
 
   navigateToAuthor() {
-    this.articleService.navigateToAuthor(this.articleData.authorId);
+    this.articleService.navigateToAuthor(this.articleData.authorKey);
   }
 }

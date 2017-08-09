@@ -12,7 +12,7 @@ export class ArticleSearchResultsComponent implements OnInit {
   allArticles: any;
   searchResults: any;
   queryString: string;
-  
+
 
   constructor(
     private articleSvc: ArticleService,
@@ -23,7 +23,7 @@ export class ArticleSearchResultsComponent implements OnInit {
   ngOnInit() {
     this.articleSvc.getAllArticles().subscribe(articles => {
       for (let article of articles) {
-        this.articleSvc.getArticleBodyById(article.bodyId).subscribe(body => {
+        this.articleSvc.getArticleBodyByKey(article.bodyKey).subscribe(body => {
           article.body = body.$value;
         });
       }
