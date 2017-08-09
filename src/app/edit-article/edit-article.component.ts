@@ -10,15 +10,14 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./edit-article.component.css', '../post-article/post-article.component.css']
 })
 export class EditArticleComponent implements OnInit {
-  articleEditing: any;
-  id: any;
+  article: any;
+  key: any;
   routeParams: any;
   authInfo = null;
 
 
   constructor(
     private articleSvc: ArticleService,
-    //private userSvc: UserService,
     private router: Router,
     authSvc: AuthService,
     private route: ActivatedRoute
@@ -30,28 +29,20 @@ export class EditArticleComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.id = params['id'];
-      this.articleSvc.getArticleByKey(this.id).subscribe(articleToEdit => {
+      this.key = params['key'];
+      this.articleSvc.getArticleByKey(this.key).subscribe(articleToEdit => {
         let articleBodyKey = articleToEdit.bodyKey;
         this.articleSvc.getArticleBodyByKey(articleBodyKey).subscribe(articleBody => {
           articleToEdit.body = articleBody.$value;
-          /* let tagsObject = articleToEdit.tags;
-          let tagsString = "";
-          for (let tag in tagsObject) {
-            tagsString += tag + ", ";
-          } */
-          //articleToEdit.tags = tagsString;
           articleToEdit.articleKey = articleToEdit.$key;
-          this.articleEditing = articleToEdit;
+          this.article = articleToEdit;
         })
       });
     })
   }
 
 
-  //edit(article, tags) {
   edit(article) {
-    //article.tags = tags;
     this.articleSvc.updateArticle(this.authInfo.$uid, article)
     this.router.navigate([`articledetail/${article.articleKey}`]);
 

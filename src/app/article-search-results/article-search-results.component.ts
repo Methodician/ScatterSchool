@@ -21,6 +21,7 @@ export class ArticleSearchResultsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.articleSvc.getAllArticles().subscribe(articles => {
       for (let article of articles) {
         this.articleSvc.getArticleBodyByKey(article.bodyKey).subscribe(body => {

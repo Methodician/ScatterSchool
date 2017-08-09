@@ -45,7 +45,7 @@ const routes: Routes = [
     path: 'account',
     children: [
       {
-        path: ':id',
+        path: ':key',
         component: AccountComponent
       },
       {
@@ -59,18 +59,18 @@ const routes: Routes = [
     component: PostArticleComponent
   },
   {
-    path: 'editarticle/:id',
+    path: 'editarticle/:key',
     component: EditArticleComponent
   },
   {
-    path: 'articledetail/:id',
+    path: 'articledetail/:key',
     component: ArticleDetailComponent
   },
   {
     path: 'author',
     children: [
       {
-        path: ':id',
+        path: ':key',
         component: AuthorComponent
       },
       {

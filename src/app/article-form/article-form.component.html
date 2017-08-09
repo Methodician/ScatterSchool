@@ -21,18 +21,15 @@
         </ckeditor>
       </div>
       <div class="form-field formSection">
-        <!-- <div class="form-field">
-        <label>Tags (separate by comma)</label>
-        <input type="text" name="tags" formControlName="tags" class="form-control">
-      </div> -->
+
       </div>
     </div>
   </fieldset>
 </form>
 <tag-input class="form-field ckEditor" [(ngModel)]="formTags" (onAdd)="onTagAdded($event)" (onRemove)="onTagRemoved($event)"></tag-input>
-<pre>
+<!-- <pre>
   {{ articleTags | json }}
 </pre>
 <pre>
   {{ formTags | json }}
-</pre>
+</pre> -->

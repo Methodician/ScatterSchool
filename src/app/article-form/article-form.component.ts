@@ -24,13 +24,14 @@ export class ArticleFormComponent implements OnInit {
       introduction: ['', Validators.required],
       body: ['', Validators.required],
       tags: [[]],
-      bodyId: '',
+      bodyKey: '',
       lastUpdated: 0,
       timeStamp: 0,
       version: 1,
-      articleId: ''
+      articleKey: '',
+      authorKey: ''
     });
-    //this.articleTags = this.initialValue.tags;
+
     this.ckeditorContent = ``;
 
   }

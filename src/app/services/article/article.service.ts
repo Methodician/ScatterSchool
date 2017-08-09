@@ -23,7 +23,7 @@ export class ArticleService {
 
   getArticleByKey(articleKey: string) {
     return this.db.object(`articleData/articles/${articleKey}`).map(article => {
-      article.tags = this.arrayFromTagsObject(article.tags);
+      article.tags = this.tagsArrayFromTagsObject(article.tags);
       return article;
     });
   }
@@ -38,7 +38,7 @@ export class ArticleService {
         .map(article =>
           this.db.object(`articleData/articles/${article.$key}`)
             .map(article => {
-              article.tags = this.arrayFromTagsObject(article.tags);
+              article.tags = this.tagsArrayFromTagsObject(article.tags);
               return article;
             })))
       .flatMap(firebaseObjects =>
@@ -89,7 +89,7 @@ export class ArticleService {
 
     //  Really wanted to reduce trips to the db...
     this.db.object(`articleData/articles/${articleKey}/tags`)
-      .map(tags => this.arrayFromTagsObject(tags))
+      .map(tags => this.tagsArrayFromTagsObject(tags))
       .subscribe(oldTags => {
         if ((article.tags && article.tags != []) || (oldTags && oldTags != [])) {
           this.processTagsEdit(article.tags, oldTags, articleKey);
@@ -106,7 +106,7 @@ export class ArticleService {
       this.db.object(`articleData/articleBodyArchive/${oldBodyKey}`).set(bodyLogObject).then(res => {
         this.db.object(`articleData/articleBodies/${oldBodyKey}`).remove();
       });
-      this.db.object(`articleData/bodysPerArticle/${article.$key}/${body.$key}`).set(firebase.database.ServerValue.TIMESTAMP);
+      this.db.object(`articleData/bodysPerArticle/${articleKey}/${oldBodyKey}`).set(firebase.database.ServerValue.TIMESTAMP);
     });
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
     let articleToUpdate = {
@@ -120,10 +120,10 @@ export class ArticleService {
     this.db.object(`articleData/editorsPerArticle/${articleKey}/${editorKey}`).set(true);
     this.db.object(`articleData/articlesPerEditor/${editorKey}/${articleKey}`).set(true);
 
-    return this.db.object(`articleData/articles/${articleKey}`).set(articleToUpdate);
+    return this.db.object(`articleData/articles/${articleKey}`).update(articleToUpdate);
   }
 
-  arrayFromTagsObject(articleTags): string[] {
+  tagsArrayFromTagsObject(articleTags: {}): string[] {
     if (articleTags == {})
       return null;
 
@@ -148,7 +148,7 @@ export class ArticleService {
 
   addGlobalTag(tag: string) {
     this.db.object(`articleData/tags/${tag}`).take(1).subscribe(data => {
-      if (!data.$value)
+      if (!data.$key)
         this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
     });
   }
@@ -172,14 +172,9 @@ export class ArticleService {
   }
 
   archiveArticle(articleKey) {
-    //  I'd like to get this observable working to reduce the trips back to the DB (may as well use the tags when we get this)
-    //const subject = new BehaviorSubject<any>(null);
     this.db.object(`articleData/articles/${articleKey}`).take(1).subscribe(article => {
       this.db.object(`articleData/articleArchive/${articleKey}/${article.version}`).set(article);
-      //subject.next(article.tags || {});
-      //subject.complete();
     });
-    //return subject.asObservable();
   }
 
   isArticleFeatured(articleKey: string) {
@@ -200,18 +195,6 @@ export class ArticleService {
 
   getAllFeatured() {
     return this.findArticlesForKeys(this.db.list('articleData/featuredArticles'));
-
-    /* var featuredArticles = new Array();
-    this.db.list('articleData/featuredArticles').subscribe(keys => {
-      keys.forEach(index => {
-        this.getArticleByKey(index.$key).
-          subscribe(dataLastEmittedFromObserver => {
-            featuredArticles.push(dataLastEmittedFromObserver);
-          })
-      })
-    })
-    console.log(featuredArticles);
-    return featuredArticles; */
   }
 
   getLatest() {
@@ -222,7 +205,7 @@ export class ArticleService {
       }
     }).map(articles => {
       articles.map(article => {
-        article.tags = this.arrayFromTagsObject(article.tags);
+        article.tags = this.tagsArrayFromTagsObject(article.tags);
         return article;
       });
       return articles;
@@ -261,9 +244,7 @@ export class ArticleService {
   }
 
   navigateToArticleDetail(articleKey: any) {
-    //navigateToArticleDetail() {
     this.router.navigate([`articledetail/${articleKey}`]);
-    //this.router.navigate([`articledetail/${this.articleData.$key}`]);
   }
 
   navigateToAuthor(authorKey: any) {

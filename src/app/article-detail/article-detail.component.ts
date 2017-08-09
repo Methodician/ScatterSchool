@@ -30,8 +30,8 @@ export class ArticleDetailComponent implements OnInit {
     window.scrollTo(0, 0)
     if (!this.editingPreview) {
       this.route.params.subscribe(params => {
-        if (params['id'])
-          this.articleKey = params['id'];
+        if (params['key'])
+          this.articleKey = params['key'];
         this.checkIfFeatured();
         this.getArticleData();
       });
@@ -39,14 +39,12 @@ export class ArticleDetailComponent implements OnInit {
     else {
       this.checkIfFeatured();
       this.getArticleBody(this.articleData);
+      this.getAuthor(this.articleData.authorKey);
     }
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    //  Must make sure form is initalized before checking...
     if (changes['articleData'] && changes['articleData'].currentValue) {
-      //if (changes['initialValue']) {
-      // We have two methods to set a form's value: setValue and patchValue.
       this.article = changes['articleData'].currentValue;
     }
   }
@@ -98,7 +96,6 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   tagSearch(tag: string) {
-    //  ToDo: create new route and search pipe for tags only. Should be easy as it's a subset of search pipe. Might also use new tagSearchPipe inside search pipe to avoid code duplication
     this.router.navigate([`/articlesearch/${tag}`]);
   }
 
