@@ -1,3 +1,4 @@
+import { DataCleanupComponent } from './data-cleanup/data-cleanup.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 //import { FollowUsersComponent } from './follow-users/follow-users.component';
 import { AuthorComponent } from './author/author.component';
@@ -15,87 +16,91 @@ import { Routes, RouterModule } from '@angular/router';
 
 
 const routes: Routes = [
-    {
-      path: 'home',
-      component: HomeComponent
-    },
-    {
-      path: 'register',
-      component: RegisterComponent
-    },
-    {
-      path: 'login',
-      component: LoginComponent
-    },
-    {
-      path: 'articlesearch',
-      children: [
-        {
-          path: ':query',
-          component: ArticleSearchResultsComponent
-        },
-        {
-          path: '',
-          component: ArticleSearchResultsComponent
-        }
-      ]
-    },
-    {
-      path: 'account',
-      children: [
-        {
-          path: ':id',
-          component: AccountComponent
-        },
-        {
-          path: '',
-          component: AccountComponent
-        }
-      ]
-    },
-    {
-      path: 'postarticle',
-      component: PostArticleComponent
-    },
-    {
-      path: 'editarticle/:id',
-      component: EditArticleComponent
-    },
-    {
-      path: 'articledetail/:id',
-      component: ArticleDetailComponent
-    },
-    {
-      path: 'author',
-      children: [
-        {
-          path: ':id',
-          component: AuthorComponent
-        },
-        {
-          path: '',
-          component: AuthorComponent
-        }
-      ]
-    },
-    {
-      path: 'aboutus',
-      component: AboutUsComponent
-    },
-    {
-      path: '',
-      component: HomeComponent
-    },
-    //ATTN: this route MUST live at the end of all the routes in this array.
-    {
-      path: '**',
-      component: PageNotFoundComponent
-    }
+  {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
+    path: 'articlesearch',
+    children: [
+      {
+        path: ':query',
+        component: ArticleSearchResultsComponent
+      },
+      {
+        path: '',
+        component: ArticleSearchResultsComponent
+      }
+    ]
+  },
+  {
+    path: 'account',
+    children: [
+      {
+        path: ':id',
+        component: AccountComponent
+      },
+      {
+        path: '',
+        component: AccountComponent
+      }
+    ]
+  },
+  {
+    path: 'postarticle',
+    component: PostArticleComponent
+  },
+  {
+    path: 'editarticle/:id',
+    component: EditArticleComponent
+  },
+  {
+    path: 'articledetail/:id',
+    component: ArticleDetailComponent
+  },
+  {
+    path: 'author',
+    children: [
+      {
+        path: ':id',
+        component: AuthorComponent
+      },
+      {
+        path: '',
+        component: AuthorComponent
+      }
+    ]
+  },
+  {
+    path: 'aboutus',
+    component: AboutUsComponent
+  },
+  {
+    path: 'datacleanup',
+    component: DataCleanupComponent
+  },
+  {
+    path: '',
+    component: HomeComponent
+  },
+  //ATTN: this route MUST live at the end of all the routes in this array.
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  }
 ];
 
 @NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule],
-    providers: []
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule],
+  providers: []
 })
 export class AppRoutingModule { }
