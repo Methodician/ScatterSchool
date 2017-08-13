@@ -29,7 +29,7 @@ export class ArticleSearchPreviewComponent implements OnInit {
     this.articleSvc.navigateToArticleDetail(this.articleData.$key);
   }
 
-  navigateToAuthor() {
-    this.articleSvc.navigateToAuthor(this.author.$key);
+  navigateToProfile() {
+    this.articleSvc.navigateToProfile(this.author.$key);
   }
 }

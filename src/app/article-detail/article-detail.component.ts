@@ -49,8 +49,8 @@ export class ArticleDetailComponent implements OnInit {
     }
   }
 
-  navigateToAuthor() {
-    this.articleSvc.navigateToAuthor(this.author.$key);
+  navigateToProfile() {
+    this.articleSvc.navigateToProfile(this.author.$key);
   }
 
   edit() {

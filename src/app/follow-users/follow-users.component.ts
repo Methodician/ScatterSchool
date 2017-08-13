@@ -23,13 +23,13 @@ export class FollowUsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userSvc.getAuthorsFollowed(this.usersFollowed.uid).subscribe(user => {
-     this.user = user;
-   });
+    this.userSvc.getUsersFollowed(this.usersFollowed.uid).subscribe(user => {
+      this.user = user;
+    });
   }
 
-  navigateToUser() {
-    this.userSvc.navigateToUser(this.usersFollowed.uid);
+  navigateToProfile() {
+    this.userSvc.navigateToProfile(this.usersFollowed.uid);
   }
 
   followClick() {

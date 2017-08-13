@@ -33,7 +33,7 @@ import { LatestPreviewComponent } from './latest-preview/latest-preview.componen
 import { ArticleSearchPipe } from './pipes/article-search.pipe';
 import { ArticleSearchResultsComponent } from './article-search-results/article-search-results.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
-import { AuthorComponent } from './author/author.component';
+import { ProfileComponent } from './profile/profile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthorArticlePreviewComponent } from './author-article-preview/author-article-preview.component';
 import { FooterComponent } from './footer/footer.component';
@@ -46,7 +46,10 @@ import { TagInputModule } from 'ngx-chips'; // good documentation: https://www.n
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component'; // this is needed for ng2-tag-input!
 import { TruncateTagsPipe } from './pipes/truncate-tags.pipe';
-import { FollowBtnComponent } from './follow-btn/follow-btn.component'; // this is needed for ng2-tag-input!
+import { FollowBtnComponent } from './follow-btn/follow-btn.component';
+import { FollowedUserComponent } from './followed-user/followed-user.component';
+import { FollowerUserComponent } from './follower-user/follower-user.component';
+
 
 
 @NgModule({
@@ -68,7 +71,7 @@ import { FollowBtnComponent } from './follow-btn/follow-btn.component'; // this 
     ArticleSearchPipe,
     ArticleSearchResultsComponent,
     ArticleDetailComponent,
-    AuthorComponent,
+    ProfileComponent,
     PageNotFoundComponent,
     AuthorArticlePreviewComponent,
     FooterComponent,
@@ -79,7 +82,9 @@ import { FollowBtnComponent } from './follow-btn/follow-btn.component'; // this 
     FollowingUsersComponent,
     DataCleanupComponent,
     TruncateTagsPipe,
-    FollowBtnComponent
+    FollowBtnComponent,
+    FollowedUserComponent,
+    FollowerUserComponent
   ],
   imports: [
     BrowserModule,

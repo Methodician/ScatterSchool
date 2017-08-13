@@ -17,16 +17,7 @@ export class FollowBtnComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userSvc.isFollowingUser(this.uid).subscribe(following => {
-      if (following) {
-      this.buttonText = 'Unfollow';
-      this.isFollowing = true;
-      }
-      else {
-        this.buttonText = 'Follow';
-        this.isFollowing = false;
-      }
-    });
+    this.checkIfFollowing();
   }
 
   click() {
@@ -34,12 +25,24 @@ export class FollowBtnComponent implements OnInit {
       this.userSvc.unfollowUser(this.uid);
     }
     else
-    this.userSvc.followUser(this.uid);
-    console.log('ts worked!')
+      this.userSvc.followUser(this.uid);
   }
 
   isFollowingUser() {
     return this.userSvc.isFollowingUser(this.uid);
+  }
+
+  checkIfFollowing() {
+    this.userSvc.isFollowingUser(this.uid).subscribe(following => {
+      if (following) {
+        this.buttonText = 'Unfollow';
+        this.isFollowing = true;
+      }
+      else {
+        this.buttonText = 'Follow';
+        this.isFollowing = false;
+      }
+    });
   }
 
 }

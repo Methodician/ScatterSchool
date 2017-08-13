@@ -11,7 +11,7 @@ import { ArticleService } from './../services/article/article.service';
 })
 export class FollowingUsersComponent implements OnInit {
 
-  @Input() followingUsers: any;
+  @Input() followersOfUser: any;
   @Input() articleData: any;
   user;
   article;
@@ -22,13 +22,13 @@ export class FollowingUsersComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userSvc.getFollowingUsers(this.followingUsers.uid).subscribe(user => {
-     this.user = user;
-   });
+    this.userSvc.getFollowersOfUser(this.followersOfUser.uid).subscribe(user => {
+      this.user = user;
+    });
   }
 
   // followClick() {
-  //   let followId = this.followingUsers.uid;
+  //   let followId = this.followersOfUser.uid;
   //   this.userSvc.followUser(followId);
   //   console.log('ts worked!')
   // }

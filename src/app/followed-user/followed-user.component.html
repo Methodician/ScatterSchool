@@ -1,13 +1,11 @@
 <div class="followWrapper">
   <div class="followPhoto">
     <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
-    <a (click)="navigateToProfile()">{{usersFollowed.alias}}</a>
-    <follow-btn [uid]="usersFollowed.uid"></follow-btn>
+    <a (click)="navigateToProfile()">{{user.alias}}</a>
+    <follow-btn [uid]="user.uid"></follow-btn>
   </div>
   <div class="bioWrapper">
-    <p>{{usersFollowed.bio}}</p>
+    <p>{{user.bio}}</p>
   </div>
-  <!-- <pre>
-    {{ usersFollowed | json }}
-  </pre> -->
+
 </div>

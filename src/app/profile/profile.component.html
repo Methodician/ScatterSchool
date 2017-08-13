@@ -2,9 +2,10 @@
   <div class="userInfoWrapper">
     <div class="photoNameWrapper">
       <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
-      <div class="followButtonWrapper">
+      <div *ngIf="userInfo" class="followButtonWrapper">
         <h3 class="author">{{userInfo?.alias || userInfo?.fName + ' ' + userInfo?.lName}}</h3>
-        <button type="button" class="btn followBtn" (click)="followClick()">Follow</button>
+        <!-- <button type="button" class="btn followBtn" (click)="followClick()">Follow</button> -->
+        <follow-btn [uid]="userInfo?.uid"></follow-btn>
       </div>
     </div>
     <h4 class="bio">{{userInfo?.bio}}</h4>
@@ -21,7 +22,7 @@
     <div class="articleAuthorBlock">
       <h3>Articles as the Original Author</h3>
       <div class="authorLoop">
-        <div *ngFor="let article of articlesPerAuthor">
+        <div *ngFor="let article of articlesAuthored">
           <author-article-preview [articleData]="article"></author-article-preview>
         </div>
       </div>
@@ -29,7 +30,7 @@
     <div class="articleEditorBlock">
       <h3>Articles as an Editor</h3>
       <div class="editorLoop">
-        <div *ngFor="let article of articlesPerEditor">
+        <div *ngFor="let article of articlesEdited">
           <author-article-preview [articleData]="article"></author-article-preview>
         </div>
       </div>
@@ -39,24 +40,28 @@
     <div class="followAuthorBlock">
       <h3>Following</h3>
       <div class="followAuthorLoop">
-        <div *ngFor="let follow of usersFollowed">
-          <follow-users [usersFollowed]="follow"></follow-users>
+        <div *ngFor="let user of usersFollowed">
+          <followed-user [user]="user"></followed-user>
         </div>
       </div>
     </div>
     <div class="followingUserBlock">
       <h3>Followers</h3>
       <div class="followingUserLoop">
-        <div *ngFor="let following of followingUsers">
-          <following-users [followingUsers]="following"></following-users>
+        <div *ngFor="let user of followersOfUser">
+          <follower-user [user]="user"></follower-user>
         </div>
       </div>
     </div>
 
   </div>
+  <pre>
+    user's info:
+    {{ userInfo | json }}
+  </pre>
   <!-- <pre>
   Authors that follow the current user
-  {{ followingUsers | json }}
+  {{ followersOfUser | json }}
   </pre>
   <pre>
   Authors the current user is following

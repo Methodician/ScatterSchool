@@ -8,19 +8,18 @@ import { FollowUsersComponent } from './../follow-users/follow-users.component';
 import { FollowingUsersComponent } from './../following-users/following-users.component';
 
 @Component({
-  selector: 'author',
-  templateUrl: './author.component.html',
-  styleUrls: ['./author.component.scss']
+  selector: 'profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
 
-export class AuthorComponent implements OnInit {
+export class ProfileComponent implements OnInit {
 
   userInfo: UserInfoOpen;
   usersFollowed: UserInfoOpen[];
-  followingUsers: UserInfoOpen[];
-  articlesPerAuthor: ArticleDetailOpen[];
-  articlesPerEditor: ArticleDetailOpen[];
-  user;
+  followersOfUser: UserInfoOpen[];
+  articlesAuthored: ArticleDetailOpen[];
+  articlesEdited: ArticleDetailOpen[];
 
   constructor(
     private router: Router,
@@ -32,13 +31,13 @@ export class AuthorComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0)
     this.route.params.subscribe(params => {
-      if (params['id']) {
-        let userId = params['id'];
-        this.getUserInfo(userId);
-        this.getArticlesPerAuthor(userId);
-        this.getArticlesPerEditor(userId);
-        this.getAuthorsFollowed(userId);
-        this.getFollowingUsers(userId);
+      if (params['key']) {
+        let uid = params['key'];
+        this.getUserInfo(uid);
+        this.getArticlesPerAuthor(uid);
+        this.getArticlesPerEditor(uid);
+        this.getUsersFollowed(uid);
+        this.getFollowersOfUser(uid);
       }
     })
   }
@@ -49,27 +48,27 @@ export class AuthorComponent implements OnInit {
     );
   }
 
-  getAuthorsFollowed(uid: string) {
-    this.userSvc.getAuthorsFollowed(uid).subscribe(followed =>
+  getUsersFollowed(uid: string) {
+    this.userSvc.getUsersFollowed(uid).subscribe(followed =>
       this.usersFollowed = followed
     );
   }
 
-  getFollowingUsers(uid: string) {
-    this.userSvc.getFollowingUsers(uid).subscribe(following =>
-      this.followingUsers = following
+  getFollowersOfUser(uid: string) {
+    this.userSvc.getFollowersOfUser(uid).subscribe(following =>
+      this.followersOfUser = following
     );
   }
 
   getArticlesPerAuthor(uid: string) {
     this.articleSvc.findArticlesPerAuthor(uid).subscribe(articles =>
-      this.articlesPerAuthor = articles
+      this.articlesAuthored = articles
     );
   }
 
   getArticlesPerEditor(uid: string) {
     this.articleSvc.findArticlesPerEditor(uid).subscribe(articles =>
-      this.articlesPerEditor = articles
+      this.articlesEdited = articles
     );
   }
 

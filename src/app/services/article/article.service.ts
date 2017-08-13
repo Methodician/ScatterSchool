@@ -212,33 +212,6 @@ export class ArticleService {
     });
   }
 
-  // Deprecated - only here still for demonstration in case Chad wants to compare with new search pipe
-  searchArticles(searchStr: string) {
-    // Lowercase the search string so you can compared to lowercase titles and tags for cap sensitivity
-    var searchRef = searchStr.toLowerCase();
-    var foundArticles = new Array();
-    // Iterate through all the articles
-    this.getAllArticles().subscribe(articles => {
-      articles.forEach(index => {
-        // If the title contains the search string
-        if (index.title.toLowerCase().includes(searchRef)) {
-          // If the title contains the search string add the article to the array
-          foundArticles.push(index);
-        } else {
-          for (var i = 0; i < Object.keys(index.tags).length; i++) {
-            // If the title doesn't contain the string, iterate through the tags and check if the tags contain the search string
-            if (Object.keys(index.tags)[i].toString().toLowerCase().includes(searchRef)) {
-              // If the tags contain the search string add the article to the array and break out of for loop
-              foundArticles.push(index);
-              break;
-            }
-          }
-        }
-      })
-    });
-    return foundArticles;
-  }
-
   getAuthorByKey(authorKey: string) {
     return this.db.object(`userInfo/open/${authorKey}`);
   }
@@ -247,7 +220,7 @@ export class ArticleService {
     this.router.navigate([`articledetail/${articleKey}`]);
   }
 
-  navigateToAuthor(authorKey: any) {
-    this.router.navigate([`author/${authorKey}`]);
+  navigateToProfile(uid: any) {
+    this.router.navigate([`profile/${uid}`]);
   }
 }

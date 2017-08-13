@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 export class UserService {
 
   userInfo$: BehaviorSubject<UserInfoOpen> = new BehaviorSubject<UserInfoOpen>(null);
-  loggedInUserId: string;
+  loggedInUserKey: string;
 
   constructor(
     private authSvc: AuthService,
@@ -22,18 +22,18 @@ export class UserService {
         if (info.$key != "null") {
           //info.$uid = info.$key;
           this.userInfo$.next(info);
-          this.loggedInUserId = info.$key;
+          this.loggedInUserKey = info.$key;
         }
       })
     })
   }
 
-  setUserAccess(rank: number, uid: string) {
-    return this.db.object(`userInfo/rank/${uid}`).set(rank);
+  setUserAccess(accessLevel: number, uid: string) {
+    return this.db.object(`userInfo/accessLevel/${uid}`).set(accessLevel);
   }
 
   createUser(userInfo, uid) {
-    this.setUserAccess(2, uid);
+    this.setUserAccess(10, uid);
     return this.db.object(`userInfo/open/${uid}`).set(userInfo);
   }
 
@@ -42,28 +42,24 @@ export class UserService {
   }
 
   getUserInfo(uid) {
-    return this.db.object(`userInfo/open/${uid}`).map( user => {
+    return this.db.object(`userInfo/open/${uid}`).map(user => {
       user.uid = uid;
       return user;
     })
   }
 
-  followUser(followedUserId: string) {
-    let followingAuthorId = this.loggedInUserId;
-    this.db.object(`userInfo/usersFollowed/${followingAuthorId}/${followedUserId}`).set(firebase.database.ServerValue.TIMESTAMP);
-    this.db.object(`userInfo/followersPerUser/${followedUserId}/${followingAuthorId}`).set(firebase.database.ServerValue.TIMESTAMP);
-    console.log('service worked');
+  followUser(userToFollowKey: string) {
+    this.db.object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${userToFollowKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+    this.db.object(`userInfo/followersPerUser/${userToFollowKey}/${this.loggedInUserKey}`).set(firebase.database.ServerValue.TIMESTAMP);
   }
 
-  unfollowUser (followedUserId: string) {
-    let followingAuthorId = this.loggedInUserId;
-    this.db.object(`userInfo/usersFollowed/${followingAuthorId}/${followedUserId}`).remove();
-    this.db.object(`userInfo/followersPerUser/${followedUserId}/${followingAuthorId}`).remove();
-    console.log('unfollow service worked');
+  unfollowUser(userToUnfollowKey: string) {
+    this.db.object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${userToUnfollowKey}`).remove();
+    this.db.object(`userInfo/followersPerUser/${userToUnfollowKey}/${this.loggedInUserKey}`).remove();
   }
 
-  findUsersForKeys(userIds$: Observable<string[]>): Observable<UserInfoOpen[]> {
-    return userIds$
+  UserArrayFromKeyArray(userKeys: Observable<string[]>): Observable<UserInfoOpen[]> {
+    return userKeys
       .map(usersPerKey =>
         usersPerKey.map((user: any) =>
           this.db.object(`userInfo/open/${user.$key}`).map(user => {
@@ -74,24 +70,20 @@ export class UserService {
         Observable.combineLatest(firebaseObjects));
   }
 
-  // getAuthor(uid: string): Observable<UserInfoOpen[]> {
-  //   return this.findUsersForKeys(this.db.list(`userInfo/open/${uid}`));
-  // }
-
-  getAuthorsFollowed(uid: string): Observable<UserInfoOpen[]> {
-    return this.findUsersForKeys(this.db.list(`userInfo/usersFollowed/${uid}`));
+  getUsersFollowed(uid: string): Observable<UserInfoOpen[]> {
+    return this.UserArrayFromKeyArray(this.db.list(`userInfo/usersPerFollower/${uid}`));
   }
 
-  getFollowingUsers(uid: string): Observable<UserInfoOpen[]> {
-    return this.findUsersForKeys(this.db.list(`userInfo/followersPerUser/${uid}`));
+  getFollowersOfUser(uid: string): Observable<UserInfoOpen[]> {
+    return this.UserArrayFromKeyArray(this.db.list(`userInfo/followersPerUser/${uid}`));
   }
 
-  navigateToUser(uid: any) {
-    this.router.navigate([`author/${uid}`]);
+  navigateToProfile(uid: any) {
+    this.router.navigate([`profile/${uid}`]);
   }
 
   isFollowingUser(uid: string) {
-    return this.db.object(`userInfo/usersFollowed/${this.loggedInUserId}/${uid}`).map(res => {
+    return this.db.object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${uid}`).map(res => {
       if (res.$value)
         return true;
       return false;
@@ -102,8 +94,8 @@ export class UserService {
     let sub = new Subject();
     this.authSvc.authInfo$.subscribe(info => {
       if (info.$uid) {
-        this.db.object(`userInfo/rank/${info.$uid}`).subscribe(rank => {
-          sub.next(rank.$value >= 80);
+        this.db.object(`userInfo/accessLevel/${info.$uid}`).subscribe(accessLevel => {
+          sub.next(accessLevel.$value >= 80);
           sub.complete();
         });
       }

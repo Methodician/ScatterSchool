@@ -27,7 +27,7 @@ export class FeaturePreviewComponent implements OnInit {
     this.articleService.navigateToArticleDetail(this.articleData.$key);
   }
 
-  navigateToAuthor() {
-    this.articleService.navigateToAuthor(this.articleData.authorKey);
+  navigateToProfile() {
+    this.articleService.navigateToProfile(this.articleData.authorKey);
   }
 }
