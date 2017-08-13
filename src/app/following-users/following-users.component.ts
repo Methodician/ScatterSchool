@@ -27,10 +27,10 @@ export class FollowingUsersComponent implements OnInit {
    });
   }
 
-  followClick() {
-    let followId = this.followingUsers.uid;
-    this.userSvc.followUser(followId);
-    console.log('ts worked!')
-  }
+  // followClick() {
+  //   let followId = this.followingUsers.uid;
+  //   this.userSvc.followUser(followId);
+  //   console.log('ts worked!')
+  // }
 
 }
