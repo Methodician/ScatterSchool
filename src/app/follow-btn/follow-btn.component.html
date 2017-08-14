@@ -1,1 +1,1 @@
-<button type="button" (click)="click()" class="btn followBtn">{{buttonText}}</button>
+<button [class.follow]="!this.isFollowing" [class.unfollow]="this.isFollowing" type="button" (click)="click()" class="btn followBtn">{{buttonText}}</button>

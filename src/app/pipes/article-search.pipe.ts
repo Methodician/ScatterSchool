@@ -31,7 +31,7 @@ export class ArticleSearchPipe implements PipeTransform {
   }
 
   checkTags(tags: any, query: string) {
-    for (let nextTag in tags) {
+    for (let nextTag of tags) {
       let tag = nextTag.toUpperCase();
       if (tag.includes(query)) {
         return true;

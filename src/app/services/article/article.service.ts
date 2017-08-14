@@ -18,7 +18,12 @@ export class ArticleService {
   ) { }
 
   getAllArticles() {
-    return this.db.list('articleData/articles');
+    return this.db.list('articleData/articles').map(articles => {
+      return articles.map(article => {
+        article.tags = this.tagsArrayFromTagsObject(article.tags);
+        return article;
+      });
+    });
   }
 
   getArticleByKey(articleKey: string) {

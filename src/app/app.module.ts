@@ -38,8 +38,6 @@ import { FooterComponent } from './footer/footer.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ArticleSearchPreviewComponent } from './article-search-preview/article-search-preview.component';
 import { AboutUsComponent } from './about-us/about-us.component';
-import { FollowUsersComponent } from './follow-users/follow-users.component';
-import { FollowingUsersComponent } from './following-users/following-users.component';
 import { TagInputModule } from 'ngx-chips'; // good documentation: https://www.npmjs.com/package/ng2-tag-input 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component'; // this is needed for ng2-tag-input!
@@ -75,8 +73,6 @@ import { FollowerUserComponent } from './follower-user/follower-user.component';
     TruncatePipe,
     ArticleSearchPreviewComponent,
     AboutUsComponent,
-    FollowUsersComponent,
-    FollowingUsersComponent,
     DataCleanupComponent,
     TruncateTagsPipe,
     FollowBtnComponent,
