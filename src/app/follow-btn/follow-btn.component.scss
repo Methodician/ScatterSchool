@@ -1,5 +1,18 @@
+button:focus {
+  outline-color: #31C2D7;
+}
+
+
 .followBtn {
   height: 38px;
+  width: 85px;
   color: #fff;
   background-color: #C4275F;
+  letter-spacing: 0.3px;
+}
+
+.unfollow {
+  color: #263237;
+  background-color: #fff;
+  border: 1px solid #263237;
 }
