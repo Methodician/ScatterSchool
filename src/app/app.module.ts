@@ -20,12 +20,10 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { PostArticleComponent } from './post-article/post-article.component';
 import { ArticleFormComponent } from './article-form/article-form.component';
-import { CkTestComponent } from './ck-test/ck-test.component';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { TestArticleServiceComponent } from './test-article-service/test-article-service.component';
 import { FeaturedArticlesComponent } from './featured-articles/featured-articles.component';
 import { LatestArticlesComponent } from './latest-articles/latest-articles.component';
 import { FeaturePreviewComponent } from './feature-preview/feature-preview.component';
@@ -61,7 +59,6 @@ import { FollowerUserComponent } from './follower-user/follower-user.component';
     AccountComponent,
     PostArticleComponent,
     ArticleFormComponent,
-    CkTestComponent,
     EditArticleComponent,
     TopNavComponent,
     FeaturedArticlesComponent,
