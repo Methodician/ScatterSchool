@@ -1,3 +1,25 @@
+.tagsBar {
+  position: absolute;
+  top: 250px;
+  left: 46px;
+  padding-top: 20px;
+  border-top:1px solid #263237;
+  border-bottom:1px solid #263237;
+  ul {
+    padding: 0;
+  }
+}
+
+.tag{
+  font-family: STHeitiSC-Light;
+  font-size: 14px;
+  list-style: none;
+  margin-bottom: 20px;
+  a {
+    color: #00BE9C;
+  }
+}
+
 .articleDetailWrapper {
   margin: 0 auto;
   width: 500px;
