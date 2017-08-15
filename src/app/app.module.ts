@@ -51,6 +51,7 @@ import { SuggestionFormComponent } from './suggestion-form/suggestion-form.compo
 import { EditSuggestionComponent } from './edit-suggestion/edit-suggestion.component';
 import { AddSuggestionComponent } from './add-suggestion/add-suggestion.component';
 import { SuggestionPreviewComponent } from './suggestion-preview/suggestion-preview.component';
+import { SuggestionService } from './services/suggestion/suggestion.service';
 
 
 
@@ -109,7 +110,8 @@ import { SuggestionPreviewComponent } from './suggestion-preview/suggestion-prev
     AuthService,
     UserService,
     ArticleService,
-    DataCleanupService
+    DataCleanupService,
+    SuggestionService
   ],
   bootstrap: [AppComponent]
 })
