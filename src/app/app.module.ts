@@ -49,7 +49,6 @@ import { SuggestionsComponent } from './suggestions/suggestions.component';
 import { SuggestionDetailComponent } from './suggestion-detail/suggestion-detail.component';
 import { SuggestionFormComponent } from './suggestion-form/suggestion-form.component';
 import { EditSuggestionComponent } from './edit-suggestion/edit-suggestion.component';
-import { NewSuggestionComponent } from './new-suggestion/new-suggestion.component';
 import { AddSuggestionComponent } from './add-suggestion/add-suggestion.component';
 import { SuggestionPreviewComponent } from './suggestion-preview/suggestion-preview.component';
 
@@ -89,7 +88,6 @@ import { SuggestionPreviewComponent } from './suggestion-preview/suggestion-prev
     SuggestionDetailComponent,
     SuggestionFormComponent,
     EditSuggestionComponent,
-    NewSuggestionComponent,
     AddSuggestionComponent,
     SuggestionPreviewComponent
   ],
