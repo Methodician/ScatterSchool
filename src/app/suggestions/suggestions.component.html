@@ -8,6 +8,6 @@
   
 <div id="suggestions">
   <h3>Suggestions</h3>
-  <app-suggestion-preview *ngFor="let suggestion of suggestions | async"></app-suggestion-preview>
+    <app-suggestion-preview *ngFor="let suggestion of suggestions | async" [suggestion]="suggestion"></app-suggestion-preview>
 </div>
 
