@@ -2,11 +2,15 @@
   position: absolute;
   top: 250px;
   left: 46px;
-  padding-top: 20px;
+  padding-top: 10px;
   border-top:1px solid #263237;
   border-bottom:1px solid #263237;
   ul {
     padding: 0;
+    font-family: STHeitiSC-Light;
+    font-size: 14px;
+    list-style: none;
+    color: #263237;
   }
 }
 
@@ -14,7 +18,8 @@
   font-family: STHeitiSC-Light;
   font-size: 14px;
   list-style: none;
-  margin-bottom: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   a {
     color: #00BE9C;
   }
@@ -95,10 +100,6 @@
 .copyText {
   font-size: 18px;
   font-family: STHeitiSC-Light;
-}
-
-.tagBar {
-
 }
 
 @media only screen and (max-width:768px) {
