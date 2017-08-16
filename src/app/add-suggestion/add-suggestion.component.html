@@ -1,3 +1,8 @@
-<p>
-  add-suggestion works!
-</p>
+<!-- form will be moved to separate component -->
+<form [formGroup]="form">
+  <label>Title</label>
+  <input type="text" name="title" formControlName="title">
+  <label>Pitch</label>
+  <input type="text" name="pitch" formControlName="pitch" >
+</form>
+<button id="suggestion-submit" (click)="saveSuggestion(form.value)">Submit</button>
