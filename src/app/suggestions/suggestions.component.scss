@@ -1,9 +1,16 @@
+h3 {
+  color: #31C2D7;
+  margin-bottom: 40px;
+  font-family: STHeitiSC-Light;
+  padding: 0px 2%;
+}
+
+#add-suggestion-form {
+  text-align: center;
+  margin: auto;
+  max-width: 406px;
+}
+
 #suggestions {
   padding: 0px 2%;
-  font-family: STHeitiSC-Light;
-
-  h3 {
-    color: #31C2D7;
-    margin-bottom: 40px;
-  }
 }
