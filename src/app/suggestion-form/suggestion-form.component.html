@@ -1,3 +1,11 @@
-<p>
-  suggestion-form works!
-</p>
+<form [formGroup]="form">
+  <label>Title</label>
+  <input type="text" name="title" formControlName="title" class="formControl">
+    <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
+      <div *ngIf="title.errors.required">Title is required.</div>
+      <div *ngIf="title.errors.maxlength">Title can be no more than {{title.errors.maxlength.requiredLength}} characters long.</div>
+    </div>
+  <label>Pitch</label>
+  <input type="text" name="pitch" formControlName="pitch" class="formControl">
+    <div *ngIf="pitch.touched && pitch.invalid" class="alert alert-danger">Pitch is required.</div>
+</form>
