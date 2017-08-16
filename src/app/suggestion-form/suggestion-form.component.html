@@ -1,3 +1,6 @@
-<p>
-  suggestion-form works!
-</p>
+<form [formGroup]="form">
+  <label>Title</label>
+  <input type="text" name="title" formControlName="title">
+  <label>Pitch</label>
+  <input type="text" name="pitch" formControlName="pitch" >
+</form>

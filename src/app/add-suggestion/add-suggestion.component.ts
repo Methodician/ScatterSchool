@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
   selector: 'add-suggestion',
@@ -7,17 +6,10 @@ import { FormBuilder, FormGroup } from "@angular/forms";
   styleUrls: ['./add-suggestion.component.scss']
 })
 export class AddSuggestionComponent {
-  form: FormGroup;
 
-  constructor(fb: FormBuilder) {
-    this.form = fb.group({
-      title: '',
-      pitch: ''
-    });
-   }
+  constructor() {}
 
-   saveSuggestion() {
-    console.log("title: ", this.form.value.title);
-    console.log("pitch: ", this.form.value.pitch);
+   saveSuggestion(formData) {
+     console.log('data', formData);
    }
 }
