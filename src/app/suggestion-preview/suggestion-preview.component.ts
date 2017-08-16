@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SuggestionService } from './../services/suggestion/suggestion.service'
 import { FirebaseListObservable } from 'angularfire2/database';
 import { Router } from '@angular/router';
@@ -10,16 +10,9 @@ import { Router } from '@angular/router';
   providers: [ SuggestionService ]
 })
 
-export class SuggestionPreviewComponent implements OnInit {
-  suggestions: FirebaseListObservable<any[]>;
+export class SuggestionPreviewComponent {
+  @Input() suggestion;
   
-  constructor(private router: Router, private suggestionService: SuggestionService) { }
+  constructor(){}
 
-  ngOnInit() {
-    this.suggestions = this.suggestionService.getAllSuggestions();
-  }
 }
-
-// I left the *ngFor in the div of the suggestion-preview 
-// component for now, because it works and I wanted
-// to make sure we're on the same page. 
