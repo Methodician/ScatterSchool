@@ -1,3 +1,4 @@
-<p>
-  suggestions works!
-</p>
+<div id="suggestions">
+  <h3>Suggestions</h3>
+  <app-suggestion-preview *ngFor="let suggestion of suggestions" [suggestionData]="suggestion"></app-suggestion-preview>
+</div>
