@@ -1,15 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from "@angular/forms";
 
 @Component({
-  selector: 'app-add-suggestion',
+  selector: 'add-suggestion',
   templateUrl: './add-suggestion.component.html',
   styleUrls: ['./add-suggestion.component.scss']
 })
-export class AddSuggestionComponent implements OnInit {
+export class AddSuggestionComponent {
+  form: FormGroup;
 
-  constructor() { }
+  constructor(fb: FormBuilder) {
+    this.form = fb.group({
+      title: '',
+      pitch: ''
+    });
+   }
 
-  ngOnInit() {
-  }
-
+   saveSuggestion() {
+    console.log("title: ", this.form.value.title);
+    console.log("pitch: ", this.form.value.pitch);
+   }
 }
