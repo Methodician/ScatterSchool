@@ -20,7 +20,6 @@ export class SuggestionPreviewComponent implements OnInit {
   }
 }
 
-
 // I left the *ngFor in the div of the suggestion-preview 
 // component for now, because it works and I wanted
 // to make sure we're on the same page. 

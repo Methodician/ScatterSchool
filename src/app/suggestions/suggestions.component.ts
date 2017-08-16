@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 
 export class SuggestionsComponent implements OnInit {
   suggestions: FirebaseListObservable<any[]>;
-
   constructor(private router: Router, private suggestionService: SuggestionService) { }
 
   ngOnInit() {
