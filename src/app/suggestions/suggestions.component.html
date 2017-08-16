@@ -5,7 +5,14 @@
     <add-suggestion></add-suggestion>
   </div>
 </div>
+
+<div *ngFor="let suggestion of suggestions | async" class="panel panel-default">
+  <div class="panel-body">
+    <h3><em>{{suggestion.title}}</em></h3>
+  </div>
+  
 <div id="suggestions">
   <h3>Suggestions</h3>
-  <app-suggestion-preview *ngFor="let suggestion of suggestions" [suggestionData]="suggestion"></app-suggestion-preview>
+  <app-suggestion-preview *ngFor="let suggestion of suggestions | async"></app-suggestion-preview>
 </div>
+
