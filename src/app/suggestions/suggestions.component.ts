@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
+import { SuggestionService } from './../services/suggestion/suggestion.service'
+import { FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'app-suggestions',
   templateUrl: './suggestions.component.html',
-  styleUrls: ['./suggestions.component.scss']
+  styleUrls: ['./suggestions.component.scss'],
+  providers: [ SuggestionService ]
 })
+
 export class SuggestionsComponent implements OnInit {
-  // placeholder data until getAllSuggestions service method is implemented
-  suggestions = [{
-    title: "I would like to build a fast car.",
-    pitch: "Donec mattis efficitur scelerisque. Phasellus sit amet enim cursus, pretium lectus vel, posuere tortor."
-  },{
-    title: "Design a more efficient solar panel",
-    pitch: "Donec mattis efficitur scelerisque. Phasellus sit amet enim cursus, pretium lectus vel, posuere tortor."
-  }]
+  suggestions: FirebaseListObservable<any[]>;
   
-  constructor() { }
+  constructor(private suggestionService: SuggestionService) { }
 
   ngOnInit() {
+    this.suggestions = this.suggestionService.getAllSuggestions();
   }
-
 }
