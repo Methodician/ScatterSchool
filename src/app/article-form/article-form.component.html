@@ -3,8 +3,11 @@
     <div class="form-bg">
       <div class="form-field formSection">
         <label>Title</label>
-        <input name="title" formControlName="title" type="text" [class.input-error]="isErrorVisible('title', 'required')" class="form-control">
+        <input name="title" (keyup)="titleChange($event.target.value)" formControlName="title" type="text" [class.input-error]="isErrorVisible('title', 'required')" class="form-control">
         <div class="field-error-message" *ngIf="isErrorVisible('title','required')">Please give your article a title.</div>
+        <div class="characerAlert" >
+
+        </div>
       </div>
       <div class="form-field formSection">
         <label>Introduction</label>

@@ -4,7 +4,7 @@
     <div class="userTextWrapper">
       <div class="followButtonWrapper">
         <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias}}</h4>
-        <button type="button" class="btn followBtn" (click)="followClick()">Follow</button>
+        <follow-btn [uid]="user?.uid"></follow-btn>
       </div>
       <!-- Feel free to change the date format. Reference here: https://angular.io/api/common/DatePipe  -->
       <p class="date">Last Updated: {{ article?.lastUpdated | date }}</p>
@@ -26,6 +26,6 @@
 </div>
 <div class="tagsBar">
   <ul>
-    <li *ngFor="let tag of article.tags" class="tag"><a (click)="tagSearch(tag)">{{tag}}</a></li>
+    <li *ngFor="let tag of article?.tags" class="tag"><a (click)="tagSearch(tag)">{{tag}}</a></li>
   </ul>
 </div>

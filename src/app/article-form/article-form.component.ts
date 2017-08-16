@@ -11,6 +11,7 @@ export class ArticleFormComponent implements OnInit {
   ckeditorContent;
   @Input()
   initialValue: any;
+  titleError: string;
 
   form: FormGroup;
   formTags = [];
@@ -71,6 +72,10 @@ export class ArticleFormComponent implements OnInit {
     this.form.controls.tags.patchValue(this.articleTags);
   }
 
+  titleChange(title: string) {
+    console.log(title.length);
+  }
+
   removeTag(tag) {
     let arteTags = this.articleTags;
     let index = arteTags.indexOf(tag);
@@ -102,5 +107,6 @@ export class ArticleFormComponent implements OnInit {
   get tags() {
     return this.articleTags;
   }
+
 
 }
