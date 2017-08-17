@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Observable } from "rxjs/Observable";
 import * as firebase from 'firebase';
+import { Vote } from "app/services/suggestion/vote";
 
 
 @Injectable()
@@ -30,18 +31,21 @@ export class SuggestionService {
 
   updateSuggestion(key, paramsToUpdate) {
 
-    // paramsToUpdate.lastUpdated = firebase.database.ServerValue.TIMESTAMP;
-
-    let suggestionUpdates = {
-      title: paramsToUpdate.title,
-      pitch: paramsToUpdate.pitch,
-      lastUpdated: firebase.database.ServerValue.TIMESTAMP
-    }
+    paramsToUpdate.lastUpdated = firebase.database.ServerValue.TIMESTAMP;
 
     let dbSuggestion = this.getSuggestionByKey(key);
-    dbSuggestion.update(suggestionUpdates);
-
-    // this.db.object(`suggestionData/suggestions/${key}`).update(paramsToUpdate);
+    dbSuggestion.update(paramsToUpdate);
     
+    // let suggestionUpdates = {
+    //   title: paramsToUpdate.title,
+    //   pitch: paramsToUpdate.pitch,
+    //   lastUpdated: firebase.database.ServerValue.TIMESTAMP
+    // }
+    // this.db.object(`suggestionData/suggestions/${key}`).update(paramsToUpdate); 
+  }
+
+  makeVote(vote: Vote){
+    this.db.object(`suggestionData/suggestionVotesPerUser/${vote.userKey}/${vote.suggestionKey}`).set(vote.voteStatus);
+    this.db.object(`suggestionData/userVotesPerSuggestion/${vote.suggestionKey}/${vote.userKey}`).set(vote.voteStatus);
   }
 }
