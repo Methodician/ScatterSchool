@@ -10,11 +10,14 @@ import { FirebaseListObservable } from 'angularfire2/database';
 })
 
 export class SuggestionsComponent implements OnInit {
-  suggestions: FirebaseListObservable<any[]>;
+  suggestions;
   
   constructor(private suggestionService: SuggestionService) { }
 
   ngOnInit() {
-    this.suggestions = this.suggestionService.getAllSuggestions();
+    this.suggestionService.getAllSuggestions()
+      .subscribe(suggestions => {
+        this.suggestions = suggestions;
+      });
   }
 }
