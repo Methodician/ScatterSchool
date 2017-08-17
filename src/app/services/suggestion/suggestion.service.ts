@@ -20,6 +20,14 @@ export class SuggestionService {
     return this.db.object(`suggestionData/suggestions/${key}`);
   }
 
+  saveSuggestion(suggestionData) {
+    
+    suggestionData.timestamp = firebase.database.ServerValue.TIMESTAMP;
+    suggestionData.lastUpdated = firebase.database.ServerValue.TIMESTAMP;
+
+    this.db.list('suggestionData/suggestions').push(suggestionData);
+  }
+
   updateSuggestion(key, paramsToUpdate) {
 
     // paramsToUpdate.lastUpdated = firebase.database.ServerValue.TIMESTAMP;
