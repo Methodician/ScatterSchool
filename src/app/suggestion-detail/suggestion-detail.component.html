@@ -1,3 +1,4 @@
-<p>
-  suggestion-detail works!
-</p>
+<h1>{{suggestion?.title}}</h1>
+<p>{{suggestion?.pitch}}</p>
+<button [routerLink]="['/postarticle']">Post an article</button>
+<button [routerLink]="['/editsuggestion', suggestion?.$key]">Edit</button>

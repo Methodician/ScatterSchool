@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { SuggestionService } from "app/services/suggestion/suggestion.service";
 
 @Component({
   selector: 'app-suggestion-detail',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./suggestion-detail.component.scss']
 })
 export class SuggestionDetailComponent implements OnInit {
-
-  constructor() { }
+  suggestion;
+  constructor(private route: ActivatedRoute, private service: SuggestionService) {}
 
   ngOnInit() {
+    let key = this.route.snapshot.params['key'];
+    this.service.getSuggestionByKey(key)
+      .subscribe(object => {
+        this.suggestion = object;
+      });
   }
-
 }

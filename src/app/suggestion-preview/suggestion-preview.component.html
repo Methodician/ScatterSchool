@@ -1,4 +1,4 @@
-<div class="suggestion-preview">
+<div class="suggestion-preview" [routerLink]="['/suggestion', suggestion.$key]">
   <h3 class="suggestion-title">{{suggestion.title}}</h3>
   <p class="suggestion-pitch">{{suggestion.pitch}}</p>
 </div>
