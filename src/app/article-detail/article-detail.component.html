@@ -10,6 +10,11 @@
       <p class="date">Last Updated: {{ article?.lastUpdated | date }}</p>
     </div>
   </div>
+  <div class="tagsBar">
+    <ul> Tags:
+      <li *ngFor="let tag of article?.tags" class="tag"><a (click)="tagSearch(tag)">{{tag}}</a></li>
+    </ul>
+  </div>
   <div class="headlineWrapper">
     <h1>{{article?.title}}</h1>
     <p class="rating">RATING HERE
@@ -24,8 +29,4 @@
   <button class="btn btn-primary" (click)="edit()">Edit</button>
   <button class="btn btn-primary" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'feature article'}}</button>
 </div>
-<div class="tagsBar">
-  <ul> Tags:
-    <li *ngFor="let tag of article?.tags" class="tag"><a (click)="tagSearch(tag)">{{tag}}</a></li>
-  </ul>
-</div>
+
