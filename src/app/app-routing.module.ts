@@ -92,10 +92,6 @@ const routes: Routes = [
     component: SuggestionDetailComponent
   },
   {
-    path: 'addsuggestion',
-    component: AddSuggestionComponent
-  },
-  {
     path: 'editsuggestion/:key',
     component: EditSuggestionComponent
   },
