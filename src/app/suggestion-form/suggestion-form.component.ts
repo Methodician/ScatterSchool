@@ -41,6 +41,10 @@ export class SuggestionFormComponent implements OnInit {
     return this.form.valid
   }
 
+  get pristine() {
+    return this.form.pristine;
+  }
+
   get value() {
     return this.form.value
   }
