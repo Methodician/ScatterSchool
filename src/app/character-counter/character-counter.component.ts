@@ -22,7 +22,6 @@ export class CharacterCounterComponent implements OnInit {
 
   characterLimitReached() {
     const limit: number = this.field.value.length;
-    console.log(limit);
     return limit >= this.maxLength ? true : false;
   }
 

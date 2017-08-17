@@ -49,7 +49,6 @@ export class ArticleFormComponent implements OnInit {
       this.form.patchValue(changes['initialValue'].currentValue);
       this.initializeTags(changes['initialValue'].currentValue.tags);
     }
-
   }
 
   initializeTags(articleTags) {
@@ -103,6 +102,4 @@ export class ArticleFormComponent implements OnInit {
   get tags() {
     return this.articleTags;
   }
-
-
 }
