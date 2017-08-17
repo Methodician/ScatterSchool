@@ -1,0 +1,5 @@
+<span 
+[ngClass]="characterLimitReached('title') ? 'limitReached' : 'limitNotReached'" 
+class="characterCount">
+  {{characterCountOfMax('title', 100)}}
+</span>

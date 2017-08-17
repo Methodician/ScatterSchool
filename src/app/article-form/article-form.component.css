@@ -47,6 +47,11 @@ input:focus {
   width: 90%;
 }
 
+.characterCount {
+  margin-top: 5px;
+  float: right;
+}
+
 .limitNotReached {
   color: #263237;
 }

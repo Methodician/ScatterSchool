@@ -22,7 +22,7 @@ export class ArticleFormComponent implements OnInit {
   ) {
     this.form = fb.group({
       title: ['', 
-        [Validators.required, Validators.maxLength(40)]
+        [Validators.required, Validators.maxLength(100)]
       ],
       introduction: ['', Validators.required],
       body: ['', Validators.required],
@@ -45,7 +45,6 @@ export class ArticleFormComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     //  Must make sure form is initalized before checking...
     if (changes['initialValue'] && changes['initialValue'].currentValue) {
-      //if (changes['initialValue']) {
       // We have two methods to set a form's value: setValue and patchValue.
       this.form.patchValue(changes['initialValue'].currentValue);
       this.initializeTags(changes['initialValue'].currentValue.tags);
@@ -74,10 +73,6 @@ export class ArticleFormComponent implements OnInit {
     this.form.controls.tags.patchValue(this.articleTags);
   }
 
-  // titleChange(title: string) {
-  //   call isTooManyCharacters
-  // }
-
   removeTag(tag) {
     let arteTags = this.articleTags;
     let index = arteTags.indexOf(tag);
@@ -91,22 +86,6 @@ export class ArticleFormComponent implements OnInit {
   isErrorVisible(field: string, error: string) {
     let control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
-  }
-
-  isTooManyCharacters(field: string, maxLength: number)  {
-    const length = this.form.controls[field].value.length;
-    return length >= maxLength;
-  }
-
-  characterCountOfMax(field: string, maxLength: number) {
-    const count = this.form.controls[field].value.length;
-    return `${maxLength - count}`;
-  }
-
-  characterLimitReached(field: string) {
-    const limit: number = this.form.controls[field].value.length;
-    console.log(limit);
-    return limit >= 51 ? true : false;
   }
 
   reset() {
