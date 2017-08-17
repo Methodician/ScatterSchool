@@ -11,7 +11,6 @@ import { FirebaseListObservable } from 'angularfire2/database';
 
 export class SuggestionsComponent implements OnInit {
   suggestions;
-  
   constructor(private suggestionService: SuggestionService) { }
 
   ngOnInit() {
