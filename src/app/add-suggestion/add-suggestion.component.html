@@ -1,2 +1,2 @@
-<suggestion-form #data></suggestion-form>
-<button id="suggestion-submit" (click)="saveSuggestion(data.value)" [disabled]="!data.valid">Submit</button>
+<suggestion-form #form></suggestion-form>
+<button id="suggestion-submit" (click)="saveSuggestion(form.value)" [disabled]="!form.valid">Submit</button>
