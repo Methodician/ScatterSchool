@@ -21,7 +21,9 @@ export class ArticleFormComponent implements OnInit {
     fb: FormBuilder
   ) {
     this.form = fb.group({
-      title: ['', Validators.required],
+      title: ['', 
+        [Validators.required, Validators.maxLength(40)]
+      ],
       introduction: ['', Validators.required],
       body: ['', Validators.required],
       tags: [[]],
@@ -72,9 +74,9 @@ export class ArticleFormComponent implements OnInit {
     this.form.controls.tags.patchValue(this.articleTags);
   }
 
-  titleChange(title: string) {
-    console.log(title.length);
-  }
+  // titleChange(title: string) {
+  //   call isTooManyCharacters
+  // }
 
   removeTag(tag) {
     let arteTags = this.articleTags;
@@ -86,10 +88,19 @@ export class ArticleFormComponent implements OnInit {
     }
   }
 
-
   isErrorVisible(field: string, error: string) {
     let control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
+  }
+
+  isTooManyCharacters(field: string, maxLength: number)  {
+    const length = this.form.controls[field].value.length;
+    return length >= maxLength;
+  }
+
+  characterCountOfMax(field: string, maxLength: number) {
+    const count = this.form.controls[field].value.length;
+    return `${count}/${maxLength}`;
   }
 
   reset() {

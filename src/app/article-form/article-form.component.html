@@ -3,11 +3,10 @@
     <div class="form-bg">
       <div class="form-field formSection">
         <label>Title</label>
-        <input name="title" (keyup)="titleChange($event.target.value)" formControlName="title" type="text" [class.input-error]="isErrorVisible('title', 'required')" class="form-control">
+        <input name="title"  maxlength="100" formControlName="title" type="text" [class.input-error]="isErrorVisible('title', 'required')" class="form-control">
         <div class="field-error-message" *ngIf="isErrorVisible('title','required')">Please give your article a title.</div>
-        <div class="characerAlert" >
-
-        </div>
+          <span class="characterCount">{{characterCountOfMax('title', 50)}}</span>
+          <span class="characterAlert" *ngIf="isTooManyCharacters('title', 50)"> Max length we can show here is {{maxLength}}, but you keep going to 100 characters.</span>
       </div>
       <div class="form-field formSection">
         <label>Introduction</label>
