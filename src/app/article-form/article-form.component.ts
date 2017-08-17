@@ -100,7 +100,13 @@ export class ArticleFormComponent implements OnInit {
 
   characterCountOfMax(field: string, maxLength: number) {
     const count = this.form.controls[field].value.length;
-    return `${count}/${maxLength}`;
+    return `${maxLength - count}`;
+  }
+
+  characterLimitReached(field: string) {
+    const limit: number = this.form.controls[field].value.length;
+    console.log(limit);
+    return limit >= 51 ? true : false;
   }
 
   reset() {

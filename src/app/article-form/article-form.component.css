@@ -47,6 +47,15 @@ input:focus {
   width: 90%;
 }
 
+.limitNotReached {
+  color: #263237;
+}
+
+.limitReached {
+  color: #C4275F;
+  
+}
+
 #body{
   height: 36rem;
 }
