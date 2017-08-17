@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
+import { Observable } from "rxjs/Observable";
 
 
 @Injectable()
@@ -13,4 +14,8 @@ export class SuggestionService {
   getAllSuggestions() {
     return this.db.list('suggestionData/suggestions');
   };
+
+  getSuggestionByKey(key) {
+    return this.db.object(`suggestionData/suggestions/${key}`);
+  }
 }
