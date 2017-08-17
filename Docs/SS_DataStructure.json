@@ -158,5 +158,15 @@
     "reply1": {
       "reply2": true
     }
+  },
+  "suggestionData": {
+    "suggestions": {
+      "suggestion1": {
+        "title": "This is an example title",
+        "pitch": "This is an example pitch",
+        "lastUpdated": "firebase.database.ServerValue.TIMESTAMP",
+        "timestamp": "firebase.database.ServerValue.TIMESTAMP"
+      }
+    }
   }
 }
