@@ -18,4 +18,9 @@ export class SuggestionService {
   getSuggestionByKey(key) {
     return this.db.object(`suggestionData/suggestions/${key}`);
   }
+
+  updateSuggestion(key, paramsToUpdate) {
+    let dbSuggestion = this.getSuggestionByKey(key);
+    dbSuggestion.update(paramsToUpdate);
+  }
 }
