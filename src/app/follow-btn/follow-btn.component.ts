@@ -14,9 +14,12 @@ export class FollowBtnComponent implements OnInit {
 
   constructor(
     private userSvc: UserService
-  ) { }
+  ) { 
+    
+    }
 
   ngOnInit() {
+    console.log(this.uid);
     this.checkIfFollowing();
   }
 
