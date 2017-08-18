@@ -45,6 +45,7 @@ import { TruncateTagsPipe } from './pipes/truncate-tags.pipe';
 import { FollowBtnComponent } from './follow-btn/follow-btn.component';
 import { FollowedUserComponent } from './followed-user/followed-user.component';
 import { FollowerUserComponent } from './follower-user/follower-user.component';
+import { UploadFormComponent } from './uploads/upload-form/upload-form.component';
 
 
 
@@ -77,7 +78,8 @@ import { FollowerUserComponent } from './follower-user/follower-user.component';
     TruncateTagsPipe,
     FollowBtnComponent,
     FollowedUserComponent,
-    FollowerUserComponent
+    FollowerUserComponent,
+    UploadFormComponent
   ],
   imports: [
     BrowserModule,

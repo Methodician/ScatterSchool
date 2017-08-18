@@ -1,3 +1,4 @@
+import { UploadFormComponent } from './uploads/upload-form/upload-form.component';
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 //import { FollowUsersComponent } from './follow-users/follow-users.component';
@@ -78,6 +79,10 @@ const routes: Routes = [
         component: ProfileComponent
       }
     ]
+  },
+  {
+    path: 'uploads',
+    component: UploadFormComponent
   },
   {
     path: 'aboutus',
