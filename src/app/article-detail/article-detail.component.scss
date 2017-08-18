@@ -118,12 +118,14 @@
     position: relative;
     top: 0;
     left: 0;
+    border-top: none;
   }
   ul {
     display: flex;
     flex-wrap: wrap;
   }
-  li {
-    margin: 5px;
+  .tag {
+    margin-left: 10px;
+    margin-top: 0;
   }
 }
