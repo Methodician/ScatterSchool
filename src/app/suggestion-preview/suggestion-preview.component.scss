@@ -11,4 +11,12 @@
     color: #00BE9C;
     font-size: 12px;
   }
+
+  & > * {
+    display: inline-block;
+  }
+
+  vote {
+    text-align: center
+  } 
 }
