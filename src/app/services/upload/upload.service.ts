@@ -13,4 +13,17 @@ export class UploadService {
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`).put(upload.file);
   }
+
+  private saveFileData(upload: Upload) {
+    this.db.list(`${this.basePath}/`).push(upload);
+  }
+
+  private deleteFileData(key: string) {
+    return this.db.list(`${this.basePath}/`).remove(key);
+  }
+
+  private deleteFileStorage(name:string) {
+    const storageRef = firebase.storage().ref();
+    storageRef.child(`${this.basePath}/${name}`).delete()
+  }
 }
