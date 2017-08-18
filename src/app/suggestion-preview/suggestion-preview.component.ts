@@ -16,9 +16,4 @@ export class SuggestionPreviewComponent {
   
   constructor(private service: SuggestionService){}
 
-  makeVote(voteValue) {
-    let vote = new Vote('userKey9', this.suggestion.$key, voteValue);
-    this.service.makeVote(vote);
-  }
-
 }
