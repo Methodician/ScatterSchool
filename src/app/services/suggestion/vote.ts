@@ -4,4 +4,8 @@ export class Vote {
     public suggestionKey: string,
     public voteStatus: number
   ){}
+
+  getDbVoteStatus() {
+    return (this.voteStatus === 0) ? null : this.voteStatus;
+  }
 }
