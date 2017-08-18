@@ -10,7 +10,7 @@
       <p class="date">Last Updated: {{ article?.lastUpdated | date }}</p>
     </div>
   </div>
-  <div class="tagsBar">
+  <div class="tagsBar" *ngIf="!editingPreview">
     <ul> Tags:
       <li *ngFor="let tag of article?.tags" class="tag"><a (click)="tagSearch(tag)">{{tag}}</a></li>
     </ul>

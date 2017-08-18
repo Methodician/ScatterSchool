@@ -13,7 +13,12 @@
         <input type="text" placeholder="{{userInfo?.lName}}" [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName" class="form-control">
 
         <h4>User Alias:</h4>
-        <input #alias type="text" placeholder="{{userInfo?.alias}}" class="form-control" maxlength="30">
+        <input 
+          #alias 
+          type="text" 
+          
+          class="form-control" 
+          maxlength="30">
         <character-counter
         [field]="alias"
         [maxLength]="20"
