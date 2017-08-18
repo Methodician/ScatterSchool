@@ -1,0 +1,16 @@
+span {
+  display: block;
+  
+  &.glyphicon {
+    cursor: pointer;
+    font-size: 20px;
+  }
+
+  &.vote-up.selected {
+    color: green;
+  }
+
+  &.vote-down.selected {
+    color: red;
+  }
+}

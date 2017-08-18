@@ -52,6 +52,7 @@ import { EditSuggestionComponent } from './edit-suggestion/edit-suggestion.compo
 import { AddSuggestionComponent } from './add-suggestion/add-suggestion.component';
 import { SuggestionPreviewComponent } from './suggestion-preview/suggestion-preview.component';
 import { SuggestionService } from './services/suggestion/suggestion.service';
+import { VoteComponent } from './vote/vote.component';
 
 
 
@@ -90,7 +91,8 @@ import { SuggestionService } from './services/suggestion/suggestion.service';
     SuggestionFormComponent,
     EditSuggestionComponent,
     AddSuggestionComponent,
-    SuggestionPreviewComponent
+    SuggestionPreviewComponent,
+    VoteComponent
   ],
   imports: [
     BrowserModule,
