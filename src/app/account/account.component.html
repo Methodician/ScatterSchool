@@ -13,7 +13,11 @@
         <input type="text" placeholder="{{userInfo?.lName}}" [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName" class="form-control">
 
         <h4>User Alias:</h4>
-        <input type="text" placeholder="{{userInfo?.alias}}" class="form-control">
+        <input #alias type="text" placeholder="{{userInfo?.alias}}" class="form-control" maxlength="30">
+        <character-counter
+        [field]="alias"
+        [maxLength]="20"
+      ></character-counter>
       </div>
 
       <div class="form-field formSection">
@@ -36,7 +40,7 @@
       <h4>Your Bio:</h4>
       <textarea type="text" rows="3" cols="50" placeholder="{{userInfo?.bio}}" class="form-control"></textarea>
     </div>
-    <button class="btn">Save Settings</button>
+    <button [disabled]="isErrorVisible('alias', 'maxlength')" class="btn">Save Settings</button>
   </form>
 </div>
 <br>

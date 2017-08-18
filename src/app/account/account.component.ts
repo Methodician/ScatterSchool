@@ -28,15 +28,16 @@ export class AccountComponent implements OnInit {
   ) {
     authSvc.authInfo$.subscribe(info => {
       this.loggedInUid = info.$uid;
-      if (!this.userInfo)
+      if (!this.userInfo) {
         this.setUser();
+      }
     });
 
     this.form = this.fb.group({
       email: ['', Validators.required],
       fName: ['', Validators.required],
       lName: ['', Validators.required],
-      alias: '',
+      alias: ['', Validators.maxLength(20)],
       bio: '',
       city: '',
       state: '',
