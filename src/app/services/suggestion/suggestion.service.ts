@@ -44,8 +44,12 @@ export class SuggestionService {
     // this.db.object(`suggestionData/suggestions/${key}`).update(paramsToUpdate); 
   }
 
+  getSuggestionVotes(suggestionKey) {
+    return this.db.list(`suggestionData/userVotesPerSuggestion/${suggestionKey}`);
+  }
+
   makeVote(vote: Vote){
-    this.db.object(`suggestionData/suggestionVotesPerUser/${vote.userKey}/${vote.suggestionKey}`).set(vote.voteStatus);
-    this.db.object(`suggestionData/userVotesPerSuggestion/${vote.suggestionKey}/${vote.userKey}`).set(vote.voteStatus);
+    this.db.object(`suggestionData/suggestionVotesPerUser/${vote.userKey}/${vote.suggestionKey}`).set(vote.getDbVoteStatus());
+    this.db.object(`suggestionData/userVotesPerSuggestion/${vote.suggestionKey}/${vote.userKey}`).set(vote.getDbVoteStatus());
   }
 }
