@@ -16,13 +16,14 @@ export class CharacterCounterComponent implements OnInit {
   }
 
   characterCountOfMax() {
+    //console.log(this.field.value);
     const count = this.field.value.length;
     return `${this.maxLength - count}`;
   }
 
   characterLimitReached() {
-    const limit: number = this.field.value.length;
-    return limit >= this.maxLength ? true : false;
+    const fieldLength: number = this.field.value.length;
+    return fieldLength >= this.maxLength;
   }
 
 }

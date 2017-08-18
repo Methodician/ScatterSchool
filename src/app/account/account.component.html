@@ -6,44 +6,38 @@
 
         <h4>First Name:</h4>
         <h6 class="field-error-message" *ngIf="isErrorVisible('fName','required')">Please provide your first name.</h6>
-        <input type="text" placeholder="{{userInfo?.fName}}" [class.input-error]="isErrorVisible('fName','required')" name="fName" formControlName="fName" type="text" class="form-control">
+        <input formControlName="title" type="text" [class.input-error]="isErrorVisible('fName','required')" name="fName" formControlName="fName"
+          type="text" class="form-control">
 
         <h4>Last Name:</h4>
         <h6 class="field-error-message" *ngIf="isErrorVisible('lName','required')">Please provide your last name.</h6>
-        <input type="text" placeholder="{{userInfo?.lName}}" [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName" class="form-control">
+        <input formControlName="lName" type="text" [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName"
+          class="form-control">
 
         <h4>User Alias:</h4>
-        <input 
-          #alias 
-          type="text" 
-          placeholder="{{userInfo?.alias}}" 
-          class="form-control" 
-          maxlength="30">
-        <character-counter
-        [field]="alias"
-        [maxLength]="20"
-      ></character-counter>
+        <input formControlName="alias" #alias type="text" class="form-control" maxlength="30">
+        <character-counter [field]="alias" [maxLength]="20"></character-counter>
       </div>
 
       <div class="form-field formSection">
         <h4>City:</h4>
-        <input type="text" placeholder="{{userInfo?.city}}" class="form-control">
-
+        <input formControlName="city" #city type="text" class="form-control">
+        <character-counter [field]="city" [maxLength]="20"></character-counter>
         <h4>State:</h4>
-        <input type="text" placeholder="{{userInfo?.state}}" class="form-control">
+        <input formControlName="state" type="text" class="form-control">
 
         <h4>Zip Code:</h4>
         <h6 class="field-error-message" *ngIf="isErrorVisible('zipCode','required')">Please provide your zip code.</h6>
-        <input [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode" formControlName="zipCode" type="text" placeholder="{{userInfo?.zipCode}}" class="form-control">
+        <input formControlName="zipCode" [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode" type="text" class="form-control">
       </div>
     </div>
     <div class="form-field formSection">
       <h4>Your email:</h4>
       <h6 class="field-error-message" *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</h6>
-      <input [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" formControlName="email"
-        type="email" class="form-control" placeholder="{{userInfo?.email}}">
+      <input formControlName="email" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')"
+        name="email" type="email" class="form-control">
       <h4>Your Bio:</h4>
-      <textarea type="text" rows="3" cols="50" placeholder="{{userInfo?.bio}}" class="form-control"></textarea>
+      <textarea formControlName="bio" type="text" rows="3" cols="50" class="form-control"></textarea>
     </div>
     <button [disabled]="isErrorVisible('alias', 'maxlength')" class="btn">Save Settings</button>
   </form>

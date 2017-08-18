@@ -2,7 +2,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { UserInfoOpen } from './../services/user/user-info';
 import { AuthService } from './../services/auth/auth.service';
 import { UserService } from './../services/user/user.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 
@@ -41,7 +41,8 @@ export class AccountComponent implements OnInit {
       bio: '',
       city: '',
       state: '',
-      zipCode: ['', Validators.required]
+      zipCode: ['', Validators.required],
+      uid: ''
     });
   }
 
@@ -55,14 +56,24 @@ export class AccountComponent implements OnInit {
     })
   }
 
+  /*   ngOnChanges(changes: SimpleChanges) {
+      //  Must make sure form is initalized before checking...
+      if (changes['initialValue'] && changes['initialValue'].currentValue) {
+        console.log(changes);
+        // We have two methods to set a form's value: setValue and patchValue.
+        this.form.patchValue(changes['initialValue'].currentValue);
+      }
+    } */
+
   setUser() {
     if (this.accountUid || this.loggedInUid)
-    this.getUserInfo(this.accountUid || this.loggedInUid);
+      this.getUserInfo(this.accountUid || this.loggedInUid);
   }
 
   getUserInfo(uid: string) {
     this.userSvc.getUserInfo(uid).subscribe(userInfo => {
       this.userInfo = userInfo;
+      this.form.patchValue(userInfo);
     })
   }
 
