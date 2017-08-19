@@ -1,0 +1,11 @@
+
+
+  <h3>Upload</h3>
+  
+    <label>
+       <input type="file" class="button" (change)="detectFiles($event)">
+    </label>
+  
+    <button class="button is-primary"
+            [disabled]="!selectedFiles"
+            (click)="uploadSingle()">
