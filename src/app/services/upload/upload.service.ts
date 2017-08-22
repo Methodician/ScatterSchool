@@ -5,8 +5,10 @@ import { Upload } from './upload'
 
 @Injectable()
 export class UploadService {
+
   constructor(private db: AngularFireDatabase) { }
-  private basePath:string = '/uploads';
+
+  private basePath:string = 'uploads';
   uploads: FirebaseListObservable<Upload[]>;
 
   pushUpload(upload: Upload) {
@@ -25,5 +27,13 @@ export class UploadService {
   private deleteFileStorage(name:string) {
     const storageRef = firebase.storage().ref();
     storageRef.child(`${this.basePath}/${name}`).delete()
+  }
+
+  deleteUpload(upload: Upload) {
+    this.deleteFileData(upload.$key)
+    .then( () => {
+      this.deleteFileStorage(upload.$key)
+    })
+    .catch(error => console.log(error))
   }
 }
