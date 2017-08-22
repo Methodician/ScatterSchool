@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../../services/upload/upload.service';
 import { Upload } from '../../services/upload/upload';
-
-
+import { UserService } from '../../services/user/user.service';
+import { AuthService } from "app/services/auth/auth.service";
 
 @Component({
   selector: 'app-upload-form',
@@ -15,8 +15,10 @@ export class UploadFormComponent implements OnInit {
   selectedFiles: FileList;
   currentUpload: Upload;
 
-  constructor(private upSvc: UploadService) { }
-
+  constructor(
+    private upSvc: UploadService
+  ) { }
+ 
   detectFiles(event) {
     this.selectedFiles = event.target.files;
   }
@@ -29,5 +31,6 @@ export class UploadFormComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
+
+
