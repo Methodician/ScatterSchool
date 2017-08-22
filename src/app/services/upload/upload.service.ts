@@ -14,6 +14,25 @@ export class UploadService {
   pushUpload(upload: Upload) {
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`).put(upload.file);
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) =>  {
+        // upload in progress
+        let snap = snapshot as firebase.storage.UploadTaskSnapshot
+        upload.progress = (snap.bytesTransferred / snap.totalBytes) * 100
+      },
+      (error) => {
+        // upload failed
+        console.log(error)
+      },
+      () => {
+        // upload success
+        upload.url = uploadTask.snapshot.downloadURL
+        upload.name = upload.file.name
+        this.saveFileData(upload)
+        return undefined
+      }
+    );
   }
 
   private saveFileData(upload: Upload) {
@@ -27,13 +46,5 @@ export class UploadService {
   private deleteFileStorage(name:string) {
     const storageRef = firebase.storage().ref();
     storageRef.child(`${this.basePath}/${name}`).delete()
-  }
-
-  deleteUpload(upload: Upload) {
-    this.deleteFileData(upload.$key)
-    .then( () => {
-      this.deleteFileStorage(upload.$key)
-    })
-    .catch(error => console.log(error))
   }
 }
