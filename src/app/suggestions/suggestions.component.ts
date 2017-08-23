@@ -16,7 +16,13 @@ export class SuggestionsComponent implements OnInit {
   ngOnInit() {
     this.suggestionService.getAllSuggestions()
       .subscribe(suggestions => {
-        this.suggestions = suggestions;
+        this.suggestions = this.sortByUpvotes(suggestions);
       });
+  }
+
+  sortByUpvotes(suggestions){
+    return suggestions.sort((a, b) => {
+      return b.voteCount - a.voteCount
+    });
   }
 }
