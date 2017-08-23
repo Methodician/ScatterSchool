@@ -25,6 +25,7 @@ export class SuggestionService {
     
     suggestionData.timestamp = firebase.database.ServerValue.TIMESTAMP;
     suggestionData.lastUpdated = firebase.database.ServerValue.TIMESTAMP;
+    suggestionData.voteCount = 0;
 
     this.db.list('suggestionData/suggestions').push(suggestionData);
   }
@@ -35,21 +36,20 @@ export class SuggestionService {
 
     let dbSuggestion = this.getSuggestionByKey(key);
     dbSuggestion.update(paramsToUpdate);
-    
-    // let suggestionUpdates = {
-    //   title: paramsToUpdate.title,
-    //   pitch: paramsToUpdate.pitch,
-    //   lastUpdated: firebase.database.ServerValue.TIMESTAMP
-    // }
-    // this.db.object(`suggestionData/suggestions/${key}`).update(paramsToUpdate); 
   }
-
-  getSuggestionVotes(suggestionKey) {
-    return this.db.list(`suggestionData/userVotesPerSuggestion/${suggestionKey}`);
+ 
+  getSuggestionVoteStateByUser(suggestionKey, userKey) {
+    return this.db.object(`suggestionData/suggestionVotesPerUser/${userKey}/${suggestionKey}`);
   }
 
   makeVote(vote: Vote){
     this.db.object(`suggestionData/suggestionVotesPerUser/${vote.userKey}/${vote.suggestionKey}`).set(vote.getDbVoteStatus());
     this.db.object(`suggestionData/userVotesPerSuggestion/${vote.suggestionKey}/${vote.userKey}`).set(vote.getDbVoteStatus());
+    this.setTotalVotes(vote.suggestionKey, vote.voteTotal)
+  }
+
+  setTotalVotes(suggestionKey, voteTotal) {
+    this.db.object(`suggestionData/suggestions/${suggestionKey}`).update({voteCount: voteTotal})
+    
   }
 }
