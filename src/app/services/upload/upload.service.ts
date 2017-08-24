@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
 import { Upload } from './upload'
 import { UserService } from "app/services/user/user.service";
 import { AuthService } from "app/services/auth/auth.service";
 
 @Injectable()
 export class UploadService { 
-  basePath: string = 'uploads/profilePictures';
+  basePath: string = 'uploads/profileImages';
   loggedInUserKey: string;
+  uploads: FirebaseListObservable<Upload[]>;
   constructor(
     private db: AngularFireDatabase,
     private userSvc: UserService,
@@ -42,12 +43,21 @@ export class UploadService {
         upload.size = upload.file.size
         upload.type = upload.file.type
         this.saveFileData(upload)
-        return upload 
+        console.log(firebase.database.ServerValue.TIMESTAMP)
+        return undefined
       }
     );
   }
 
- 
+// to return all uploads
+getUploads(query={}) {
+  this.uploads = this.db.list(this.basePath, {
+    query: query
+  });
+  console.log(this.uploads)
+  return this.uploads
+}
+
 
 // delete files from database and storage
   deleteUpload(upload: Upload) {

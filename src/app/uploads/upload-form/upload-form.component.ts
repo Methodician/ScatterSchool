@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../../services/upload/upload.service';
 import { Upload } from '../../services/upload/upload';
+import { FirebaseListObservable } from 'angularfire2/database';
 
 @Component({
   selector: 'app-upload-form',
@@ -13,7 +14,7 @@ export class UploadFormComponent implements OnInit {
   // user = firebase.auth().currentUser;
   selectedFiles: FileList;
   currentUpload: Upload;
-  userInfo: any;
+  uploads: FirebaseListObservable<Upload[]>;
 
   constructor(
     private upSvc: UploadService) { }
@@ -30,6 +31,8 @@ export class UploadFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.uploads = this.upSvc.getUploads()
+    this.uploads.subscribe()
   }
 }
 

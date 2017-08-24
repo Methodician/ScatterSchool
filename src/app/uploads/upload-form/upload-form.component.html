@@ -16,4 +16,8 @@
     </button>
 
 
+    <div *ngFor="let upload of uploads | async">
+        <img  style="width:250px;height:250px;" src="{{upload.url}}">
+      </div>
+
   
