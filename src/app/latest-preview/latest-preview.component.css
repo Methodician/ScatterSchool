@@ -25,6 +25,15 @@
 
 .title {
   margin-top: 0;
+  font-size: 22px;
+}
+
+.intro {
+  font-size: 16px;
+}
+
+.author, .date, .tags {
+  font-size: 14px;
 }
 
 .userPhotoDateWrapper {

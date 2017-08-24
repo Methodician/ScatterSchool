@@ -1,9 +1,13 @@
-<app-article-form #article>
+<app-article-form #form>
 </app-article-form>
-<button (click)="save(article.value, article.tags)" class="btn btn-default">Post</button>
+<button 
+    (click)="save(form.value, form.tags)" 
+    class="btn btn-default"
+    [disabled]="form.isErrorVisible('title', 'maxlength') || form.isErrorVisible('introduction', 'maxlength')"
+    >Post</button>
 <br>
 <br>
 <br> Preview:
 <pre>
-    {{ article.value | json }}
+    {{ form.value | json }}
 </pre>

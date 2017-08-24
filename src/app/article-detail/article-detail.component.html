@@ -4,11 +4,16 @@
     <div class="userTextWrapper">
       <div class="followButtonWrapper">
         <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias}}</h4>
-        <button type="button" class="btn followBtn" (click)="followClick()">Follow</button>
+        <follow-btn *ngIf="article" [uid]="article?.authorKey"></follow-btn>
       </div>
       <!-- Feel free to change the date format. Reference here: https://angular.io/api/common/DatePipe  -->
       <p class="date">Last Updated: {{ article?.lastUpdated | date }}</p>
     </div>
+  </div>
+  <div class="tagsBar" *ngIf="!editingPreview">
+    <ul> Tags:
+      <li *ngFor="let tag of article?.tags" class="tag"><a (click)="tagSearch(tag)">{{tag}}</a></li>
+    </ul>
   </div>
   <div class="headlineWrapper">
     <h1>{{article?.title}}</h1>
@@ -24,8 +29,4 @@
   <button class="btn btn-primary" (click)="edit()">Edit</button>
   <button class="btn btn-primary" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'feature article'}}</button>
 </div>
-<div class="tag-bar">
-  <ul>
-    <li *ngFor="let tag of article.tags"><a (click)="tagSearch(tag)">{{tag}}</a></li>
-  </ul>
-</div>
+

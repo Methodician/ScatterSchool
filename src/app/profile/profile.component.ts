@@ -70,10 +70,10 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  followClick() {
-    let followId = this.userInfo.uid;
-    this.userSvc.followUser(followId);
-    console.log('ts worked!')
-  }
+  // followClick() {
+  //   let followId = this.userInfo.uid;
+  //   this.userSvc.followUser(followId);
+  //   console.log('ts worked!')
+  // }
 
 }

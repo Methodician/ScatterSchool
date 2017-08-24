@@ -11,6 +11,7 @@ export class ArticleFormComponent implements OnInit {
   ckeditorContent;
   @Input()
   initialValue: any;
+  titleError: string;
 
   form: FormGroup;
   formTags = [];
@@ -20,7 +21,9 @@ export class ArticleFormComponent implements OnInit {
     fb: FormBuilder
   ) {
     this.form = fb.group({
-      title: ['', Validators.required],
+      title: ['',
+        [Validators.required, Validators.maxLength(100)]
+      ],
       introduction: ['', Validators.required],
       body: ['', Validators.required],
       tags: [[]],
@@ -42,12 +45,11 @@ export class ArticleFormComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     //  Must make sure form is initalized before checking...
     if (changes['initialValue'] && changes['initialValue'].currentValue) {
-      //if (changes['initialValue']) {
+      console.log(changes);
       // We have two methods to set a form's value: setValue and patchValue.
       this.form.patchValue(changes['initialValue'].currentValue);
       this.initializeTags(changes['initialValue'].currentValue.tags);
     }
-
   }
 
   initializeTags(articleTags) {
@@ -81,7 +83,6 @@ export class ArticleFormComponent implements OnInit {
     }
   }
 
-
   isErrorVisible(field: string, error: string) {
     let control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
@@ -102,5 +103,4 @@ export class ArticleFormComponent implements OnInit {
   get tags() {
     return this.articleTags;
   }
-
 }
