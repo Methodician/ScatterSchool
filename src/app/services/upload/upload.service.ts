@@ -1,15 +1,23 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database';
 import { Upload } from './upload'
+import { UserService } from "app/services/user/user.service";
+import { AuthService } from "app/services/auth/auth.service";
 
 @Injectable()
-export class UploadService {
-
-  constructor(private db: AngularFireDatabase) { }
-
-  private basePath:string = 'uploads';
-  uploads: FirebaseListObservable<Upload[]>;
+export class UploadService { 
+  basePath: string = 'uploads/profilePictures';
+  loggedInUserKey: string;
+  constructor(
+    private db: AngularFireDatabase,
+    private userSvc: UserService,
+    private authSvc: AuthService
+  ) {
+    authSvc.authInfo$.subscribe(info => {
+      this.loggedInUserKey = info.$uid;
+    });
+   }
 
   pushUpload(upload: Upload) {
     const storageRef = firebase.storage().ref();
@@ -25,16 +33,20 @@ export class UploadService {
 // save data and push to live database
       () => {
         let metaSnapShot = uploadTask.snapshot.metadata
-        upload.url = metaSnapShot.downloadURLs[0]
         upload.timeStamp = metaSnapShot.timeCreated
         upload.fullPath = metaSnapShot.bucket + '/' + metaSnapShot.fullPath
         upload.lastUpdated = metaSnapShot.updated
+        upload.uid = this.loggedInUserKey
+        upload.url = metaSnapShot.downloadURLs[0]
         upload.name = upload.file.name
+        upload.size = upload.file.size
+        upload.type = upload.file.type
         this.saveFileData(upload)
-        return undefined
+        return upload 
       }
     );
   }
+
  
 
 // delete files from database and storage
@@ -46,7 +58,7 @@ export class UploadService {
     .catch(error => console.log(error))
   }
 
-// writes to live database
+// writes data to live database
   private saveFileData(upload: Upload) {
     this.db.list(`${this.basePath}/`).push(upload);
   }

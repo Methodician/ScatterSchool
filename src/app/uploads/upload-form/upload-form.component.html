@@ -6,7 +6,7 @@
   <h3>Upload</h3>
   
     <label>
-       <input type="file" class="button" (change)="detectFiles($event)">
+       <input accept="image/*" type="file" class="button" (change)="detectFiles($event)">
     </label>
   
     <button
@@ -16,7 +16,4 @@
     </button>
 
 
-    <div *ngIf="currentUser">
-      User: {{currentUser?.name}}
-    </div>      
   

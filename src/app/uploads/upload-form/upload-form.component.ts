@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../../services/upload/upload.service';
 import { Upload } from '../../services/upload/upload';
-import { UserService } from '../../services/user/user.service';
-import { AuthService } from "app/services/auth/auth.service";
 
 @Component({
   selector: 'app-upload-form',
@@ -12,13 +10,15 @@ import { AuthService } from "app/services/auth/auth.service";
 })
 
 export class UploadFormComponent implements OnInit {
+  // user = firebase.auth().currentUser;
   selectedFiles: FileList;
   currentUpload: Upload;
+  userInfo: any;
 
   constructor(
-    private upSvc: UploadService
-  ) { }
+    private upSvc: UploadService) { }
  
+
   detectFiles(event) {
     this.selectedFiles = event.target.files;
   }
