@@ -5,6 +5,7 @@
         <a *ngIf="!authInfo.$uid" class="hiddenLink" routerLink="login"><span class="fa fa-sign-in"></span> Sign In</a>
         <a *ngIf="authInfo.$uid" class="hiddenLink" routerLink="account"><span class="fa fa-user"></span> Hello {{ displayName }}</a>
         <a *ngIf="!authInfo.$uid" routerLink="register" class="hiddenLink"><span class="fa fa-user-plus"></span> Sign Up</a>
+        <a class="suggestions" routerLink="suggestions">Article suggestions</a>
         <a class="aboutUsLink" routerLink="aboutus">About Scatter School</a>
     </div>
 
