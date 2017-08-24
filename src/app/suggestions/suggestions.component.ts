@@ -13,6 +13,7 @@ import { FirebaseListObservable } from 'angularfire2/database';
 export class SuggestionsComponent implements OnInit {
   suggestions;
   currentUserKey;
+  sortType = 'upvotes';
   constructor(private suggestionService: SuggestionService, private authSvc: AuthService) { }
 
   ngOnInit() {
@@ -22,13 +23,7 @@ export class SuggestionsComponent implements OnInit {
     
     this.suggestionService.getAllSuggestions()
       .subscribe(suggestions => {
-        this.suggestions = this.sortByUpvotes(suggestions);
+        this.suggestions = suggestions;
       });
-  }
-
-  sortByUpvotes(suggestions){
-    return suggestions.sort((a, b) => {
-      return b.voteCount - a.voteCount
-    });
   }
 }

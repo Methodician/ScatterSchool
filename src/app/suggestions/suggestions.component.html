@@ -8,5 +8,5 @@
   
 <div id="suggestions">
   <h3>Suggestions</h3>
-    <app-suggestion-preview *ngFor="let suggestion of suggestions" [suggestion]="suggestion" [currentUserKey]="currentUserKey"></app-suggestion-preview>
+    <app-suggestion-preview *ngFor="let suggestion of suggestions | suggestionSort: sortType" [suggestion]="suggestion" [currentUserKey]="currentUserKey"></app-suggestion-preview>
 </div>
