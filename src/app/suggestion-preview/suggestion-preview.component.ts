@@ -13,6 +13,7 @@ import { Vote } from "app/services/suggestion/vote";
 
 export class SuggestionPreviewComponent {
   @Input() suggestion;
+  @Input() currentUserKey;
   
   constructor(private service: SuggestionService){}
 

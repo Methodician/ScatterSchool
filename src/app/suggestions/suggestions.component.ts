@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { SuggestionService } from './../services/suggestion/suggestion.service'
 import { FirebaseListObservable } from 'angularfire2/database';
@@ -11,9 +12,14 @@ import { FirebaseListObservable } from 'angularfire2/database';
 
 export class SuggestionsComponent implements OnInit {
   suggestions;
-  constructor(private suggestionService: SuggestionService) { }
+  currentUserKey;
+  constructor(private suggestionService: SuggestionService, private authSvc: AuthService) { }
 
   ngOnInit() {
+    this.authSvc.authInfo$.subscribe(authInfo => {
+      this.currentUserKey = (authInfo.$uid) ? authInfo.$uid : null;
+    })
+    
     this.suggestionService.getAllSuggestions()
       .subscribe(suggestions => {
         this.suggestions = this.sortByUpvotes(suggestions);

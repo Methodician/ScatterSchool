@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { SuggestionService } from 'app/services/suggestion/suggestion.service';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Vote } from "app/services/suggestion/vote";
@@ -9,17 +10,19 @@ import { Vote } from "app/services/suggestion/vote";
 })
 export class VoteComponent implements OnInit, OnChanges {
   @Input() suggestion;
+  @Input() currentUserKey;
   voteState = 0;
   totalVotes = 0;
-  // currently static, eventually needs to access currently logged in user.
-  currentUserKey = "wmmtEduyNiftlVazG03JCUYIWo82"; 
-  constructor(private service: SuggestionService) { }
+
+  constructor(private service: SuggestionService, private router: Router) { }
 
   ngOnInit() {
     // can we add subscriptions in the service? I would like to avoid subscribing to every individual vote state.
-    this.service.getSuggestionVoteStateByUser(this.suggestion.$key, this.currentUserKey).subscribe(voteStateData => {
-      this.voteState = (voteStateData.$value) ? voteStateData.$value : 0;
-    });
+    if(this.currentUserKey) {
+      this.service.getSuggestionVoteStateByUser(this.suggestion.$key, this.currentUserKey).subscribe(voteStateData => {
+        this.voteState = (voteStateData.$value) ? voteStateData.$value : 0;
+      });
+    }
   }
 
   ngOnChanges(changes) {
@@ -30,10 +33,14 @@ export class VoteComponent implements OnInit, OnChanges {
   // then calls a method to update the database
   // voteNum represents either a positive or negative vote
   vote(voteNum) {
-    this.totalVotes += this.getTotalVoteChange(voteNum)
-    // resets the component's vote state to 0 if the current vote state is equal to the vote that was just clicked
-    this.voteState = (this.voteState === voteNum) ? 0 : voteNum;
-    this.saveVote();
+    if(this.currentUserKey){
+      this.totalVotes += this.getTotalVoteChange(voteNum)
+      // resets the component's vote state to 0 if the current vote state is equal to the vote that was just clicked
+      this.voteState = (this.voteState === voteNum) ? 0 : voteNum;
+      this.saveVote();
+    } else {
+      this.router.navigate(['login'])
+    }
   }
 
   getTotalVoteChange(voteNum){
