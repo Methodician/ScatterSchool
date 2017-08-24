@@ -52,6 +52,7 @@ import { EditSuggestionComponent } from './edit-suggestion/edit-suggestion.compo
 import { AddSuggestionComponent } from './add-suggestion/add-suggestion.component';
 import { SuggestionPreviewComponent } from './suggestion-preview/suggestion-preview.component';
 import { SuggestionService } from './services/suggestion/suggestion.service';
+import { VoteService } from './services/vote/vote.service';
 import { VoteComponent } from './vote/vote.component';
 
 
@@ -113,7 +114,8 @@ import { VoteComponent } from './vote/vote.component';
     UserService,
     ArticleService,
     DataCleanupService,
-    SuggestionService
+    SuggestionService,
+    VoteService
   ],
   bootstrap: [AppComponent]
 })
