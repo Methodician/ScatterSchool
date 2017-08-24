@@ -17,6 +17,7 @@ export class SuggestionsComponent implements OnInit {
   constructor(private suggestionService: SuggestionService, private authSvc: AuthService) { }
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.authSvc.authInfo$.subscribe(authInfo => {
       this.currentUserKey = (authInfo.$uid) ? authInfo.$uid : null;
     })

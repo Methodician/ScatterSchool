@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     this.route.params.subscribe(params => {
       if (params['key']) {
         let uid = params['key'];
