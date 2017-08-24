@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { SuggestionService } from "app/services/suggestion/suggestion.service";
 
 @Component({
@@ -9,7 +9,7 @@ import { SuggestionService } from "app/services/suggestion/suggestion.service";
 })
 export class EditSuggestionComponent implements OnInit {
   suggestion;
-  constructor(private route: ActivatedRoute, private service: SuggestionService) {}
+  constructor(private route: ActivatedRoute, private service: SuggestionService, private router: Router) {}
 
   ngOnInit() {
     let key = this.route.snapshot.params['key'];
@@ -20,6 +20,7 @@ export class EditSuggestionComponent implements OnInit {
   }
 
   saveSuggestion(suggestionData) {
+    this.router.navigate(['suggestion', this.suggestion.$key]);
     this.service.updateSuggestion(this.suggestion.$key, suggestionData)
   }
 }
