@@ -3,6 +3,3 @@
   <suggestion-form #form [initialValue]="suggestion"></suggestion-form>
   <button (click)="saveSuggestion(form.value)" [disabled]="form.pristine || !form.valid">Save</button>
 </div>
-
-<p>{{suggestion | json}}</p>
-
