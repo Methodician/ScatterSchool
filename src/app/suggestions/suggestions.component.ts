@@ -13,7 +13,7 @@ import { FirebaseListObservable } from 'angularfire2/database';
 export class SuggestionsComponent implements OnInit {
   suggestions;
   currentUserKey;
-  sortType = 'upvotes';
+  currentSortOption = 'newest';
   constructor(private suggestionService: SuggestionService, private authSvc: AuthService) { }
 
   ngOnInit() {
@@ -25,5 +25,13 @@ export class SuggestionsComponent implements OnInit {
       .subscribe(suggestions => {
         this.suggestions = suggestions;
       });
+  }
+
+  isSelected(sortOption) {
+    return sortOption === this.currentSortOption;
+  }
+
+  sortBy(sortOption) {
+    this.currentSortOption = sortOption;
   }
 }

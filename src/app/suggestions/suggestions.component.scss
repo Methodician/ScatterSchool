@@ -1,6 +1,5 @@
 h3 {
   color: #31C2D7;
-  margin-bottom: 40px;
   font-family: STHeitiSC-Light;
   padding: 0px 2%;
 }
@@ -13,4 +12,13 @@ h3 {
 
 #suggestions {
   padding: 0px 2%;
+}
+
+#sort-buttons {
+  span {
+    cursor: pointer;
+  }
+  span.selected {
+    color: red;
+  }
 }

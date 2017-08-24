@@ -8,5 +8,10 @@
   
 <div id="suggestions">
   <h3>Suggestions</h3>
-    <app-suggestion-preview *ngFor="let suggestion of suggestions | suggestionSort: sortType" [suggestion]="suggestion" [currentUserKey]="currentUserKey"></app-suggestion-preview>
+  <div id="sort-buttons">
+    <span [class.selected]="isSelected('upvotes')" (click)="sortBy('upvotes')">popular</span>
+    <span [class.selected]="isSelected('newest')" (click)="sortBy('newest')">newest</span>
+    <span [class.selected]="isSelected('oldest')" (click)="sortBy('oldest')">oldest</span>
+  </div>
+    <app-suggestion-preview *ngFor="let suggestion of suggestions | suggestionSort: currentSortOption" [suggestion]="suggestion" [currentUserKey]="currentUserKey"></app-suggestion-preview>
 </div>
