@@ -1,0 +1,43 @@
+.detailWrapper {
+    font-family: STHeitiSC-Light;
+    width: 500px;
+    margin: 0 auto;
+
+    h1 {
+        margin-bottom: 40px;
+    }
+
+    p {
+        margin-bottom: 40px;
+        font-size: 18px;
+    }
+
+    .btnWrapper {
+       display: flex;
+       justify-content: center;
+    }
+
+    button {
+        border-radius: 2px;
+        letter-spacing: 0.3px;
+        height: 40px;
+        font-size: 16px;
+        color: #fff;
+    }
+
+    .postBtn {
+        background-color: #31C2D7;
+        margin-right: 20px;
+    }
+
+    .editBtn {
+        background-color: #C4275F;
+    }
+}
+
+@media only screen and (max-width:768px) {
+    .detailWrapper {
+        width: 95%;
+        margin-top: 90px;
+    }
+}
