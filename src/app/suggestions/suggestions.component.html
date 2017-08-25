@@ -9,9 +9,11 @@
 <div id="suggestions">
   <h3>Suggestions</h3>
   <div id="sort-buttons">
-    <span [class.selected]="isSelected('upvotes')" (click)="sortBy('upvotes')">popular</span>
-    <span [class.selected]="isSelected('newest')" (click)="sortBy('newest')">newest</span>
-    <span [class.selected]="isSelected('oldest')" (click)="sortBy('oldest')">oldest</span>
+    <span [class.selected]="isSelected('upvotes')" (click)="sortBy('upvotes')">Popular</span>
+    <span [class.selected]="isSelected('newest')" (click)="sortBy('newest')">Newest</span>
+    <span [class.selected]="isSelected('oldest')" (click)="sortBy('oldest')">Oldest</span>
   </div>
+  <div class="suggestionLoop">
     <app-suggestion-preview *ngFor="let suggestion of suggestions | suggestionSort: currentSortOption" [suggestion]="suggestion" [currentUserKey]="currentUserKey"></app-suggestion-preview>
+  </div>
 </div>

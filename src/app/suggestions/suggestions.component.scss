@@ -5,6 +5,10 @@ h3 {
   font-size: 24px;
 }
 
+.suggestionLoop {
+  border-top: 1px solid #263237;
+}
+
 #add-suggestions {
   width: 95%;
   margin: 0 auto;
@@ -26,10 +30,12 @@ h3 {
 }
 
 #sort-buttons {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+  margin-top: -20px;
   span {
     cursor: pointer;
     font-family: STHeitiSC-Light;
+    margin-right: 5px;
   }
   span.selected {
     color: #C4275F;
