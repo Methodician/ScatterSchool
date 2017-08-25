@@ -10,6 +10,7 @@ export class UploadService {
   basePath: string = 'uploads/profileImages';
   loggedInUserKey: string;
   uploads: FirebaseListObservable<Upload[]>;
+  progress: number;
   constructor(
     private db: AngularFireDatabase,
     private userSvc: UserService,
@@ -19,6 +20,7 @@ export class UploadService {
       this.loggedInUserKey = info.$uid;
     });
    }
+
 
   pushUpload(upload: Upload) {
     const storageRef = firebase.storage().ref();
@@ -34,30 +36,26 @@ export class UploadService {
 // save data and push to live database
       () => {
         let metaSnapShot = uploadTask.snapshot.metadata
-        upload.timeStamp = metaSnapShot.timeCreated
+        // upload.timeStamp = firebase.database.ServerValue.TIMESTAMP
         upload.fullPath = metaSnapShot.bucket + '/' + metaSnapShot.fullPath
-        upload.lastUpdated = metaSnapShot.updated
         upload.uid = this.loggedInUserKey
         upload.url = metaSnapShot.downloadURLs[0]
         upload.name = upload.file.name
         upload.size = upload.file.size
         upload.type = upload.file.type
+        upload.progress = null
         this.saveFileData(upload)
-        console.log(firebase.database.ServerValue.TIMESTAMP)
-        return undefined
+        return upload
       }
     );
   }
 
-// to return all uploads
-getUploads(query={}) {
-  this.uploads = this.db.list(this.basePath, {
-    query: query
-  });
-  console.log(this.uploads)
-  return this.uploads
-}
-
+  // to return all uploads
+  getUploads(query={}) {
+    this.uploads = this.db.list(this.basePath)
+    console.log(this.uploads)
+    return this.uploads
+  }
 
 // delete files from database and storage
   deleteUpload(upload: Upload) {
@@ -70,7 +68,7 @@ getUploads(query={}) {
 
 // writes data to live database
   private saveFileData(upload: Upload) {
-    this.db.list(`${this.basePath}/`).push(upload);
+    this.db.list(`${this.basePath}/`).push(upload).update({timestamp: firebase.database.ServerValue.TIMESTAMP});
   }
 
 // deletes from live database by key
