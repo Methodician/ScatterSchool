@@ -1,2 +1,4 @@
 <suggestion-form #form></suggestion-form>
-<button id="suggestion-submit" (click)="saveSuggestion(form.value)" [disabled]="!form.valid">Submit</button>
+<div class="centerBtn">
+    <button class="btn suggestion-submit" (click)="saveSuggestion(form.value)" [disabled]="!form.valid">Submit</button>
+</div>

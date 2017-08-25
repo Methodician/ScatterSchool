@@ -1,8 +1,14 @@
-#suggestion-submit {
+.centerBtn {
+  display: flex;
+  justify-content: center
+}
+
+.suggestion-submit {
   font-family: STHeitiSC-Light;
+  letter-spacing: 0.3px;
   background-color: #C4275F;
   color: #fff;
-  border: 1px solid #C4275F;
-  padding: 6px 28px;
-  margin-top: 10px;
+  border-radius: 2px;
+  height: 38px;
+  width: 80px;
 }

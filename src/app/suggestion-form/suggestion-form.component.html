@@ -2,8 +2,8 @@
   <label>Title</label>
   <input type="text" name="title" formControlName="title" class="formControl">
     <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
-      <div *ngIf="title.errors.required">Title is required.</div>
-      <div *ngIf="title.errors.maxlength">Title can be no more than {{title.errors.maxlength.requiredLength}} characters long.</div>
+      <div *ngIf="title.errors.required">A title is required.</div>
+      <div *ngIf="title.errors.maxlength">The title can be no more than {{title.errors.maxlength.requiredLength}} characters long.</div>
     </div>
   <label>Pitch</label>
   <textarea type="text"cols="53" rows="10" name="pitch" formControlName="pitch" class="formControl"></textarea>
