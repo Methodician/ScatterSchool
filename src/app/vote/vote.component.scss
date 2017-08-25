@@ -1,5 +1,6 @@
 span {
   display: block;
+  margin-right: 10px;
   
   &.glyphicon {
     cursor: pointer;
@@ -7,10 +8,10 @@ span {
   }
 
   &.vote-up.selected {
-    color: green;
+    color: #00BE9C;
   }
 
   &.vote-down.selected {
-    color: red;
+    color: #C4275F;
   }
 }
