@@ -88,6 +88,10 @@ const routes: Routes = [
     component: SuggestionsComponent
   },
   {
+    path: 'postsuggestion',
+    component: AddSuggestionComponent
+  },
+  {
     path: 'suggestion/:key',
     component: SuggestionDetailComponent
   },
