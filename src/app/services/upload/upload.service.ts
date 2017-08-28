@@ -34,7 +34,6 @@ export class UploadService {
 // save data and push to live database
       () => {
         let metaSnapShot = uploadTask.snapshot.metadata
-        upload.timeStamp = firebase.database.ServerValue.TIMESTAMP
         upload.fullPath = metaSnapShot.bucket + '/' + metaSnapShot.fullPath
         upload.uid = this.loggedInUserKey
         upload.url = metaSnapShot.downloadURLs[0]
@@ -56,7 +55,7 @@ export class UploadService {
 
   // writes data to live database
   private saveFileData(upload: Upload) {
-    this.db.list(`${this.basePath}/${this.loggedInUserKey}/`).push(upload).update({timestamp: firebase.database.ServerValue.TIMESTAMP});
+    this.db.list(`${this.basePath}/${this.loggedInUserKey}/`).push(upload).update({timeStamp: firebase.database.ServerValue.TIMESTAMP});
   }
 
 // delete files from database and storage

@@ -5,7 +5,6 @@ export class Upload {
   public fullPath: string;
   public name: string;
   public progress: number;
-  public timeStamp: any;
   public uid: string;
   public size: number;
   public type: string;
