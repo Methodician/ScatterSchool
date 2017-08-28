@@ -1,3 +1,5 @@
+import { UploadService } from './services/upload/upload.service';
+import { Upload } from './services/upload/upload';
 import { DataCleanupService } from './data-cleanup.service';
 import { fbConfig } from './config';
 import { AppRoutingModule } from './app-routing.module';
@@ -99,7 +101,8 @@ import { UploadFormComponent } from './uploads/upload-form/upload-form.component
     AuthService,
     UserService,
     ArticleService,
-    DataCleanupService
+    DataCleanupService,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })

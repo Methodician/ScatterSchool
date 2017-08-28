@@ -1,7 +1,9 @@
+
 import { Component, OnInit } from '@angular/core';
 import { UploadService } from '../../services/upload/upload.service';
 import { Upload } from '../../services/upload/upload';
 import { FirebaseListObservable } from 'angularfire2/database';
+import { when } from "q";
 
 @Component({
   selector: 'app-upload-form',
@@ -27,7 +29,7 @@ export class UploadFormComponent implements OnInit {
   uploadSingle() {
     let file = this.selectedFiles.item(0)
     this.currentUpload = new Upload(file);
-    this.upSvc.pushUpload(this.currentUpload)
+    this.upSvc.pushUpload(this.currentUpload);
   }
 
   ngOnInit() {

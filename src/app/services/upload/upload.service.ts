@@ -10,7 +10,6 @@ export class UploadService {
   basePath: string = 'uploads/profileImages';
   loggedInUserKey: string;
   uploads: FirebaseListObservable<Upload[]>;
-  progress: number;
   constructor(
     private db: AngularFireDatabase,
     private userSvc: UserService,
@@ -21,10 +20,9 @@ export class UploadService {
     });
    }
 
-
   pushUpload(upload: Upload) {
     const storageRef = firebase.storage().ref();
-    const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}`).put(upload.file);
+    const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}/`).put(upload.file);
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) =>  {
         let snap = snapshot as firebase.storage.UploadTaskSnapshot
@@ -36,7 +34,7 @@ export class UploadService {
 // save data and push to live database
       () => {
         let metaSnapShot = uploadTask.snapshot.metadata
-        // upload.timeStamp = firebase.database.ServerValue.TIMESTAMP
+        upload.timeStamp = firebase.database.ServerValue.TIMESTAMP
         upload.fullPath = metaSnapShot.bucket + '/' + metaSnapShot.fullPath
         upload.uid = this.loggedInUserKey
         upload.url = metaSnapShot.downloadURLs[0]
@@ -45,16 +43,20 @@ export class UploadService {
         upload.type = upload.file.type
         upload.progress = null
         this.saveFileData(upload)
-        return upload
+        return undefined
       }
     );
   }
 
   // to return all uploads
   getUploads(query={}) {
-    this.uploads = this.db.list(this.basePath)
-    console.log(this.uploads)
+    this.uploads = this.db.list(`${this.basePath}/`)
     return this.uploads
+  }
+
+  // writes data to live database
+  private saveFileData(upload: Upload) {
+    this.db.list(`${this.basePath}/${this.loggedInUserKey}/`).push(upload).update({timestamp: firebase.database.ServerValue.TIMESTAMP});
   }
 
 // delete files from database and storage
@@ -66,14 +68,10 @@ export class UploadService {
     .catch(error => console.log(error))
   }
 
-// writes data to live database
-  private saveFileData(upload: Upload) {
-    this.db.list(`${this.basePath}/`).push(upload).update({timestamp: firebase.database.ServerValue.TIMESTAMP});
-  }
 
 // deletes from live database by key
   private deleteFileData(key: string) {
-    return this.db.list(`${this.basePath}/`).remove(key);
+    return this.db.list(`${this.basePath}/${this.loggedInUserKey}/`).remove(key);
   }
 
 // deletes from storage by name

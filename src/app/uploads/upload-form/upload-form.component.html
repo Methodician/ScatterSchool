@@ -4,20 +4,20 @@
 </div>
 
   <h3>Upload</h3>
-  
+  <div class="form-group">
     <label>
-       <input accept="image/*" type="file" class="button" (change)="detectFiles($event)">
+       <input accept="image/*" id="control" type="file" multiple class="button" (change)="detectFiles($event)">
     </label>
+
   
     <button
           [disabled]="!selectedFiles"
           (click)="uploadSingle()">
           Upload!
     </button>
-
+  </div>
 
     <div *ngFor="let upload of uploads | async">
-        <img  style="width:250px;height:250px;" src="{{upload.url}}">
+        <img class="uploadDisplay" src="{{upload.url}}">
       </div>
 
-  
