@@ -1,4 +1,20 @@
-.uploadDisplay {
-    width: 250px;
-    height: 250px;
+h3 {
+    color: #31C2D7;
+    margin-bottom: 40px;
 }
+
+.uploadWrapper {
+    font-family: STHeitiSC-Light;
+    margin: 0 auto;
+    .btnUpload{
+        height: 40px;
+        color: #fff;
+        background-color: #C4275F;
+    }
+
+    .uploadDisplay {
+        width: 250px;
+        height: 250px;
+    }
+}
+
