@@ -18,6 +18,20 @@ export class ArticleDetailComponent implements OnInit {
   iFollow: any;
   followsMe: any;
   userInfo = null;
+  comments = [
+    {
+      userKey: 'A8a89dHFah543s3k23jk',
+      userName: 'Aubrey',
+      text: 'Wow. Great post. Really impressed with this article, which you wrote.',
+      timestamp: 41423235235
+    },
+    {
+      userKey: 'A8a89dHFah543s3k23jk',
+      userName: 'Aubrey',
+      text: 'Wow. Great post. Really impressed with this article, which you wrote.',
+      timestamp: 41423235235
+    }
+  ]
 
   constructor(
     private articleSvc: ArticleService,
