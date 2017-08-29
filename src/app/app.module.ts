@@ -59,6 +59,7 @@ import { CommentComponent } from './comment/comment.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { CommentService } from './services/comment/comment.service';
+import { CommentListComponent } from './comment-list/comment-list.component';
 
 
 
@@ -102,7 +103,8 @@ import { CommentService } from './services/comment/comment.service';
     SuggestionSortPipe,
     CommentComponent,
     CommentFormComponent,
-    AddCommentComponent
+    AddCommentComponent,
+    CommentListComponent
   ],
   imports: [
     BrowserModule,

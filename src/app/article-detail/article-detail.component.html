@@ -34,5 +34,5 @@
   <hr>
   <app-add-comment [parentKey]="articleKey"></app-add-comment>
   <hr>
-  <app-comment *ngFor="let comment of comments" [comment]="comment"></app-comment>
+  <comment-list [parentKey]="articleKey"></comment-list>
 </div>
