@@ -21,22 +21,18 @@ export class CommentService {
     let dbSaveData = this.db.list('commentData/comments').push(commentToSave);
     
     this.makeParentAssociation(commentData.parentKey, dbSaveData.key);
-    this.makeUserAssociations(commentData.authorKey, dbSaveData.key);    
+    this.makeUserAssociation(commentData.authorKey, dbSaveData.key);    
   }
 
   makeParentAssociation(parentKey, childCommentKey) {
-    let association = {
-      parentKey: parentKey,
-      childCommentKey: childCommentKey
-    }
-    this.db.list('commentData/commentsPerParent').push(association);
+    this.db.object(`commentData/commentsPerParent/${parentKey}/${childCommentKey}`).set(true);
   }
 
-  makeUserAssociations(userKey, commentKey) {
-    let association = {
-      userKey: userKey,
-      commentKey: commentKey
-    }
-    this.db.list('commentData/commentsPerUser').push(association);
+  makeUserAssociation(userKey, commentKey) {
+    this.db.object(`commentData/commentsPerUser/${userKey}/${commentKey}`).set(true);
+  }
+
+  getAllComments() {
+    return this.db.list(`commentData/comments`)
   }
 }
