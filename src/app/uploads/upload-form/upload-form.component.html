@@ -5,7 +5,7 @@
   </div>
 
   <h3>Upload</h3>
-  <div class="form-group">
+  <div class="form-group uploadForm">
     <label>
       <input accept="image/*" id="control" type="file" multiple class="button" (change)="detectFiles($event)">
     </label>
@@ -18,7 +18,7 @@
     </button>
   </div>
 
-  <div *ngFor="let upload of uploads | async">
-    <img class="uploadDisplay" src="{{upload.url}}">
+  <div class="imageWrapper" *ngFor="let upload of uploads | async">
+    <img class="imageDisplay" src="{{upload.url}}">
   </div>
 </div>
