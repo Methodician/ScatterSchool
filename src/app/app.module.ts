@@ -55,6 +55,7 @@ import { SuggestionService } from './services/suggestion/suggestion.service';
 import { VoteService } from './services/vote/vote.service';
 import { VoteComponent } from './vote/vote.component';
 import { SuggestionSortPipe } from './pipes/suggestion-sort.pipe';
+import { CommentComponent } from './comment/comment.component';
 
 
 
@@ -95,7 +96,8 @@ import { SuggestionSortPipe } from './pipes/suggestion-sort.pipe';
     AddSuggestionComponent,
     SuggestionPreviewComponent,
     VoteComponent,
-    SuggestionSortPipe
+    SuggestionSortPipe,
+    CommentComponent
   ],
   imports: [
     BrowserModule,
