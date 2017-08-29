@@ -1,3 +1,4 @@
+import { UploadService } from './../services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
@@ -11,16 +12,19 @@ export class LatestPreviewComponent implements OnInit {
   @Input() articleData: any;
   @Input() authorKey;
   author;
+  profileImageUrl;
 
   constructor(
     private articleService: ArticleService,
-    private router: Router
+    private router: Router,
+    private uploadSvc: UploadService
   ) { }
 
   ngOnInit() {
     this.articleService.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
       this.author = author;
     });
+    this.getProfileImage();
   }
 
   navigateToArticleDetail() {
@@ -29,5 +33,13 @@ export class LatestPreviewComponent implements OnInit {
 
   navigateToProfile() {
     this.articleService.navigateToProfile(this.articleData.authorKey);
+  }
+
+  getProfileImage() {
+    this.uploadSvc.getProfileImage(this.articleData.authorKey).subscribe(profileData => {
+      if (profileData.url) {
+       this.profileImageUrl = profileData.url;
+      }
+    })
   }
 }

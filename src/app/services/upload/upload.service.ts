@@ -6,10 +6,7 @@ import { UserService } from "app/services/user/user.service";
 import { AuthService } from "app/services/auth/auth.service";
 
 @Injectable()
-export class UploadService { 
-  basePath: string = 'uploads/profileImages';
-  loggedInUserKey: string;
-  uploads: FirebaseListObservable<Upload[]>;
+export class UploadService {
   constructor(
     private db: AngularFireDatabase,
     private userSvc: UserService,
@@ -18,7 +15,12 @@ export class UploadService {
     authSvc.authInfo$.subscribe(info => {
       this.loggedInUserKey = info.$uid;
     });
-   }
+   } 
+  basePath: string = 'uploads/profileImages/';
+  loggedInUserKey: string;
+  uploads: FirebaseListObservable<Upload[]>;
+  listPath  = this.db.list(`${this.basePath}/${this.loggedInUserKey}/`);
+  
 
   pushUpload(upload: Upload) {
     const storageRef = firebase.storage().ref();
@@ -48,14 +50,14 @@ export class UploadService {
   }
 
   // to return all uploads
-  getUploads(query={}) {
-    this.uploads = this.db.list(`${this.basePath}/`)
-    return this.uploads
+  getProfileImage(userKey) {
+    return this.db.object(`${this.basePath}/${userKey}`);
   }
 
   // writes data to live database
   private saveFileData(upload: Upload) {
-    this.db.list(`${this.basePath}/${this.loggedInUserKey}/`).push(upload).update({timeStamp: firebase.database.ServerValue.TIMESTAMP});
+    this.db.object(`${this.basePath}/${this.loggedInUserKey}/`).set(upload);
+    // .update({timeStamp: firebase.database.ServerValue.TIMESTAMP});
   }
 
 // delete files from database and storage
