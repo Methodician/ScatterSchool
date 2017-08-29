@@ -12,7 +12,6 @@ import { FirebaseListObservable } from 'angularfire2/database';
 })
 
 export class UploadFormComponent implements OnInit {
-  // user = firebase.auth().currentUser;
   selectedFiles: FileList;
   currentUpload: Upload;
   upload;

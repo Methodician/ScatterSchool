@@ -27,24 +27,25 @@ export class UploadService {
     const uploadTask = storageRef.child(`${this.basePath}/${upload.file.name}/`).put(upload.file);
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) =>  {
-        let snap = snapshot as firebase.storage.UploadTaskSnapshot
+        let snap = snapshot as firebase.storage.UploadTaskSnapshot;
         upload.progress = (snap.bytesTransferred / snap.totalBytes) * 100
       },
       (error) => {
-        console.log(error)
+        console.log(error);
       },
 // save data and push to live database
       () => {
-        let metaSnapShot = uploadTask.snapshot.metadata
-        upload.fullPath = metaSnapShot.bucket + '/' + metaSnapShot.fullPath
-        upload.uid = this.loggedInUserKey
-        upload.url = metaSnapShot.downloadURLs[0]
-        upload.name = upload.file.name
-        upload.size = upload.file.size
-        upload.type = upload.file.type
-        upload.progress = null
-        this.saveFileData(upload)
-        return undefined
+        let metaSnapShot = uploadTask.snapshot.metadata;
+        upload.fullPath = metaSnapShot.bucket + '/' + metaSnapShot.fullPath;
+        upload.uid = this.loggedInUserKey;
+        upload.url = metaSnapShot.downloadURLs[0];
+        upload.name = upload.file.name;
+        upload.size = upload.file.size;
+        upload.type = upload.file.type;
+        upload.timeStamp = firebase.database.ServerValue.TIMESTAMP;
+        upload.progress = null;
+        this.saveFileData(upload);
+        return undefined;
       }
     );
   }
@@ -56,17 +57,16 @@ export class UploadService {
 
   // writes data to live database
   private saveFileData(upload: Upload) {
-    this.db.object(`${this.basePath}/${this.loggedInUserKey}/`).set(upload);
-    // .update({timeStamp: firebase.database.ServerValue.TIMESTAMP});
+    this.db.object(`${this.basePath}/${this.loggedInUserKey}/`).set(upload)
   }
 
 // delete files from database and storage
   deleteUpload(upload: Upload) {
     this.deleteFileData(upload.$key)
     .then( () => {
-      this.deleteFileStorage(upload.name)
+      this.deleteFileStorage(upload.name);
     })
-    .catch(error => console.log(error))
+    .catch(error => console.log(error));
   }
 
 
@@ -78,7 +78,7 @@ export class UploadService {
 // deletes from storage by name
   private deleteFileStorage(name:string) {
     const storageRef = firebase.storage().ref();
-    storageRef.child(`${this.basePath}/${name}`).delete()
+    storageRef.child(`${this.basePath}/${name}`).delete();
   }
 }
 
