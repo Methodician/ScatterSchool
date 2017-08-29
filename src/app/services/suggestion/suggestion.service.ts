@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database';
 import { Observable } from "rxjs/Observable";
@@ -7,7 +8,10 @@ import * as firebase from 'firebase';
 @Injectable()
 export class SuggestionService {
   
-  constructor(private db: AngularFireDatabase) {}
+  constructor(
+    private db: AngularFireDatabase,
+    private router: Router
+  ) {}
 
   getAllSuggestions() {
     return this.db.list('suggestionData/suggestions');
@@ -24,6 +28,7 @@ export class SuggestionService {
     suggestionData.voteCount = 0;
 
     this.db.list('suggestionData/suggestions').push(suggestionData);
+    this.router.navigate(['suggestions']);
   }
 
   updateSuggestion(key, paramsToUpdate) {
