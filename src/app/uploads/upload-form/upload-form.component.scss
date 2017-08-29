@@ -7,6 +7,10 @@ input {
     font-size: 18px;
 }
 
+progress {
+    color: #00BE9C;
+}
+
 .uploadForm {
     display: flex;
     align-items: center;
@@ -40,6 +44,9 @@ input {
 }
 
 @media only screen and (max-width:768px) {
+    input {
+        width: 100%;
+    }
     .uploadWrapper{
         width: 95%;
         margin: 0 auto;
