@@ -1,3 +1,5 @@
+import { UserService } from './../services/user/user.service';
+import { AuthService } from './../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,12 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddCommentComponent implements OnInit {
 
-  constructor() { }
+  currentUserInfo;
+  constructor(private userSvc: UserService) { }
 
   ngOnInit() {
+    this.userSvc.userInfo$.subscribe(userInfo => {
+      this.currentUserInfo = userInfo;
+    });
   }
 
   saveComment(commentData) {
-    console.log('commentData: ', commentData);
+    let comment = {
+      userKey: this.currentUserInfo.uid,
+      userName: this.currentUserInfo.fName,
+      text: commentData.text,
+    }
+
+    console.log(comment);
   }
 }
