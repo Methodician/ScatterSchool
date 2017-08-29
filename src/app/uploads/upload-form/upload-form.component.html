@@ -1,23 +1,26 @@
-<div *ngIf="currentUpload">
-  <progress class="progress is-success" min=1 max=100 value="{{ currentUpload?.progress }}"></progress>
-  Progress: {{currentUpload?.progress}}% Complete
-</div>
+<div class="uploadWrapper">
+  <div *ngIf="currentUpload">
+    <progress class="progress is-success" min=1 max=100 value="{{ currentUpload?.progress }}"></progress>
+    Progress: {{currentUpload?.progress}}% Complete
+  </div>
 
   <h3>Upload</h3>
-  <div class="form-group">
+  <div class="form-group uploadForm">
     <label>
-       <input accept="image/*" id="control" type="file" multiple class="button" (change)="detectFiles($event)">
+      <input accept="image/*" id="control" type="file" multiple class="button" (change)="detectFiles($event)">
     </label>
 
-  
     <button
-          [disabled]="!selectedFiles"
-          (click)="uploadSingle()">
-          Upload!
+      class="btn btnUpload"
+      [disabled]="!selectedFiles"
+      (click)="uploadSingle()">
+      Upload!
     </button>
   </div>
 
-  
-    <img class="uploadDisplay" src="{{upload?.url}}">
-  
+
+  <div class="imageWrapper" *ngFor="let upload of uploads | async">
+    <img class="imageDisplay" src="{{upload.url}}">
+  </div>
+</div>
 
