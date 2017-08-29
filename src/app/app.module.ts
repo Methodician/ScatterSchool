@@ -5,7 +5,6 @@ import { fbConfig } from './config';
 import { AppRoutingModule } from './app-routing.module';
 import { UserService } from './services/user/user.service';
 import { ArticleService } from './services/article/article.service';
-//import * as firebase from 'firebase';
 import { AccountComponent } from './account/account.component';
 import { AuthService } from './services/auth/auth.service';
 import { HomeComponent } from './home/home.component';
@@ -48,8 +47,6 @@ import { FollowBtnComponent } from './follow-btn/follow-btn.component';
 import { FollowedUserComponent } from './followed-user/followed-user.component';
 import { FollowerUserComponent } from './follower-user/follower-user.component';
 import { UploadFormComponent } from './uploads/upload-form/upload-form.component';
-
-
 
 @NgModule({
   declarations: [

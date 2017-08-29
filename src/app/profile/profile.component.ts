@@ -1,3 +1,4 @@
+import { UploadService } from 'app/services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { UserService } from './../services/user/user.service';
@@ -18,12 +19,14 @@ export class ProfileComponent implements OnInit {
   followersOfUser: UserInfoOpen[];
   articlesAuthored: ArticleDetailOpen[];
   articlesEdited: ArticleDetailOpen[];
+  profileImageUrl;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private userSvc: UserService,
-    private articleSvc: ArticleService
+    private articleSvc: ArticleService,
+    private uploadSvc: UploadService
   ) { }
 
   ngOnInit() {
@@ -36,6 +39,7 @@ export class ProfileComponent implements OnInit {
         this.getArticlesPerEditor(uid);
         this.getUsersFollowed(uid);
         this.getFollowersOfUser(uid);
+        this.getProfileImage(uid);
       }
     })
   }
@@ -76,4 +80,11 @@ export class ProfileComponent implements OnInit {
     console.log('ts worked!')
   }
 
+  getProfileImage(uid) {
+    this.uploadSvc.getProfileImage(uid).subscribe(profileData => {
+      if (profileData.url) {
+        this.profileImageUrl = profileData.url;
+      }
+    })
+  }
 }

@@ -14,14 +14,13 @@ import { FirebaseListObservable } from 'angularfire2/database';
 export class UploadFormComponent implements OnInit {
   selectedFiles: FileList;
   currentUpload: Upload;
-  upload;
-  loggedInUserKey: any;
-
+  loggedInUserKey;
+  upload; 
+  
   constructor(
-    private upSvc: UploadService,
-    private authSvc: AuthService
+    private uploadSvc: UploadService,
+    private authSvc: AuthService,
     ) { }
- 
 
   detectFiles(event) {
     this.selectedFiles = event.target.files;
@@ -30,15 +29,15 @@ export class UploadFormComponent implements OnInit {
   uploadSingle() {
     let file = this.selectedFiles.item(0)
     this.currentUpload = new Upload(file);
-    this.upSvc.pushUpload(this.currentUpload);
+    this.uploadSvc.pushUpload(this.currentUpload);
   }
 
   ngOnInit() {
     this.authSvc.authInfo$.subscribe(info => {
       if (info.$uid) {
-        this.loggedInUserKey = info.$uid; 
-        this.upSvc.getProfileImage(this.loggedInUserKey).subscribe(upload => {
-          this.upload = upload;  
+        this.loggedInUserKey = info.$uid;
+        this.uploadSvc.getProfileImage(this.loggedInUserKey).subscribe(upload => {
+          this.upload = upload;
         })
       }
     })

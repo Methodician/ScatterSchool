@@ -1,7 +1,7 @@
 <div class="authorWrapper">
   <div class="userInfoWrapper">
-    <div class="photoNameWrapper">
-      <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
+    <div class="photoNameWrapper">    
+      <img [src]="profileImageUrl ? profileImageUrl : '../../assets/images/ss-user-photo-frame.jpg'" alt="user's profile photo">
       <div *ngIf="userInfo" class="followButtonWrapper">
         <h3 class="author">{{userInfo?.alias || userInfo?.fName + ' ' + userInfo?.lName}}</h3>
         <!-- <button type="button" class="btn followBtn" (click)="followClick()">Follow</button> -->
