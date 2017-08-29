@@ -20,14 +20,12 @@ export class ArticleDetailComponent implements OnInit {
   userInfo = null;
   comments = [
     {
-      userKey: 'A8a89dHFah543s3k23jk',
-      userName: 'Aubrey',
+      authorKey: 'A8a89dHFah543s3k23jk',
       text: 'Wow. Great post. Really impressed with this article, which you wrote.',
       timestamp: 41423235235
     },
     {
-      userKey: 'A8a89dHFah543s3k23jk',
-      userName: 'Aubrey',
+      authorKey: 'A8a89dHFah543s3k23jk',
       text: 'Wow. Great post. Really impressed with this article, which you wrote.',
       timestamp: 41423235235
     }
