@@ -58,6 +58,7 @@ import { SuggestionSortPipe } from './pipes/suggestion-sort.pipe';
 import { CommentComponent } from './comment/comment.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
+import { CommentService } from './services/comment/comment.service';
 
 
 
@@ -123,7 +124,8 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
     ArticleService,
     DataCleanupService,
     SuggestionService,
-    VoteService
+    VoteService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })
