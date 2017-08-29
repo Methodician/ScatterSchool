@@ -1,6 +1,7 @@
+import { CommentService } from './../services/comment/comment.service';
 import { UserService } from './../services/user/user.service';
 import { AuthService } from './../services/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-add-comment',
@@ -8,9 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./add-comment.component.scss']
 })
 export class AddCommentComponent implements OnInit {
+  @Input() parentKey;
 
   currentUserInfo;
-  constructor(private userSvc: UserService) { }
+  constructor(private userSvc: UserService, private commentSvc: CommentService) { }
 
   ngOnInit() {
     this.userSvc.userInfo$.subscribe(userInfo => {
@@ -20,11 +22,11 @@ export class AddCommentComponent implements OnInit {
 
   saveComment(commentData) {
     let comment = {
-      userKey: this.currentUserInfo.uid,
-      userName: this.currentUserInfo.fName,
-      text: commentData.text,
+      authorKey: this.currentUserInfo.uid,
+      parentKey: this.parentKey,
+      text: commentData.text
     }
 
-    console.log(comment);
+    this.commentSvc.saveComment(comment);
   }
 }
