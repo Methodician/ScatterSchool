@@ -1,3 +1,4 @@
+import { CharacterCounterComponent } from './character-counter/character-counter.component';
 import { DataCleanupService } from './data-cleanup.service';
 import { fbConfig } from './config';
 import { AppRoutingModule } from './app-routing.module';
@@ -95,7 +96,8 @@ import { SuggestionSortPipe } from './pipes/suggestion-sort.pipe';
     AddSuggestionComponent,
     SuggestionPreviewComponent,
     VoteComponent,
-    SuggestionSortPipe
+    SuggestionSortPipe,
+    CharacterCounterComponent
   ],
   imports: [
     BrowserModule,
