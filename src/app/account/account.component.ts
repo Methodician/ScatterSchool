@@ -14,8 +14,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export class AccountComponent implements OnInit {
 
-  logedInUserKey: string;
-  @Input() accountUserKey: string;
+  loggedInUid: string;
+  @Input() accountUid: string;
   userInfo: UserInfoOpen;
   form: FormGroup;
 
@@ -27,7 +27,7 @@ export class AccountComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     authSvc.authInfo$.subscribe(info => {
-      this.logedInUserKey = info.$uid;
+      this.loggedInUid = info.$uid;
       if (!this.userInfo) {
         this.setUser();
       }
@@ -50,7 +50,7 @@ export class AccountComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params['key'])
-        this.accountUserKey = params['key'];
+        this.accountUid = params['key'];
       if (!this.userInfo)
         this.setUser();
     })
@@ -66,9 +66,14 @@ export class AccountComponent implements OnInit {
     } */
 
   setUser() {
+<<<<<<< HEAD
     if (this.accountUserKey || this.logedInUserKey) {
       this.getUserInfo(this.accountUserKey || this.logedInUserKey);
     }
+=======
+    if (this.accountUid || this.loggedInUid)
+    this.getUserInfo(this.accountUid || this.loggedInUid);
+>>>>>>> parent of c740c77... Put post-suggestion in standalone route and made it link back to suggestions upon post.
   }
 
   getUserInfo(uid: string) {

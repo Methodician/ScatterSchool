@@ -58,25 +58,24 @@ export class ArticleService {
     return this.findArticlesForKeys(this.db.list(`articleData/articlesPerAuthor/${authorKey}`));
   }
 
-  createNewArticle(authorKey: string, article: any) {
+  createNewArticle(AuthorKey: string, article: any) {
 
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
     let tagsObject = this.tagsObjectFromStringArray(article.tags);
 
-    // .update({timestamp: firebase.serverVal.TIMESTAMP})
-    let articleToSave/* : ArticleDetailOpen */ = {
+    let articleToSave = {
       title: article.title,
       introduction: article.introduction,
       bodyKey: bodyKey,
       tags: tagsObject,
       version: 1,
-      authorKey: authorKey,
+      authorKey: AuthorKey,
       timeStamp: firebase.database.ServerValue.TIMESTAMP,
       lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
 
     let articleKey = this.db.list('articleData/articles').push(articleToSave).key;
-    this.db.object(`articleData/articlesPerAuthor/${authorKey}/${articleKey}`).set(true);
+    this.db.object(`articleData/articlesPerAuthor/${AuthorKey}/${articleKey}`).set(true);
 
     let tags = article.tags;
     if (tags) {
