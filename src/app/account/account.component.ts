@@ -26,13 +26,6 @@ export class AccountComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute
   ) {
-    authSvc.authInfo$.subscribe(info => {
-      this.loggedInUserKey = info.$uid;
-      if (!this.userInfo) {
-        this.setUser();
-      }
-    })
-
     this.form = this.fb.group({
       email: ['', Validators.required],
       fName: ['', Validators.required],
@@ -44,6 +37,13 @@ export class AccountComponent implements OnInit {
       zipCode: ['', Validators.required],
       uid: ''
     });
+
+    authSvc.authInfo$.subscribe(info => {
+      this.loggedInUserKey = info.$uid;
+      if (!this.userInfo) {
+        this.setUser();
+      }
+    })
   }
 
 
