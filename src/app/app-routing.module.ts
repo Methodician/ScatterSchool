@@ -12,6 +12,10 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { HomeComponent } from './home/home.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { SuggestionsComponent } from "app/suggestions/suggestions.component";
+import { SuggestionDetailComponent } from "app/suggestion-detail/suggestion-detail.component";
+import { AddSuggestionComponent } from "app/add-suggestion/add-suggestion.component";
+import { EditSuggestionComponent } from "app/edit-suggestion/edit-suggestion.component";
 
 
 const routes: Routes = [
@@ -28,19 +32,6 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'articlesearch',
-    children: [
-      {
-        path: ':query',
-        component: ArticleSearchResultsComponent
-      },
-      {
-        path: '',
-        component: ArticleSearchResultsComponent
-      }
-    ]
-  },
-  {
     path: 'account',
     children: [
       {
@@ -50,6 +41,19 @@ const routes: Routes = [
       {
         path: '',
         component: AccountComponent
+      }
+    ]
+  },
+  {
+    path: 'profile',
+    children: [
+      {
+        path: ':key',
+        component: ProfileComponent
+      },
+      {
+        path: '',
+        component: ProfileComponent
       }
     ]
   },
@@ -66,17 +70,33 @@ const routes: Routes = [
     component: ArticleDetailComponent
   },
   {
-    path: 'profile',
+    path: 'articlesearch',
     children: [
       {
-        path: ':key',
-        component: ProfileComponent
+        path: ':query',
+        component: ArticleSearchResultsComponent
       },
       {
         path: '',
-        component: ProfileComponent
+        component: ArticleSearchResultsComponent
       }
     ]
+  },
+  {
+    path: 'suggestions',
+    component: SuggestionsComponent
+  },
+  {
+    path: 'postsuggestion',
+    component: AddSuggestionComponent
+  },
+  {
+    path: 'suggestion/:key',
+    component: SuggestionDetailComponent
+  },
+  {
+    path: 'editsuggestion/:key',
+    component: EditSuggestionComponent
   },
   {
     path: 'aboutus',

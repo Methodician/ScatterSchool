@@ -1,0 +1,8 @@
+<div class="detailWrapper">
+    <h1>{{suggestion?.title}}</h1>
+    <p>{{suggestion?.pitch}}</p>
+    <div class="btnWrapper">
+        <button class="btn postBtn"[routerLink]="['/postarticle']">Post an article</button>
+        <button class="btn editBtn"[routerLink]="['/editsuggestion', suggestion?.$key]">Edit</button>
+    </div>
+</div>

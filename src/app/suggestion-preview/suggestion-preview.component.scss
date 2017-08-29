@@ -1,0 +1,25 @@
+.suggestion-preview {
+  border-bottom: 1px solid #263237;
+  font-family: STHeitiSC-Light;
+  padding: 0px 10px;
+
+  .previewWrapper {
+    display: flex;
+    align-items: center;
+  }
+
+  .suggestion-title {
+    font-size: 18px;
+  }
+
+  .suggestion-pitch {
+    color: #00BE9C;
+    font-size: 14px;
+  }
+
+  vote {
+    text-align: center;
+    margin-right: 5px;
+  } 
+}
+

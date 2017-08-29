@@ -1,0 +1,26 @@
+label {
+  display: block;
+  text-align: left;
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  border-radius: 0;
+  border-top: 1px solid #fff;
+  border-right: 1px solid #fff;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #263237;
+  margin-bottom: 40px;
+}
+
+textarea {
+  margin-bottom: 40px;
+}
+
+@media only screen and (max-width:768px) {
+  textarea {
+    width: 100%;
+  }
+}

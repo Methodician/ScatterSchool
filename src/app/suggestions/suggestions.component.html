@@ -1,0 +1,23 @@
+<div id="add-suggestions">
+
+  <div id="add-suggestion-form">
+    <p>Want to see a tutorial on Scatter School? Type a suggestion here and someone in the community may take it on. Perhaps
+      you can find the idea for your next great tutorial here too. Happy hunting.</p>
+    <a [routerLink]="['../postsuggestion']">
+      <h3>Make a suggestion</h3>
+    </a>
+  </div>
+</div>
+
+<div id="suggestions">
+  <h3>Suggestions</h3>
+  <div id="sort-buttons">
+    <span [class.selected]="isSelected('upvotes')" (click)="sortBy('upvotes')">Popular</span>
+    <span [class.selected]="isSelected('newest')" (click)="sortBy('newest')">Newest</span>
+    <span [class.selected]="isSelected('oldest')" (click)="sortBy('oldest')">Oldest</span>
+  </div>
+  <div class="suggestionLoop">
+    <app-suggestion-preview *ngFor="let suggestion of suggestions | suggestionSort: currentSortOption" [suggestion]="suggestion"
+      [currentUserKey]="currentUserKey"></app-suggestion-preview>
+  </div>
+</div>

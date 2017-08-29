@@ -1,0 +1,55 @@
+"reviews": {
+  "review1": {
+    "article": "article1",
+    "author": "user2",
+    "review": "This is user2's review of the Basic JavaScript article",
+    "stars": "4",
+    "timestamp": "timestamp"
+  }
+},
+"reviews_per_article": {
+  "article1": {
+    "review1": true
+  }
+},
+"reviews_per_user": {
+  "user2": {
+    "review1": true
+  }
+},
+"comments": {
+  "comment1": {
+    "article": "article1",
+    "author": "user2",
+    "comment": "This is a great article, made a few tweaks cause it was out of date, thank you!",
+    "timestamp": "timestamp"
+  }
+},
+"comments_per_article": {
+  "article1": {
+    "comment1": true
+  }
+},
+"replies": {
+  "reply1": {
+    "article": "article1",
+    "author": "user1",
+    "reply": "Thank you for updating it!",
+    "timestamp": "timestamp"
+  },
+  "reply2": {
+    "article": "article1",
+    "author": "user2",
+    "reply": "Cant wait to see what you come out with next!",
+    "timestamp": "timestamp"
+  }
+},
+"replies_per_comment": {
+  "comment1": {
+    "reply1": true
+  }
+},
+"replies_per_reply": {
+  "reply1": {
+    "reply2": true
+  }

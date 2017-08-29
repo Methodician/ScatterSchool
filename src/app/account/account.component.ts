@@ -14,8 +14,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 export class AccountComponent implements OnInit {
 
-  loggedInUid: string;
-  @Input() accountUid: string;
+  logedInUserKey: string;
+  @Input() accountUserKey: string;
   userInfo: UserInfoOpen;
   form: FormGroup;
 
@@ -27,7 +27,7 @@ export class AccountComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     authSvc.authInfo$.subscribe(info => {
-      this.loggedInUid = info.$uid;
+      this.logedInUserKey = info.$uid;
       if (!this.userInfo) {
         this.setUser();
       }
@@ -50,7 +50,7 @@ export class AccountComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params['key'])
-        this.accountUid = params['key'];
+        this.accountUserKey = params['key'];
       if (!this.userInfo)
         this.setUser();
     })
@@ -66,18 +66,19 @@ export class AccountComponent implements OnInit {
     } */
 
   setUser() {
-    if (this.accountUid || this.loggedInUid)
-      this.getUserInfo(this.accountUid || this.loggedInUid);
+    if (this.accountUserKey || this.logedInUserKey) {
+      this.getUserInfo(this.accountUserKey || this.logedInUserKey);
+    }
   }
 
   getUserInfo(uid: string) {
     this.userSvc.getUserInfo(uid).subscribe(userInfo => {
       this.userInfo = userInfo;
       this.form.patchValue(userInfo);
-    })
+    });
   }
 
-  //from register component - service later?
+  // from register component - service later?
   isErrorVisible(field: string, error: string) {
     let control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
