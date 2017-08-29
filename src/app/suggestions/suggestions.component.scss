@@ -5,11 +5,25 @@ h3 {
   font-size: 30px;
 }
 
+.suggestionBtn {
+  color: #fff;
+  background-color: #31C2D7;
+  width: 197px;
+  height: 40px;
+  font-family: STHeitiSC-Light;
+  letter-spacing: 0.5px;
+  margin-bottom: 40px;
+  font-size: 18px;
+  padding: 10px 12px;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
 .suggestionLoop {
   border-top: 1px solid #263237;
 }
 
-#add-suggestions {
+#add-suggestions-wrapper {
   width: 95%;
   margin: 0 auto;
 }
@@ -18,6 +32,9 @@ h3 {
   font-family: STHeitiSC-Light;
   margin: 0 auto;
   max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   p {
     margin-bottom: 40px;
     font-size: 18px;
@@ -43,7 +60,7 @@ h3 {
 }
 
 @media only screen and (max-width:768px) {
-  #add-suggestions {
+  #add-suggestions-wrapper {
     margin-top: 90px;
   }
 }
