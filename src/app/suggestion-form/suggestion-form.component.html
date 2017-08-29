@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" class="formWrapper">
   <label>Title</label>
   <input type="text" name="title" formControlName="title" class="formControl">
     <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
