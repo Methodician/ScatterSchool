@@ -15,24 +15,24 @@ export class LatestPreviewComponent implements OnInit {
   profileImageUrl;
 
   constructor(
-    private articleService: ArticleService,
+    private articleSvc: ArticleService,
     private router: Router,
     private uploadSvc: UploadService
   ) { }
 
   ngOnInit() {
-    this.articleService.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
+    this.articleSvc.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
       this.author = author;
     });
     this.getProfileImage();
   }
 
   navigateToArticleDetail() {
-    this.articleService.navigateToArticleDetail(this.articleData.$key);
+    this.articleSvc.navigateToArticleDetail(this.articleData.$key);
   }
 
   navigateToProfile() {
-    this.articleService.navigateToProfile(this.articleData.authorKey);
+    this.articleSvc.navigateToProfile(this.articleData.authorKey);
   }
 
   getProfileImage() {

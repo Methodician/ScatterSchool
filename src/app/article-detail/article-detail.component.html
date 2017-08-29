@@ -1,6 +1,6 @@
 <div class="articleDetailWrapper">
   <div class="userPhotoDateWrapper">
-    <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
+    <img [src]="profileImageUrl ? profileImageUrl : '../../assets/images/ss-user-photo-frame.jpg'" alt="user's profile photo">
     <div class="userTextWrapper">
       <div class="followButtonWrapper">
         <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias}}</h4>
@@ -26,6 +26,6 @@
 </div>
 <div class="tag-bar">
   <ul>
-    <li *ngFor="let tag of article.tags"><a (click)="tagSearch(tag)">{{tag}}</a></li>
+    <li *ngFor="let tag of article?.tags"><a (click)="tagSearch(tag)">{{tag}}</a></li>
   </ul>
-</div>
+</div> 

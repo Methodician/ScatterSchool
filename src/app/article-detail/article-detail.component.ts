@@ -1,3 +1,4 @@
+import { UploadService } from './../services/upload/upload.service';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
@@ -18,12 +19,14 @@ export class ArticleDetailComponent implements OnInit {
   iFollow: any;
   followsMe: any;
   userInfo = null;
+  profileImageUrl;
 
   constructor(
     private articleSvc: ArticleService,
     private userSvc: UserService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private uploadSvc: UploadService
   ) { }
 
   ngOnInit() {
@@ -40,6 +43,7 @@ export class ArticleDetailComponent implements OnInit {
       this.checkIfFeatured();
       this.getArticleBody(this.articleData);
       this.getAuthor(this.articleData.authorKey);
+      this.getProfileImage(this.articleData.author);
     }
   }
 
@@ -74,6 +78,7 @@ export class ArticleDetailComponent implements OnInit {
     this.articleSvc.getArticleByKey(this.articleKey).subscribe(articleData => {
       this.getArticleBody(articleData);
       this.getAuthor(articleData.authorKey);
+      this.getProfileImage(articleData.authorKey);
     });
   }
 
@@ -99,4 +104,11 @@ export class ArticleDetailComponent implements OnInit {
     this.router.navigate([`/articlesearch/${tag}`]);
   }
 
+  getProfileImage(authorKey) {
+    this.uploadSvc.getProfileImage(authorKey).subscribe(profileData => {
+      if (profileData.url) {
+       this.profileImageUrl = profileData.url;
+      }
+    })
+  }
 }

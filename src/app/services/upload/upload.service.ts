@@ -50,7 +50,7 @@ export class UploadService {
     );
   }
 
-  // to return all uploads
+  // to return a user's profile image
   getProfileImage(userKey) {
     return this.db.object(`${this.basePath}/${userKey}`);
   }
