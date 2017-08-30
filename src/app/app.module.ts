@@ -121,7 +121,7 @@ import { SuggestionSortPipe } from './pipes/suggestion-sort.pipe';
     UserService,
     ArticleService,
     DataCleanupService,
-    UploadService
+    UploadService,
     SuggestionService,
     VoteService
   ],
