@@ -1,0 +1,11 @@
+<form [formGroup]="form" class="formWrapper">
+  <label>Title</label>
+  <input type="text" name="title" formControlName="title" class="formControl">
+    <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
+      <div *ngIf="title.errors.required">A title is required.</div>
+      <div *ngIf="title.errors.maxlength">The title can be no more than {{title.errors.maxlength.requiredLength}} characters long.</div>
+    </div>
+  <label>Pitch</label>
+  <textarea type="text"cols="69" rows="8" name="pitch" formControlName="pitch" class="formControl"></textarea>
+    <div *ngIf="pitch.touched && pitch.invalid" class="alert alert-danger">Pitch is required.</div>
+</form>

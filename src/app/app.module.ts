@@ -1,5 +1,6 @@
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
+import { CharacterCounterComponent } from './character-counter/character-counter.component';
 import { DataCleanupService } from './data-cleanup.service';
 import { fbConfig } from './config';
 import { AppRoutingModule } from './app-routing.module';
@@ -39,7 +40,7 @@ import { FooterComponent } from './footer/footer.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ArticleSearchPreviewComponent } from './article-search-preview/article-search-preview.component';
 import { AboutUsComponent } from './about-us/about-us.component';
-import { TagInputModule } from 'ngx-chips'; // good documentation: https://www.npmjs.com/package/ng2-tag-input 
+import { TagInputModule } from 'ngx-chips'; // good documentation: https://www.npmjs.com/package/ng2-tag-input
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component'; // this is needed for ng2-tag-input!
 import { TruncateTagsPipe } from './pipes/truncate-tags.pipe';
@@ -47,6 +48,18 @@ import { FollowBtnComponent } from './follow-btn/follow-btn.component';
 import { FollowedUserComponent } from './followed-user/followed-user.component';
 import { FollowerUserComponent } from './follower-user/follower-user.component';
 import { UploadFormComponent } from './uploads/upload-form/upload-form.component';
+import { SuggestionsComponent } from './suggestions/suggestions.component';
+import { SuggestionDetailComponent } from './suggestion-detail/suggestion-detail.component';
+import { SuggestionFormComponent } from './suggestion-form/suggestion-form.component';
+import { EditSuggestionComponent } from './edit-suggestion/edit-suggestion.component';
+import { AddSuggestionComponent } from './add-suggestion/add-suggestion.component';
+import { SuggestionPreviewComponent } from './suggestion-preview/suggestion-preview.component';
+import { SuggestionService } from './services/suggestion/suggestion.service';
+import { VoteService } from './services/vote/vote.service';
+import { VoteComponent } from './vote/vote.component';
+import { SuggestionSortPipe } from './pipes/suggestion-sort.pipe';
+
+
 
 @NgModule({
   declarations: [
@@ -78,7 +91,16 @@ import { UploadFormComponent } from './uploads/upload-form/upload-form.component
     FollowBtnComponent,
     FollowedUserComponent,
     FollowerUserComponent,
-    UploadFormComponent
+    UploadFormComponent,
+    SuggestionsComponent,
+    SuggestionDetailComponent,
+    SuggestionFormComponent,
+    EditSuggestionComponent,
+    AddSuggestionComponent,
+    SuggestionPreviewComponent,
+    VoteComponent,
+    SuggestionSortPipe,
+    CharacterCounterComponent
   ],
   imports: [
     BrowserModule,
@@ -100,6 +122,8 @@ import { UploadFormComponent } from './uploads/upload-form/upload-form.component
     ArticleService,
     DataCleanupService,
     UploadService
+    SuggestionService,
+    VoteService
   ],
   bootstrap: [AppComponent]
 })

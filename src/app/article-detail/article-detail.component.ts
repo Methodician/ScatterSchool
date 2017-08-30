@@ -20,6 +20,7 @@ export class ArticleDetailComponent implements OnInit {
   followsMe: any;
   userInfo = null;
   profileImageUrl;
+  user = null;
 
   constructor(
     private articleSvc: ArticleService,

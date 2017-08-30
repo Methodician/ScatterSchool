@@ -5,7 +5,7 @@
       <div *ngIf="userInfo" class="followButtonWrapper">
         <h3 class="author">{{userInfo?.alias || userInfo?.fName + ' ' + userInfo?.lName}}</h3>
         <!-- <button type="button" class="btn followBtn" (click)="followClick()">Follow</button> -->
-        <follow-btn [uid]="userInfo?.uid"></follow-btn>
+        <follow-btn [uid]="user?.uid"></follow-btn>
       </div>
     </div>
     <h4 class="bio">{{userInfo?.bio}}</h4>

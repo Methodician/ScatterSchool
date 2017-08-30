@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
     this.route.params.subscribe(params => {
       if (params['key']) {
         let uid = params['key'];
@@ -74,11 +74,11 @@ export class ProfileComponent implements OnInit {
     );
   }
 
-  followClick() {
-    let followId = this.userInfo.uid;
-    this.userSvc.followUser(followId);
-    console.log('ts worked!')
-  }
+  // followClick() {
+  //   let followId = this.userInfo.uid;
+  //   this.userSvc.followUser(followId);
+  //   console.log('ts worked!')
+  // }
 
   getProfileImage(uid) {
     this.uploadSvc.getProfileImage(uid).subscribe(profileData => {

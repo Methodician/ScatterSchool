@@ -1,3 +1,30 @@
+.tagsBar {
+  position: absolute;
+  top: 250px;
+  left: 46px;
+  padding-top: 10px;
+  border-top:1px solid #263237;
+  border-bottom:1px solid #263237;
+  ul {
+    padding: 0;
+    font-family: STHeitiSC-Light;
+    font-size: 14px;
+    list-style: none;
+    color: #263237;
+  }
+}
+
+.tag{
+  font-family: STHeitiSC-Light;
+  font-size: 14px;
+  list-style: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  a {
+    color: #00BE9C;
+  }
+}
+
 .articleDetailWrapper {
   margin: 0 auto;
   width: 500px;
@@ -21,6 +48,7 @@
 .followBtn {
   color: #fff;
   background-color: #C4275F;
+  border-radius: 2px;
   font-family: STHeitiSC-Light;
 }
 
@@ -74,10 +102,6 @@
   font-family: STHeitiSC-Light;
 }
 
-.tagBar {
-
-}
-
 @media only screen and (max-width:768px) {
   .articleDetailWrapper {
     width: 320px;
@@ -86,5 +110,22 @@
   .followButtonWrapper {
     width: 260px;
     margin-bottom: 5px;
+  }
+}
+
+@media only screen and (max-width: 1004px) {
+  .tagsBar {
+    position: relative;
+    top: 0;
+    left: 0;
+    border-top: none;
+  }
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .tag {
+    margin-left: 10px;
+    margin-top: 0;
   }
 }

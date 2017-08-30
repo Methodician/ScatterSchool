@@ -154,5 +154,35 @@
         "userKey1": 333424324234
       }
     }
+  },
+  "suggestionData": {
+    "suggestions": {
+      "suggestion1": {
+        "title": "This is an example title",
+        "pitch": "This is an example pitch",
+        "lastUpdated": "firebase.database.ServerValue.TIMESTAMP",
+        "timestamp": "firebase.database.ServerValue.TIMESTAMP"
+      }
+    },
+    "userVotesPerSuggestion": {
+      "suggestionKey1": {
+        "userKey1": 1,
+        "userKey2": -1
+      },
+      "suggestionKey2": {
+        "userKey2": -1,
+        "userKey1": -1
+      }
+    },
+    "suggestionVotesPerUser": {
+      "userKey1": {
+        "suggestionKey1": 1,
+        "suggestionKey2": -1
+      },
+      "userKey2": {
+        "suggestionKey1": -1,
+        "suggestionKey2": -1
+      }
+    }
   }
 }
