@@ -16,7 +16,7 @@ export class UploadFormComponent implements OnInit {
   currentUpload: Upload;
   loggedInUserKey;
   upload; 
-  
+
   constructor(
     private uploadSvc: UploadService,
     private authSvc: AuthService,
@@ -27,7 +27,7 @@ export class UploadFormComponent implements OnInit {
   }
 
   uploadSingle() {
-    let file = this.selectedFiles.item(0)
+    const file = this.selectedFiles.item(0)
     this.currentUpload = new Upload(file);
     this.uploadSvc.pushUpload(this.currentUpload);
   }

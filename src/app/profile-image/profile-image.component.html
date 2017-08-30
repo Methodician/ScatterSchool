@@ -1,10 +1,23 @@
-<p>
-  <img [src]="profileImageUrl ? profileImageUrl : '../../assets/images/ss-user-photo-frame.jpg'" alt="user's profile photo">
-</p>
 
-<button *ngIf="!profileImageUrl" class="btn">Upload Profile Picture</button>
+<img 
+  [src]="profileImageUrl ? profileImageUrl : '../../assets/images/ss-user-photo-frame.jpg'" alt="user's profile photo">
 
-<button *ngIf="profileImageUrl" class="btn">Upload New Picture</button>
+
+
+
+<div class="form-group uploadForm">
+  <input accept="image/*" 
+  id="control" 
+  type="file" 
+  (change)="detectFiles($event)">
+
+  <button
+    class="btn btnUpload"
+    [disabled]="!selectedFiles"
+    (click)="uploadImage()">
+    upload
+  </button>
+</div>
 
 
 
