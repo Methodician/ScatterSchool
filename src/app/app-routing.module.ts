@@ -1,4 +1,3 @@
-import { ProfileImageComponent } from './profile-image/profile-image.component';
 import { UploadFormComponent } from './uploads/upload-form/upload-form.component';
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -83,10 +82,6 @@ const routes: Routes = [
         component: ArticleSearchResultsComponent
       }
     ]
-  },
-  {
-    path: 'profileimage',
-    component: ProfileImageComponent
   },
   {
     path: 'suggestions',
