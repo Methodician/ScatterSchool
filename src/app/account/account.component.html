@@ -1,6 +1,6 @@
 <h1>Your Account Information:</h1>
   <div class="accountWrapper">
-    <div class="col-6-md">
+    <div class="col-md-6">
       <form [formGroup]="form" class="form-group formGroup">
         <div class="flexWrapper">
           <div class="form-field formSection">
@@ -43,7 +43,7 @@
         <button [disabled]="isErrorVisible('alias', 'maxlength')" class="btn">Save Settings</button>
       </form>
     </div>
-    <div col-md-6>
+    <div class="col-md-6">
       <profile-image></profile-image>
     </div>
   </div>
