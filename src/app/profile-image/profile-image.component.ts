@@ -13,6 +13,8 @@ import { Component, OnInit } from '@angular/core';
 export class ProfileImageComponent implements OnInit {
   profileImageUrl: any;
   uid;
+  userName;
+  userAlias;
 
 
   constructor(

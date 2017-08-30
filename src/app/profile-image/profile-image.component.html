@@ -2,3 +2,10 @@
   <img [src]="profileImageUrl ? profileImageUrl : '../../assets/images/ss-user-photo-frame.jpg'" alt="user's profile photo">
 </p>
 
+<button *ngIf="!profileImageUrl" class="btn">Upload Profile Picture</button>
+
+<button *ngIf="profileImageUrl" class="btn">Upload New Picture</button>
+
+
+
+
