@@ -5,7 +5,7 @@ import { Upload } from './../services/upload/upload';
 
 
 @Component({
-  selector: 'app-profile-image',
+  selector: 'profile-image',
   templateUrl: './profile-image.component.html',
   styleUrls: ['./profile-image.component.scss']
 })
