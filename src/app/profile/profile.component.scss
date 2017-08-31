@@ -18,6 +18,7 @@ pre {
 }
 
 .photoNameWrapper {
+  position: relative;
   display: flex;
   margin-bottom: 20px;
   img {
@@ -25,6 +26,16 @@ pre {
     height: 80px;
     margin-right: 20px;
   }
+}
+
+.profile-image {
+  position: absolute;
+  z-index: 2;
+  top: 7px;
+  left: 4px;
+  width: 55px;
+  height: 55px;
+  border-radius: 100%;
 }
 
 .followButtonWrapper {
