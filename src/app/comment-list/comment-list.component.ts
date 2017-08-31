@@ -1,3 +1,4 @@
+import { UserService } from './../services/user/user.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { CommentService } from "app/services/comment/comment.service";
 
@@ -9,12 +10,20 @@ import { CommentService } from "app/services/comment/comment.service";
 export class CommentListComponent implements OnInit {
   @Input() parentKey;
   comments;
+  currentUserInfo;
   
-  constructor(private commentSvc: CommentService) { }
+  constructor(
+    private commentSvc: CommentService,
+    private userSvc: UserService
+  ) {}
 
   ngOnInit() {
-    this.commentSvc.getAllComments().subscribe(comments => {
-      this.comments = comments;
+    this.userSvc.userInfo$.subscribe(userInfo => {
+      this.currentUserInfo = userInfo;
+    });
+    
+    this.commentSvc.getCommentsByParentKey(this.parentKey).subscribe(comments => {
+      this.comments = comments
     });
   }
 }

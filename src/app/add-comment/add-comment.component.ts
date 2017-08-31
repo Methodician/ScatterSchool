@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { CommentService } from './../services/comment/comment.service';
 import { UserService } from './../services/user/user.service';
 import { AuthService } from './../services/auth/auth.service';
@@ -10,9 +11,14 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AddCommentComponent implements OnInit {
   @Input() parentKey;
+  isFormShowing: boolean = false;
 
   currentUserInfo;
-  constructor(private userSvc: UserService, private commentSvc: CommentService) { }
+  constructor(
+    private userSvc: UserService,
+    private commentSvc: CommentService,
+    private router: Router    
+  ) {}
 
   ngOnInit() {
     this.userSvc.userInfo$.subscribe(userInfo => {
@@ -20,13 +26,24 @@ export class AddCommentComponent implements OnInit {
     });
   }
 
+  postComment(commentData) {
+    if (this.currentUserInfo) this.saveComment(commentData);
+    else this.router.navigate(['login']);
+  }
+
   saveComment(commentData) {
     let comment = {
       authorKey: this.currentUserInfo.uid,
       parentKey: this.parentKey,
+      parentType: 'article',
       text: commentData.text
     }
 
     this.commentSvc.saveComment(comment);
+    this.toggleCommentForm()
+  }
+
+  toggleCommentForm() {
+    this.isFormShowing = !this.isFormShowing
   }
 }
