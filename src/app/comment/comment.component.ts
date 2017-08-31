@@ -1,6 +1,8 @@
+import { UserService } from './../services/user/user.service';
 import { CommentService } from 'app/services/comment/comment.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
+import { UserInfoOpen } from "app/services/user/user-info";
 
 @Component({
   selector: 'app-comment',
@@ -13,13 +15,19 @@ export class CommentComponent implements OnInit {
 
   isFormShowing: boolean = false;
   replies;
+  displayName: string = '';
 
-  constructor(private router: Router, private commentSvc: CommentService) { }
+  constructor(private router: Router, private commentSvc: CommentService, private userSvc: UserService) { }
 
   ngOnInit() {
     this.commentSvc.getCommentsByParentKey(this.comment.$key).subscribe(replies => {
-      console.log(`replies for ${this.comment.text}:`, replies);
       this.replies = replies;
+    });
+
+    this.userSvc.getUserInfo(this.comment.authorKey).subscribe(userInfo => {
+      if (userInfo && userInfo.uid) {
+        this.displayName = userInfo.alias || userInfo.fName;
+      }
     });
   }
 
@@ -42,5 +50,9 @@ export class CommentComponent implements OnInit {
 
   toggleReplyForm() {
     this.isFormShowing = !this.isFormShowing;
+  }
+
+  navigateToProfile() {
+    this.router.navigate([`profile`, this.comment.authorKey]);
   }
 }
