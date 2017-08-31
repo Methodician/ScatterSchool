@@ -6,7 +6,7 @@ import { ArticleService } from './../services/article/article.service';
 @Component({
   selector: 'latest-preview',
   templateUrl: './latest-preview.component.html',
-  styleUrls: ['./latest-preview.component.css']
+  styleUrls: ['./latest-preview.component.scss']
 })
 export class LatestPreviewComponent implements OnInit {
   @Input() articleData: any;

@@ -37,6 +37,7 @@
 }
 
 .userPhotoDateWrapper {
+  position: relative;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -48,6 +49,16 @@
   flex-direction: column;
   justify-content: flex-start;
   margin-left: 10px;
+}
+
+.profile-image {
+  position: absolute;
+  z-index: 2;
+  top: 7px;
+  left: 4px;
+  width: 55px;
+  height: 55px;
+  border-radius: 100%;
 }
 
 .author {
