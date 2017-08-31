@@ -1,10 +1,28 @@
 .comment {
   max-width: 500px;
-  border-top: 1px solid black;
-  padding: 10px 0px 0px 10px;
+  // border-top: 1px solid black;
+  padding: 5px 0px 5px 10px;
+  // border-color: black;
+  // border-style: solid;
+  // border-width: 1px 0px 1px 0px;
+  box-shadow: 0px 1px 5px -1px grey;
+  display: block;
+  margin-bottom: 10px;
+  border: 1px solid gray;
+  p.first-child {
+    margin-bottom: 0px;
+  } 
+}
+
+.comment-author {
+  cursor: pointer;
 }
 
 #reply-button {
-  color: red;
+  color: gray;
   cursor: pointer;
+}
+
+.replies {
+  margin-left: 15px;
 }
