@@ -25,7 +25,7 @@
   <button class="btn btn-primary" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'feature article'}}</button>
 </div>
 <div class="tag-bar">
-  <ul>
+  <ul *ngIf="article">
     <li *ngFor="let tag of article.tags"><a (click)="tagSearch(tag)">{{tag}}</a></li>
   </ul>
 </div>
@@ -33,6 +33,5 @@
   <h3>Comments</h3>
   <hr>
   <app-add-comment [parentKey]="articleKey"></app-add-comment>
-  <hr>
   <comment-list [parentKey]="articleKey"></comment-list>
 </div>
