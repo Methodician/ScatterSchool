@@ -1,4 +1,15 @@
 <div class="comment">
   <p><em>{{comment.text}}</em></p>
   <p><strong>{{comment.authorKey}}</strong></p>
+  <div *ngIf="!isFormShowing">
+    <span id="reply-button" (click)="toggleReplyForm()">Reply</span>
+  </div>
+  <div *ngIf="isFormShowing">
+      <app-comment-form #form [formType]="'reply'"></app-comment-form>
+      <span>{{form.text.value.length}}</span>
+      <button [disabled]="!form.valid" (click)="postReply(form.value)">Reply</button>
+  </div>
+  <div id="replies">
+    <app-comment *ngFor="let reply of replies" [comment]="reply" [currentUserInfo]="currentUserInfo"></app-comment>
+  </div>
 </div>

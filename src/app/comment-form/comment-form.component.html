@@ -1,3 +1,4 @@
 <form [formGroup]="form">
-  <textarea rows="7" cols="66" name="text" formControlName="text" class="formControl"></textarea>
+  <textarea *ngIf="formType === 'comment'" rows="7" cols="66" name="text" formControlName="text" class="formControl"></textarea>
+  <input *ngIf="formType === 'reply'" name="text" formControlName="text" class="formControl" type="text">
 </form>

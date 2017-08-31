@@ -1,5 +1,5 @@
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-comment-form',
@@ -7,12 +7,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./comment-form.component.scss']
 })
 export class CommentFormComponent implements OnInit {
-
+  @Input() formType;
   form: FormGroup;
   
   constructor(private fb: FormBuilder) {  }
 
   ngOnInit() {
+    console.log('formTypeRendered: ', this.formType);
+    
     this.form = this.fb.group({
       text: ['', [Validators.required, Validators.maxLength(140)]],
     });
