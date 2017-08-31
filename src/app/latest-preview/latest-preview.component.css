@@ -1,3 +1,8 @@
+.profileImage {
+  height: 250px;
+  width: 250px;
+}
+
 .latestPreview {
   display: flex;
   flex-direction: row;
