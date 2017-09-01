@@ -84,10 +84,6 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'uploads',
-    component: UploadFormComponent
-  },
-  {
     path: 'suggestions',
     component: SuggestionsComponent
   },

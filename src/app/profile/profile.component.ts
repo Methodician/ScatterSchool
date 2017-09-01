@@ -85,6 +85,6 @@ export class ProfileComponent implements OnInit {
       if (profileData.url) {
         this.profileImageUrl = profileData.url;
       }
-    })
+    });
   }
 }

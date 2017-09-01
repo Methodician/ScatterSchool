@@ -58,8 +58,7 @@ import { SuggestionService } from './services/suggestion/suggestion.service';
 import { VoteService } from './services/vote/vote.service';
 import { VoteComponent } from './vote/vote.component';
 import { SuggestionSortPipe } from './pipes/suggestion-sort.pipe';
-
-
+import { ProfileImageComponent } from './profile-image/profile-image.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +99,8 @@ import { SuggestionSortPipe } from './pipes/suggestion-sort.pipe';
     SuggestionPreviewComponent,
     VoteComponent,
     SuggestionSortPipe,
-    CharacterCounterComponent
+    CharacterCounterComponent,
+    ProfileImageComponent
   ],
   imports: [
     BrowserModule,
