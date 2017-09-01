@@ -5,7 +5,6 @@ import { UserService } from './../services/user/user.service';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'account',
   templateUrl: './account.component.html',
@@ -42,9 +41,8 @@ export class AccountComponent implements OnInit {
       if (!this.userInfo) {
         this.setUser();
       }
-    })
+    });
   }
-
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -91,5 +89,4 @@ export class AccountComponent implements OnInit {
   formValid() {
     return this.form.valid;
   }
-
 }
