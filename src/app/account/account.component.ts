@@ -54,15 +54,6 @@ export class AccountComponent implements OnInit {
     });
   }
 
-  /*   ngOnChanges(changes: SimpleChanges) {
-      //  Must make sure form is initalized before checking...
-      if (changes['initialValue'] && changes['initialValue'].currentValue) {
-        console.log(changes);
-        // We have two methods to set a form's value: setValue and patchValue.
-        this.form.patchValue(changes['initialValue'].currentValue);
-      }
-    } */
-
   setUser() {
     if (this.accountUserKey || this.loggedInUserKey) {
       this.getUserInfo(this.accountUserKey || this.loggedInUserKey);
@@ -90,4 +81,13 @@ export class AccountComponent implements OnInit {
   formValid() {
     return this.form.valid;
   }
+
+  /*   ngOnChanges(changes: SimpleChanges) {
+  //  Must make sure form is initalized before checking...
+  if (changes['initialValue'] && changes['initialValue'].currentValue) {
+    console.log(changes);
+    // We have two methods to set a form's value: setValue and patchValue.
+    this.form.patchValue(changes['initialValue'].currentValue);
+  }
+} */
 }
