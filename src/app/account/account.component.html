@@ -6,13 +6,13 @@
 
         <h4>First Name:</h4>
         <h6 class="field-error-message" *ngIf="isErrorVisible('fName','required')">Please provide your first name.</h6>
-        <input formControlName="title" maxlength="50" type="text" [class.input-error]="isErrorVisible('fName','required')" name="fName" formControlName="fName"
-          type="text" class="form-control">
+        <input formControlName="title" maxlength="50" type="text" [class.input-error]="isErrorVisible('fName','required')" name="fName"
+          formControlName="fName" type="text" class="form-control">
 
         <h4>Last Name:</h4>
         <h6 class="field-error-message" *ngIf="isErrorVisible('lName','required')">Please provide your last name.</h6>
-        <input formControlName="lName" maxlength="50" type="text" [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName"
-          class="form-control">
+        <input formControlName="lName" maxlength="50" type="text" [class.input-error]="isErrorVisible('lName','required')" name="lName"
+          formControlName="lName" class="form-control">
 
         <h4>User Alias:</h4>
         <input formControlName="alias" #alias type="text" class="form-control withCharacterCounter" maxlength="30">
@@ -22,13 +22,14 @@
       <div class="form-field formSection">
         <h4>City:</h4>
         <input formControlName="city" maxlength="50" #city type="text" class="form-control">
-      
+
         <h4>State:</h4>
         <input formControlName="state" maxlength="50" type="text" class="form-control">
 
         <h4>Zip Code:</h4>
         <h6 class="field-error-message" *ngIf="isErrorVisible('zipCode','required')">Please provide your zip code.</h6>
-        <input formControlName="zipCode" maxlength="10" [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode" type="text" class="form-control">
+        <input formControlName="zipCode" maxlength="10" [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode"
+          type="text" class="form-control">
       </div>
     </div>
     <div class="form-field formSection">
@@ -46,10 +47,10 @@
 <br>
 <br>
 <p>
-  Logged In UID: {{ loggedInUid }}
+  Logged In UID: {{ loggedInUserKey }}
 </p>
 <p>
-  Account UID: {{ accountUid }}
+  Account UID: {{ accountUserKey }}
 </p>
 <pre>
   User Info:
