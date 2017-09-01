@@ -128,8 +128,8 @@ export class ArticleService {
     return this.db.object(`articleData/articles/${articleKey}`).update(articleToUpdate);
   }
 
-  tagsArrayFromTagsObject(articleTags: {}): string[] {
-    if (articleTags == {})
+  tagsArrayFromTagsObject(articleTags): string[] {
+    if (articleTags == {} || (articleTags && articleTags.$value && articleTags.$value == null))
       return null;
 
     let tagArray = [];
@@ -161,19 +161,25 @@ export class ArticleService {
   processTagsEdit(newTags, oldTags, articleKey) {
     let deletedTags = [];
 
-    for (let tag of newTags) {
-      this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
-      this.addGlobalTag(tag);
-    }
-
-    for (let tag of oldTags) {
-      if (!newTags.includes(tag)) {
-        deletedTags.push(tag);
+    if (newTags) {
+      for (let tag of newTags) {
+        this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
+        this.addGlobalTag(tag);
       }
     }
+
+    if (oldTags) {
+      for (let tag of oldTags) {
+        if (!newTags.includes(tag)) {
+          deletedTags.push(tag);
+        }
+      }
+    }
+
     for (let tag of deletedTags) {
       this.db.object(`articleData/articlesPerTag/${tag}/${articleKey}`).remove();
     }
+
   }
 
   archiveArticle(articleKey) {

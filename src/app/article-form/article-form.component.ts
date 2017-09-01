@@ -53,9 +53,11 @@ export class ArticleFormComponent implements OnInit {
   }
 
   initializeTags(articleTags) {
-    this.articleTags = articleTags;
-    for (let tag of articleTags) {
-      this.formTags.push({ 'display': tag, 'value': tag });
+    if (articleTags) {
+      this.articleTags = articleTags;
+      for (let tag of articleTags) {
+        this.formTags.push({ 'display': tag, 'value': tag });
+      }
     }
   }
 
