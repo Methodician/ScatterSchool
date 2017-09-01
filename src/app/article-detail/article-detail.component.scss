@@ -3,8 +3,8 @@
   top: 250px;
   left: 46px;
   padding-top: 10px;
-  border-top:1px solid #263237;
-  border-bottom:1px solid #263237;
+  border-top: 1px solid #263237;
+  border-bottom: 1px solid #263237;
   ul {
     padding: 0;
     font-family: STHeitiSC-Light;
@@ -14,7 +14,7 @@
   }
 }
 
-.tag{
+.tag {
   font-family: STHeitiSC-Light;
   font-size: 14px;
   list-style: none;
@@ -68,12 +68,13 @@
   flex-direction: column;
   justify-content: flex-start;
   margin-left: 10px;
-  > * {
+  >* {
     font-family: STHeitiSC-Light;
   }
 }
 
-.headlineWrapper h1, p {
+.headlineWrapper h1,
+p {
   font-family: STHeitiSC-Light;
 }
 
@@ -117,26 +118,29 @@
   .articleDetailWrapper {
     width: 320px;
   }
-
   .followButtonWrapper {
     width: 260px;
     margin-bottom: 5px;
   }
 }
 
-@media only screen and (max-width: 1004px) {
-  .tagsBar {
-    position: relative;
-    top: 0;
-    left: 0;
-    border-top: none;
-  }
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  .tag {
-    margin-left: 10px;
-    margin-top: 0;
+.comment-section {
+  width: 500px;
+  margin: auto;
+  @media only screen and (max-width: 1004px) {
+    .tagsBar {
+      position: relative;
+      top: 0;
+      left: 0;
+      border-top: none;
+    }
+    ul {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    .tag {
+      margin-left: 10px;
+      margin-top: 0;
+    }
   }
 }

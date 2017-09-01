@@ -59,6 +59,13 @@ import { VoteService } from './services/vote/vote.service';
 import { VoteComponent } from './vote/vote.component';
 import { SuggestionSortPipe } from './pipes/suggestion-sort.pipe';
 import { ProfileImageComponent } from './profile-image/profile-image.component';
+import { CommentComponent } from './comment/comment.component';
+import { CommentFormComponent } from './comment-form/comment-form.component';
+import { AddCommentComponent } from './add-comment/add-comment.component';
+import { CommentService } from './services/comment/comment.service';
+import { CommentListComponent } from './comment-list/comment-list.component';
+
+
 
 @NgModule({
   declarations: [
@@ -99,8 +106,16 @@ import { ProfileImageComponent } from './profile-image/profile-image.component';
     SuggestionPreviewComponent,
     VoteComponent,
     SuggestionSortPipe,
+<<<<<<< HEAD
     CharacterCounterComponent,
     ProfileImageComponent
+=======
+    CommentComponent,
+    CommentFormComponent,
+    AddCommentComponent,
+    CommentListComponent,
+    CharacterCounterComponent
+>>>>>>> master
   ],
   imports: [
     BrowserModule,
@@ -123,7 +138,8 @@ import { ProfileImageComponent } from './profile-image/profile-image.component';
     DataCleanupService,
     UploadService,
     SuggestionService,
-    VoteService
+    VoteService,
+    CommentService
   ],
   bootstrap: [AppComponent]
 })

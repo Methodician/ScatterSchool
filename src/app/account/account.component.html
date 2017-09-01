@@ -1,68 +1,67 @@
 <h1>Your Account Information:</h1>
-  <div class="accountWrapper">
-    <div class="row">
-      <div class="col-md-5">
-        <form [formGroup]="form" class="form-group formGroup">
-          <div class="flexWrapper">
-            <div class="form-field formSection">
-
-              <h4>First Name:</h4>
-              <h6 class="field-error-message" *ngIf="isErrorVisible('fName','required')">Please provide your first name.</h6>
-              <input formControlName="title" maxlength="50" type="text" [class.input-error]="isErrorVisible('fName','required')" name="fName" formControlName="fName"
-                type="text" class="form-control">
-
-              <h4>Last Name:</h4>
-              <h6 class="field-error-message" *ngIf="isErrorVisible('lName','required')">Please provide your last name.</h6>
-              <input formControlName="lName" maxlength="50" type="text" [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName"
-                class="form-control">
-
-              <h4>User Alias:</h4>
-              <input formControlName="alias" #alias type="text" class="form-control withCharacterCounter" maxlength="30">
-              <character-counter [field]="alias" [maxLength]="20"></character-counter>
-            </div>
-
-            <div class="form-field formSection">
-              <h4>City:</h4>
-              <input formControlName="city" maxlength="50" #city type="text" class="form-control">
-            
-              <h4>State:</h4>
-              <input formControlName="state" maxlength="50" type="text" class="form-control">
-
-              <h4>Zip Code:</h4>
-              <h6 class="field-error-message" *ngIf="isErrorVisible('zipCode','required')">Please provide your zip code.</h6>
-              <input formControlName="zipCode" maxlength="10" [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode" type="text" class="form-control">
-            </div>
-          </div>
+<div class="accountWrapper">
+  <div class="row">
+    <div class="col-md-5">
+      <form [formGroup]="form" class="form-group formGroup">
+        <div class="flexWrapper">
           <div class="form-field formSection">
-            <h4>Your email:</h4>
-            <h6 class="field-error-message" *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</h6>
-            <input formControlName="email" maxlength="150" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')"
-              name="email" type="email" class="form-control">
-            <h4>Your Bio:</h4>
-            <textarea formControlName="bio" type="text" rows="3" cols="50" class="form-control"></textarea>
+
+            <h4>First Name:</h4>
+            <h6 class="field-error-message" *ngIf="isErrorVisible('fName','required')">Please provide your first name.</h6>
+            <input formControlName="title" maxlength="50" type="text" [class.input-error]="isErrorVisible('fName','required')" name="fName"
+              formControlName="fName" type="text" class="form-control">
+
+            <h4>Last Name:</h4>
+            <h6 class="field-error-message" *ngIf="isErrorVisible('lName','required')">Please provide your last name.</h6>
+            <input formControlName="lName" maxlength="50" type="text" [class.input-error]="isErrorVisible('lName','required')" name="lName"
+              formControlName="lName" class="form-control">
+
+            <h4>User Alias:</h4>
+            <input formControlName="alias" #alias type="text" class="form-control withCharacterCounter" maxlength="30">
+            <character-counter [field]="alias" [maxLength]="20"></character-counter>
           </div>
-          <button [disabled]="isErrorVisible('alias', 'maxlength')" class="btn">Save Settings</button>
-        </form>
-      </div>
-      <div class="col-md-2">
-      </div>
-      <div class="col-md-5">
-        <profile-image></profile-image>
-      </div>
+
+          <div class="form-field formSection">
+            <h4>City:</h4>
+            <input formControlName="city" maxlength="50" #city type="text" class="form-control">
+
+            <h4>State:</h4>
+            <input formControlName="state" maxlength="50" type="text" class="form-control">
+
+            <h4>Zip Code:</h4>
+            <h6 class="field-error-message" *ngIf="isErrorVisible('zipCode','required')">Please provide your zip code.</h6>
+            <input formControlName="zipCode" maxlength="10" [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode"
+              type="text" class="form-control">
+          </div>
+        </div>
+        <div class="form-field formSection">
+          <h4>Your email:</h4>
+          <h6 class="field-error-message" *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</h6>
+          <input formControlName="email" maxlength="150" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')"
+            name="email" type="email" class="form-control">
+          <h4>Your Bio:</h4>
+          <textarea formControlName="bio" type="text" rows="3" cols="50" class="form-control"></textarea>
+        </div>
+        <button [disabled]="isErrorVisible('alias', 'maxlength')" class="btn">Save Settings</button>
+      </form>
+    </div>
+    <div class="col-md-2">
+    </div>
+    <div class="col-md-5">
+      <profile-image></profile-image>
     </div>
   </div>
-  <br>
-  <br>
-  <br>
-  <p>
-    Logged In UID: {{ loggedInUid }}
-  </p>
-  <p>
-    Account UID: {{ accountUid }}
-  </p>
-  <pre>
+</div>
+<br>
+<br>
+<br>
+<p>
+  Logged In UID: {{ loggedInUid }}
+</p>
+<p>
+  Account UID: {{ accountUid }}
+</p>
+<pre>
     User Info:
     {{ userInfo | json }}
   </pre>
-
-  

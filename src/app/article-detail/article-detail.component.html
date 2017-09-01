@@ -1,10 +1,7 @@
 <div class="articleDetailWrapper">
   <div class="userPhotoDateWrapper">
     <img src="../../assets/images/ss-user-photo-frame.jpg" alt="">
-    <img 
-      [src]="profileImageUrl ? profileImageUrl : ''" 
-      class="profile-image"
-      alt="user's profile photo">
+    <img [src]="profileImageUrl ? profileImageUrl : ''" class="profile-image" alt="user's profile photo">
     <div class="userTextWrapper">
       <div class="followButtonWrapper">
         <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias}}</h4>
@@ -37,5 +34,11 @@
   <ul>
     <li *ngFor="let tag of article?.tags"><a (click)="tagSearch(tag)">{{tag}}</a></li>
   </ul>
-</div> 
-
+</div>
+</div>
+<div class="comment-section">
+  <h3>Comments</h3>
+  <hr>
+  <app-add-comment [parentKey]="articleKey"></app-add-comment>
+  <comment-list [parentKey]="articleKey"></comment-list>
+</div>
