@@ -28,6 +28,7 @@ input:focus {
 }
 
 button {
+  font-family: STHeitiSC-Light;
   color: #fff;
   background-color: #C4275F;
   border-radius: 2px;
@@ -37,6 +38,10 @@ button {
 
 textarea {
   margin-bottom: 20px;
+}
+
+.withCharacterCounter{
+  margin-bottom: 0;
 }
 
 .field-error-message {

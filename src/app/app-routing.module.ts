@@ -1,6 +1,5 @@
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-//import { FollowUsersComponent } from './follow-users/follow-users.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ArticleDetailComponent } from './article-detail/article-detail.component';
 import { ArticleSearchResultsComponent } from './article-search-results/article-search-results.component';

@@ -17,7 +17,7 @@ export class ArticleDetailComponent implements OnInit {
   article;
   iFollow: any;
   followsMe: any;
-  userInfo = null;
+  user = null;
 
   constructor(
     private articleSvc: ArticleService,

@@ -63,8 +63,7 @@ export class ArticleService {
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
     let tagsObject = this.tagsObjectFromStringArray(article.tags);
 
-    // .update({timestamp: firebase.serverVal.TIMESTAMP})
-    let articleToSave/* : ArticleDetailOpen */ = {
+    let articleToSave = {
       title: article.title,
       introduction: article.introduction,
       bodyKey: bodyKey,

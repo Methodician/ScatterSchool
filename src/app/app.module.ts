@@ -1,3 +1,4 @@
+import { CharacterCounterComponent } from './character-counter/character-counter.component';
 import { DataCleanupService } from './data-cleanup.service';
 import { fbConfig } from './config';
 import { AppRoutingModule } from './app-routing.module';
@@ -38,7 +39,7 @@ import { FooterComponent } from './footer/footer.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { ArticleSearchPreviewComponent } from './article-search-preview/article-search-preview.component';
 import { AboutUsComponent } from './about-us/about-us.component';
-import { TagInputModule } from 'ngx-chips'; // good documentation: https://www.npmjs.com/package/ng2-tag-input 
+import { TagInputModule } from 'ngx-chips'; // good documentation: https://www.npmjs.com/package/ng2-tag-input
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component'; // this is needed for ng2-tag-input!
 import { TruncateTagsPipe } from './pipes/truncate-tags.pipe';
@@ -104,7 +105,8 @@ import { CommentListComponent } from './comment-list/comment-list.component';
     CommentComponent,
     CommentFormComponent,
     AddCommentComponent,
-    CommentListComponent
+    CommentListComponent,
+    CharacterCounterComponent
   ],
   imports: [
     BrowserModule,
