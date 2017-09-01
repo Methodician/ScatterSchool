@@ -19,7 +19,7 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private userSvc: UserService,
-    authSvc: AuthService,
+    private authSvc: AuthService,
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
@@ -69,18 +69,43 @@ export class AccountComponent implements OnInit {
 
   // from register component - service later?
   isErrorVisible(field: string, error: string) {
-    let control = this.form.controls[field];
+    const control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
   }
 
   isControlDirty(field: string) {
-    let control = this.form.controls[field];
+    const control = this.form.controls[field];
     return control.dirty;
   }
 
   formValid() {
     return this.form.valid;
   }
+
+  updateSettings() {
+
+  }
+
+
+  /////////////// NOTES NOTES NOTES:
+  // authState.auth.updateProfile({
+  //   displayName: 'display name',
+  //   photoURL: 'some/url'
+  // }).then(() => {
+  //   ...
+  // });
+
+  // var user = firebase.auth().currentUser;
+  
+  // user.updateProfile({
+  //   displayName: "Jane Q. User",
+  //   photoURL: "https://example.com/jane-q-user/profile.jpg"
+  // }).then(function() {
+  //   // Update successful.
+  // }).catch(function(error) {
+  //   // An error happened.
+  // });
+  
 
   /*   ngOnChanges(changes: SimpleChanges) {
   //  Must make sure form is initalized before checking...
