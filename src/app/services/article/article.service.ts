@@ -168,7 +168,7 @@ export class ArticleService {
       }
     }
 
-    if (oldTags) {
+    if (oldTags && (oldTags && oldTags.$value && oldTags.$value != null)) {
       for (let tag of oldTags) {
         if (!newTags.includes(tag)) {
           deletedTags.push(tag);
