@@ -15,7 +15,7 @@ export class UploadFormComponent implements OnInit {
   selectedFiles: FileList;
   currentUpload: Upload;
   loggedInUserKey;
-  upload; 
+  upload;
 
   constructor(
     private uploadSvc: UploadService,
@@ -27,7 +27,7 @@ export class UploadFormComponent implements OnInit {
   }
 
   uploadSingle() {
-    const file = this.selectedFiles.item(0)
+    const file = this.selectedFiles.item(0);
     this.currentUpload = new Upload(file);
     this.uploadSvc.pushUpload(this.currentUpload);
   }
@@ -38,9 +38,9 @@ export class UploadFormComponent implements OnInit {
         this.loggedInUserKey = info.$uid;
         this.uploadSvc.getProfileImage(this.loggedInUserKey).subscribe(upload => {
           this.upload = upload;
-        })
+        });
       }
-    })
+    });
   }
 }
 

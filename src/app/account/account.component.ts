@@ -13,7 +13,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 
 export class AccountComponent implements OnInit {
-
   loggedInUserKey: string;
   @Input() accountUserKey: string;
   userInfo: UserInfoOpen;

@@ -1,6 +1,6 @@
 import { AuthService } from 'app/services/auth/auth.service';
 import { UploadService } from './../services/upload/upload.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Upload } from './../services/upload/upload';
 
 
@@ -10,9 +10,10 @@ import { Upload } from './../services/upload/upload';
   styleUrls: ['./profile-image.component.scss']
 })
 export class ProfileImageComponent implements OnInit {
+  @Input() uid;
   selectedFiles;
-  uid;
   profileImageUrl;
+  input;
 
   constructor(
     private uploadSvc: UploadService,
@@ -20,10 +21,7 @@ export class ProfileImageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.authSvc.authInfo$.subscribe(info => {
-      this.uid = info.$uid;
-      this.getProfileImage(this.uid);
-    });
+    this.getProfileImage(this.uid);
   }
 
   getProfileImage(uid) {
@@ -36,13 +34,11 @@ export class ProfileImageComponent implements OnInit {
 
   detectFiles(event) {
     this.selectedFiles = event.target.files;
-    console.log(event);
   }
 
   uploadImage() {
     const file = this.selectedFiles.item(0);
     const currentUpload = new Upload(file);
     this.uploadSvc.pushUpload(currentUpload);
-    console.log(currentUpload);
   }
 }
