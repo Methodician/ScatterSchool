@@ -3,19 +3,19 @@
     <img class="imageDisplay" [src]="profileImageUrl ? profileImageUrl : '../../assets/images/ss-user-photo-frame.jpg'" alt="user's profile photo">
   </div>
 
-  <!--   <div *ngIf="currentUpload">
-      <progress class="progress is-success" min=1 max=100 value="{{ currentUpload?.progress }}"></progress>
-      Progress: {{currentUpload?.progress}}% Complete
-    </div> -->
-
   <h3 *ngIf="!profileImageUrl">Upload a Profile Picture</h3>
   <h3 *ngIf="profileImageUrl">Upload a New Profile Picture</h3>
 
   <div class="form-group uploadForm">
-    <input accept="image/*" id="control" type="file" (change)="detectFiles($event)">
+    <input 
+    accept="image/*" 
+    id="control" 
+    type="file" 
+    (change)="detectFiles($event)">
 
     <button class="btn btnUpload" [disabled]="!selectedFiles" (click)="uploadImage()">
       upload
     </button>
   </div>
 </div>
+
