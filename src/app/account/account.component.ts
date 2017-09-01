@@ -46,11 +46,12 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      if (params['key'])
-        this.accountUserKey = params['key'];
-      if (!this.userInfo)
+      if (params['key']) {
+        this.accountUserKey = params['key']; }
+      if (!this.userInfo) {
         this.setUser();
-    })
+      }
+    });
   }
 
   /*   ngOnChanges(changes: SimpleChanges) {
