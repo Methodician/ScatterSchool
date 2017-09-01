@@ -46,8 +46,3 @@ export class ProfileImageComponent implements OnInit {
     console.log(currentUpload);
   }
 }
-
-
-
-
-

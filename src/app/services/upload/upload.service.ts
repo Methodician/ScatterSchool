@@ -24,7 +24,9 @@ export class UploadService {
   pushUpload(upload: Upload) {
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`${this.basePath}/${this.loggedInUserKey}/`).put(upload.file);
-    this.deleteFileStorage();
+    if (upload.url) {
+      this.deleteFileStorage();
+    }
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) =>  {
         const snap = snapshot as firebase.storage.UploadTaskSnapshot;
