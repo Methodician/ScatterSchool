@@ -106,16 +106,12 @@ import { CommentListComponent } from './comment-list/comment-list.component';
     SuggestionPreviewComponent,
     VoteComponent,
     SuggestionSortPipe,
-<<<<<<< HEAD
     CharacterCounterComponent,
-    ProfileImageComponent
-=======
+    ProfileImageComponent,
     CommentComponent,
     CommentFormComponent,
     AddCommentComponent,
-    CommentListComponent,
-    CharacterCounterComponent
->>>>>>> master
+    CommentListComponent
   ],
   imports: [
     BrowserModule,
