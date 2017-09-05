@@ -90,6 +90,10 @@ export class UserService {
     });
   }
 
+  // updateUserInformation(userInfo, accountUserKey): Observable<any> {
+  //   const userInfoToSave = Object.assign({}, userInfo);
+
+  // } 
   /*isAdmin() {
     let sub = new Subject();
     this.authSvc.authInfo$.subscribe(info => {

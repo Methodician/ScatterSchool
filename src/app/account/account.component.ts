@@ -82,11 +82,26 @@ export class AccountComponent implements OnInit {
     return this.form.valid;
   }
 
-  updateSettings() {
-
+  updateSettings(userInfo) {
+    console.log(userInfo._value);
+    this.userSvc.createUser(userInfo._value, this.accountUserKey).then(user => {
+      console.log(userInfo);
+      if (userInfo.alias) {
+        this.authSvc.setDispalyName(userInfo.alias);
+      }
+    });
+    this.router.navigateByUrl('/account');
   }
+}
 
-
+  // .subscribe(
+    //   () => {
+    //     console.log('success');
+    //   },
+    //   err => console.log('error')
+    // );
+   
+  // this.userSvc.createUser
   /////////////// NOTES NOTES NOTES:
   // authState.auth.updateProfile({
   //   displayName: 'display name',
@@ -115,4 +130,4 @@ export class AccountComponent implements OnInit {
     this.form.patchValue(changes['initialValue'].currentValue);
   }
 } */
-}
+
