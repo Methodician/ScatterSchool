@@ -91,8 +91,8 @@ export class UserService {
     });
   }
 
-
   updateUser(userInfo, uid) {
+    userInfo.uid = null;
     return this.db.object(`userInfo/open/${uid}`).set(userInfo);
   }
 
