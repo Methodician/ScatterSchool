@@ -83,44 +83,15 @@ export class AccountComponent implements OnInit {
   }
 
   updateSettings(userInfo) {
-    console.log(userInfo._value);
-    this.userSvc.createUser(userInfo._value, this.accountUserKey).then(user => {
-      console.log(userInfo);
-      if (userInfo.alias) {
-        this.authSvc.setDispalyName(userInfo.alias);
+    const userValues = userInfo._value;
+    this.userSvc.updateUser(userValues, userValues.uid).then(user => {
+      if (userValues.alias) {
+        this.authSvc.setDispalyName(userValues.alias);
       }
     });
-    this.router.navigateByUrl('/account');
+    this.form.reset();
   }
 }
-
-  // .subscribe(
-    //   () => {
-    //     console.log('success');
-    //   },
-    //   err => console.log('error')
-    // );
-   
-  // this.userSvc.createUser
-  /////////////// NOTES NOTES NOTES:
-  // authState.auth.updateProfile({
-  //   displayName: 'display name',
-  //   photoURL: 'some/url'
-  // }).then(() => {
-  //   ...
-  // });
-
-  // var user = firebase.auth().currentUser;
-  
-  // user.updateProfile({
-  //   displayName: "Jane Q. User",
-  //   photoURL: "https://example.com/jane-q-user/profile.jpg"
-  // }).then(function() {
-  //   // Update successful.
-  // }).catch(function(error) {
-  //   // An error happened.
-  // });
-  
 
   /*   ngOnChanges(changes: SimpleChanges) {
   //  Must make sure form is initalized before checking...

@@ -1,3 +1,4 @@
+import { AuthInfo } from './../auth/auth-info';
 import { UserInfoOpen } from './user-info';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from './../auth/auth.service';
@@ -11,6 +12,7 @@ export class UserService {
 
   userInfo$: BehaviorSubject<UserInfoOpen> = new BehaviorSubject<UserInfoOpen>(null);
   loggedInUserKey: string;
+  uid;
 
   constructor(
     private authSvc: AuthService,
@@ -90,10 +92,21 @@ export class UserService {
     });
   }
 
-  // updateUserInformation(userInfo, accountUserKey): Observable<any> {
-  //   const userInfoToSave = Object.assign({}, userInfo);
+  // updateUser(userInfo, uid) {
+  //   // const uid = UserInfoOpen.$key;
+  //   delete(uid);
+  //   console.log(userInfo);
+  //   return this.db.object(`userInfo/open/${uid}`).set(userInfo);
+  // }
+    // delete(uid);
+    updateUser(userInfo, uid) {
+      console.log(uid);
+      // uid.delete();
+      return this.db.object(`userInfo/open/${uid}`).set(userInfo);
+    }
 
-  // } 
+
+
   /*isAdmin() {
     let sub = new Subject();
     this.authSvc.authInfo$.subscribe(info => {
