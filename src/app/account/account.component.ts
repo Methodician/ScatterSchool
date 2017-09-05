@@ -89,7 +89,7 @@ export class AccountComponent implements OnInit {
         this.authSvc.setDisplayName(userValues.alias);
       }
     });
-    this.form.reset();
+    this.router.navigateByUrl('/account');
   }
 }
 
