@@ -19,7 +19,7 @@ export class AuthService {
   ) {
     this.afAuth.authState.subscribe(info => {
       if (info) {
-        console.log('AuthState from Auth Service constructor:', info);
+        //console.log('AuthState from Auth Service constructor:', info);
         this.user$.next(info);
         const authInfo = new AuthInfo(info.uid, info.emailVerified);
         this.authInfo$.next(authInfo);
