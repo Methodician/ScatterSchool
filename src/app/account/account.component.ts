@@ -86,7 +86,7 @@ export class AccountComponent implements OnInit {
     const userValues = userInfo._value;
     this.userSvc.updateUser(userValues, userValues.uid).then(user => {
       if (userValues.alias) {
-        this.authSvc.setDispalyName(userValues.alias);
+        this.authSvc.setDisplayName(userValues.alias);
       }
     });
     this.form.reset();
