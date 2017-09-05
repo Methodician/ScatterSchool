@@ -5,7 +5,11 @@
   <div class="textPreview">
     <h3 class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:50}}</h3>
     <div class="userPhotoDateWrapper">
-      <img class="profileImage" [src]="profileImageUrl ? profileImageUrl : '../../assets/images/ss-user-photo-frame.jpg'" alt="user's profile photo">
+      <img src="../../assets/images/ss-user-photo-frame.jpg" alt="">
+      <img 
+        [src]="profileImageUrl ? profileImageUrl : ''" 
+        class="profile-image"
+        alt="">
       <div class="userTextWrapper">
         <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias | truncate:20}}</h4>
         <p class="date">{{ articleData?.lastUpdated | date }}</p>
@@ -18,4 +22,4 @@
           <p class="tags">{{articleData.tags | truncateTags:20 }}</p>
         </div>
   </div>
-</div>   v
+</div> 
