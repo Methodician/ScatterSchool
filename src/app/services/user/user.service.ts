@@ -21,8 +21,7 @@ export class UserService {
   ) {
     this.authSvc.authInfo$.subscribe(authInfo => {
       this.getUserInfo(authInfo.$uid).subscribe(info => {
-        if (info.$key != "null") {
-          //info.$uid = info.$key;
+        if (info.$key != 'null') {
           this.userInfo$.next(info);
           this.loggedInUserKey = info.$key;
         }
@@ -86,26 +85,16 @@ export class UserService {
 
   isFollowingUser(uid: string) {
     return this.db.object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${uid}`).map(res => {
-      if (res.$value)
+      if (res.$value) {
         return true;
-      return false;
+      } return false;
     });
   }
 
-  // updateUser(userInfo, uid) {
-  //   // const uid = UserInfoOpen.$key;
-  //   delete(uid);
-  //   console.log(userInfo);
-  //   return this.db.object(`userInfo/open/${uid}`).set(userInfo);
-  // }
-    // delete(uid);
-    updateUser(userInfo, uid) {
-      console.log(uid);
-      // uid.delete();
-      return this.db.object(`userInfo/open/${uid}`).set(userInfo);
-    }
 
-
+  updateUser(userInfo, uid) {
+    return this.db.object(`userInfo/open/${uid}`).set(userInfo);
+  }
 
   /*isAdmin() {
     let sub = new Subject();
