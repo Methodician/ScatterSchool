@@ -85,10 +85,10 @@ export class AccountComponent implements OnInit {
 
   updateSettings(userInfo) {
     const userValues = userInfo._value;
-    this.userSvc.updateUser(userValues, userValues.uid).then(user => {
-      if (userValues.alias) {
-        this.authSvc.setDisplayName(userValues.alias);
-      }
+    this.userSvc.updateUser(userValues, userValues.uid).then(() => {
+      alert('Your changes have been saved!')
+    }, (error) => {
+      alert(error);
     });
     this.router.navigateByUrl('/account');
   }
