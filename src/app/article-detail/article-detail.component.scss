@@ -114,13 +114,13 @@ p {
   font-family: STHeitiSC-Light;
 }
 
-.comment-section {
+.comment-section-wrapper {
   font-family: STHeitiSC-Light;
   width: 500px;
   margin: auto;
   h3 {
     font-size: 30px;
-    color: #00BE9C;
+    color: #31C2D7;
   }
   
 }
@@ -154,7 +154,7 @@ p {
     margin-bottom: 5px;
   }
 
-  .comment-section {
+  .comment-section-wrapper {
     width: 320px;
   }
 }
