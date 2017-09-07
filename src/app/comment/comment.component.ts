@@ -13,7 +13,6 @@ export class CommentComponent implements OnInit {
   @Input() comment;
   @Input() currentUserInfo;
 
-  isFormShowing: boolean = false;
   replies;
   displayName: string = '';
 
@@ -31,26 +30,7 @@ export class CommentComponent implements OnInit {
     });
   }
 
-  postReply(replyData) {
-    if(this.currentUserInfo) this.saveReply(replyData);
-    else this.router.navigate(['login']);
-  }
-
-  saveReply(replyData) {
-    let comment = {
-      authorKey: this.currentUserInfo.$key,
-      parentKey: this.comment.$key,
-      parentType: 'comment',
-      text: replyData.text,
-    }
-
-    this.commentSvc.saveComment(comment);
-    this.toggleReplyForm();
-  }
-
-  toggleReplyForm() {
-    this.isFormShowing = !this.isFormShowing;
-  }
+  
 
   navigateToProfile() {
     this.router.navigate([`profile`, this.comment.authorKey]);
