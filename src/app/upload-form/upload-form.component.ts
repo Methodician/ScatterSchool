@@ -18,9 +18,6 @@ export class UploadFormComponent implements OnInit {
   }
 
   uploadImage() {
-    const file = this.selectedFiles.item(0);
-    console.log(file);
-    console.log(this.selectedFiles);
-    console.log(this.selectedFiles.item(0));
+    const file = this.selectedFiles[0];
   }
 }
