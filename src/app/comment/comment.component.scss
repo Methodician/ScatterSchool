@@ -1,11 +1,6 @@
 .comment {
   max-width: 500px;
-  // border-top: 1px solid black;
   padding: 5px 0px 5px 10px;
-  // border-color: black;
-  // border-style: solid;
-  // border-width: 1px 0px 1px 0px;
-  box-shadow: 0px 1px 5px -1px grey;
   display: block;
   margin-bottom: 10px;
   border: 1px solid gray;
@@ -14,15 +9,29 @@
   } 
 }
 
+.replies {
+  margin-left: 15px;
+}
+
 .comment-author {
   cursor: pointer;
+  color: #C4275F;
+  :hover {
+    text-decoration: underline;
+  }
+}
+
+.postCommentBtn {
+  color: #C4275F;
+  background-color: #fff;
+  border: 1px solid #C4275F;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+  height: 25px;
+  padding: 0 5px;
 }
 
 #reply-button {
-  color: gray;
+  color: #00BE9C;
   cursor: pointer;
-}
-
-.replies {
-  margin-left: 15px;
 }
