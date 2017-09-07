@@ -1,0 +1,34 @@
+input {
+  font-size: 18px;
+}
+
+.uploadForm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #263237;
+}
+
+.uploadWrapper {
+  font-family: STHeitiSC-Light;
+  margin: 0 auto;
+  max-width: 500px;
+
+  .btnUpload{
+      height: 40px;
+      color: #fff;
+      background-color: #C4275F;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width:768px) {
+  input {
+      width: 100%;
+  }
+  .uploadWrapper{
+      width: 95%;
+      margin: 0 auto;
+  }
+}

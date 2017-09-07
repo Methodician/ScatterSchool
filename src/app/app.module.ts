@@ -48,7 +48,7 @@ import { TruncateTagsPipe } from './pipes/truncate-tags.pipe';
 import { FollowBtnComponent } from './follow-btn/follow-btn.component';
 import { FollowedUserComponent } from './followed-user/followed-user.component';
 import { FollowerUserComponent } from './follower-user/follower-user.component';
-import { UploadFormComponent } from './uploads/upload-form/upload-form.component';
+import { UploadFormComponent } from './upload-form/upload-form.component';
 import { SuggestionsComponent } from './suggestions/suggestions.component';
 import { SuggestionDetailComponent } from './suggestion-detail/suggestion-detail.component';
 import { SuggestionFormComponent } from './suggestion-form/suggestion-form.component';
@@ -99,7 +99,6 @@ import { ArticleCoverImageComponent } from './article-cover-image/article-cover-
     FollowBtnComponent,
     FollowedUserComponent,
     FollowerUserComponent,
-    UploadFormComponent,
     SuggestionsComponent,
     SuggestionDetailComponent,
     SuggestionFormComponent,

@@ -1,3 +1,4 @@
+import { UploadFormComponent } from './../uploads/upload-form/upload-form.component';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
