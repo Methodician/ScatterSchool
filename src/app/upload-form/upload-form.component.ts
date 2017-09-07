@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import * as firebase from 'firebase/app';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Component({
   selector: 'app-upload-form',
@@ -8,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 export class UploadFormComponent implements OnInit {
   selectedFiles: any;
 
-  constructor() { }
+  constructor(private db: AngularFireDatabase) { }
 
   ngOnInit() {
   }
@@ -19,5 +21,6 @@ export class UploadFormComponent implements OnInit {
 
   uploadImage() {
     const file = this.selectedFiles[0];
+    firebase.storage().ref().child(`uploads/articleCoverImages/${file.name}`).put(file);
   }
 }
