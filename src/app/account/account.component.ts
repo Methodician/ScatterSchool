@@ -12,8 +12,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 
 export class AccountComponent implements OnInit {
-  loggedInUserKey: string;
   @Input() accountUserKey: string;
+  loggedInUserKey: string;
   userInfo: UserInfoOpen;
   form: FormGroup;
 
@@ -35,7 +35,6 @@ export class AccountComponent implements OnInit {
       zipCode: ['', Validators.required],
       uid: ''
     });
-
     authSvc.authInfo$.subscribe(info => {
       this.loggedInUserKey = info.$uid;
       if (!this.userInfo) {

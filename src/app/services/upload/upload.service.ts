@@ -47,6 +47,7 @@ export class UploadService {
         upload.timeStamp = firebase.database.ServerValue.TIMESTAMP;
         upload.progress = null;
         this.saveFileData(upload);
+        // this must returned undefined....it breaks with newer versions of
         return undefined;
       }
     );
