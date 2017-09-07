@@ -1,3 +1,4 @@
+import { ArticleCoverImageComponent } from './article-cover-image/article-cover-image.component';
 import { UploadFormComponent } from './uploads/upload-form/upload-form.component';
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -110,6 +111,10 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+  {
+    path: 'articlecoverimage',
+    component: ArticleCoverImageComponent
   },
   //ATTN: this route MUST live at the end of all the routes in this array.
   {
