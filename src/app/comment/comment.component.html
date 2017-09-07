@@ -1,8 +1,14 @@
 <div class="comment">
   <p class="comment-author" (click)="navigateToProfile()"><strong>{{ displayName }}</strong></p>
-  <p><em>{{comment.text}}</em></p>
+  
+  <p *ngIf="!isEditShowing"><em>{{comment.text}}</em></p>
+  <app-edit-comment *ngIf="isEditShowing" [currentUserInfo]="currentUserInfo" [initialCommentValue]="comment"></app-edit-comment>
   
   <app-add-reply [currentUserInfo]="currentUserInfo" [parentCommentKey]="comment.$key"></app-add-reply>
+  <div class="update-comment">
+    <span (click)="toggleShowEdit()">Edit</span>
+    <span>Delete</span>
+  </div>
 </div>
 <div class="replies">
   <app-comment *ngFor="let reply of replies" [comment]="reply" [currentUserInfo]="currentUserInfo"></app-comment>

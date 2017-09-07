@@ -8,16 +8,23 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CommentFormComponent implements OnInit {
   @Input() formType;
+  @Input() initialValue;
   form: FormGroup;
   
   constructor(private fb: FormBuilder) {  }
 
   ngOnInit() {
-    console.log('formTypeRendered: ', this.formType);
-    
     this.form = this.fb.group({
       text: ['', [Validators.required, Validators.maxLength(140)]],
     });
+
+    this.setInitialValue();
+  }
+
+  setInitialValue() {
+    if(this.initialValue) {
+      this.form.patchValue(this.initialValue)
+    }
   }
 
   get text() {

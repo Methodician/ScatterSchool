@@ -27,6 +27,13 @@ export class CommentService {
     this.makeCommentsPerArticleAssociation(commentData.parentKey, dbSaveData.key);
   }
 
+  updateComment(newCommentData) {
+    let commentDataToUpdate = {
+      text: newCommentData.text
+    }
+    this.db.object(`commentData/comments/${newCommentData.key}`).update(commentDataToUpdate)
+  }
+
   makeParentTypeAssociation(parentType, parentKey, childKey) {
     if (parentType === 'article') this.makeCommentsPerArticleAssociation(parentKey, childKey);
     if (parentType === 'comment') this.makeRepliesPerCommentAssociation(parentKey, childKey);

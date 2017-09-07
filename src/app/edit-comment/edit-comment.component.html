@@ -1,0 +1,3 @@
+<app-comment-form #form [formType]="'comment'" [initialValue]="initialCommentValue"></app-comment-form>
+<span>{{form.text.value.length}}</span>
+<button [disabled]="!form.valid" (click)="tryUpdateComment(form.value)">Comment</button>

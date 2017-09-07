@@ -15,6 +15,7 @@ export class CommentComponent implements OnInit {
 
   replies;
   displayName: string = '';
+  isEditShowing: boolean = false;
 
   constructor(private router: Router, private commentSvc: CommentService, private userSvc: UserService) { }
 
@@ -30,7 +31,9 @@ export class CommentComponent implements OnInit {
     });
   }
 
-  
+  toggleShowEdit() {
+    this.isEditShowing = !this.isEditShowing;
+  }
 
   navigateToProfile() {
     this.router.navigate([`profile`, this.comment.authorKey]);
