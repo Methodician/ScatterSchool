@@ -114,7 +114,8 @@ import { ArticleCoverImageComponent } from './article-cover-image/article-cover-
     CommentFormComponent,
     AddCommentComponent,
     CommentListComponent,
-    ArticleCoverImageComponent
+    ArticleCoverImageComponent,
+    UploadFormComponent
   ],
   imports: [
     BrowserModule,

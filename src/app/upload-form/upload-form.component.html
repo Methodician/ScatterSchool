@@ -1,0 +1,9 @@
+<div class="uploadWrapper">
+  <div class="form-group uploadForm">
+    <input accept="image/*" id="control" type="file" (change)="detectFiles($event)">
+    
+    <button class="btn btnUpload" [disabled]="!selectedFiles" (click)="uploadImage()">
+      upload
+    </button>
+  </div>
+</div>

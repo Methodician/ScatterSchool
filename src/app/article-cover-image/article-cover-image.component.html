@@ -1,3 +1,10 @@
-<p>
-  article-cover-image works!
-</p>
+<div class="uploadWrapper">
+  <div class="imageWrapper">
+    <img 
+    [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'"
+    class="imageDisplay"
+    alt="article's cover image">
+  </div>
+  
+  <UploadForm></UploadForm>
+</div>
