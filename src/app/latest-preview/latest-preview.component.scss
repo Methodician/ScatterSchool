@@ -103,3 +103,20 @@
   color: #C4275F;
   margin: 0;
 }
+
+@media only screen and (max-width:768px) {
+  .latestPreview {
+    width: 95%;
+    position: relative;
+  }
+  .imagePreview img {
+    width: 105.4%;
+    height: 327px;
+  }
+  .textPreview {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(255, 255, 255, .8);
+  }
+}
