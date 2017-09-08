@@ -1,17 +1,28 @@
 .comment {
   max-width: 500px;
-  // border-top: 1px solid black;
   padding: 5px 0px 5px 10px;
-  // border-color: black;
-  // border-style: solid;
-  // border-width: 1px 0px 1px 0px;
   box-shadow: 0px 1px 5px -1px grey;
   display: block;
   margin-bottom: 10px;
   border: 1px solid gray;
+  position: relative;
+  
   p.first-child {
     margin-bottom: 0px;
-  } 
+  }
+
+  p.comment-text {
+    white-space: pre-wrap;
+    font-style: italic;
+  }
+}
+
+.deleted-comment {
+  p {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+  }
 }
 
 .comment-author {
@@ -25,4 +36,18 @@
 
 .replies {
   margin-left: 15px;
+}
+
+.update-comment {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+
+  span {
+    cursor: pointer;
+  }
+
+  span.active {
+    font-weight: bold;
+  }
 }
