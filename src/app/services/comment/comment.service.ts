@@ -35,7 +35,6 @@ export class CommentService {
   }
 
   deleteComment(commentKey) {
-    console.log('commentKey: ', commentKey);
     this.db.object(`commentData/comments/${commentKey}`).update({isDeleted: true});
   }
 
