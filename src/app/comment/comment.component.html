@@ -1,14 +1,17 @@
-<div class="comment">
+<div class="comment" *ngIf="!comment.isDeleted">
   <p class="comment-author" (click)="navigateToProfile()"><strong>{{ displayName }}</strong></p>
   
-  <p *ngIf="!isEditShowing"><em>{{comment.text}}</em></p>
+  <p class="comment-text" *ngIf="!isEditShowing">{{comment.text}}</p>
   <app-edit-comment *ngIf="isEditShowing" [currentUserInfo]="currentUserInfo" [initialCommentValue]="comment"></app-edit-comment>
   
   <app-add-reply [currentUserInfo]="currentUserInfo" [parentCommentKey]="comment.$key"></app-add-reply>
-  <div class="update-comment">
-    <span (click)="toggleShowEdit()">Edit</span>
-    <span>Delete</span>
+  <div class="update-comment" *ngIf="isLoggedInUserComment()">
+    <span (click)="toggleShowEdit()" [class.active]="isEditShowing">Edit</span>
+    <span (click)="deleteComment()">Delete</span>
   </div>
+</div>
+<div class="comment deleted-comment" *ngIf="comment.isDeleted">
+  <p>Comment deleted.</p>
 </div>
 <div class="replies">
   <app-comment *ngFor="let reply of replies" [comment]="reply" [currentUserInfo]="currentUserInfo"></app-comment>

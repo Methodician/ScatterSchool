@@ -31,8 +31,16 @@ export class CommentComponent implements OnInit {
     });
   }
 
+  isLoggedInUserComment() {
+    return this.currentUserInfo && this.currentUserInfo.uid === this.comment.authorKey
+  }
+
   toggleShowEdit() {
     this.isEditShowing = !this.isEditShowing;
+  }
+
+  deleteComment() {
+    this.commentSvc.deleteComment(this.comment.$key);
   }
 
   navigateToProfile() {

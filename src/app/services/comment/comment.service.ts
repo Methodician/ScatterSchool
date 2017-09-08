@@ -34,6 +34,11 @@ export class CommentService {
     this.db.object(`commentData/comments/${newCommentData.key}`).update(commentDataToUpdate)
   }
 
+  deleteComment(commentKey) {
+    console.log('commentKey: ', commentKey);
+    this.db.object(`commentData/comments/${commentKey}`).update({isDeleted: true});
+  }
+
   makeParentTypeAssociation(parentType, parentKey, childKey) {
     if (parentType === 'article') this.makeCommentsPerArticleAssociation(parentKey, childKey);
     if (parentType === 'comment') this.makeRepliesPerCommentAssociation(parentKey, childKey);
