@@ -4,7 +4,7 @@
     
     <input accept="image/*" id="control" type="file" (change)="detectFiles($event)">
     
-    <button class="btn btnUpload" [disabled]="!selectedFiles" (click)="uploadImage()">
+    <button class="btn btnUpload" [disabled]="!selectedFiles" (click)="uploadImageToStorage()">
       upload
     </button>
 
