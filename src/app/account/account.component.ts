@@ -84,13 +84,11 @@ export class AccountComponent implements OnInit {
 
   updateSettings(userInfo) {
     const userValues = userInfo._value;
-    this.userSvc.updateUser(userValues, userValues.uid).then(() => {
-      alert('Your changes have been saved!')
-    }, (error) => {
+    this.userSvc.updateUser(userValues, userValues.uid);
+      alert('Your changes have been saved!');
+    } catch (error) {
       alert(error);
-    });
-    this.router.navigateByUrl('/account');
-  }
+    }
 }
 
   /*   ngOnChanges(changes: SimpleChanges) {

@@ -11,7 +11,6 @@ export class ProfileImageComponent implements OnInit {
   @Input() uid;
   selectedFiles;
   profileImageUrl;
-  input;
 
   constructor( private uploadSvc: UploadService ) { }
 

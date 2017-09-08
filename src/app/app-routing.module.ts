@@ -1,5 +1,5 @@
 import { ArticleCoverImageComponent } from './article-cover-image/article-cover-image.component';
-import { UploadFormComponent } from './uploads/upload-form/upload-form.component';
+import { UploadFormComponent } from './upload-form/upload-form.component';
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ProfileComponent } from './profile/profile.component';

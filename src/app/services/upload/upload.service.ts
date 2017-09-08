@@ -60,7 +60,8 @@ export class UploadService {
 
   // writes data to live database
   private saveFileData(upload: Upload) {
-    this.db.object(`${this.basePath}/${this.loggedInUserKey}/`).set(upload)
+    console.log(upload);
+    this.db.object(`${this.basePath}/${this.loggedInUserKey}/`).set(upload);
   }
 
 // delete files from database and storage
