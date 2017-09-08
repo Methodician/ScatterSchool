@@ -1,4 +1,5 @@
 <div class="comment" *ngIf="!comment.isDeleted">
+
   <p class="comment-author" (click)="navigateToProfile()"><strong>{{ displayName }}</strong></p>
   
   <p class="comment-text" *ngIf="!isEditShowing">{{comment.text}}</p>
@@ -13,6 +14,11 @@
 <div class="comment deleted-comment" *ngIf="comment.isDeleted">
   <p>Comment deleted.</p>
 </div>
+
 <div class="replies">
-  <app-comment *ngFor="let reply of replies" [comment]="reply" [currentUserInfo]="currentUserInfo"></app-comment>
+  <div class="comment" *ngIf="isRepliesCollapsed" (click)="toggleCollapseReplies()">Show Replies</div>
+  <div class="comment" *ngIf="isRepliesShowing()" (click)="toggleCollapseReplies()">Hide Replies</div>
+  <div *ngIf="isRepliesShowing()">
+    <app-comment  *ngFor="let reply of replies" [comment]="reply" [currentUserInfo]="currentUserInfo"></app-comment>
+  </div>
 </div>
