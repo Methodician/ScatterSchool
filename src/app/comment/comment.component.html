@@ -9,6 +9,14 @@
   <div class="update-comment" *ngIf="isLoggedInUserComment()">
     <span (click)="toggleShowEdit()" [class.active]="isEditShowing">Edit</span>
     <span (click)="deleteComment()">Delete</span>
+  <!-- <div *ngIf="!isFormShowing">
+    <span id="reply-button" (click)="toggleReplyForm()"><strong>Reply</strong></span>
+  </div>
+  <div *ngIf="isFormShowing">
+      <app-comment-form #form [formType]="'reply'"></app-comment-form>
+      <button class="btn postCommentBtn" [disabled]="!form.valid" (click)="postReply(form.value)">Reply</button>
+      <span>{{form.text.value.length}}</span> -->
+
   </div>
 </div>
 <div class="comment deleted-comment" *ngIf="comment.isDeleted">
