@@ -109,14 +109,20 @@
     width: 95%;
     position: relative;
   }
+  
   .imagePreview img {
-    width: 105.4%;
-    height: 327px;
+    width: 105.2%;
+    height: 293px;
   }
   .textPreview {
     position: absolute;
-    top: 10px;
+    display: flex;
+    align-self: center;
     left: 10px;
+    border: none;
     background-color: rgba(255, 255, 255, .8);
+  }
+  .tagWrapper {
+    border: 1px solid #263237;
   }
 }
