@@ -17,6 +17,7 @@ export class CommentComponent implements OnInit {
   displayName: string = '';
   isEditShowing: boolean = false;
   isRepliesCollapsed: boolean = false;
+  isReplyShowing: boolean = false;
 
   constructor(private router: Router, private commentSvc: CommentService, private userSvc: UserService) { }
 
@@ -32,12 +33,20 @@ export class CommentComponent implements OnInit {
     });
   }
 
+  currentUserDisplayName() {
+    return this.currentUserInfo.alias || this.currentUserInfo.fName;
+  }
+
   isLoggedInUserComment() {
     return this.currentUserInfo && this.currentUserInfo.uid === this.comment.authorKey
   }
 
   toggleShowEdit() {
     this.isEditShowing = !this.isEditShowing;
+  }
+
+  toggleShowReply() {
+    this.isReplyShowing = !this.isReplyShowing;
   }
 
   toggleCollapseReplies() {
@@ -54,5 +63,22 @@ export class CommentComponent implements OnInit {
 
   navigateToProfile() {
     this.router.navigate([`profile`, this.comment.authorKey]);
+  }
+
+  postReply(replyData) {
+    if(this.currentUserInfo) this.saveReply(replyData);
+    else this.router.navigate(['login']);
+  }
+
+  saveReply(replyData) {
+    let comment = {
+      authorKey: this.currentUserInfo.$key,
+      parentKey: this.comment.$key,
+      parentType: 'comment',
+      text: replyData.text,
+    }
+
+    this.commentSvc.saveComment(comment);
+    this.toggleShowReply();
   }
 }

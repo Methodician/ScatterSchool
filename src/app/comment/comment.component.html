@@ -5,8 +5,9 @@
   
   <p class="comment-text" *ngIf="!isEditShowing">{{comment.text}}</p>
   <app-edit-comment *ngIf="isEditShowing" [currentUserInfo]="currentUserInfo" [initialCommentValue]="comment"></app-edit-comment>
+
+  <span id="reply-button" (click)="toggleShowReply()"><strong>Reply</strong></span>
   
-  <app-add-reply [currentUserInfo]="currentUserInfo" [parentCommentKey]="comment.$key"></app-add-reply>
   <div class="update-comment" *ngIf="isLoggedInUserComment()">
     <span (click)="toggleShowEdit()" [class.active]="isEditShowing">Edit</span>
     <span (click)="deleteComment()">Delete</span>
@@ -17,6 +18,14 @@
 </div>
 
 <div class="replies">
+  <div class="comment" *ngIf="isReplyShowing">
+    <span class="close-reply glyphicon glyphicon-remove" (click)="toggleShowReply()"></span>
+    <p class="comment-author" (click)="navigateToProfile()"><strong>{{ currentUserDisplayName() }}</strong></p>
+    <!-- <app-add-reply [currentUserInfo]="currentUserInfo" [parentCommentKey]="comment.$key"></app-add-reply> -->
+    <app-comment-form #form></app-comment-form>
+    <button class="btn postCommentBtn" [disabled]="!form.valid" (click)="postReply(form.value)">Reply</button>
+    <span>{{form.text.value.length}}</span>
+  </div>
   <div *ngIf="isRepliesShowing()">
     <app-comment  *ngFor="let reply of replies" [comment]="reply" [currentUserInfo]="currentUserInfo"></app-comment>
   </div>
