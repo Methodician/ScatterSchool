@@ -20,6 +20,10 @@
     left: -20px;
     cursor: pointer;
   }
+
+  .comment-author {
+    font-weight: bold;
+  }
 }
 
 .comment:hover {
@@ -86,4 +90,11 @@
   position: absolute;
   left: -20px;
   cursor: pointer;
+}
+
+.date-updated {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  color: grey;
 }

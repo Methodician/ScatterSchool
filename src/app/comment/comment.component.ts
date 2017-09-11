@@ -18,10 +18,13 @@ export class CommentComponent implements OnInit {
   isEditShowing: boolean = false;
   isRepliesCollapsed: boolean = false;
   isReplyShowing: boolean = false;
+  dateUpdated: string = '';
 
   constructor(private router: Router, private commentSvc: CommentService, private userSvc: UserService) { }
 
   ngOnInit() {
+    this.dateUpdated = new Date(this.comment.lastUpdated).toDateString();
+
     this.commentSvc.getCommentsByParentKey(this.comment.$key).subscribe(replies => {
       this.replies = replies;
     });
