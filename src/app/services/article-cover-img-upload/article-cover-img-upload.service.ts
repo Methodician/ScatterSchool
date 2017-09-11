@@ -10,9 +10,6 @@ export class ArticleCoverImgUploadService {
 constructor(private afd: AngularFireDatabase) { }
 
   uploadImage(upload: Upload, key, basePath) {
-    console.log(upload);
-    console.log(key);
-    console.log(basePath);
     if (upload.url) {
       this.deleteFileStorage(key, basePath);
     };

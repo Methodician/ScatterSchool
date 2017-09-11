@@ -1,88 +1,62 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database';
-import { Upload } from './upload';
+import { Upload } from '../upload/upload';
 import { UserService } from 'app/services/user/user.service';
 import { AuthService } from 'app/services/auth/auth.service';
 
 @Injectable()
 export class UploadService {
-  basePath = 'uploads/profileImages/';
-  loggedInUserKey: string;
-  uploads: FirebaseListObservable<Upload[]>;
+constructor(private afd: AngularFireDatabase) { }
 
-  constructor(
-    private db: AngularFireDatabase,
-    private userSvc: UserService,
-    private authSvc: AuthService
-  ) {
-    authSvc.authInfo$.subscribe(info => {
-      this.loggedInUserKey = info.$uid;
-    });
-   }
-
-  pushUpload(upload: Upload) {
-    const storageRef = firebase.storage().ref();
-    const uploadTask = storageRef.child(`${this.basePath}/${this.loggedInUserKey}/`).put(upload.file);
+  uploadImage(upload: Upload, key, basePath) {
+    // delete old file from storage
     if (upload.url) {
-      this.deleteFileStorage();
-    }
-    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
-      (snapshot) =>  {
+      this.deleteFileStorage(key, basePath);
+    };
+    // put new file in storage
+    const uploadTask = firebase.storage().ref().child(`${basePath}/${key}`).put(upload.file);
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) => {
+        // set metadata to this instance of upload
         const snap = snapshot as firebase.storage.UploadTaskSnapshot;
-        upload.progress = (snap.bytesTransferred / snap.totalBytes) * 100;
+        upload.url = snap.metadata.downloadURLs[0];
+        upload.size = snap.metadata.size;
+        upload.type = snap.metadata.contentType;
+        upload.name = snap.metadata.name;
+        upload.timeStamp = firebase.database.ServerValue.TIMESTAMP;
+        // save metadata to live database
+        this.saveImageData(upload, key, basePath);
+        alert('success!');
       },
       (error) => {
-        console.log(error);
-      },
-// save data and push to live database
-      () => {
-        const metaSnapShot = uploadTask.snapshot.metadata;
-        upload.fullPath = metaSnapShot.bucket + '/' + metaSnapShot.fullPath;
-        upload.uid = this.loggedInUserKey;
-        upload.url = metaSnapShot.downloadURLs[0];
-        upload.name = upload.file.name;
-        upload.size = upload.file.size;
-        upload.type = upload.file.type;
-        upload.timeStamp = firebase.database.ServerValue.TIMESTAMP;
-        upload.progress = null;
-        this.saveFileData(upload);
-        // this must returned undefined....it breaks with newer versions of
-        return undefined;
+        alert(error);
       }
     );
+  }
+// writes metadata to live database
+  private saveImageData(upload: Upload, key, basePath) {
+    this.afd.object(`${basePath}/${key}`).set(upload)
+    .catch(error => {
+      console.log(error);
+    });
+  }
+
+// delete files form firebase storage 
+  private deleteFileStorage(key, basePath) {
+    const storageRef = firebase.storage().ref();
+    storageRef.child(`${basePath}/${key}`).delete();
   }
 
   // to return a user's profile image
   getProfileImage(userKey) {
-    return this.db.object(`${this.basePath}/${userKey}`);
-  }
-
-  // writes data to live database
-  private saveFileData(upload: Upload) {
-    console.log(upload);
-    this.db.object(`${this.basePath}/${this.loggedInUserKey}/`).set(upload);
-  }
-
-// delete files from database and storage
-  deleteUpload(upload: Upload) {
-    this.deleteFileData(upload.$key)
-    .then( () => {
-      this.deleteFileStorage();
-    })
-    .catch(error => console.log(error));
-  }
-
-// deletes from live database by key
-  private deleteFileData(key: string) {
-    return this.db.list(`${this.basePath}/${this.loggedInUserKey}/`).remove(key);
-  }
-
-// deletes from storage by name
-  private deleteFileStorage() {
-    const storageRef = firebase.storage().ref();
-    storageRef.child(`${this.basePath}/${this.loggedInUserKey}`).delete();
+    return this.afd.object(`uploads/profileImages/${userKey}`);
   }
 }
 
 
+
+
+// <div class="imageWrapper">
+// <img class="imageDisplay" [src]="articleImageUrl ? articleImageUrl : '../../assets/images/ss-user-photo-frame.jpg'" alt="article's cover photo">
+// </div>

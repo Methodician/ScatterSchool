@@ -25,14 +25,5 @@ export class ProfileImageComponent implements OnInit {
       }
     });
   }
-
-  detectFiles(event) {
-    this.selectedFiles = event.target.files;
-  }
-
-  uploadImage() {
-    const file = this.selectedFiles.item(0);
-    const currentUpload = new Upload(file);
-    this.uploadSvc.pushUpload(currentUpload);
-  }
 }
+
