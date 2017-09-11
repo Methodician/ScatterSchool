@@ -25,8 +25,8 @@ export class LatestPreviewComponent implements OnInit {
     this.articleSvc.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
       this.author = author;
     });
-    this.getProfileImage();
-    this.getArticleCoverImage();
+    this.getProfileImage(this.author.$key);
+    this.getArticleCoverImage(this.articleData.$key);
   }
 
   navigateToArticleDetail() {
@@ -37,16 +37,18 @@ export class LatestPreviewComponent implements OnInit {
     this.articleSvc.navigateToProfile(this.articleData.authorKey);
   }
 
-  getProfileImage() {
-    this.uploadSvc.getProfileImage(this.articleData.authorKey).subscribe(profileData => {
+  getProfileImage(uid) {
+    const basePath = 'uploads/profileImages/';
+    this.uploadSvc.getImage(uid, basePath).subscribe(profileData => {
       if (profileData.url) {
-       this.profileImageUrl = profileData.url;
+        this.profileImageUrl = profileData.url;
       }
     });
   }
 
-  getArticleCoverImage() {
-    this.uploadSvc.getArticleCoverImage(this.articleData.$key).subscribe(articleData => {
+  getArticleCoverImage(articleKey) {
+    const basePath = 'uploads/articleCoverImages';
+    this.uploadSvc.getImage(articleKey, basePath).subscribe(articleData => {
       if (articleData.url) {
         this.articleCoverImageUrl = articleData.url;
       }

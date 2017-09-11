@@ -50,16 +50,7 @@ constructor(private afd: AngularFireDatabase) { }
     storageRef.child(`${basePath}/${key}`).delete();
   }
 
-  // to return a user's profile image
-  getProfileImage(userKey) {
-    return this.afd.object(`uploads/profileImages/${userKey}`);
-  }
-
-  // returns an article's cover image
-  getArticleCoverImage(articleKey) {
-    return this.afd.object(`uploads/articleCoverImages/${articleKey}`);
-  }
-
+// return an image from the database
   getImage(key, basePath) {
     return this.afd.object(`${basePath}/${key}`);
   }

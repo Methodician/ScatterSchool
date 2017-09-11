@@ -47,5 +47,4 @@ export class EditArticleComponent implements OnInit {
     this.router.navigate([`articledetail/${article.articleKey}`]);
 
   }
-
 }
