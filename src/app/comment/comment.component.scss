@@ -1,6 +1,6 @@
 .comment {
   width: 500px;
-  padding: 5px 0px 5px 10px;
+  padding: 5px 10px 5px 10px;
   display: block;
   margin-bottom: 10px;
   border: 1px solid gray;
@@ -76,7 +76,14 @@
     font-weight: bold;
   }
 }
+
 #reply-button {
   color: #00BE9C;
+  cursor: pointer;
+}
+
+.close-reply {
+  position: absolute;
+  left: -20px;
   cursor: pointer;
 }
