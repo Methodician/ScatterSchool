@@ -17,6 +17,7 @@ export class CommentService {
       parentKey: commentData.parentKey,
       text: commentData.text,
       timestamp: firebase.database.ServerValue.TIMESTAMP,
+      lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
 
     let dbSaveData = this.db.list('commentData/comments').push(commentToSave);
@@ -29,7 +30,8 @@ export class CommentService {
 
   updateComment(newCommentData) {
     let commentDataToUpdate = {
-      text: newCommentData.text
+      text: newCommentData.text,
+      lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
     this.db.object(`commentData/comments/${newCommentData.key}`).update(commentDataToUpdate)
   }
