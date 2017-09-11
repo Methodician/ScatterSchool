@@ -25,13 +25,13 @@ export class UploadFormComponent implements OnInit {
     this.selectedFiles = event.target.files;
   }
 
-  setBasePath(article, uid) {
+  setBasePath() {
     if (this.article) {
-      const basePath = 'uploads/articleCoverImages';
       const key = this.article.articleKey;
+      const basePath = 'uploads/articleCoverImages';
       this.sendImgToUploadSvc(key, basePath);
     } else {
-      const key = this.uid.uid;
+      const key = this.uid;
       const basePath = 'uploads/profileImages/';
       this.sendImgToUploadSvc(key, basePath);
     }
@@ -45,4 +45,3 @@ export class UploadFormComponent implements OnInit {
 }
 
 
- 

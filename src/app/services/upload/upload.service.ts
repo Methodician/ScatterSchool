@@ -18,7 +18,8 @@ constructor(private afd: AngularFireDatabase) { }
     const uploadTask = firebase.storage().ref().child(`${basePath}/${key}`).put(upload.file);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) => {
-        // set metadata to this instance of upload
+        // set metadata to this instance of upload tutorial on this method can be found here:
+        // https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
         const snap = snapshot as firebase.storage.UploadTaskSnapshot;
         upload.url = snap.metadata.downloadURLs[0];
         upload.size = snap.metadata.size;
@@ -56,7 +57,11 @@ constructor(private afd: AngularFireDatabase) { }
 
   // returns an article's cover image
   getArticleCoverImage(articleKey) {
-    return this.afd.object(`uploads/articleCoverImages/${articleKey}`)
+    return this.afd.object(`uploads/articleCoverImages/${articleKey}`);
+  }
+
+  getImage(key, basePath) {
+    return this.afd.object(`${basePath}/${key}`);
   }
 }
 
