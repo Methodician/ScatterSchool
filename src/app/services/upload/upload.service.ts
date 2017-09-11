@@ -28,6 +28,7 @@ constructor(private afd: AngularFireDatabase) { }
         // save metadata to live database
         this.saveImageData(upload, key, basePath);
         alert('success!');
+        return undefined; // this must return undefined per angularfire
       },
       (error) => {
         alert(error);
@@ -52,11 +53,13 @@ constructor(private afd: AngularFireDatabase) { }
   getProfileImage(userKey) {
     return this.afd.object(`uploads/profileImages/${userKey}`);
   }
+
+  // returns an article's cover image
+  getArticleCoverImage(articleKey) {
+    return this.afd.object(`uploads/articleCoverImages/${articleKey}`)
+  }
 }
 
 
 
 
-// <div class="imageWrapper">
-// <img class="imageDisplay" [src]="articleImageUrl ? articleImageUrl : '../../assets/images/ss-user-photo-frame.jpg'" alt="article's cover photo">
-// </div>

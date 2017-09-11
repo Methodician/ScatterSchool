@@ -11,7 +11,7 @@ import { Upload } from '../services/upload/upload';
 })
 export class UploadFormComponent implements OnInit {
   selectedFiles: any;
-  @Input() articleKey;
+  @Input() article;
   @Input() uid;
 
   constructor(
@@ -25,10 +25,10 @@ export class UploadFormComponent implements OnInit {
     this.selectedFiles = event.target.files;
   }
 
-  setBasePath(articleKey, uid) {
-    if (this.articleKey) {
+  setBasePath(article, uid) {
+    if (this.article) {
       const basePath = 'uploads/articleCoverImages';
-      const key = this.articleKey.articleKey;
+      const key = this.article.articleKey;
       this.sendImgToUploadSvc(key, basePath);
     } else {
       const key = this.uid.uid;

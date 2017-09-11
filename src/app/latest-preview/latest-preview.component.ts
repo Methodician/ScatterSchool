@@ -13,6 +13,7 @@ export class LatestPreviewComponent implements OnInit {
   @Input() authorKey;
   author;
   profileImageUrl;
+  articleCoverImageUrl;
 
   constructor(
     private articleSvc: ArticleService,
@@ -25,6 +26,7 @@ export class LatestPreviewComponent implements OnInit {
       this.author = author;
     });
     this.getProfileImage();
+    this.getArticleCoverImage();
   }
 
   navigateToArticleDetail() {
@@ -40,6 +42,14 @@ export class LatestPreviewComponent implements OnInit {
       if (profileData.url) {
        this.profileImageUrl = profileData.url;
       }
-    })
+    });
+  }
+
+  getArticleCoverImage() {
+    this.uploadSvc.getArticleCoverImage(this.articleData.$key).subscribe(articleData => {
+      if (articleData.url) {
+        this.articleCoverImageUrl = articleData.url;
+      }
+    });
   }
 }

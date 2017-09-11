@@ -1,5 +1,6 @@
 import { UploadFormComponent } from './..//upload-form/upload-form.component';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { UploadService } from 'app/services/upload/upload.service';
 
 @Component({
   selector: 'app-article-cover-image',
@@ -7,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./article-cover-image.component.scss']
 })
 export class ArticleCoverImageComponent implements OnInit {
+  @Input() article;
+  articleCoverImageUrl;
 
-  constructor() { }
+  constructor( private uploadSvc: UploadService ) { }
 
   ngOnInit() {
+    this.getArticleCoverImage(this.article.articleKey);
   }
 
+  getArticleCoverImage(articleKey) {
+    this.uploadSvc.getArticleCoverImage(articleKey).subscribe(articleData => {
+      if (articleData.url) {
+        this.articleCoverImageUrl = articleData.url;
+      }
+    });
+  }
 }

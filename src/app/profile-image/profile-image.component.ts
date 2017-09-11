@@ -9,7 +9,6 @@ import { Upload } from './../services/upload/upload';
 })
 export class ProfileImageComponent implements OnInit {
   @Input() uid;
-  selectedFiles;
   profileImageUrl;
 
   constructor( private uploadSvc: UploadService ) { }

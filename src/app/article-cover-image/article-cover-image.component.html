@@ -6,6 +6,6 @@
     alt="article's cover image">
   </div>
   
-  <app-upload-form></app-upload-form>
+  <app-upload-form *ngIf="article" [article]="article"></app-upload-form>
   
 </div>
