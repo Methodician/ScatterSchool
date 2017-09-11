@@ -1,4 +1,5 @@
 <div class="comment" *ngIf="!comment.isDeleted">
+  <span class="glyphicon toggle-collapse" [class.glyphicon-menu-right]="isRepliesCollapsed" [class.glyphicon-menu-down]="isRepliesShowing()" (click)="toggleCollapseReplies()"></span>
 
   <p class="comment-author" (click)="navigateToProfile()"><strong>{{ displayName }}</strong></p>
   
@@ -9,14 +10,6 @@
   <div class="update-comment" *ngIf="isLoggedInUserComment()">
     <span (click)="toggleShowEdit()" [class.active]="isEditShowing">Edit</span>
     <span (click)="deleteComment()">Delete</span>
-  <!-- <div *ngIf="!isFormShowing">
-    <span id="reply-button" (click)="toggleReplyForm()"><strong>Reply</strong></span>
-  </div>
-  <div *ngIf="isFormShowing">
-      <app-comment-form #form [formType]="'reply'"></app-comment-form>
-      <button class="btn postCommentBtn" [disabled]="!form.valid" (click)="postReply(form.value)">Reply</button>
-      <span>{{form.text.value.length}}</span> -->
-
   </div>
 </div>
 <div class="comment deleted-comment" *ngIf="comment.isDeleted">
@@ -24,8 +17,6 @@
 </div>
 
 <div class="replies">
-  <div class="comment" *ngIf="isRepliesCollapsed" (click)="toggleCollapseReplies()">Show Replies</div>
-  <div class="comment" *ngIf="isRepliesShowing()" (click)="toggleCollapseReplies()">Hide Replies</div>
   <div *ngIf="isRepliesShowing()">
     <app-comment  *ngFor="let reply of replies" [comment]="reply" [currentUserInfo]="currentUserInfo"></app-comment>
   </div>
