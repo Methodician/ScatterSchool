@@ -1,4 +1,3 @@
-import { ArticleCoverImgUploadService } from './services/article-cover-img-upload/article-cover-img-upload.service';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -138,8 +137,7 @@ import { ArticleCoverImageComponent } from './article-cover-image/article-cover-
     UploadService,
     SuggestionService,
     VoteService,
-    CommentService,
-    ArticleCoverImgUploadService
+    CommentService
   ],
   bootstrap: [AppComponent]
 })
