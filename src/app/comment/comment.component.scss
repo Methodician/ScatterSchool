@@ -16,6 +16,12 @@
   }
 }
 
+.comment:hover {
+  .update-comment {
+    display: block;
+  }
+}
+
 .deleted-comment {
   p {
     text-align: center;
@@ -51,6 +57,7 @@
 }
 
 .update-comment {
+  display: none;
   position: absolute;
   right: 5px;
   bottom: 5px;
