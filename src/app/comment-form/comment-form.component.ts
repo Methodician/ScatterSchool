@@ -7,7 +7,6 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./comment-form.component.scss']
 })
 export class CommentFormComponent implements OnInit {
-  @Input() formType;
   @Input() initialValue;
   form: FormGroup;
   
@@ -15,7 +14,7 @@ export class CommentFormComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      text: ['', [Validators.required, Validators.maxLength(140)]],
+      text: ['', [Validators.required, Validators.maxLength(4000)]],
     });
 
     this.setInitialValue();
