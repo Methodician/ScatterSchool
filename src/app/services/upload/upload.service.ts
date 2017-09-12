@@ -42,10 +42,7 @@ constructor(private afd: AngularFireDatabase) { }
         upload.type = snap.metadata.contentType;
         upload.name = snap.metadata.name;
         upload.timeStamp = firebase.database.ServerValue.TIMESTAMP;
-        console.log(upload);
-        console.log(key);
-        console.log(basePath);
-        console.log(snap.metadata.downloadURLs[0]);
+        upload.progress = null;
         // save metadata to live database
         this.saveImageData(upload, key, basePath);
         alert('success!');
