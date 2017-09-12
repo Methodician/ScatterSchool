@@ -12,6 +12,8 @@ constructor(private afd: AngularFireDatabase) { }
 // tutorial on the uploadImage method can be found here:
 // https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
 // and here https://firebase.google.com/docs/storage/web/upload-files
+// and a good explanation of uploadTask.on here:
+// https://firebase.google.com/docs/reference/js/firebase.storage.UploadTask
 
 
   uploadImage(upload: Upload, key, basePath) {
