@@ -106,10 +106,11 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   getProfileImage(authorKey) {
-    this.uploadSvc.getProfileImage(authorKey).subscribe(profileData => {
+    const basePath = 'uploads/profileImages/';
+    this.uploadSvc.getImage(authorKey, basePath).subscribe(profileData => {
       if (profileData.url) {
-       this.profileImageUrl = profileData.url;
+        this.profileImageUrl = profileData.url;
       }
-    })
+    });
   }
 }

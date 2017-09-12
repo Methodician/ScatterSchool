@@ -9,33 +9,48 @@ import { AuthService } from 'app/services/auth/auth.service';
 export class UploadService {
 constructor(private afd: AngularFireDatabase) { }
 
+// tutorial on the uploadImage method can be found here:
+// https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
+// and here https://firebase.google.com/docs/storage/web/upload-files
+
+
   uploadImage(upload: Upload, key, basePath) {
     // delete old file from storage
     if (upload.url) {
       this.deleteFileStorage(key, basePath);
     };
     // put new file in storage
-    const uploadTask = firebase.storage().ref().child(`${basePath}/${key}`).put(upload.file);
+    const storageRef = firebase.storage().ref();
+    const uploadTask = storageRef.child(`${basePath}/${key}`).put(upload.file);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) => {
-        // set metadata to this instance of upload tutorial on this method can be found here:
-        // https://angularfirebase.com/lessons/angular-file-uploads-to-firebase-storage/
         const snap = snapshot as firebase.storage.UploadTaskSnapshot;
+        upload.progress = (snap.bytesTransferred / snap.totalBytes ) * 100;
+      },
+      // upload failed
+      (error) => {
+        alert(error);
+      },
+       // upload success
+      () => {
+        const snap = uploadTask.snapshot;
         upload.url = snap.metadata.downloadURLs[0];
         upload.size = snap.metadata.size;
         upload.type = snap.metadata.contentType;
         upload.name = snap.metadata.name;
         upload.timeStamp = firebase.database.ServerValue.TIMESTAMP;
+        console.log(upload);
+        console.log(key);
+        console.log(basePath);
+        console.log(snap.metadata.downloadURLs[0]);
         // save metadata to live database
         this.saveImageData(upload, key, basePath);
         alert('success!');
-        return undefined; // this must return undefined per angularfire
-      },
-      (error) => {
-        alert(error);
+        return undefined;
       }
     );
   }
+
 // writes metadata to live database
   private saveImageData(upload: Upload, key, basePath) {
     this.afd.object(`${basePath}/${key}`).set(upload)
