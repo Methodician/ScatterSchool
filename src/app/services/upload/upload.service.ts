@@ -25,6 +25,7 @@ constructor(private afd: AngularFireDatabase) { }
     const storageRef = firebase.storage().ref();
     const uploadTask = storageRef.child(`${basePath}/${key}`).put(upload.file);
       uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      // watch upload progress
       (snapshot) => {
         const snap = snapshot as firebase.storage.UploadTaskSnapshot;
         upload.progress = (snap.bytesTransferred / snap.totalBytes ) * 100;
