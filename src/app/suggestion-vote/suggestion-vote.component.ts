@@ -6,10 +6,10 @@ import { Vote } from "app/services/vote/vote";
 
 @Component({
   selector: 'vote',
-  templateUrl: './vote.component.html',
-  styleUrls: ['./vote.component.scss']
+  templateUrl: './suggestion-vote.component.html',
+  styleUrls: ['./suggestion-vote.component.scss']
 })
-export class VoteComponent implements OnInit, OnChanges {
+export class SuggestionVoteComponent implements OnInit, OnChanges {
   @Input() suggestion;
   @Input() currentUserKey;
   voteState = 0;
@@ -29,7 +29,7 @@ export class VoteComponent implements OnInit, OnChanges {
 
   // use if receiving suggestion object as input from parent subscription
   ngOnChanges(changes) {
-    if(changes.suggestion) this.voteTotal = changes.suggestion.currentValue.voteCount; 
+    if (changes.suggestion) this.voteTotal = changes.suggestion.currentValue.voteCount;
   }
 
   attemptVote(voteNum) {
@@ -41,14 +41,14 @@ export class VoteComponent implements OnInit, OnChanges {
   // then calls a method to update the database
   // voteNum represents either a positive or negative vote
   vote(voteNum) {
-      this.voteTotal += this.getTotalVoteChange(voteNum)
-      // resets the component's vote state to 0 if the current vote state is equal to the vote that was just clicked
-      this.voteState = (this.voteState === voteNum) ? 0 : voteNum;
-      this.saveVote();
+    this.voteTotal += this.getTotalVoteChange(voteNum)
+    // resets the component's vote state to 0 if the current vote state is equal to the vote that was just clicked
+    this.voteState = (this.voteState === voteNum) ? 0 : voteNum;
+    this.saveVote();
   }
 
-  getTotalVoteChange(voteNum){
-    switch(Math.abs(voteNum + this.voteState)) {
+  getTotalVoteChange(voteNum) {
+    switch (Math.abs(voteNum + this.voteState)) {
       case 0: return voteNum * 2;
       case 1: return voteNum;
       case 2: return this.voteState * -1;

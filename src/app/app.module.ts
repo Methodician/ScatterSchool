@@ -56,7 +56,7 @@ import { AddSuggestionComponent } from './add-suggestion/add-suggestion.componen
 import { SuggestionPreviewComponent } from './suggestion-preview/suggestion-preview.component';
 import { SuggestionService } from './services/suggestion/suggestion.service';
 import { VoteService } from './services/vote/vote.service';
-import { VoteComponent } from './vote/vote.component';
+import { SuggestionVoteComponent } from './suggestion-vote/suggestion-vote.component';
 import { SuggestionSortPipe } from './pipes/suggestion-sort.pipe';
 import { ProfileImageComponent } from './profile-image/profile-image.component';
 import { CommentComponent } from './comment/comment.component';
@@ -104,7 +104,7 @@ import { CommentListComponent } from './comment-list/comment-list.component';
     EditSuggestionComponent,
     AddSuggestionComponent,
     SuggestionPreviewComponent,
-    VoteComponent,
+    SuggestionVoteComponent,
     SuggestionSortPipe,
     CharacterCounterComponent,
     ProfileImageComponent,
