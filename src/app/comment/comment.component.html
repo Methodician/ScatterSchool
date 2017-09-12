@@ -7,7 +7,7 @@
   </div>
   <div *ngIf="isFormShowing">
       <app-comment-form #form [formType]="'reply'"></app-comment-form>
-      <button [disabled]="!form.valid" (click)="postReply(form.value)">Reply</button>
+      <button class="btn postCommentBtn" [disabled]="!form.valid" (click)="postReply(form.value)">Reply</button>
       <span>{{form.text.value.length}}</span>
   </div>
 </div>

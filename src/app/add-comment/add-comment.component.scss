@@ -1,3 +1,31 @@
 .show-comment-form {
   cursor: pointer;
+  background-color: #C4275F;
+  color: #fff;
+  font-size: 14px;
+  height: 40px;
+  width: 135px;
+  padding: 13.5px;
+  margin: 0 auto;
+  letter-spacing: 0.5px;
+  border-radius: 2px;
+}
+
+.postCommentBtn {
+  color: #C4275F;
+  background-color: #fff;
+  border: 1px solid #C4275F;
+  border-radius: 2px;
+  letter-spacing: 0.5px;
+  height: 32px;
+}
+
+#counter {
+  margin-right: 5px;
+}
+
+@media only screen and (max-width:768px) {
+  .comment-form-wrapper {
+    width: 320px;
+  }
 }

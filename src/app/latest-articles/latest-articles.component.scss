@@ -35,3 +35,18 @@
     margin-right: 20px;
   }
 }
+
+@media only screen and (max-width:768px) {
+  .latestDisplay {
+    width: 95%;
+    margin: 0 auto;
+  }
+  .latestHeader {
+    margin-left: 20px;
+  }
+  .latestTile {
+    height: 295px;
+    width: 420px;
+    margin: 10px 0;
+  }
+}
