@@ -24,3 +24,18 @@
   color: #00BE9C;
   font-weight: bold;
 }
+
+h3, h4, p {
+  position: relative;
+  z-index: 1;
+}
+
+.background {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 0;
+  height: 224px;
+  width: 224px;
+  overflow: hidden; 
+}

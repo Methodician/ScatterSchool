@@ -1,4 +1,5 @@
-<div class="featurePreview">
+<div class="featurePreview" [ngStyle]="{'background-image':'url(articleCoverImageUrl ? articleCoverImageUrl : ../../assets/images/kid-art.jpg)'}">
+  <img class="background" [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'">
   <h3 class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:50}}</h3>
   <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias | truncate:20}}</h4>
   <p class="intro">Intro... {{articleData.introduction | truncate: 60 }}</p>
