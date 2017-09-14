@@ -1,6 +1,6 @@
+import { UploadService } from 'app/services/upload/upload.service';
 import { AuthService } from './../services/auth/auth.service';
 import { Router } from '@angular/router';
-//import { UserService } from './../services/user/user.service';
 import { ArticleService } from './../services/article/article.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -12,7 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class PostArticleComponent implements OnInit {
   authInfo = null;
   article: any;
-  
+  reservedArticleKey;
 
   constructor(
     private articleSvc: ArticleService,
@@ -25,12 +25,13 @@ export class PostArticleComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0, 0);
+    this.reservedArticleKey = this.articleSvc.reserveArticleKey();
   }
 
   save(article) {
-    let articleId = this.articleSvc.createNewArticle(this.authInfo.$uid, article);
+    console.log(this.authInfo);
+    const articleId = this.articleSvc.createNewArticle(this.authInfo.$uid, article);
     this.router.navigate([`articledetail/${articleId}`]);
   }
-
 }

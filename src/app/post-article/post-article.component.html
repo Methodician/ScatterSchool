@@ -1,4 +1,4 @@
-<app-article-cover-image></app-article-cover-image>
+<app-upload-form [articleKey]="reservedArticleKey"></app-upload-form>
 <app-article-form #form>
 </app-article-form>
 <button (click)="save(form.value)" class="btn btn-default" [disabled]="form.isErrorVisible('title', 'maxlength') || form.isErrorVisible('introduction', 'maxlength')">Post</button>

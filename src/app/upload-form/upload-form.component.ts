@@ -1,3 +1,4 @@
+import { ArticleService } from './../services/article/article.service';
 import { FirebaseObjectObservable } from 'angularfire2/database';
 import { UploadService } from './../services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -12,37 +13,34 @@ import { Router } from '@angular/router';
 export class UploadFormComponent implements OnInit {
   currentUpload: Upload;
   selectedFiles: any;
-  @Input() article;
+  @Input() articleKey;
   @Input() uid;
 
   constructor(
     private upSvc: UploadService,
-    private router: Router
+    private router: Router,
+    private articleSvc: ArticleService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() { console.log('UPLOAD FORM!!!' + this.articleKey); }
 
   detectFiles(event) {
     this.selectedFiles = event.target.files;
   }
 
   setBasePath() {
-    if (this.article) {
-      const key = this.article.articleKey;
+    if (this.articleKey) {
       const basePath = 'uploads/articleCoverImages';
-      this.sendImgToUploadSvc(key, basePath);
+      this.sendImgToUploadSvc(this.articleKey, basePath);
     } else {
-      const key = this.uid;
       const basePath = 'uploads/profileImages/';
-      this.sendImgToUploadSvc(key, basePath);
+      this.sendImgToUploadSvc(this.uid, basePath);
     }
   }
 
   sendImgToUploadSvc(key, basePath) {
     const file = this.selectedFiles.item(0);
     this.currentUpload = new Upload(file);
-    console.log(this.currentUpload);
-    console.log(this.currentUpload.progress);
     this.upSvc.uploadImage(this.currentUpload, key, basePath);
   }
 }
