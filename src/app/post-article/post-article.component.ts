@@ -30,8 +30,7 @@ export class PostArticleComponent implements OnInit {
   }
 
   save(article) {
-    console.log(this.authInfo);
-    const articleId = this.articleSvc.createNewArticle(this.authInfo.$uid, article);
+    const articleId = this.articleSvc.createNewArticle(this.authInfo.$uid, article)
     this.router.navigate([`articledetail/${articleId}`]);
   }
 }
