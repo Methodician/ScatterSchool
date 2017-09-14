@@ -88,4 +88,38 @@ export class CommentComponent implements OnInit {
     this.commentSvc.saveComment(comment);
     this.toggleShowReply();
   }
+
+  timeSincePost() {
+    let postTime = this.comment.lastUpdated || this.comment.timestamp
+    let timeSincePost = Date.now() - postTime;
+    switch(true) {
+      case timeSincePost >= 63072000000:
+        return `${Math.floor(timeSincePost / 31536000000)} years ago`
+      case timeSincePost >= 31536000000:
+        return "1 year ago"
+      case timeSincePost >= 5184000000:
+        return `${Math.floor(timeSincePost / 2592000000)} months ago`
+      case timeSincePost >= 2592000000:
+        return "1 month ago"
+      case timeSincePost >= 1209600000:
+        return `${Math.floor(timeSincePost / 6048000000)} weeks ago`
+      case timeSincePost >= 6048000000:
+        return "1 week ago"
+      case timeSincePost >= 172800000:
+        return `${Math.floor(timeSincePost / 86400000)} days ago`
+      case timeSincePost >= 86400000:
+        return "1 day ago"
+      case timeSincePost >= 7200000:
+        return `${Math.floor(timeSincePost / 3600000)} hours ago`
+      case timeSincePost >= 3600000:
+        return "1 hour ago"
+      case timeSincePost >= 120000:
+        return `${Math.floor(timeSincePost / 60000)} minutes ago`
+      case timeSincePost >= 60000:
+        return "1 minute ago"
+      case timeSincePost > 0:
+        return "just now"
+    }
+  }
+
 }

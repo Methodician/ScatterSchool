@@ -2,7 +2,7 @@
   <span class="glyphicon toggle-collapse" [class.glyphicon-menu-right]="isRepliesCollapsed" [class.glyphicon-menu-down]="isRepliesShowing()" (click)="toggleCollapseReplies()"></span>
 
   <p class="comment-author" (click)="navigateToProfile()">{{ displayName }}</p>
-  <!-- <span class="date-updated">{{ timeSincePost() }}</span> -->
+  <span class="date-updated">{{ timeSincePost() }}</span>
   
   <p class="comment-text" *ngIf="!isEditShowing">{{comment.text}}</p>
   <app-edit-comment *ngIf="isEditShowing" [currentUserInfo]="currentUserInfo" [initialCommentValue]="comment"></app-edit-comment>
