@@ -30,12 +30,23 @@ h3, h4, p {
   z-index: 1;
 }
 
-.background {
-  margin: 0;
-  padding: 0;
+.image-wrapper {
+  position: relative;
+}
+
+.text-wrapper {
+  background-color: rgba(255, 255, 255, 0.8);
   position: relative;
   z-index: 0;
-  height: 224px;
-  width: 224px;
+  padding: 5px;
+}
+
+.background {
+  margin: -15px;
+  padding: 0;
+  position: absolute;
+  z-index: 0;
+  height: 249px;
+  width: 223px;
   overflow: hidden; 
 }
