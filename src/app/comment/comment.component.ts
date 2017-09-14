@@ -23,7 +23,7 @@ export class CommentComponent implements OnInit {
   constructor(private router: Router, private commentSvc: CommentService, private userSvc: UserService) { }
 
   ngOnInit() {
-    this.dateUpdated = new Date(this.comment.lastUpdated).toDateString();
+    // this.dateUpdated = new Date(this.comment.lastUpdated).toDateString();
 
     this.commentSvc.getCommentsByParentKey(this.comment.$key).subscribe(replies => {
       this.replies = replies;
@@ -58,6 +58,10 @@ export class CommentComponent implements OnInit {
 
   isRepliesShowing() {
     return this.replies && this.replies.length > 0 && !this.isRepliesCollapsed;
+  }
+
+  isValidDeletedComment() {
+    return this.comment.isDeleted && this.replies && this.replies.length > 0;
   }
 
   deleteComment() {
