@@ -44,6 +44,10 @@ export class CommentComponent implements OnInit {
     return this.currentUserInfo && this.currentUserInfo.uid === this.comment.authorKey
   }
 
+  hasReplies() {
+    return this.replies && this.replies.length > 0;
+  }
+
   toggleShowEdit() {
     this.isEditShowing = !this.isEditShowing;
   }
@@ -57,7 +61,7 @@ export class CommentComponent implements OnInit {
   }
 
   isRepliesShowing() {
-    return this.replies && this.replies.length > 0 && !this.isRepliesCollapsed;
+    return this.hasReplies() && !this.isRepliesCollapsed;
   }
 
   isValidDeletedComment() {

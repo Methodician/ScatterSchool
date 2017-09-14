@@ -16,9 +16,17 @@
   }
 
   .toggle-collapse {
-    position: absolute;
-    left: -20px;
     cursor: pointer;
+    position: absolute;
+    left: -14px;
+    top: 0px;
+    width: 9px;
+    height: 14px;
+    transition: transform .1s ease-in;
+
+    &.showing {
+      transform: rotate(90deg)
+    }
   }
 
   .comment-author {
