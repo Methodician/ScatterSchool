@@ -1,0 +1,24 @@
+<div class="upload-wrapper">
+  <div *ngIf="currentUpload">
+      <div class="progress">
+        <div class="progress-bar progress-bar-animated" [ngStyle]="{ 'width': currentUpload?.progress + '%' }"></div>
+      </div>
+      Progress: {{currentUpload?.progress}}% Complete
+  </div>
+  
+
+  <div class="form-group uploadForm">
+    <input 
+      accept="image/*" 
+      id="control" 
+      type="file" 
+      (change)="detectFiles($event)">
+    
+    <button 
+      class="btn btnUpload" 
+      [disabled]="!selectedFiles" 
+      (click)="setBasePath()">
+        upload
+    </button>
+  </div>
+</div>

@@ -10,9 +10,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-article.component.css']
 })
 export class PostArticleComponent implements OnInit {
-
   authInfo = null;
   article: any;
+  
 
   constructor(
     private articleSvc: ArticleService,

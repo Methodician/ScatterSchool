@@ -46,7 +46,7 @@ export class AuthService {
   register(email, password) {
     return this.fromFirebaseAuthPromise(this.afAuth.auth.createUserWithEmailAndPassword(email, password));
   }
-  setDispalyName(alias) { // (later create option by making args "(alias, user?)")
+  setDisplayName(alias) { // (later create option by making args "(alias, user?)")
     //let userToSet = user || this.afAuth.auth.currentUser;
     let userToSet = this.afAuth.auth.currentUser;
     userToSet.updateProfile({ displayName: alias, photoURL: null });
