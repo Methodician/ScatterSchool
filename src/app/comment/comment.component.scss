@@ -33,9 +33,10 @@
 }
 
 .deleted-comment {
+  color: gray;
   p {
     text-align: center;
-    margin-top: 10px;
+    margin: 0px;
     font-weight: bold;
   }
 }
@@ -72,8 +73,9 @@
   right: 5px;
   bottom: 5px;
 
-  span {
+  > span {
     cursor: pointer;
+    color: #00BE9C;
   }
 
   span.active {
@@ -89,7 +91,10 @@
 .close-reply {
   position: absolute;
   left: -20px;
+  top: 0px;
   cursor: pointer;
+  width: 14px;
+  height: 14px;
 }
 
 .date-updated {
@@ -97,4 +102,5 @@
   right: 5px;
   top: 5px;
   color: grey;
+  font-size: 12px;
 }
