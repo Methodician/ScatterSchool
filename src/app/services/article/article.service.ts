@@ -234,9 +234,4 @@ export class ArticleService {
   navigateToProfile(uid: any) {
     this.router.navigate([`profile/${uid}`]);
   }
-
-  // reserve an article key to associate article cover image with a not yet existing article.
-  reserveArticleKey() {
-    return firebase.database().ref().child('articleData/articles').push().key;
-  }
 }

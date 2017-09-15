@@ -22,10 +22,11 @@ export class UploadFormComponent implements OnInit {
     private articleSvc: ArticleService
   ) { }
 
-  ngOnInit() { console.log('UPLOAD FORM!!!' + this.articleKey); }
+  ngOnInit() { }
 
   detectFiles(event) {
     this.selectedFiles = event.target.files;
+    return this.selectedFiles;
   }
 
   setBasePath() {
@@ -46,4 +47,4 @@ export class UploadFormComponent implements OnInit {
 }
 
 
-
+ 
