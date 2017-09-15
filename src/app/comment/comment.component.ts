@@ -15,16 +15,13 @@ export class CommentComponent implements OnInit {
 
   replies;
   displayName: string = '';
-  isEditShowing: boolean = false;
-  isRepliesCollapsed: boolean = false;
-  isReplyShowing: boolean = false;
+  editShowing: boolean = false;
+  repliesShowing: boolean = false;
   dateUpdated: string = '';
 
   constructor(private router: Router, private commentSvc: CommentService, private userSvc: UserService) { }
 
   ngOnInit() {
-    // this.dateUpdated = new Date(this.comment.lastUpdated).toDateString();
-
     this.commentSvc.getCommentsByParentKey(this.comment.$key).subscribe(replies => {
       this.replies = replies;
     });
@@ -48,23 +45,24 @@ export class CommentComponent implements OnInit {
     return this.replies && this.replies.length > 0;
   }
 
-  toggleShowEdit() {
-    this.isEditShowing = !this.isEditShowing;
+  toggleEdit() {
+    this.editShowing = !this.editShowing;
   }
 
-  toggleShowReply() {
-    this.isReplyShowing = !this.isReplyShowing;
+  toggleReplies() {
+    this.repliesShowing = !this.repliesShowing;
   }
 
-  toggleCollapseReplies() {
-    this.isRepliesCollapsed = !this.isRepliesCollapsed;
+  tryShowReply(addReply) {
+    if(this.currentUserInfo) addReply.toggleReplyForm();
+    else this.router.navigate(['login']);
   }
 
   isRepliesShowing() {
-    return this.hasReplies() && !this.isRepliesCollapsed;
+    return this.hasReplies() && !this.repliesShowing;
   }
 
-  isValidDeletedComment() {
+  isDeletedComment() {
     return this.comment.isDeleted && this.replies && this.replies.length > 0;
   }
 
