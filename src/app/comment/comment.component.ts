@@ -17,7 +17,6 @@ export class CommentComponent implements OnInit {
   displayName: string = '';
   editShowing: boolean = false;
   repliesShowing: boolean = false;
-  dateUpdated: string = '';
 
   constructor(private router: Router, private commentSvc: CommentService, private userSvc: UserService) { }
 
@@ -33,6 +32,14 @@ export class CommentComponent implements OnInit {
     });
   }
 
+  navigateToProfile() {
+    this.router.navigate([`profile`, this.comment.authorKey]);
+  }
+
+  postTime() {
+    return this.comment.lastUpdated || this.comment.timestamp;
+  }
+
   currentUserDisplayName() {
     return this.currentUserInfo.alias || this.currentUserInfo.fName;
   }
@@ -41,25 +48,25 @@ export class CommentComponent implements OnInit {
     return this.currentUserInfo && this.currentUserInfo.uid === this.comment.authorKey
   }
 
-  hasReplies() {
-    return this.replies && this.replies.length > 0;
-  }
-
-  toggleEdit() {
-    this.editShowing = !this.editShowing;
-  }
-
   toggleReplies() {
     this.repliesShowing = !this.repliesShowing;
   }
 
-  tryShowReply(addReply) {
+  hasReplies() {
+    return this.replies && this.replies.length > 0;
+  }  
+
+  isRepliesShowing() {
+    return this.hasReplies() && !this.repliesShowing;
+  }
+
+  tryShowAddReply(addReply) {
     if(this.currentUserInfo) addReply.toggleReplyForm();
     else this.router.navigate(['login']);
   }
 
-  isRepliesShowing() {
-    return this.hasReplies() && !this.repliesShowing;
+  toggleEdit() {
+    this.editShowing = !this.editShowing;
   }
 
   isDeletedComment() {
@@ -68,13 +75,5 @@ export class CommentComponent implements OnInit {
 
   deleteComment() {
     this.commentSvc.deleteComment(this.comment.$key);
-  }
-
-  navigateToProfile() {
-    this.router.navigate([`profile`, this.comment.authorKey]);
-  }
-
-  postTime() {
-    return this.comment.lastUpdated || this.comment.timestamp;
   }
 }

@@ -5,7 +5,7 @@
   <span class="date-updated">{{ postTime() | timeElapsed }}</span>
   
   <p *ngIf="!editShowing" class="comment-text">{{comment.text}}</p>
-  <span *ngIf="!editShowing" id="reply-button" (click)="tryShowReply(addReply)">Reply</span>
+  <span *ngIf="!editShowing" id="reply-button" (click)="tryShowAddReply(addReply)">Reply</span>
   
   <app-edit-comment *ngIf="editShowing" [currentUserInfo]="currentUserInfo" [initialCommentValue]="comment"></app-edit-comment>
 
