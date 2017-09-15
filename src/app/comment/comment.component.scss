@@ -94,16 +94,10 @@
 #reply-button {
   color: #00BE9C;
   cursor: pointer;
+  font-weight: bold;
 }
 
-.close-reply {
-  position: absolute;
-  left: -20px;
-  top: 0px;
-  cursor: pointer;
-  width: 14px;
-  height: 14px;
-}
+
 
 .date-updated {
   position: absolute;

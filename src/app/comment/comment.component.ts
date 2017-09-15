@@ -76,23 +76,6 @@ export class CommentComponent implements OnInit {
     this.router.navigate([`profile`, this.comment.authorKey]);
   }
 
-  postReply(replyData) {
-    if(this.currentUserInfo) this.saveReply(replyData);
-    else this.router.navigate(['login']);
-  }
-
-  saveReply(replyData) {
-    let comment = {
-      authorKey: this.currentUserInfo.$key,
-      parentKey: this.comment.$key,
-      parentType: 'comment',
-      text: replyData.text,
-    }
-
-    this.commentSvc.saveComment(comment);
-    this.toggleShowReply();
-  }
-
   timeSincePost() {
     let postTime = this.comment.lastUpdated || this.comment.timestamp
     let timeSincePost = Date.now() - postTime;
@@ -125,5 +108,4 @@ export class CommentComponent implements OnInit {
         return "just now"
     }
   }
-
 }

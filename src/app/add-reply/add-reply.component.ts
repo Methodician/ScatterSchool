@@ -39,4 +39,11 @@ export class AddReplyComponent implements OnInit {
     this.isFormShowing = !this.isFormShowing;
   }
 
+  currentUserDisplayName() {
+    return this.currentUserInfo.alias || this.currentUserInfo.fName;
+  }
+
+  get formShowing() {
+    return this.isFormShowing;
+  }
 }

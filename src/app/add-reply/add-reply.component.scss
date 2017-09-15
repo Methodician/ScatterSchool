@@ -2,3 +2,41 @@
   color: #00BE9C;
   cursor: pointer;
 }
+
+.reply-form {
+  width: 500px;
+  padding: 5px 10px 5px 10px;
+  display: block;
+  margin-bottom: 10px;
+  border: 1px solid gray;
+  position: relative;
+
+  .close-reply {
+    position: absolute;
+    left: -20px;
+    top: 0px;
+    cursor: pointer;
+    width: 14px;
+    height: 14px;
+  }
+
+  .post-reply-btn {
+    color: #C4275F;
+    background-color: #fff;
+    border: 1px solid #C4275F;
+    border-radius: 2px;
+    letter-spacing: 0.5px;
+    height: 25px;
+    padding: 0 5px;
+  }
+
+  .reply-author {
+    cursor: pointer;
+    color: #C4275F;
+    margin-bottom: 5px;
+    
+    :hover {
+      text-decoration: underline;
+    }
+  }
+}

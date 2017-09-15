@@ -1,32 +1,26 @@
 <div class="comment" *ngIf="!comment.isDeleted">
-  <img src="../../assets/images/chevron.png" *ngIf="hasReplies()" class="toggle-collapse" [class.collapsed]="isRepliesCollapsed" [class.showing]="isRepliesShowing()" (click)="toggleCollapseReplies()"/>
+  <img src="../../assets/images/chevron.png" *ngIf="hasReplies()" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleCollapseReplies()"/>
 
   <p class="comment-author" (click)="navigateToProfile()">{{ displayName }}</p>
   <span class="date-updated">{{ timeSincePost() }}</span>
-  
   <p class="comment-text" *ngIf="!isEditShowing">{{comment.text}}</p>
+  
   <app-edit-comment *ngIf="isEditShowing" [currentUserInfo]="currentUserInfo" [initialCommentValue]="comment"></app-edit-comment>
 
-  <span *ngIf="!isEditShowing" id="reply-button" (click)="toggleShowReply()"><strong>Reply</strong></span>
+  <span *ngIf="!isEditShowing" id="reply-button" (click)="addReply.toggleReplyForm()">Reply</span>
   
   <div class="update-comment" *ngIf="isLoggedInUserComment()">
     <span (click)="toggleShowEdit()" [class.active]="isEditShowing">{{isEditShowing ? "Cancel" : "Edit"}}</span> | 
     <span (click)="deleteComment()">Delete</span>
   </div>
 </div>
+
 <div class="comment deleted-comment" *ngIf="isValidDeletedComment()">
   <p>Comment deleted.</p>
 </div>
 
 <div class="replies">
-  <div class="comment" *ngIf="isReplyShowing">
-    <img src="../../assets/images/x-out.png" class="close-reply" (click)="toggleShowReply()"/>
-    <p class="comment-author" (click)="navigateToProfile()"><strong>{{ currentUserDisplayName() }}</strong></p>
-    <!-- <app-add-reply [currentUserInfo]="currentUserInfo" [parentCommentKey]="comment.$key"></app-add-reply> -->
-    <app-comment-form #form></app-comment-form>
-    <button class="btn postCommentBtn" [disabled]="!form.valid" (click)="postReply(form.value)">Reply</button>
-    <span>{{form.text.value.length}}</span>
-  </div>
+  <app-add-reply #addReply [currentUserInfo]="currentUserInfo" [parentCommentKey]="comment.$key"></app-add-reply>
   <div *ngIf="isRepliesShowing()">
     <app-comment  *ngFor="let reply of replies" [comment]="reply" [currentUserInfo]="currentUserInfo"></app-comment>
   </div>
