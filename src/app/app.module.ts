@@ -66,6 +66,7 @@ import { CommentService } from './services/comment/comment.service';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { AddReplyComponent } from './add-reply/add-reply.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
+import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
 
 
 
@@ -115,7 +116,8 @@ import { EditCommentComponent } from './edit-comment/edit-comment.component';
     AddCommentComponent,
     CommentListComponent,
     AddReplyComponent,
-    EditCommentComponent
+    EditCommentComponent,
+    TimeElapsedPipe
   ],
   imports: [
     BrowserModule,
