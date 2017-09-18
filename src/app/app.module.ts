@@ -64,6 +64,7 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { CommentService } from './services/comment/comment.service';
 import { CommentListComponent } from './comment-list/comment-list.component';
+import { AllArticlesComponent } from './all-articles/all-articles.component';
 
 
 
@@ -111,7 +112,8 @@ import { CommentListComponent } from './comment-list/comment-list.component';
     CommentComponent,
     CommentFormComponent,
     AddCommentComponent,
-    CommentListComponent
+    CommentListComponent,
+    AllArticlesComponent
   ],
   imports: [
     BrowserModule,
