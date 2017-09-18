@@ -30,7 +30,7 @@
   <button class="btn btn-primary" (click)="edit()">Edit</button>
   <button class="btn btn-primary" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'feature article'}}</button>
 </div>
-<div class="comment-section-wrapper">
+<div *ngIf="!editingPreview" class="comment-section-wrapper">
   <h3>Comments</h3>
   <hr>
   <app-add-comment [parentKey]="articleKey"></app-add-comment>

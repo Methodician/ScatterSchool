@@ -64,6 +64,9 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { CommentService } from './services/comment/comment.service';
 import { CommentListComponent } from './comment-list/comment-list.component';
+import { AddReplyComponent } from './add-reply/add-reply.component';
+import { EditCommentComponent } from './edit-comment/edit-comment.component';
+import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
 
 
 
@@ -111,7 +114,10 @@ import { CommentListComponent } from './comment-list/comment-list.component';
     CommentComponent,
     CommentFormComponent,
     AddCommentComponent,
-    CommentListComponent
+    CommentListComponent,
+    AddReplyComponent,
+    EditCommentComponent,
+    TimeElapsedPipe
   ],
   imports: [
     BrowserModule,
