@@ -10,7 +10,6 @@ import { ArticleService } from './../services/article/article.service';
 })
 export class LatestPreviewComponent implements OnInit {
   @Input() articleData: any;
-  @Input() authorKey;
   author;
   profileImageUrl;
   articleCoverImageUrl;
