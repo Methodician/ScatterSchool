@@ -15,7 +15,7 @@
   </div>
 </div>
 
-<div class="comment deleted-comment" *ngIf="isDeletedComment()">
+<div class="comment deleted-comment" *ngIf="comment.isDeleted && hasReplies()">
   <p>Comment deleted.</p>
 </div>
 

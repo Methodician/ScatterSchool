@@ -65,10 +65,6 @@ export class CommentComponent implements OnInit {
     this.editShowing = !this.editShowing;
   }
 
-  isDeletedComment() {
-    return this.comment.isDeleted && this.replies && this.replies.length > 0;
-  }
-
   deleteComment() {
     this.commentSvc.deleteComment(this.comment.$key);
   }
