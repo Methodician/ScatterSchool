@@ -1,6 +1,11 @@
 <div class="latestPreview">
   <div class="imagePreview">
-    <img src="../../assets/images/kid-art.jpg" alt="default main tutorial image: a picture of kid art">
+    <div class="imageWrapper">
+      <img 
+      [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'"
+      class="imageDisplay"
+      alt="article's cover image">
+    </div>
   </div>
   <div class="textPreview">
     <h3 class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:50}}</h3>

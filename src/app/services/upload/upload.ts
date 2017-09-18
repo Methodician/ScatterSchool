@@ -9,8 +9,7 @@ export class Upload {
   public uid: string;
   public size: number;
   public type: string;
-  constructor(file:File) {
+  constructor(file: File) {
     this.file = file;
   }
 }
- 

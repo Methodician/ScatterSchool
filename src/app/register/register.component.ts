@@ -52,7 +52,7 @@ export class RegisterComponent implements OnInit {
         alert('Thanks for creating an account! You must respond to the verification email to complete the process. Your organization must also be approved by an administrator.');
         this.userSvc.createUser(val, res.uid).then(user => {
           if (val.alias) {
-            this.authSvc.setDispalyName(val.alias);
+            this.authSvc.setDisplayName(val.alias);
           }
         });
         this.router.navigateByUrl('/account');

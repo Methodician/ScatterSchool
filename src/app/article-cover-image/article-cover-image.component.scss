@@ -1,0 +1,37 @@
+h3 {
+  color: #31C2D7;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+input {
+  font-size: 18px;
+}
+
+.uploadWrapper {
+  font-family: STHeitiSC-Light;
+  margin: 0 auto;
+  max-width: 500px;
+
+
+  .imageWrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .imageDisplay {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 20px;
+  }
+}
+
+@media only screen and (max-width:768px) {
+  input {
+      width: 100%;
+  }
+  .uploadWrapper{
+      width: 95%;
+      margin: 0 auto;
+  }
+}

@@ -1,3 +1,4 @@
+import { AuthInfo } from './../auth/auth-info';
 import { UserInfoOpen } from './user-info';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from './../auth/auth.service';
@@ -11,6 +12,7 @@ export class UserService {
 
   userInfo$: BehaviorSubject<UserInfoOpen> = new BehaviorSubject<UserInfoOpen>(null);
   loggedInUserKey: string;
+  uid;
 
   constructor(
     private authSvc: AuthService,
@@ -19,8 +21,7 @@ export class UserService {
   ) {
     this.authSvc.authInfo$.subscribe(authInfo => {
       this.getUserInfo(authInfo.$uid).subscribe(info => {
-        if (info.$key != "null") {
-          //info.$uid = info.$key;
+        if (info.$key != 'null') {
           this.userInfo$.next(info);
           this.loggedInUserKey = info.$key;
         }
@@ -84,10 +85,15 @@ export class UserService {
 
   isFollowingUser(uid: string) {
     return this.db.object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${uid}`).map(res => {
-      if (res.$value)
+      if (res.$value) {
         return true;
-      return false;
+      } return false;
     });
+  }
+
+  updateUser(userInfo, uid) {
+    userInfo.uid = null;
+    return this.db.object(`userInfo/open/${uid}`).set(userInfo);
   }
 
   /*isAdmin() {

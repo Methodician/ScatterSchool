@@ -5,7 +5,6 @@ import { UserService } from './../services/user/user.service';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-
 @Component({
   selector: 'account',
   templateUrl: './account.component.html',
@@ -13,15 +12,14 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 })
 
 export class AccountComponent implements OnInit {
-
-  loggedInUserKey: string;
   @Input() accountUserKey: string;
+  loggedInUserKey: string;
   userInfo: UserInfoOpen;
   form: FormGroup;
 
   constructor(
     private userSvc: UserService,
-    authSvc: AuthService,
+    private authSvc: AuthService,
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
@@ -37,33 +35,24 @@ export class AccountComponent implements OnInit {
       zipCode: ['', Validators.required],
       uid: ''
     });
-
     authSvc.authInfo$.subscribe(info => {
       this.loggedInUserKey = info.$uid;
       if (!this.userInfo) {
         this.setUser();
       }
-    })
+    });
   }
-
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      if (params['key'])
+      if (params['key']) {
         this.accountUserKey = params['key'];
-      if (!this.userInfo)
-        this.setUser();
-    })
-  }
-
-  /*   ngOnChanges(changes: SimpleChanges) {
-      //  Must make sure form is initalized before checking...
-      if (changes['initialValue'] && changes['initialValue'].currentValue) {
-        console.log(changes);
-        // We have two methods to set a form's value: setValue and patchValue.
-        this.form.patchValue(changes['initialValue'].currentValue);
       }
-    } */
+      if (!this.userInfo) {
+        this.setUser();
+      }
+    });
+  }
 
   setUser() {
     if (this.accountUserKey || this.loggedInUserKey) {
@@ -80,12 +69,12 @@ export class AccountComponent implements OnInit {
 
   // from register component - service later?
   isErrorVisible(field: string, error: string) {
-    let control = this.form.controls[field];
+    const control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
   }
 
   isControlDirty(field: string) {
-    let control = this.form.controls[field];
+    const control = this.form.controls[field];
     return control.dirty;
   }
 
@@ -93,4 +82,22 @@ export class AccountComponent implements OnInit {
     return this.form.valid;
   }
 
+  updateSettings(userInfo) {
+    const userValues = userInfo._value;
+    this.userSvc.updateUser(userValues, userValues.uid);
+      alert('Your changes have been saved!');
+    } catch (error) {
+      alert(error);
+    }
 }
+
+  /*   ngOnChanges(changes: SimpleChanges) {
+  //  Must make sure form is initalized before checking...
+  if (changes['initialValue'] && changes['initialValue'].currentValue) {
+    console.log(changes);
+    // We have two methods to set a form's value: setValue and patchValue.
+    this.form.patchValue(changes['initialValue'].currentValue);
+  }
+} */
+
+
