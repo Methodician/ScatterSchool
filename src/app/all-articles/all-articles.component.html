@@ -1,3 +1,4 @@
 <div *ngFor="let article of articles">
-  <p>{{ article.title }}</p>
+  <pre>{{article | json}}</pre>
+    <latest-preview [articleData]="article"></latest-preview>
 </div>

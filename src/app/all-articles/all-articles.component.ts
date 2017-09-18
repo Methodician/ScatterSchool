@@ -12,8 +12,8 @@ export class AllArticlesComponent implements OnInit {
   constructor(private articleSvc: ArticleService) { }
 
   ngOnInit() {
-    this.articleSvc.getAllArticles().subscribe(response => {
-      this.articles = response;
+    this.articleSvc.getAllArticles().subscribe(articles => {
+      this.articles = articles;
     });
   }
 
