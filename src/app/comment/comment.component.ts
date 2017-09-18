@@ -36,10 +36,6 @@ export class CommentComponent implements OnInit {
     this.router.navigate([`profile`, this.comment.authorKey]);
   }
 
-  postTime() {
-    return this.comment.lastUpdated || this.comment.timestamp;
-  }
-
   currentUserDisplayName() {
     return this.currentUserInfo.alias || this.currentUserInfo.fName;
   }
