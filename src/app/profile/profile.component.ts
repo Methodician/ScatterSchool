@@ -81,7 +81,8 @@ export class ProfileComponent implements OnInit {
   // }
 
   getProfileImage(uid) {
-    this.uploadSvc.getProfileImage(uid).subscribe(profileData => {
+    const basePath = 'uploads/profileImages/';
+    this.uploadSvc.getImage(uid, basePath).subscribe(profileData => {
       if (profileData.url) {
         this.profileImageUrl = profileData.url;
       }

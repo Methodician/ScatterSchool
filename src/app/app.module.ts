@@ -47,7 +47,7 @@ import { TruncateTagsPipe } from './pipes/truncate-tags.pipe';
 import { FollowBtnComponent } from './follow-btn/follow-btn.component';
 import { FollowedUserComponent } from './followed-user/followed-user.component';
 import { FollowerUserComponent } from './follower-user/follower-user.component';
-import { UploadFormComponent } from './uploads/upload-form/upload-form.component';
+import { UploadFormComponent } from './upload-form/upload-form.component';
 import { SuggestionsComponent } from './suggestions/suggestions.component';
 import { SuggestionDetailComponent } from './suggestion-detail/suggestion-detail.component';
 import { SuggestionFormComponent } from './suggestion-form/suggestion-form.component';
@@ -64,6 +64,7 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { CommentService } from './services/comment/comment.service';
 import { CommentListComponent } from './comment-list/comment-list.component';
+import { ArticleCoverImageComponent } from './article-cover-image/article-cover-image.component';
 import { AddReplyComponent } from './add-reply/add-reply.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
@@ -100,7 +101,6 @@ import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
     FollowBtnComponent,
     FollowedUserComponent,
     FollowerUserComponent,
-    UploadFormComponent,
     SuggestionsComponent,
     SuggestionDetailComponent,
     SuggestionFormComponent,
@@ -115,6 +115,8 @@ import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
     CommentFormComponent,
     AddCommentComponent,
     CommentListComponent,
+    ArticleCoverImageComponent,
+    UploadFormComponent,
     AddReplyComponent,
     EditCommentComponent,
     TimeElapsedPipe

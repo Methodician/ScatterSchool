@@ -4,8 +4,11 @@
   <h1 class="featureHeader">Featured</h1>
   <br>
   <div class="horizontalScroll">
-    <div class="featureTile" [ngStyle]="{'background-image':'url(../../assets/images/kid-art.jpg)', 'background-size':'cover'}"*ngFor="let article of featuredArticles">
+    <div class="featureTile" *ngFor="let article of featuredArticles">
       <app-feature-preview [articleData]="article"></app-feature-preview>
     </div>
   </div>
 </div>
+
+
+

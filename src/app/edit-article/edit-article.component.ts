@@ -9,12 +9,12 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './edit-article.component.html',
   styleUrls: ['./edit-article.component.css', '../post-article/post-article.component.css']
 })
+
 export class EditArticleComponent implements OnInit {
   article: any;
   key: any;
   routeParams: any;
   authInfo = null;
-
 
   constructor(
     private articleSvc: ArticleService,
@@ -41,11 +41,8 @@ export class EditArticleComponent implements OnInit {
     })
   }
 
-
   edit(article) {
     this.articleSvc.updateArticle(this.authInfo.$uid, article)
     this.router.navigate([`articledetail/${article.articleKey}`]);
-
   }
-
 }

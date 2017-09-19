@@ -1,5 +1,10 @@
 <div class="featurePreview">
-  <h3 class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:50}}</h3>
-  <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias | truncate:20}}</h4>
-  <p class="intro">Intro... {{articleData.introduction | truncate: 60 }}</p>
+  <div class="image-wrapper">
+    <img class="background" [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'">
+  </div>
+  <div class="text-wrapper">
+    <h3 class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:50}}</h3>
+    <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias | truncate:20}}</h4>
+    <p class="intro">Intro... {{articleData.introduction | truncate: 60 }}</p>
+  </div>
 </div>
