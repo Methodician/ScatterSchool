@@ -17,6 +17,7 @@ export class CommentService {
       parentKey: commentData.parentKey,
       text: commentData.text,
       timestamp: firebase.database.ServerValue.TIMESTAMP,
+      lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
 
     let dbSaveData = this.db.list('commentData/comments').push(commentToSave);
@@ -25,6 +26,18 @@ export class CommentService {
     this.makeUserAssociation(commentData.authorKey, dbSaveData.key);
     this.makeParentTypeAssociation(commentData.parentType, commentData.parentKey, dbSaveData.key);
     this.makeCommentsPerArticleAssociation(commentData.parentKey, dbSaveData.key);
+  }
+
+  updateComment(newCommentData) {
+    let commentDataToUpdate = {
+      text: newCommentData.text,
+      lastUpdated: firebase.database.ServerValue.TIMESTAMP
+    }
+    this.db.object(`commentData/comments/${newCommentData.key}`).update(commentDataToUpdate)
+  }
+
+  deleteComment(commentKey) {
+    this.db.object(`commentData/comments/${commentKey}`).update({isDeleted: true});
   }
 
   makeParentTypeAssociation(parentType, parentKey, childKey) {

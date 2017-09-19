@@ -5,7 +5,7 @@
 		<button (click)="edit(articleForm.value)" class="btn btn-default">Save Changes</button>
 	</div>
 	<div class="col-lg-6">
-		<app-article-cover-image *ngIf="article" [article]="article"></app-article-cover-image>
+		<app-article-cover-image *ngIf="article" [articleKey]="key"></app-article-cover-image>
 	</div>
 </div>
 <br>
