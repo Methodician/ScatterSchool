@@ -8,13 +8,13 @@ import { ArticleService } from './../services/article/article.service';
   providers: [ArticleService]
 })
 export class AllArticlesComponent implements OnInit {
-  
+  articles;
 
   constructor(private articleSvc: ArticleService) { }
 
   ngOnInit() {
-    this.articleSvc.getAllArticles().subscribe(response => {
-      
+    this.articleSvc.getAllArticles().subscribe( response => {
+      this.articles = response;
     });
   }
 
