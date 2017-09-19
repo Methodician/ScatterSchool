@@ -49,6 +49,20 @@ export class UserService {
     })
   }
 
+  updateUserInfo(userInfo, uid) {
+    let detailsToUpdate = {
+      alias: userInfo.alias,
+      bio: userInfo.bio,
+      city: userInfo.city,
+      email: userInfo.email,
+      fName: userInfo.fName,
+      lName: userInfo.lName,
+      state: userInfo.state,
+      zipCode:userInfo.zipCode
+    }
+    this.db.object(`userInfo/open/${uid}`).update(detailsToUpdate)
+  }
+
   followUser(userToFollowKey: string) {
     this.db.object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${userToFollowKey}`).set(firebase.database.ServerValue.TIMESTAMP);
     this.db.object(`userInfo/followersPerUser/${userToFollowKey}/${this.loggedInUserKey}`).set(firebase.database.ServerValue.TIMESTAMP);

@@ -7,11 +7,11 @@ import * as firebase from 'firebase';
 
 @Injectable()
 export class SuggestionService {
-  
+
   constructor(
     private db: AngularFireDatabase,
     private router: Router
-  ) {}
+  ) { }
 
   getAllSuggestions() {
     return this.db.list('suggestionData/suggestions');
@@ -22,12 +22,12 @@ export class SuggestionService {
   }
 
   saveSuggestion(suggestionData) {
-    
+
     suggestionData.timestamp = firebase.database.ServerValue.TIMESTAMP;
     suggestionData.lastUpdated = firebase.database.ServerValue.TIMESTAMP;
     suggestionData.voteCount = 0;
 
-    this.db.list('suggestionData/suggestions').push(suggestionData);
+    this.getAllSuggestions().push(suggestionData);
     this.router.navigate(['suggestions']);
   }
 
@@ -35,7 +35,7 @@ export class SuggestionService {
 
     paramsToUpdate.lastUpdated = firebase.database.ServerValue.TIMESTAMP;
 
-    let dbSuggestion = this.getSuggestionByKey(key);
-    dbSuggestion.update(paramsToUpdate);
+    this.getSuggestionByKey(key).update(paramsToUpdate);
+    this.router.navigate(['suggestions']);
   }
 }

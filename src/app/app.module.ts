@@ -56,7 +56,7 @@ import { AddSuggestionComponent } from './add-suggestion/add-suggestion.componen
 import { SuggestionPreviewComponent } from './suggestion-preview/suggestion-preview.component';
 import { SuggestionService } from './services/suggestion/suggestion.service';
 import { VoteService } from './services/vote/vote.service';
-import { VoteComponent } from './vote/vote.component';
+import { SuggestionVoteComponent } from './suggestion-vote/suggestion-vote.component';
 import { SuggestionSortPipe } from './pipes/suggestion-sort.pipe';
 import { ProfileImageComponent } from './profile-image/profile-image.component';
 import { CommentComponent } from './comment/comment.component';
@@ -65,6 +65,9 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
 import { CommentService } from './services/comment/comment.service';
 import { CommentListComponent } from './comment-list/comment-list.component';
 import { ArticleCoverImageComponent } from './article-cover-image/article-cover-image.component';
+import { AddReplyComponent } from './add-reply/add-reply.component';
+import { EditCommentComponent } from './edit-comment/edit-comment.component';
+import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
 
 
 
@@ -104,7 +107,7 @@ import { ArticleCoverImageComponent } from './article-cover-image/article-cover-
     EditSuggestionComponent,
     AddSuggestionComponent,
     SuggestionPreviewComponent,
-    VoteComponent,
+    SuggestionVoteComponent,
     SuggestionSortPipe,
     CharacterCounterComponent,
     ProfileImageComponent,
@@ -113,7 +116,10 @@ import { ArticleCoverImageComponent } from './article-cover-image/article-cover-
     AddCommentComponent,
     CommentListComponent,
     ArticleCoverImageComponent,
-    UploadFormComponent
+    UploadFormComponent,
+    AddReplyComponent,
+    EditCommentComponent,
+    TimeElapsedPipe
   ],
   imports: [
     BrowserModule,

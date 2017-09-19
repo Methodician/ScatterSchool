@@ -2,7 +2,7 @@
   <h4 class="show-comment-form" (click)="toggleCommentForm()">Add Comment</h4>
 </div>
 <div *ngIf="isFormShowing" class="comment-form-wrapper">
-  <app-comment-form #form [formType]="'comment'"></app-comment-form>
+  <app-comment-form #form></app-comment-form>
   <span id="counter">{{form.text.value.length}}</span>
   <button class="btn postCommentBtn" [disabled]="!form.valid" (click)="postComment(form.value)">Comment</button>
 </div>
