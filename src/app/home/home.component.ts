@@ -11,12 +11,40 @@ import { ArticleService } from './../services/article/article.service';
 })
 export class HomeComponent implements OnInit {
   routeParams;
+
+  featuredSelected: boolean; 
+  latestSelected: boolean; 
+  allArticlesSelected: boolean;
+
   constructor(private route: ActivatedRoute, private articleService: ArticleService) { }
   
   ngOnInit() {
     this.route.params.subscribe(params => {
       this.routeParams = params['mystring'];
     })
+    this.featuredSelected = true;
+    this.latestSelected = false;
+    this.allArticlesSelected = false;
   }
+
+  getFeaturedArticles() {
+    this.featuredSelected = true;
+    this.latestSelected = false;
+    this.allArticlesSelected = false;
+  }
+
+  getLatestArticles() {
+    this.latestSelected = true;
+    this.featuredSelected = false;
+    this.allArticlesSelected = false;
+  }
+
+  getAllArticles() {
+    this.allArticlesSelected = true;
+    this.featuredSelected = false;
+    this.latestSelected = false;
+  }
+
+  
 
 }
