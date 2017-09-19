@@ -4,7 +4,7 @@ import { ArticleService } from './../services/article/article.service';
 @Component({
   selector: 'app-all-articles',
   templateUrl: './all-articles.component.html',
-  styleUrls: ['./all-articles.component.css'],
+  styleUrls: ['./all-articles.component.scss'],
 })
 export class AllArticlesComponent implements OnInit {
   articles;

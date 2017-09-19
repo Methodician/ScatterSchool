@@ -6,7 +6,7 @@ import { ArticleService } from './../services/article/article.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.scss'],
   providers: [ArticleService]
 })
 export class HomeComponent implements OnInit {
@@ -27,24 +27,22 @@ export class HomeComponent implements OnInit {
     this.allArticlesSelected = false;
   }
 
-  getFeaturedArticles() {
-    this.featuredSelected = true;
-    this.latestSelected = false;
-    this.allArticlesSelected = false;
+  getArticlesToView(arg : string) {
+    if ( arg === 'featured') {
+      this.featuredSelected = true;
+      this.latestSelected = false;
+      this.allArticlesSelected = false;
+    } else if ( arg === 'latest') {
+      this.latestSelected = true;
+      this.featuredSelected = false;
+      this.allArticlesSelected = false;
+    } else if ( arg === 'all') {
+      this.allArticlesSelected = true;
+      this.featuredSelected = false;
+      this.latestSelected = false;
+    } else {
+      return alert('Opps! I think something broke! :(');
+    }
   }
-
-  getLatestArticles() {
-    this.latestSelected = true;
-    this.featuredSelected = false;
-    this.allArticlesSelected = false;
-  }
-
-  getAllArticles() {
-    this.allArticlesSelected = true;
-    this.featuredSelected = false;
-    this.latestSelected = false;
-  }
-
-  
 
 }
