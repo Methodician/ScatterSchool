@@ -8,13 +8,13 @@ import { UploadService } from 'app/services/upload/upload.service';
   styleUrls: ['./article-cover-image.component.scss']
 })
 export class ArticleCoverImageComponent implements OnInit {
-  @Input() article;
+  @Input() articleKey;
   articleCoverImageUrl;
 
   constructor( private uploadSvc: UploadService ) { }
 
   ngOnInit() {
-    this.getArticleCoverImage(this.article.articleKey);
+    this.getArticleCoverImage(this.articleKey);
   }
 
   getArticleCoverImage(articleKey) {
