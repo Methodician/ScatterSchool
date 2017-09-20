@@ -2,15 +2,30 @@
 .article-options {
     display: flex;
     justify-content: flex-start;
+    margin-top: 20px;
 
-.header-style {
-    font-family: STHeitiSC-Light;
-    letter-spacing: 0.5px;
-    font-size: 30px;
-    color: #31C2D7;
-    margin-left: 98px;
-    cursor: pointer;
+    .header-style {
+        font-family: STHeitiSC-Light;
+        color: #31C2D7;
+        letter-spacing: 0.5px;
+        font-size: 30px;
+        margin-left: 2.5%;
+        cursor: pointer;
+        
     }
+
+    .activeArticleState {
+        color: #C4275F;
+        text-decoration: underline;
+    }
+
 }
+
+.allArticleWrapper {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 25px;
+}
+
 
 
