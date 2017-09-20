@@ -68,7 +68,6 @@ import { ArticleCoverImageComponent } from './article-cover-image/article-cover-
 import { AddReplyComponent } from './add-reply/add-reply.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
-import { ArticleCoverImageComponent } from './article-cover-image/article-cover-image.component';
 import { AllArticlesComponent } from './all-articles/all-articles.component';
 
 
