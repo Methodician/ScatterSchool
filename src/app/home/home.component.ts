@@ -13,29 +13,19 @@ import { ArticleService } from './../services/article/article.service';
 export class HomeComponent implements OnInit {
   routeParams;
   currentSelectedTab: SelectedTab = SelectedTab.latest;
-  latestActiveState: boolean;
-  allActiveState: boolean;
 
   constructor(private route: ActivatedRoute, private articleService: ArticleService,) { }
   
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.routeParams = params['mystring'];
-      this.latestActiveState = true;
-      this.allActiveState = false;
-    })
+  
   }
 
-  latestSelected() {
+  selectLatest() {
     this.currentSelectedTab = SelectedTab.latest;
-    this.latestActiveState = true;
-    this.allActiveState = false;
   }
 
-  allSelected() {
+  selectAll() {
     this.currentSelectedTab = SelectedTab.all;
-    this.allActiveState = true;
-    this.latestActiveState = false;
   }
 
 }
