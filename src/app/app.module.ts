@@ -69,7 +69,6 @@ import { AddReplyComponent } from './add-reply/add-reply.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
 import { AllArticlesComponent } from './all-articles/all-articles.component';
-import { UserPresenceComponent } from './user-presence/user-presence.component';
 
 
 
@@ -123,8 +122,7 @@ import { UserPresenceComponent } from './user-presence/user-presence.component';
     EditCommentComponent,
     TimeElapsedPipe,
     UploadFormComponent,
-    AllArticlesComponent,
-    UserPresenceComponent
+    AllArticlesComponent
   ],
   imports: [
     BrowserModule,
