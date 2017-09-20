@@ -1,8 +1,7 @@
+<app-featured-articles></app-featured-articles>
 <div class="article-options">
- <h2 class="header-style" (click)="featuredSelected()">Featured</h2>
  <h2 class="header-style" (click)="latestSelected()">Latest</h2>
  <h2 class="header-style" (click)="allSelected()">All-Articles</h2>
 </div>
-<app-featured-articles *ngIf="currentSelectedTab === 1"></app-featured-articles>
-<app-latest-articles *ngIf="currentSelectedTab === 2"></app-latest-articles>
-<app-all-articles *ngIf="currentSelectedTab === 3"></app-all-articles>
+<app-latest-articles *ngIf="currentSelectedTab === 1"></app-latest-articles>
+<app-all-articles *ngIf="currentSelectedTab === 2"></app-all-articles>

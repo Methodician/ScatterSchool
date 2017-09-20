@@ -1,10 +1,15 @@
+// This is a scss file, currently all of the calls you see below are vanilla css calls.
+
+.featureList {
+  margin-bottom: 50px;
+}
+
 .featureHeader {
   font-family: STHeitiSC-Light;
   letter-spacing: 0.5px;
-  font-size: 24px;
-  color: #C4275F;
-  /* margin-left: 98px; */
-  text-align: center;
+  font-size: 30px;
+  color: #31C2D7;
+  margin-left: 98px;
   cursor: default;
 }
 

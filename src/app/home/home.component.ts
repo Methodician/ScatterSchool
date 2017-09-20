@@ -12,7 +12,7 @@ import { ArticleService } from './../services/article/article.service';
 })
 export class HomeComponent implements OnInit {
   routeParams;
-  currentSelectedTab: SelectedTab = SelectedTab.featured;
+  currentSelectedTab: SelectedTab = SelectedTab.latest;
 
   constructor(private route: ActivatedRoute, private articleService: ArticleService,) { }
   
@@ -20,10 +20,6 @@ export class HomeComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.routeParams = params['mystring'];
     })
-  }
-
-  featuredSelected() {
-    this.currentSelectedTab = SelectedTab.featured;
   }
 
   latestSelected() {
@@ -37,7 +33,6 @@ export class HomeComponent implements OnInit {
 }
 
 export enum SelectedTab {
-  'featured' = 1,
-  'latest',
+  'latest' = 1,
   'all'
 }
