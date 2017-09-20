@@ -1,7 +1,7 @@
 <div class="articleDetailWrapper">
   <div class="userPhotoDateWrapper">
     <img src="../../assets/images/ss-user-photo-frame.jpg" alt="">
-    <img [src]="profileImageUrl ? profileImageUrl : ''" class="profile-image" alt="user's profile photo">
+    <img [src]="profileImageUrl ? profileImageUrl : ''" class="profile-image">
     <div class="userTextWrapper">
       <div class="followButtonWrapper">
         <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias}}</h4>
