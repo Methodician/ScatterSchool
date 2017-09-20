@@ -50,7 +50,11 @@
     </div>
   </fieldset>
 </form>
-<tag-input class="form-field ckEditor" [maxItems]="8" [(ngModel)]="formTags" (onAdd)="onTagAdded($event)" (onRemove)="onTagRemoved($event)"></tag-input>
+<div class="tagWrapper">
+    <h2>Tags</h2>
+    <tag-input class="form-field ckEditor" [maxItems]="8" [(ngModel)]="formTags" (onAdd)="onTagAdded($event)" (onRemove)="onTagRemoved($event)"></tag-input>
+</div>
+
 <!-- <pre>
   {{ articleTags | json }}
 </pre>

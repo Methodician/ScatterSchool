@@ -8,13 +8,19 @@ input {
   font-size: 18px;
 }
 
-.uploadWrapper {
+h2 {
+  color: #243237;
+  font-size: 2.3rem;
+  font-weight: 200;
+  font-family: STHeitiSC-Light;
+  margin-bottom: 20px;
+}
+
+.upload-wrapper {
   font-family: STHeitiSC-Light;
   margin: 0 auto;
   max-width: 500px;
-
-
-  .imageWrapper {
+  .image-wrapper {
     display: flex;
     justify-content: center;
   }
@@ -24,6 +30,7 @@ input {
     height: 250px;
     margin-bottom: 20px;
     border: 1px solid #263237;
+    object-fit: cover;
   }
 }
 
