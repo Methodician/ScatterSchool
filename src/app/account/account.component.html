@@ -42,7 +42,7 @@
           <h4>Your Bio:</h4>
           <textarea formControlName="bio" type="text" rows="3" cols="50" class="form-control"></textarea>
         </div>
-        <button (click)="updateSettings(form)" [disabled]="isErrorVisible('alias', 'maxlength')" class="btn">Save Settings</button>
+        <button [disabled]="form.pristine || form.invalid" class="btn" (click)="updateAccountDetails()">Save Settings</button>
       </form>
     </div>
     <div class="col-md-2">

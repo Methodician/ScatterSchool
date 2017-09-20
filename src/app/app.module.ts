@@ -64,6 +64,7 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
 import { CommentService } from './services/comment/comment.service';
 import { CommentListComponent } from './comment-list/comment-list.component';
+import { ArticleCoverImageComponent } from './article-cover-image/article-cover-image.component';
 import { AddReplyComponent } from './add-reply/add-reply.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
@@ -116,6 +117,8 @@ import { AllArticlesComponent } from './all-articles/all-articles.component';
     CommentFormComponent,
     AddCommentComponent,
     CommentListComponent,
+    ArticleCoverImageComponent,
+    UploadFormComponent,
     AddReplyComponent,
     EditCommentComponent,
     TimeElapsedPipe,

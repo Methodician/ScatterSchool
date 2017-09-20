@@ -54,6 +54,11 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  updateAccountDetails() {
+    this.userSvc.updateUserInfo(this.form.value, this.userInfo.uid);
+  }
+
+
   setUser() {
     if (this.accountUserKey || this.loggedInUserKey) {
       this.getUserInfo(this.accountUserKey || this.loggedInUserKey);
