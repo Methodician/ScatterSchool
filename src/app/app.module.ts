@@ -121,7 +121,6 @@ import { AllArticlesComponent } from './all-articles/all-articles.component';
     AddReplyComponent,
     EditCommentComponent,
     TimeElapsedPipe,
-    ArticleCoverImageComponent,
     UploadFormComponent,
     AllArticlesComponent
   ],
