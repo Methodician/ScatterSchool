@@ -29,6 +29,10 @@ h2 {
   margin-bottom: 20px;
 }
 
+tag-input {
+  width: 100% !important;
+}
+
 .formGroup {
   padding-top: 10px;
 }
@@ -63,4 +67,11 @@ h2 {
 
 #body{
   height: 36rem;
+}
+
+@media only screen and (max-width:768px) {
+  .formSection {
+    width: 95%;
+    margin: 0 auto;
+  }
 }

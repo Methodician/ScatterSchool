@@ -18,8 +18,8 @@ h2 {
 
 .upload-wrapper {
   font-family: STHeitiSC-Light;
+  width: 500px;
   margin: 0 auto;
-  max-width: 500px;
   .image-wrapper {
     display: flex;
     justify-content: center;
@@ -36,10 +36,10 @@ h2 {
 
 @media only screen and (max-width:768px) {
   input {
-      width: 100%;
+    width: 100%;
   }
-  .uploadWrapper{
-      width: 95%;
-      margin: 0 auto;
+  .upload-wrapper{
+    width: 95%;
+    margin: 0 auto;
   }
 }
