@@ -46,4 +46,11 @@ export class ArticleSearchPipe implements PipeTransform {
       return true;
     return false;
   }
+
 }
+
+// export enum SelectedTab {
+//   'featured' = 1,
+//   'latest',
+//   'all'
+// }
