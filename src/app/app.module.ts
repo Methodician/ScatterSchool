@@ -122,7 +122,6 @@ import { UserPresenceComponent } from './user-presence/user-presence.component';
     AddReplyComponent,
     EditCommentComponent,
     TimeElapsedPipe,
-    ArticleCoverImageComponent,
     UploadFormComponent,
     AllArticlesComponent,
     UserPresenceComponent
