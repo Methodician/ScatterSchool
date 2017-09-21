@@ -13,9 +13,10 @@ export class CommentComponent implements OnInit {
   @Input() comment;
   @Input() currentUserInfo;
 
-  isFormShowing: boolean = false;
   replies;
   displayName: string = '';
+  editShowing: boolean = false;
+  repliesShowing: boolean = false;
 
   constructor(private router: Router, private commentSvc: CommentService, private userSvc: UserService) { }
 
@@ -31,28 +32,40 @@ export class CommentComponent implements OnInit {
     });
   }
 
-  postReply(replyData) {
-    if(this.currentUserInfo) this.saveReply(replyData);
+  navigateToProfile() {
+    this.router.navigate([`profile`, this.comment.authorKey]);
+  }
+
+  currentUserDisplayName() {
+    return this.currentUserInfo.alias || this.currentUserInfo.fName;
+  }
+
+  isLoggedInUserComment() {
+    return this.currentUserInfo && this.currentUserInfo.uid === this.comment.authorKey
+  }
+
+  toggleReplies() {
+    this.repliesShowing = !this.repliesShowing;
+  }
+
+  hasReplies() {
+    return this.replies && this.replies.length > 0;
+  }  
+
+  isRepliesShowing() {
+    return this.hasReplies() && !this.repliesShowing;
+  }
+
+  tryShowAddReply(addReply) {
+    if(this.currentUserInfo) addReply.toggleReplyForm();
     else this.router.navigate(['login']);
   }
 
-  saveReply(replyData) {
-    let comment = {
-      authorKey: this.currentUserInfo.$key,
-      parentKey: this.comment.$key,
-      parentType: 'comment',
-      text: replyData.text,
-    }
-
-    this.commentSvc.saveComment(comment);
-    this.toggleReplyForm();
+  toggleEdit() {
+    this.editShowing = !this.editShowing;
   }
 
-  toggleReplyForm() {
-    this.isFormShowing = !this.isFormShowing;
-  }
-
-  navigateToProfile() {
-    this.router.navigate([`profile`, this.comment.authorKey]);
+  deleteComment() {
+    this.commentSvc.deleteComment(this.comment.$key);
   }
 }
