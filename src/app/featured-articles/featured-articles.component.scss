@@ -1,10 +1,13 @@
+// This is a scss file, currently all of the calls you see below are vanilla css calls.
+
+
 .featureHeader {
   font-family: STHeitiSC-Light;
   letter-spacing: 0.5px;
-  font-size: 24px;
-  color: #C4275F;
-  /* margin-left: 98px; */
-  text-align: center;
+  font-size: 30px;
+  color: #31C2D7;
+  margin-left: 2.5%;
+  margin-bottom: 40px;
   cursor: default;
 }
 
@@ -13,10 +16,11 @@
   font-family: STHeitiSC-Light;
   background-color: #fff;
   border: 1px solid #263237;
-  overflow: auto;
-  margin-right: 100px;
-  margin-left: 100px;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  margin: 0 auto;
   height: 275px;
+  width: 95%;
 }
 
 .featureTile {
@@ -47,3 +51,5 @@
     margin-bottom: 0;
   }
 }
+
+

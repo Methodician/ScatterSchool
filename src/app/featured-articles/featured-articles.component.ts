@@ -7,7 +7,7 @@ import { ArticleService } from './../services/article/article.service';
 @Component({
   selector: 'app-featured-articles',
   templateUrl: './featured-articles.component.html',
-  styleUrls: ['./featured-articles.component.css'],
+  styleUrls: ['./featured-articles.component.scss'],
   providers: [ArticleService]
 })
 export class FeaturedArticlesComponent implements OnInit {
