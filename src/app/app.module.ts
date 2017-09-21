@@ -116,7 +116,6 @@ import { AllArticlesComponent } from './all-articles/all-articles.component';
     CommentFormComponent,
     AddCommentComponent,
     CommentListComponent,
-    ArticleCoverImageComponent,
     UploadFormComponent,
     AddReplyComponent,
     EditCommentComponent,
