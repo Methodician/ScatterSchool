@@ -4,6 +4,6 @@
  <h2 class="header-style" (click)="selectAll()" [class.activeArticleState]="currentSelectedTab === 2">All-Articles</h2>
 </div>
 <app-latest-articles *ngIf="currentSelectedTab === 1"></app-latest-articles>
-<div class="allArticleWrapper">
-    <app-all-articles *ngIf="currentSelectedTab === 2"></app-all-articles>
+<div *ngIf="currentSelectedTab === 2" class="allArticleWrapper">
+    <app-all-articles></app-all-articles>
 </div>
