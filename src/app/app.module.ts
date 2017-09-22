@@ -73,6 +73,7 @@ import { ChatComponent } from './chat/chat.component';
 import { ChatService } from './services/chat/chat.service';
 import { ChatFormComponent } from './chat-form/chat-form.component';
 import { UserListComponent } from './user-list/user-list.component';
+import { UserPresenceComponent } from './user-presence/user-presence.component';
 
 
 @NgModule({
@@ -128,7 +129,8 @@ import { UserListComponent } from './user-list/user-list.component';
     ArticleCoverImageComponent,
     ChatComponent,
     ChatFormComponent,
-    UserListComponent
+    UserListComponent,
+    UserPresenceComponent
   ],
   imports: [
     BrowserModule,

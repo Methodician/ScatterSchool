@@ -1,5 +1,6 @@
 <div id="user-list">
   <div *ngFor="let user of userList" class="user">
     <span>{{displayName(user)}}: </span>
+    <user-presence [userKey]="user.$key"></user-presence>
   </div>
 </div>
