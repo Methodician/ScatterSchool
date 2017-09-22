@@ -13,11 +13,10 @@ progress {
   border-bottom: 1px solid #263237;
 }
 
-.uploadWrapper {
+.upload-wrapper {
   font-family: STHeitiSC-Light;
+  width: 500px;
   margin: 0 auto;
-  max-width: 500px;
-
   .btnUpload{
       height: 40px;
       color: #fff;
@@ -28,11 +27,5 @@ progress {
 }
 
 @media only screen and (max-width:768px) {
-  input {
-      width: 100%;
-  }
-  .uploadWrapper{
-      width: 95%;
-      margin: 0 auto;
-  }
+ 
 }
