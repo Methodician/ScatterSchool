@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase';
@@ -5,12 +6,24 @@ import * as firebase from 'firebase';
 @Injectable()
 export class ChatService {
 
+  // LATER => currentChatKeys: string[];
+  currentChatKey$: BehaviorSubject<string> = new BehaviorSubject(null);
+  currentChatKey: string;
+
   constructor(
     private db: AngularFireDatabase
-  ) {}
+  ) { }
 
   getAllMessages() {
     return this.db.list(`chatData/messages`);
+  }
+
+  getMessagesForCurrentChat() {
+    return this.db.list(`chatData/messagesPerChat/${this.currentChatKey}`);
+  }
+
+  getAllChats() {
+    return this.db.list('chatData/chats');
   }
 
   // getMessagesByRecipientAndAuthor(recipientKey, authorKey) {
@@ -24,15 +37,29 @@ export class ChatService {
   // }
 
   saveMessage(messageData) {
-    let messageToSave = {
+    /* let messageToSave = {
       text: messageData.text,
       authorKey: messageData.authorKey,
       authorName: messageData.authorName,
       timestamp: firebase.database.ServerValue.TIMESTAMP
-    }
+    } */
+    messageData.timestamp = firebase.database.ServerValue.TIMESTAMP;
 
-    let dbMessageRef = this.getAllMessages().push(messageToSave);
-    this.saveMessageRecipientAuthorAssociation(dbMessageRef.key, messageData.recipientKey, messageData.authorKey)
+    let dbMessageRef = this.getMessagesForCurrentChat().push(messageData);
+
+    //let dbMessageRef = this.getAllMessages().push(messageToSave);
+    //this.saveMessageRecipientAuthorAssociation(dbMessageRef.key, messageData.recipientKey, messageData.authorKey)
+  }
+
+  openChat(userKeys: string[]) {
+    let dbChatsRef = this.getAllChats();
+    let chatKey = dbChatsRef.push({ timestamp: firebase.database.ServerValue.TIMESTAMP }).key;
+    this.currentChatKey = chatKey;
+    this.currentChatKey$.next(chatKey);
+    for (let userKey of userKeys) {
+      this.db.object(`chatData/chatsPerMember/${userKey}/${chatKey}`).set(true);
+      this.db.object(`chatData/membersPerChat/${chatKey}/${userKey}`).set(true);
+    }
   }
 
   saveMessageRecipientAuthorAssociation(messageKey, recipientKey, authorKey) {
