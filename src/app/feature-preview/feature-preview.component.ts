@@ -6,7 +6,7 @@ import { ArticleService } from './../services/article/article.service';
 @Component({
   selector: 'app-feature-preview',
   templateUrl: './feature-preview.component.html',
-  styleUrls: ['./feature-preview.component.css']
+  styleUrls: ['./feature-preview.component.scss']
 })
  
 export class FeaturePreviewComponent implements OnInit {

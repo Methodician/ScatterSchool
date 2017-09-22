@@ -44,7 +44,7 @@ export class ArticleDetailComponent implements OnInit {
       this.checkIfFeatured();
       this.getArticleBody(this.articleData);
       this.getAuthor(this.articleData.authorKey);
-      this.getProfileImage(this.articleData.author);
+      this.getProfileImage(this.articleData.authorKey);
     }
   }
 
