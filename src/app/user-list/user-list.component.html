@@ -1,6 +1,8 @@
 <div id="user-list">
+  <h4>Users:</h4>
   <div *ngFor="let user of userList" class="user">
     <span>{{displayName(user)}}: </span>
     <user-presence [userKey]="user.$key"></user-presence>
   </div>
+  <h4>Groups:</h4>
 </div>
