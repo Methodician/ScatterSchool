@@ -8,7 +8,6 @@
 		(change)="detectFiles($event)">
 	</div>
 </div>
-
 <app-article-form #form>
 </app-article-form>
 <button (click)="save(form.value)" class="btn btn-default" [disabled]="form.isErrorVisible('title', 'maxlength') || form.isErrorVisible('introduction', 'maxlength')">Post</button>

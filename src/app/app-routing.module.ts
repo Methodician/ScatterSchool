@@ -19,6 +19,7 @@ import { AddSuggestionComponent } from "app/add-suggestion/add-suggestion.compon
 import { EditSuggestionComponent } from "app/edit-suggestion/edit-suggestion.component";
 
 
+
 const routes: Routes = [
   {
     path: 'home',
