@@ -69,7 +69,8 @@ import { AddReplyComponent } from './add-reply/add-reply.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
 import { AllArticlesComponent } from './all-articles/all-articles.component';
-
+import { ChatComponent } from './chat/chat.component';
+import { ChatService } from './services/chat/chat.service';
 
 
 @NgModule({
@@ -122,7 +123,8 @@ import { AllArticlesComponent } from './all-articles/all-articles.component';
     TimeElapsedPipe,
     UploadFormComponent,
     AllArticlesComponent,
-    ArticleCoverImageComponent
+    ArticleCoverImageComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -146,7 +148,8 @@ import { AllArticlesComponent } from './all-articles/all-articles.component';
     UploadService,
     SuggestionService,
     VoteService,
-    CommentService
+    CommentService,
+    ChatService
   ],
   bootstrap: [AppComponent]
 })

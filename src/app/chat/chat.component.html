@@ -1,0 +1,8 @@
+<p>form goes here</p>
+<div id="temp-form">
+  <input #messageInput>
+  <button (click)="sendMessage(messageInput.value)"></button>
+</div>
+<ul>
+    <li *ngFor="let message of messages"> {{ message.timestamp | timeElapsed }} | "{{ message.body }}"</li>
+</ul>

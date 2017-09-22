@@ -17,7 +17,7 @@ import { SuggestionsComponent } from "app/suggestions/suggestions.component";
 import { SuggestionDetailComponent } from "app/suggestion-detail/suggestion-detail.component";
 import { AddSuggestionComponent } from "app/add-suggestion/add-suggestion.component";
 import { EditSuggestionComponent } from "app/edit-suggestion/edit-suggestion.component";
-
+import { ChatComponent } from "app/chat/chat.component";
 
 
 const routes: Routes = [
@@ -103,6 +103,10 @@ const routes: Routes = [
   {
     path: 'aboutus',
     component: AboutUsComponent
+  },
+  {
+    path: 'chat',
+    component: ChatComponent
   },
   {
     path: 'datacleanup',
