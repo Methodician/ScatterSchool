@@ -184,5 +184,38 @@
         "suggestionKey2": -1
       }
     }
+  },
+  "chatData": {
+    "chats": {
+      "chatKey1": {
+        "lastMessage": "THIS IS A MESSAGE",
+        "timestamp": 981241419123124
+      }
+    },
+    "messagesPerChat": {
+      "chatKey1": {
+        "messageKey1": {
+          "sentBy": "userKey2",
+          "body": "THIS IS A MESSAGE",
+          "timestamp": 12312414441
+        }
+      }
+    },
+    "membersPerChat": {
+      "chatKey1": {
+        "userKey1": true,
+        "userKey2": true
+      }
+    },
+    "chatsPerMember": {
+      "userKey1": {
+        "chatKey1": true,
+        "chatKey2": true
+      },
+      "userKey2": {
+        "chatKey1": true,
+        "chatKey2": true
+      }
+    }
   }
 }
