@@ -62,10 +62,10 @@ progress {
   }
   .uploadForm {
     width: 100%;
-    /* margin: 0 auto; */
   }
   .upload-wrapper{
-      width: 95%;
-      margin: 0 auto;
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 95px;
   }
 }
