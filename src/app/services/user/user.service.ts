@@ -20,27 +20,12 @@ export class UserService {
     private router: Router
   ) {
     this.authSvc.authInfo$.subscribe(authInfo => {
-      if(authInfo.$uid) this.setUserPresence(authInfo.$uid);
       this.getUserInfo(authInfo.$uid).subscribe(info => {
         if (info.$key != 'null') {
           this.userInfo$.next(info);
           this.loggedInUserKey = info.$key;
         }
       })
-    })
-  }
-
-  setUserPresence(userKey) {
-    let userConnections = firebase.database().ref(`presenceData/users/${userKey}/connections`);
-    let lastOnline = firebase.database().ref(`presenceData/users/${userKey}/lastOnline`);
-    let connectionData = firebase.database().ref(`.info/connected`);
-    connectionData.on('value', function(snapshot) {
-      if(snapshot.val()) {
-        let connection = userConnections.push();
-        connection.onDisconnect().remove()
-        connection.set(true);
-        lastOnline.onDisconnect().set(firebase.database.ServerValue.TIMESTAMP)
-      }
     })
   }
 

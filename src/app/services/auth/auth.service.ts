@@ -7,8 +7,9 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class AuthService {
-
   static UNKNOWN_USER = new AuthInfo(null);
+  connection;
+  lastOnline;
 
   user$: BehaviorSubject<firebase.User> = new BehaviorSubject<firebase.User>(null);
   authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthService.UNKNOWN_USER);
@@ -19,12 +20,27 @@ export class AuthService {
   ) {
     this.afAuth.authState.subscribe(info => {
       if (info) {
-        //console.log('AuthState from Auth Service constructor:', info);
+        // console.log('AuthState from Auth Service constructor:', info);
+        if(info.uid) this.setUserPresence(info.uid);
         this.user$.next(info);
         const authInfo = new AuthInfo(info.uid, info.emailVerified);
         this.authInfo$.next(authInfo);
       }
     });
+  }
+
+  setUserPresence(userKey) {
+    let userConnections = firebase.database().ref(`presenceData/users/${userKey}/connections`);
+    this.lastOnline = firebase.database().ref(`presenceData/users/${userKey}/lastOnline`);
+    let connectionData = firebase.database().ref(`.info/connected`);
+    connectionData.on('value', snapshot => {
+      if(snapshot.val() == true) {
+        this.connection = userConnections.push();
+        this.connection.onDisconnect().remove();
+        this.connection.set(true);
+        this.lastOnline.onDisconnect().set(firebase.database.ServerValue.TIMESTAMP)
+      }
+    })
   }
 
   /*login(email, password): Observable<FirebaseAuthState> {
@@ -35,6 +51,11 @@ export class AuthService {
   }
 
   logout() {
+    this.connection.onDisconnect().cancel();
+    this.connection.remove();
+    this.lastOnline.onDisconnect().cancel();
+    this.lastOnline.set(firebase.database.ServerValue.TIMESTAMP);
+    
     this.afAuth.auth.signOut();
     this.authInfo$.next(AuthService.UNKNOWN_USER);
     this.user$.next(null);
