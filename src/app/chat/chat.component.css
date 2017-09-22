@@ -17,12 +17,19 @@
   background-color: dodgerblue;
 }
 
+#message-list {
+  max-height: 365px;
+  overflow-y: scroll;
+}
+
 #messages {
   width: 400px;
-  margin: auto;
+  height: 500px;
+  margin: 10px;
   padding: 10px;
   box-shadow: 0px 1px 3px 0px grey;
   border-radius: 1px;
+  display: inline-block;
 }
 
 #chat-form {
