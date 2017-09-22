@@ -252,5 +252,19 @@
         "commentKey4": true
       }
     }
+  },
+  "presenceData": {
+    "users": {
+      "onlineUserExampleKey": {
+        "connections": {
+          "arbitraryKeyToIndicateAConnection": true,
+          "secondArbitraryKeyToIndicateSecondConnection": true
+        },
+        "lastOnline": 8378137812
+      },
+      "offlineUserExampleKey": {
+        "lastOnline": 1331891342
+      }
+    }
   }
 }
