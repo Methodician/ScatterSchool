@@ -27,6 +27,7 @@ export class ChatService {
     let messageToSave = {
       text: messageData.text,
       authorKey: messageData.authorKey,
+      authorName: messageData.authorName,
       timestamp: firebase.database.ServerValue.TIMESTAMP
     }
 

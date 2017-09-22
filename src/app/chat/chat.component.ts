@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatService } from '../services/chat/chat.service'
+import { UserService } from './../services/user/user.service';
 
 @Component({
   selector: 'app-chat',
@@ -7,29 +8,38 @@ import { ChatService } from '../services/chat/chat.service'
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
-  // @Input() authorKey;
   // @Input() recipientKey;
   messages;
-  authorKey: string = "";
+  currentUserInfo;
   recipientKey: string = "";
 
-  constructor(private chatSvc: ChatService) { }
+  constructor(
+    private chatSvc: ChatService,
+    private userSvc: UserService
+  ) { }
 
   ngOnInit() {
+    this.userSvc.userInfo$.subscribe(userInfo => {
+      this.currentUserInfo = userInfo;
+    });
+
     this.chatSvc.getAllMessages().subscribe(messages => {
       this.messages = messages;
     });
-    // this.chatSvc.getMessagesByRecipientAndAuthor(this.recipientKey, this.authorKey).subscribe(messages => {
-    //   this.messages = messages;
-    // });
   }
 
   sendMessage(message) {
+    let authorName = this.currentUserInfo.alias ? this.currentUserInfo.alias : this.currentUserInfo.fName;
     let messageData = {
-      authorKey: this.authorKey,
+      authorKey: this.currentUserInfo.$key,
+      authorName: authorName,
       recipientKey: this.recipientKey,
       text: message,
     }
     this.chatSvc.saveMessage(messageData);
+  }
+
+  isOwnMessage(authorKey) {
+    return this.currentUserInfo && authorKey == this.currentUserInfo.$key;
   }
 }
