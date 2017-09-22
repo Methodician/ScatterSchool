@@ -71,6 +71,7 @@ import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
 import { AllArticlesComponent } from './all-articles/all-articles.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatService } from './services/chat/chat.service';
+import { ChatFormComponent } from './chat-form/chat-form.component';
 
 
 @NgModule({
@@ -124,7 +125,8 @@ import { ChatService } from './services/chat/chat.service';
     UploadFormComponent,
     AllArticlesComponent,
     ArticleCoverImageComponent,
-    ChatComponent
+    ChatComponent,
+    ChatFormComponent
   ],
   imports: [
     BrowserModule,

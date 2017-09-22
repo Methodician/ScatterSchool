@@ -1,7 +1,10 @@
 <p>form goes here</p>
 <div id="temp-form">
-  <input #messageInput>
   <button (click)="sendMessage(messageInput.value)"></button>
+  <div id="chat-form">
+    <chat-form #chatForm></chat-form><span>{{chatForm.maxLength - chatForm.text.length}}</span>
+    <button [disabled]="chatForm.form.invalid || !this.currentUserInfo" (click)="sendMessage(chatForm.text)">Send</button>
+  </div>
 </div>
 <ul>
     <li *ngFor="let message of messages"> {{ message.timestamp | timeElapsed }} | "{{ message.body }}"</li>
