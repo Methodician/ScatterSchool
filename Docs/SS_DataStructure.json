@@ -217,5 +217,40 @@
         "chatKey2": true
       }
     }
+  },
+  "commentData": {
+    "comments": {
+      "commentKey1": {
+        "authorKey": "authorKey1",
+        "parentKey": "parentKey1",
+        "text": "THIS IS SOME COMMENT TEXT",
+        "timestamp": 121414141341,
+        "lastUpdated": 989889899898
+      }
+    },
+    "commentsPerUser": {
+      "userKey1": {
+        "commentKey1": true,
+        "commentKey2": true
+      }
+    },
+    "commentsPerParent": {
+      "parentKey1": {
+        "commentKey1": true,
+        "commentKey2": true
+      }
+    },
+    "commentsPerArticle": {
+      "articleKey1": {
+        "commentKey1": true,
+        "commentKey2": true
+      }
+    },
+    "repliesPerComment": {
+      "commentKey1": {
+        "commentKey3": true,
+        "commentKey4": true
+      }
+    }
   }
 }
