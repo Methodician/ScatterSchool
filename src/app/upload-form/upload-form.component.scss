@@ -27,5 +27,11 @@ progress {
 }
 
 @media only screen and (max-width:768px) {
- 
+  input {
+    width: 300px;
+  }
+ .upload-wrapper {
+   width: 100%;
+   margin: 0 auto;
+ }
 }
