@@ -1,20 +1,20 @@
 import { AuthInfo } from './../services/auth/auth-info';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControlName } from '@angular/forms';
 import { UserService } from './../services/user/user.service';
 import { AuthService } from './../services/auth/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
   form: FormGroup;
   authInfo: AuthInfo;
-
+  
   constructor(
     private authSvc: AuthService,
     private userSvc: UserService,
@@ -47,12 +47,12 @@ export class LoginComponent implements OnInit {
   }
 
   isErrorVisible(field: string, error: string) {
-    let control = this.form.controls[field];
+    const control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
   }
 
   isControlDirty(field: string) {
-    let control = this.form.controls[field];
+    const control = this.form.controls[field];
     return control.dirty;
   }
 

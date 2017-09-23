@@ -4,6 +4,6 @@
 <div *ngIf="isFormShowing" class="comment-form-wrapper">
   <app-comment-form #form></app-comment-form>
   <span id="counter">{{form.text.value.length}}</span>
-  <button md-raised-button class="postCommentBtn" [disabled]="!form.valid" (click)="postComment(form.value)">Comment</button>
+  <button md-raised-button color="accent" class="postCommentBtn" [disabled]="!form.valid" (click)="postComment(form.value)">Comment</button>
 </div>
 <hr>

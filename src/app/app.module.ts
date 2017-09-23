@@ -1,4 +1,4 @@
-import {MdButtonModule} from '@angular/material';
+import {MdButtonModule, MdInputModule} from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -137,7 +137,8 @@ import { AllArticlesComponent } from './all-articles/all-articles.component';
     CKEditorModule,
     TagInputModule,
     BrowserAnimationsModule,
-    MdButtonModule
+    MdButtonModule,
+    MdInputModule
   ],
   providers: [
     AngularFireDatabase,
