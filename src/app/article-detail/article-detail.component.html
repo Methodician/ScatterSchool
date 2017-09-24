@@ -24,7 +24,7 @@
   <div class="bodyWrapper">
     <p class="intro">{{article?.introduction}}</p>
     <br>
-    <div [innerHTML]="article?.body" class="copyText"></div>
+    <div [innerHTML]="article?.body | safeHtml" class="copyText"></div>
   </div>
 
   <button class="btn btn-primary" (click)="edit()">Edit</button>

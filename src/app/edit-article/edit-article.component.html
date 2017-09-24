@@ -1,16 +1,20 @@
 <div>
-	<div class="image-wrapper">
-		<app-article-cover-image *ngIf="article" [articleKey]="key"></app-article-cover-image>
-	</div>
-	<div>
-		<app-article-form #articleForm [initialValue]="article">
-		</app-article-form>
-		<button (click)="edit(articleForm.value)" class="btn btn-default">Save Changes</button>
-	</div>
+  <div class="image-wrapper">
+    <app-article-cover-image *ngIf="article" [articleKey]="key"></app-article-cover-image>
+  </div>
+  <div>
+    <app-article-form #articleForm [initialValue]="article">
+    </app-article-form>
+    <button (click)="edit(articleForm.value)" class="btn btn-default">Save Changes</button>
+  </div>
 </div>
 <br>
 <br>
 <br> Preview:
+
+<pre>
+	{{articleForm.value | json}}
+</pre>
 
 <app-article-detail *ngIf="article" [articleData]="articleForm.value" [editingPreview]="true"></app-article-detail>
 
