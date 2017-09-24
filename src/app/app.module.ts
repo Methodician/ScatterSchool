@@ -1,3 +1,4 @@
+import {MdButtonModule, MdInputModule} from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -122,7 +123,7 @@ import { AllArticlesComponent } from './all-articles/all-articles.component';
     TimeElapsedPipe,
     UploadFormComponent,
     AllArticlesComponent,
-    ArticleCoverImageComponent
+    ArticleCoverImageComponent,
   ],
   imports: [
     BrowserModule,
@@ -135,7 +136,9 @@ import { AllArticlesComponent } from './all-articles/all-articles.component';
     AngularFireAuthModule,
     CKEditorModule,
     TagInputModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MdButtonModule,
+    MdInputModule
   ],
   providers: [
     AngularFireDatabase,
