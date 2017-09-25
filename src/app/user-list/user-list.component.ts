@@ -10,6 +10,7 @@ import { UserService } from './../services/user/user.service';
 })
 export class UserListComponent implements OnInit {
   userList;
+  chatList;
   loggedInUser: UserInfoOpen;
   constructor(
     private userSvc: UserService,
@@ -22,17 +23,34 @@ export class UserListComponent implements OnInit {
     });
     this.userSvc.userInfo$.subscribe(user => {
       this.loggedInUser = user;
-    })
+    });
+    this.chatSvc.getAllChats().subscribe(chatList => {
+      this.chatList = chatList;
+    });
   }
 
   displayName(user) {
     return user.alias ? user.alias : user.fName;
   }
 
-  openChat(userKey) {
-    let userKeys = [];
-    userKeys.push(userKey);
-    userKeys.push(this.loggedInUser.$key);
-    this.chatSvc.openChat(userKeys);
+  findChat(userKey) {
+    return this.chatList.filter(chat => {
+      return chat.memberKeys[userKey.$key] && chat.memberKeys[this.loggedInUser.$key]
+    })[0];
+  }
+
+  createOrOpenChat(user) {
+    let existingChat = this.findChat(user);
+    (existingChat) ? this.openChat(existingChat.$key) : this.createChat(user);
+  }
+
+  openChat(chatKey){
+    this.chatSvc.openChat(chatKey);
+  }
+
+  createChat(user) {
+    let users = [];
+    users.push(user, this.loggedInUser);
+    this.chatSvc.createChat(users);
   }
 }

@@ -51,19 +51,29 @@ export class ChatService {
     //this.saveMessageRecipientAuthorAssociation(dbMessageRef.key, messageData.recipientKey, messageData.authorKey)
   }
 
-  openChat(userKeys: string[]) {
+  // getAllMembersPerChat() {
+  //   return this.db.list()
+  // }
+
+  createChat(users) {
     let dbChatsRef = this.getAllChats();
     let chatKey = dbChatsRef.push({ timestamp: firebase.database.ServerValue.TIMESTAMP }).key;
     this.currentChatKey = chatKey;
     this.currentChatKey$.next(chatKey);
-    for (let userKey of userKeys) {
-      this.db.object(`chatData/chatsPerMember/${userKey}/${chatKey}`).set(true);
-      this.db.object(`chatData/membersPerChat/${chatKey}/${userKey}`).set(true);
+    for (let user of users) {
+      this.db.object(`chatData/chats/${chatKey}/memberKeys/${user.$key}`).set(true);
+      this.db.object(`chatData/chatsPerMember/${user.$key}/${chatKey}`).set(true);
+      this.db.object(`chatData/membersPerChat/${chatKey}/${user.$key}`).update({memberName: `${user.alias ? user.alias : user.fName}`});
     }
   }
 
-  saveMessageRecipientAuthorAssociation(messageKey, recipientKey, authorKey) {
-    this.db.object(`chatData/messagesPerRecipientPerAuthor/${authorKey}/${recipientKey}/${messageKey}`).set(true);
+  openChat(chatKey: string) {
+    this.currentChatKey = chatKey;
+    this.currentChatKey$.next(chatKey);
   }
+
+  // saveMessageRecipientAuthorAssociation(messageKey, recipientKey, authorKey) {
+  //   this.db.object(`chatData/messagesPerRecipientPerAuthor/${authorKey}/${recipientKey}/${messageKey}`).set(true);
+  // }
 
 }
