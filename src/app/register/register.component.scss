@@ -1,84 +1,64 @@
-h1 {
-  font-size: 30px;
-  color: #31C2D7;
-  cursor: default;
-  margin-bottom: 20px;
-}
-
-label {
-  color: #243237;
-  font-size: 18px;
-  font-weight: 200;
-  letter-spacing: 0.5px;
-  margin: 10px 0;
-}
-
-input {
-  border-top: 1px solid #fff;
-  border-right: 1px solid #fff;
-  border-left: 1px solid #fff;
-  border-bottom:1px solid #263237;
-  border-radius: 0;
-  margin-bottom: 40px;
-}
-
-input:focus {
-  box-shadow: none;
-  border-top: 1px solid #fff;
-  border-right: 1px solid #fff;
-  border-left: 1px solid #fff;
-  border-bottom:1px solid #31C2D7;
-}
-
-button {
-  font-family: STHeitiSC-Light;
-  letter-spacing: 0.5px;
-  color: #fff;
-  font-size: 1.6rem;
-  font-weight: 100;
-  background-color: #C4275F;
-  border-radius: 3px;
-  width:14.3rem;
-  height: 4.5rem;
-}
-
 .registerWrapper {
   width: 95%;
   margin: 0 auto;
   margin-top: 90px;
-}
-
-.registerWrapper * {
   font-family: STHeitiSC-Light;
-}
 
-.formWrapper {
-  width: 95%;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
+  .titleWrapper {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    h1 {
+      font-size: 30px;
+      color: #31C2D7;
+      cursor: default;
+      margin-bottom: 20px;
+    }
+  }
 
-.columnOne {
-  width: 400px;
-  margin-right: 40px;
-}
+  .formWrapper {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+  }
 
-.columnTwo {
-  width: 400px;
-}
+  .columnOne {
+    width: 400px;
+    margin-right: 40px;
+  
+    md-form-field {
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
 
-.smallText{
-  font-size: 14px;
-}
+  .columnTwo {
+    width: 400px;
+  
+    md-form-field {
+      margin-top: 10px;
+      width: 100%;
+    }
+  }
 
-.buttonWrapper {
-  width: 150px;
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-}
+  .buttonWrapper {
+    width: 150px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
 
+    button {
+      font-family: STHeitiSC-Light;
+      letter-spacing: 0.5px;
+      font-size: 1.6rem;
+      font-weight: 100;
+      width:14.3rem;
+      height: 4.5rem;
+      margin-top: 20px;
+    }
+  }
+}
 @media only screen and (max-width:768px) {
   .formWrapper {
     width: 80%;
@@ -93,5 +73,6 @@ button {
 
   .columnTwo {
     width: 380px;
+    margin-left: 0;
   }
 }

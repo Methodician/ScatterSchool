@@ -1,31 +1,23 @@
-
-
-
-
 <form autocomplete="off" novalidate [formGroup]="form" class="loginWrapper">
-
-    <fieldset class="formWrapper">
-      <h1>Login :</h1>
-  
-      <md-form-field color="primary">
-
-        <input mdInput formControlName="email" placeholder="Email" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email"  type="email">
-        <md-error *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</md-error>
-        <md-error *ngIf="isErrorVisible('email','validEmail')">Please enter a valid e-mail address.</md-error>
-      </md-form-field>
-  
-      <md-form-field color="primary">   
-   
-        <input mdInput placeholder="Password" [class.input-error]="isErrorVisible('password','required')" name="password" formControlName="password" type="password">
-        <md-error class="field-error-message" *ngIf="isErrorVisible('password','required')">A password is required.</md-error>
-      </md-form-field>
-    </fieldset>
-  
-    <div class="buttonWrapper">
-      <button md-raised-button (click)="login()" [disabled]="!formValid()" color="warn" >Login</button>
-    </div>
-
-  </form>
+  <fieldset class="formWrapper">
+    <h1>Login :</h1>
+    <!-- Email Input -->
+    <md-form-field color="primary">
+      <input mdInput formControlName="email" placeholder="Email" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email"  type="email">
+      <md-error *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</md-error>
+      <md-error *ngIf="isErrorVisible('email','validEmail')">Please enter a valid e-mail address.</md-error>
+    </md-form-field>
+    <!-- Password Input -->
+    <md-form-field color="primary">   
+      <input mdInput placeholder="Password" [class.input-error]="isErrorVisible('password','required')" name="password" formControlName="password" type="password">
+      <md-error class="field-error-message" *ngIf="isErrorVisible('password','required')">A password is required.</md-error>
+    </md-form-field>
+  </fieldset>
+  <!-- Submit Button -->
+  <div class="buttonWrapper">
+    <button md-raised-button (click)="login()" [disabled]="!formValid()" color="warn" >Login</button>
+  </div>
+</form>
 
 
 
