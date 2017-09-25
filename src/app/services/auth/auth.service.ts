@@ -3,14 +3,13 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { UserPresence } from './user-presence';
 
 
 @Injectable()
 export class AuthService {
   static UNKNOWN_USER = new AuthInfo(null);
-  connection;
-  lastOnline;
-
+  userPresence: UserPresence;
   user$: BehaviorSubject<firebase.User> = new BehaviorSubject<firebase.User>(null);
   authInfo$: BehaviorSubject<AuthInfo> = new BehaviorSubject<AuthInfo>(AuthService.UNKNOWN_USER);
 
@@ -30,15 +29,15 @@ export class AuthService {
   }
 
   setUserPresence(userKey) {
-    let userConnections = firebase.database().ref(`presenceData/users/${userKey}/connections`);
-    this.lastOnline = firebase.database().ref(`presenceData/users/${userKey}/lastOnline`);
+    let user = firebase.database().ref(`presenceData/users/${userKey}`);
+    let connections = user.child('connections');
+    let lastOnline = user.child("lastOnline");
     let connectionData = firebase.database().ref(`.info/connected`);
+
     connectionData.on('value', snapshot => {
-      if(snapshot.val() == true) {
-        this.connection = userConnections.push();
-        this.connection.onDisconnect().remove();
-        this.connection.set(true);
-        this.lastOnline.onDisconnect().set(firebase.database.ServerValue.TIMESTAMP)
+      if(snapshot.val()) {
+        let connection = connections.push();
+        this.userPresence = new UserPresence(connection, lastOnline, userKey);
       }
     })
   }
@@ -51,11 +50,7 @@ export class AuthService {
   }
 
   logout() {
-    this.connection.onDisconnect().cancel();
-    this.connection.remove();
-    this.lastOnline.onDisconnect().cancel();
-    this.lastOnline.set(firebase.database.ServerValue.TIMESTAMP);
-    
+    this.userPresence.cancelDisconnect();
     this.afAuth.auth.signOut();
     this.authInfo$.next(AuthService.UNKNOWN_USER);
     this.user$.next(null);
