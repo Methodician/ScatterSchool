@@ -31,6 +31,6 @@ export class ChatFormComponent implements OnInit {
   }
 
   clearForm() {
-    this.form.reset();
+    this.form.setValue({text: ""});
   }
 }

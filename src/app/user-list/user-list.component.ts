@@ -35,7 +35,7 @@ export class UserListComponent implements OnInit {
 
   findChat(userKey) {
     return this.chatList.filter(chat => {
-      return chat.memberKeys[userKey.$key] && chat.memberKeys[this.loggedInUser.$key]
+      return chat.members[userKey.$key] && chat.members[this.loggedInUser.$key]
     })[0];
   }
 
