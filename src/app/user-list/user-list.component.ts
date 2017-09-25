@@ -23,9 +23,11 @@ export class UserListComponent implements OnInit {
     });
     this.userSvc.userInfo$.subscribe(user => {
       this.loggedInUser = user;
-    });
-    this.chatSvc.getAllChats().subscribe(chatList => {
-      this.chatList = chatList;
+      if(user) { 
+        this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
+          this.chatList = chatList;
+        });
+      }
     });
   }
 
