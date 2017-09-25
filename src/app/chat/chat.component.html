@@ -5,7 +5,7 @@
     </div>
   </div>
   <div id="chat-form">
-    <chat-form #chatForm></chat-form><span>{{chatForm.maxLength - chatForm.text.length}}</span>
-    <button [disabled]="chatForm.form.invalid || !this.currentUserInfo" (click)="sendMessage(chatForm.text)">Send</button>
+    <chat-form #chatForm (keyup.enter)="sendMessage(chatForm)"></chat-form><span>{{chatForm.maxLength - chatForm.text.length}}</span>
+    <button [disabled]="chatForm.form.invalid || !this.currentUserInfo" (click)="sendMessage(chatForm)">Send</button>
   </div>
 </div>

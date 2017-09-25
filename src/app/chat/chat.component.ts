@@ -43,9 +43,10 @@ export class ChatComponent implements OnInit {
       sentBy: this.currentUserInfo.$key,
       authorName: authorName,
       //recipientKey: this.recipientKey,
-      body: message,
+      body: message.text,
     }
     this.chatSvc.saveMessage(messageData);
+    message.clearForm();
   }
 
   isOwnMessage(authorKey) {

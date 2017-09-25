@@ -29,4 +29,8 @@ export class ChatFormComponent implements OnInit {
   get value() {
     return this.form.value;
   }
+
+  clearForm() {
+    this.form.reset();
+  }
 }
