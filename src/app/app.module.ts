@@ -1,4 +1,4 @@
-import {MdButtonModule, MdInputModule} from '@angular/material';
+import { MdButtonModule, MdInputModule } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -70,6 +70,8 @@ import { AddReplyComponent } from './add-reply/add-reply.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
 import { AllArticlesComponent } from './all-articles/all-articles.component';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 
 
@@ -124,6 +126,8 @@ import { AllArticlesComponent } from './all-articles/all-articles.component';
     UploadFormComponent,
     AllArticlesComponent,
     ArticleCoverImageComponent,
+    SafeHtmlPipe,
+    SafeUrlPipe
   ],
   imports: [
     BrowserModule,
