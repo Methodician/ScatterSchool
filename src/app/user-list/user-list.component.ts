@@ -29,13 +29,17 @@ export class UserListComponent implements OnInit {
     });
   }
 
+  memberNames(chat) {
+    return (<any>Object).values(chat.members).map(member => {return member.name}).join(', ');
+  }
+
   displayName(user) {
     return user.alias ? user.alias : user.fName;
   }
 
   findChat(userKey) {
     return this.chatList.filter(chat => {
-      return chat.memberKeys[userKey.$key] && chat.memberKeys[this.loggedInUser.$key]
+      return chat.members[userKey.$key] && chat.members[this.loggedInUser.$key]
     })[0];
   }
 

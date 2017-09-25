@@ -61,9 +61,10 @@ export class ChatService {
     this.currentChatKey = chatKey;
     this.currentChatKey$.next(chatKey);
     for (let user of users) {
-      this.db.object(`chatData/chats/${chatKey}/memberKeys/${user.$key}`).set(true);
+      let displayName = user.alias ? user.alias : user.fName;
+      this.db.object(`chatData/chats/${chatKey}/members/${user.$key}`).update({name: displayName});
       this.db.object(`chatData/chatsPerMember/${user.$key}/${chatKey}`).set(true);
-      this.db.object(`chatData/membersPerChat/${chatKey}/${user.$key}`).update({memberName: `${user.alias ? user.alias : user.fName}`});
+      this.db.object(`chatData/membersPerChat/${chatKey}/${user.$key}`).update({name: displayName});
     }
   }
 
