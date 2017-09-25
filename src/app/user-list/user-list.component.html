@@ -1,6 +1,11 @@
 <div id="user-list">
+  <h4>Users</h4>
   <div *ngFor="let user of userList" (click)="createOrOpenChat(user)" class="user">
     <span>{{displayName(user)}}: </span>
     <user-presence [userKey]="user.$key"></user-presence>
+  </div>
+  <h4>Chats</h4>
+  <div *ngFor="let chat of chatList" (click)="openChat(chat.$key)" class="user">
+    <span>{{ memberNames(chat) }}</span>
   </div>
 </div>
