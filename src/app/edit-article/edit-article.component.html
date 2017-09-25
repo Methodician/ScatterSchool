@@ -2,7 +2,7 @@
 	<div class="col-lg-6">
 		<app-article-form #articleForm [initialValue]="article">
 		</app-article-form>
-		<button (click)="edit(articleForm.value)" class="btn btn-default">Save Changes</button>
+		<button md-raised-button color="warn" (click)="edit(articleForm.value)">Save Changes</button>
 	</div>
 	<div class="col-lg-6">
 		<app-article-cover-image *ngIf="article" [articleKey]="key"></app-article-cover-image>
