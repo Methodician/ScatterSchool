@@ -2,6 +2,7 @@ import { BehaviorSubject } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ChatService {
@@ -24,6 +25,16 @@ export class ChatService {
 
   getAllChats() {
     return this.db.list('chatData/chats');
+  }
+
+  getChatsByUserKey(userKey) {
+    return this.db.list(`chatData/chatsPerMember/${userKey}`)
+      .map(userChats => {
+        return userChats.map(chat => this.db.object(`chatData/chats/${chat.$key}`));
+      })
+      .flatMap(firebaseObjectObservables => { 
+        return Observable.combineLatest(firebaseObjectObservables)
+      });
   }
 
   // getMessagesByRecipientAndAuthor(recipientKey, authorKey) {
