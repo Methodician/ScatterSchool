@@ -27,6 +27,10 @@ export class ChatService {
     return this.db.list('chatData/chats');
   }
 
+  getChatByKey(chatKey) {
+    return this.db.object(`chatData/chats/${chatKey}`);
+  }
+
   getChatsByUserKey(userKey) {
     return this.db.list(`chatData/chatsPerMember/${userKey}`)
       .map(userChats => {
