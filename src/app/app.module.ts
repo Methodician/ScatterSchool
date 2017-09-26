@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guard';
 import { MdButtonModule, MdInputModule } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
@@ -153,7 +154,8 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
     UploadService,
     SuggestionService,
     VoteService,
-    CommentService
+    CommentService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

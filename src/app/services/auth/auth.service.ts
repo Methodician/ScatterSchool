@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthInfo } from './auth-info';
 import { Injectable, Inject } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
@@ -15,6 +16,7 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
+    private router: Router
     //@Inject(FirebaseRef) fbRef
   ) {
     this.afAuth.authState.subscribe(info => {
@@ -82,5 +84,17 @@ export class AuthService {
     }, (error) => {
       alert('It looks like your verification email was not sent. Please try again or contact support.');
     });
+  }
+
+  isLoggedInCheck(): Observable<boolean> {
+    return this.authInfo$.asObservable()
+      .map(info => info.isLoggedIn())
+      .take(1)
+      .do(allowed => {
+        if (!allowed) {
+          if (confirm('You must be logged in to go here. Would you like to be redirected?'))
+            this.router.navigate(['/login']);
+        }
+      });
   }
 }
