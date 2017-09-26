@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewChecked } from '@angular/core';
 import { ChatService } from '../services/chat/chat.service'
 import { UserService } from './../services/user/user.service';
 
@@ -27,6 +27,7 @@ export class ChatComponent implements OnInit {
       if (key) {
         this.chatSvc.getMessagesForCurrentChat().subscribe(messages => {
           this.messages = messages;
+          this.niceScroll();
         })
       } else {
         this.chatSvc.getAllMessages().subscribe(messages => {
@@ -35,6 +36,15 @@ export class ChatComponent implements OnInit {
       }
     })
 
+  }
+
+  ngAfterViewChecked() {
+    this.niceScroll();
+  }
+
+
+  niceScroll() {
+      document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
   }
 
   sendMessage(message) {
