@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guard';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
@@ -48,6 +49,7 @@ const routes: Routes = [
   },
   {
     path: 'profile',
+    canActivate: [AuthGuard],
     children: [
       {
         path: ':key',
@@ -61,10 +63,12 @@ const routes: Routes = [
   },
   {
     path: 'postarticle',
+    canActivate: [AuthGuard],
     component: PostArticleComponent
   },
   {
     path: 'editarticle/:key',
+    canActivate: [AuthGuard],
     component: EditArticleComponent
   },
   {
@@ -90,6 +94,7 @@ const routes: Routes = [
   },
   {
     path: 'postsuggestion',
+    canActivate: [AuthGuard],
     component: AddSuggestionComponent
   },
   {
@@ -98,6 +103,7 @@ const routes: Routes = [
   },
   {
     path: 'editsuggestion/:key',
+    canActivate: [AuthGuard],
     component: EditSuggestionComponent
   },
   {

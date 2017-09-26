@@ -1,3 +1,4 @@
+
 button {
   font-family: STHeitiSC-Light;
   letter-spacing: 0.5px;
@@ -24,6 +25,14 @@ pre {
   margin: 0 auto;
 }
 
+label {
+  color: #243237;
+  font-size: 2.3rem;
+  font-weight: 200;
+  font-family: STHeitiSC-Light;
+  margin-bottom: 30px;
+}
+
 input {
   font-size: 18px;
 }
@@ -34,23 +43,29 @@ progress {
 
 .uploadForm {
   display: flex;
-  align-items: center;
+  margin: 0 auto;
   justify-content: space-between;
   border-bottom: 1px solid #263237;
+  width: 500px;
 }
 
-.uploadWrapper {
+.upload-wrapper {
   font-family: STHeitiSC-Light;
   margin: 0 auto;
-  max-width: 500px;
+  margin-top: 95px;
+  width: 500px;
 }
 
 @media only screen and (max-width:768px) {
   input {
       width: 100%;
   }
-  .uploadWrapper{
-      width: 95%;
-      margin: 0 auto;
+  .uploadForm {
+    width: 100%;
+  }
+  .upload-wrapper{
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 95px;
   }
 }

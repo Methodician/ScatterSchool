@@ -1,13 +1,13 @@
 <div class="upload-wrapper">
+	<label>Main Image</label>
 	<div class="form-group uploadForm">
-			<input 
-			accept="image/*" 
-			id="control" 
-			type="file" 
-			(change)="detectFiles($event)">
+		<input 
+		accept="image/*" 
+		id="control" 
+		type="file" 
+		(change)="detectFiles($event)">
 	</div>
 </div>
-
 <app-article-form #form>
 </app-article-form>
 <button (click)="save(form.value)" md-raised-button color="accent" [disabled]="form.isErrorVisible('title', 'maxlength') || form.isErrorVisible('introduction', 'maxlength')">Post</button>

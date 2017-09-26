@@ -3,11 +3,8 @@
   <br>
   <h1 class="featureHeader">Featured Articles</h1>
   <div class="horizontalScroll">
-    <div class="featureTile" *ngFor="let article of featuredArticles">
+    <div class="featureTile" *ngFor="let article of featuredArticles | reverseArray">
       <app-feature-preview [articleData]="article"></app-feature-preview>
     </div>
   </div>
 </div>
-
-
-  

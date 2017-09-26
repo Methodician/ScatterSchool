@@ -33,7 +33,7 @@
         <ul class="nav navbar-nav navbar-right" id="nav-links">
           <li *ngIf="authInfo.$uid"><a routerLink="account"><span class="fa fa-user"></span> Hello {{ displayName }}</a></li>
           <li *ngIf="!authInfo.$uid"><a routerLink="register" id="sign-up"><span class="fa fa-user-plus"></span> Sign Up</a></li>
-          <li *ngIf="authInfo.$uid"><a routerLink="login" (click)="logout()" id="logout"><span class="fa fa-sign-out"></span> Logout</a></li>
+          <li *ngIf="authInfo.$uid"><a (click)="logout()" id="logout"><span class="fa fa-sign-out"></span> Logout</a></li>
           <li *ngIf="!authInfo.$uid"><a routerLink="login" id="sign-in"><span class="fa fa-sign-in"></span> Sign In</a></li>
         </ul>
       </div>
