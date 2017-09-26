@@ -68,6 +68,7 @@ const routes: Routes = [
   },
   {
     path: 'editarticle/:key',
+    canActivate: [AuthGuard],
     component: EditArticleComponent
   },
   {
@@ -93,6 +94,7 @@ const routes: Routes = [
   },
   {
     path: 'postsuggestion',
+    canActivate: [AuthGuard],
     component: AddSuggestionComponent
   },
   {
@@ -101,6 +103,7 @@ const routes: Routes = [
   },
   {
     path: 'editsuggestion/:key',
+    canActivate: [AuthGuard],
     component: EditSuggestionComponent
   },
   {

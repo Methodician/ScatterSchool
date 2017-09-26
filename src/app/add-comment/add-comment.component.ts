@@ -16,9 +16,10 @@ export class AddCommentComponent implements OnInit {
   currentUserInfo;
   constructor(
     private userSvc: UserService,
+    private authSvc: AuthService,
     private commentSvc: CommentService,
-    private router: Router    
-  ) {}
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.userSvc.userInfo$.subscribe(userInfo => {
@@ -27,8 +28,12 @@ export class AddCommentComponent implements OnInit {
   }
 
   postComment(commentData) {
-    if (this.currentUserInfo) this.saveComment(commentData);
-    else this.router.navigate(['login']);
+    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
+      if (isLoggedIn)
+        this.saveComment(commentData);
+    });
+    /*     if (this.currentUserInfo) this.saveComment(commentData);
+        else this.router.navigate(['login']); */
   }
 
   saveComment(commentData) {
@@ -44,6 +49,9 @@ export class AddCommentComponent implements OnInit {
   }
 
   toggleCommentForm() {
-    this.isFormShowing = !this.isFormShowing
+    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
+      if (isLoggedIn)
+        this.isFormShowing = !this.isFormShowing;
+    });
   }
 }

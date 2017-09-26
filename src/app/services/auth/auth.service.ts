@@ -40,6 +40,7 @@ export class AuthService {
     this.afAuth.auth.signOut();
     this.authInfo$.next(AuthService.UNKNOWN_USER);
     this.user$.next(null);
+    location.reload();
   }
 
   /*signUp(email, password): Observable<FirebaseAuthState> {
@@ -92,9 +93,16 @@ export class AuthService {
       .take(1)
       .do(allowed => {
         if (!allowed) {
-          if (confirm('You must be logged in to go here. Would you like to be redirected?'))
+          if (confirm('You must be logged in to do that. Would you like to be redirected?'))
             this.router.navigate(['/login']);
         }
       });
   }
+
+  //  Doesn't really work, still needs to be an observable unless we want to keep a running isLoggedIn variable around.
+  // checkIfLoggedIn() {
+  //   this.isLoggedInCheck().subscribe(isLoggedIn => {
+  //     return isLoggedIn;
+  //   })
+  // }
 }
