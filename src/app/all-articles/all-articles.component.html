@@ -1,3 +1,3 @@
-<div *ngFor="let article of articles">
-    <article-search-preview [articleData]="article"></article-search-preview>
+<div *ngFor="let article of articles | reverseArray">
+  <article-search-preview [articleData]="article"></article-search-preview>
 </div>

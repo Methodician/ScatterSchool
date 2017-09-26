@@ -73,6 +73,7 @@ import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
 import { AllArticlesComponent } from './all-articles/all-articles.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { ReverseArrayPipe } from './pipes/reverse-array.pipe';
 
 
 
@@ -128,7 +129,8 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
     AllArticlesComponent,
     ArticleCoverImageComponent,
     SafeHtmlPipe,
-    SafeUrlPipe
+    SafeUrlPipe,
+    ReverseArrayPipe
   ],
   imports: [
     BrowserModule,
