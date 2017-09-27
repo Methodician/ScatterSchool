@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth/auth.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from './../services/user/user.service';
 
@@ -13,22 +14,26 @@ export class FollowBtnComponent implements OnInit {
   isFollowing = false;
 
   constructor(
+    private authSvc: AuthService,
     private userSvc: UserService
-  ) { 
-    
-    }
+  ) {
+
+  }
 
   ngOnInit() {
-    console.log(this.uid);
     this.checkIfFollowing();
   }
 
   click() {
-    if (this.isFollowing) {
-      this.userSvc.unfollowUser(this.uid);
-    }
-    else
-      this.userSvc.followUser(this.uid);
+    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        if (this.isFollowing) {
+          this.userSvc.unfollowUser(this.uid);
+        }
+        else
+          this.userSvc.followUser(this.uid);
+      }
+    })
   }
 
   isFollowingUser() {

@@ -1,6 +1,6 @@
 <div class="latestList">
   <div class="latestDisplay">
-    <div class="latestTile" *ngFor="let article of latestArticles">
+    <div class="latestTile" *ngFor="let article of latestArticles | reverseArray">
       <latest-preview [articleData]="article"></latest-preview>
     </div>
   </div>

@@ -4,7 +4,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 @Component({
   selector: 'app-article-form',
   templateUrl: './article-form.component.html',
-  styleUrls: ['./article-form.component.css']
+  styleUrls: ['./article-form.component.scss']
 })
 export class ArticleFormComponent implements OnInit {
 

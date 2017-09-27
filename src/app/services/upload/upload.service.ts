@@ -32,7 +32,7 @@ constructor(private afd: AngularFireDatabase) { }
       },
       // upload failed
       (error) => {
-        alert(error);
+        alert(error.message);
       },
        // upload success
       () => {

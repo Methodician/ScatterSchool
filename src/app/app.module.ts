@@ -1,3 +1,5 @@
+import { AuthGuard } from './guards/auth.guard';
+import { MdButtonModule, MdInputModule } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -74,6 +76,9 @@ import { ChatService } from './services/chat/chat.service';
 import { ChatFormComponent } from './chat-form/chat-form.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserPresenceComponent } from './user-presence/user-presence.component';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { ReverseArrayPipe } from './pipes/reverse-array.pipe';
 
 
 @NgModule({
@@ -130,7 +135,10 @@ import { UserPresenceComponent } from './user-presence/user-presence.component';
     ChatComponent,
     ChatFormComponent,
     UserListComponent,
-    UserPresenceComponent
+    UserPresenceComponent,
+    SafeHtmlPipe,
+    SafeUrlPipe,
+    ReverseArrayPipe
   ],
   imports: [
     BrowserModule,
@@ -143,7 +151,9 @@ import { UserPresenceComponent } from './user-presence/user-presence.component';
     AngularFireAuthModule,
     CKEditorModule,
     TagInputModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MdButtonModule,
+    MdInputModule
   ],
   providers: [
     AngularFireDatabase,
@@ -155,7 +165,8 @@ import { UserPresenceComponent } from './user-presence/user-presence.component';
     SuggestionService,
     VoteService,
     CommentService,
-    ChatService
+    ChatService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })
