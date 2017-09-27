@@ -1,12 +1,12 @@
-<div>
-  <div class="image-wrapper">
-    <app-article-cover-image *ngIf="article" [articleKey]="key"></app-article-cover-image>
-  </div>
-  <div>
-    <app-article-form #articleForm [initialValue]="article">
-    </app-article-form>
-    <button (click)="edit(articleForm.value)" class="btn btn-default">Save Changes</button>
-  </div>
+<div class="wrapper">
+	<div>
+		<app-article-form #articleForm [initialValue]="article">
+		</app-article-form>
+		<button md-raised-button color="warn" (click)="edit(articleForm.value)">Save Changes</button>
+	</div>
+	<div>
+		<app-article-cover-image *ngIf="article" [articleKey]="key"></app-article-cover-image>
+	</div>
 </div>
 <br>
 <br>

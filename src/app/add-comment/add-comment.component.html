@@ -1,5 +1,5 @@
 <div *ngIf="!isFormShowing">
-  <h4 class="show-comment-form" (click)="toggleCommentForm()">Add Comment</h4>
+  <button md-raised-button color="warn" class="show-comment-form" (click)="toggleCommentForm()">Add Comment</button>
 </div>
 <div *ngIf="isFormShowing" class="comment-form-wrapper">
   <app-comment-form #form></app-comment-form>

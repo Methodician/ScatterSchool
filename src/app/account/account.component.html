@@ -1,67 +1,66 @@
-<h1>Your Account Information:</h1>
+<div class="titleWrapper">
+  <h1>Your Account Information:</h1>
+</div>
 <div class="accountWrapper">
-  <div class="row">
-    <div class="col-md-5">
-      <form [formGroup]="form" class="form-group formGroup">
-        <div class="flexWrapper">
-          <div class="form-field formSection">
-
-            <h4>First Name:</h4>
-            <h6 class="field-error-message" *ngIf="isErrorVisible('fName','required')">Please provide your first name.</h6>
-            <input formControlName="title" maxlength="50" type="text" [class.input-error]="isErrorVisible('fName','required')" name="fName"
-              formControlName="fName" type="text" class="form-control">
-
-            <h4>Last Name:</h4>
-            <h6 class="field-error-message" *ngIf="isErrorVisible('lName','required')">Please provide your last name.</h6>
-            <input formControlName="lName" maxlength="50" type="text" [class.input-error]="isErrorVisible('lName','required')" name="lName"
-              formControlName="lName" class="form-control">
-
-            <h4>User Alias:</h4>
-            <input formControlName="alias" #alias type="text" class="form-control withCharacterCounter" maxlength="30">
-            <character-counter [field]="alias" [maxLength]="20"></character-counter>
-          </div>
-
-          <div class="form-field formSection">
-            <h4>City:</h4>
-            <input formControlName="city" maxlength="50" #city type="text" class="form-control">
-
-            <h4>State:</h4>
-            <input formControlName="state" maxlength="50" type="text" class="form-control">
-
-            <h4>Zip Code:</h4>
-            <h6 class="field-error-message" *ngIf="isErrorVisible('zipCode','required')">Please provide your zip code.</h6>
-            <input formControlName="zipCode" maxlength="10" [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode"
-              type="text" class="form-control">
-          </div>
-        </div>
-        <div class="form-field formSection">
-          <h4>Your email:</h4>
-          <h6 class="field-error-message" *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</h6>
-          <input formControlName="email" maxlength="150" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')"
-            name="email" type="email" class="form-control">
-          <h4>Your Bio:</h4>
-          <textarea formControlName="bio" type="text" rows="3" cols="50" class="form-control"></textarea>
-        </div>
-        <button [disabled]="form.pristine || form.invalid" class="btn" (click)="updateAccountDetails()">Save Settings</button>
-      </form>
+  <form [formGroup]="form" autocomplete="off" novalidate class="formWrapper">
+    <!-- Field Set #1 of 3 First Name, Last Name, User Alias -->
+    <fieldset>
+      <!-- First Name Input -->
+      <md-form-field color="primary">
+          <input mdInput placeholder="First Name:" formControlName="title" maxlength="50" type="text" [class.input-error]="isErrorVisible('fName','required')" name="fName"
+          formControlName="fName" type="text">
+          <md-error *ngIf="isErrorVisible('fName','required')">Please provide your first name.</md-error>
+      </md-form-field>
+      <!-- Last Name Input -->
+      <md-form-field color="primary">
+        <input mdInput placeholder="Last Name:" formControlName="lName" maxlength="50" type="text" [class.input-error]="isErrorVisible('lName','required')" name="lName"
+        formControlName="lName">
+        <md-error *ngIf="isErrorVisible('lName','required')">Please provide your last name.</md-error>
+      </md-form-field>
+      <!-- User Alias Input -->
+      <md-form-field color="primary">
+        <input #alias mdInput placeholder="User Alias:" formControlName="alias" #alias type="text" maxlength="30">
+        <md-hint align="end">{{alias.value.length}} / 30</md-hint>
+      </md-form-field>
+    </fieldset>
+    <!-- Field Set #2 of 3 City, State, Zip -->
+    <fieldset>
+      <table cellspacing="0"><tr>
+        <!-- City Input -->
+       <td><md-form-field color="primary">
+          <input mdInput placeholder="City:" formControlName="city" maxlength="50" #city type="text">
+        </md-form-field></td>
+        <!-- State Input -->
+        <td><md-form-field color="primary">
+          <input mdInput placeholder="State:" formControlName="state" maxlength="50" type="text">
+        </md-form-field></td>
+        <!-- ZipCode Input -->
+        <td><md-form-field color="primary">
+          <input mdInput placeholder="Zip Code:" formControlName="zipCode" maxlength="10" [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode"
+            type="text">
+            <md-error  *ngIf="isErrorVisible('zipCode','required')">Please provide your zip code.</md-error>
+        </md-form-field></td>
+      </tr></table>
+    </fieldset>
+    <!-- Field Set #3 of 3 Email and Bio -->
+    <fieldset>
+      <!-- Email Input -->
+      <md-form-field color="primary">
+        <input mdInput placeholder="Your Email:" formControlName="email" maxlength="150" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" type="email">
+        <md-error *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</md-error>
+      </md-form-field>
+      <!-- Bio Input -->
+      <md-form-field color="primary">
+        <textarea mdInput placeholder="Your Bio:" formControlName="bio" type="text" rows="3" cols="50"></textarea>  
+      </md-form-field>
+    </fieldset>
+    <!-- Submit Button -->
+    <div class="buttonWrapper">
+      <button md-raised-button color="warn" [disabled]="form.pristine || form.invalid" (click)="updateAccountDetails()">Save Settings</button>
     </div>
-    <div class="col-md-2">
-    </div>
-    <div class="col-md-5">
-      <profile-image *ngIf="userInfo" [uid]="userInfo.uid"></profile-image>
-    </div>
+  </form>
+  <!-- Profile Picture Componenet -->
+  <div class="profileImageWrapper">
+    <profile-image *ngIf="userInfo" [uid]="userInfo.uid"></profile-image>
   </div>
 </div>
-<br>
-<br>
-<br>
-<p>
-  Logged In UID: {{ loggedInUserKey }}
-</p>
-<p>
-  Account UID: {{ accountUserKey }}
-</p>
-<pre>
-    User Info:
-    {{ userInfo | json }}
-  </pre>

@@ -1,0 +1,48 @@
+form {
+  font-family: STHeitiSC-Light;
+
+  .formWrapper {
+    display: flex;
+    flex-direction: column;
+
+    md-form-field {
+      width: 50%;
+      margin: 10px 0px;
+      align-self: center;
+    }
+  }
+}
+
+.ckEditor {
+  width: 95%;
+  align-self: center;
+}
+
+.tagWrapper {
+  width: 95%;
+  margin: 0 auto;
+  margin-bottom: 50px;
+
+
+  h2 {
+    color: #243237;
+    font-size: 2.3rem;
+    font-weight: 200;
+    font-family: STHeitiSC-Light;
+    margin-bottom: 20px;
+  }
+
+  tag-input {
+    width: 100% !important;
+  }
+  
+}
+
+
+@media only screen and (max-width:768px) {
+  .formSection {
+    width: 95%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+  }
+}

@@ -1,60 +1,28 @@
 <form autocomplete="off" novalidate [formGroup]="form">
-  <fieldset class="form-group formGroup">
-    <div class="form-bg">
-      <div class="form-field formSection">
-        <label>Title</label>
-        <input 
-          #title 
-          name="title"  
-          maxlength="150" 
-          formControlName="title" 
-          type="text" 
-          [class.input-error]="isErrorVisible('title', 'required')" 
-          class="form-control">
-        <div class="field-error-message" *ngIf="isErrorVisible('title','required')">
-          Please give your article a title.
-        </div>
-        <character-counter
-          [field]="title"
-          [maxLength]="100"
-        ></character-counter>
-      </div>
-      <div class="form-field formSection">
-        <label>Introduction</label>
-        <input 
-          #introduction 
-          name="introduction" 
-          formControlName="introduction" 
-          type="text" 
-          [class.input-error]="isErrorVisible('introduction', 'required')"
-          class="form-control">
-        <div class="field-error-message" *ngIf="isErrorVisible('introduction','required')">
-          Please tell us a little something about what this article is about.
-        </div>
-        <character-counter
-        [field]="introduction"
-        [maxLength]="300"
-        ></character-counter>
-      </div>
-      <div class="form-field formSection ckEditor">
+  <div class="formWrapper">
+    
+      <md-form-field color="primary">
+        <input mdInput placeholder="Title" #title name="title" maxlength="100" formControlName="title" type="text" [class.input-error]="isErrorVisible('title', 'required')">
+        <md-hint align="end">{{title.value.length}} / 100</md-hint>
+        <md-error *ngIf="isErrorVisible('title','required')">Please give your article a title.</md-error>
+      </md-form-field>
+
+      <md-form-field color="primary">
+        <textarea mdInput placeholder="Introduction" #introduction name="introduction" maxlength="300" formControlName="introduction" type="text" [class.input-error]="isErrorVisible('introduction', 'required')"></textarea>
+        <md-hint align="end">{{introduction.value.length}} / 300</md-hint>
+        <md-error *ngIf="isErrorVisible('introduction','required')">Please tell us a little something about what this article is about.</md-error>
+      </md-form-field>
+
+      <div class="ckEditor">
         <label>Body</label>
-        <!-- <ckeditor name="body" formControlName="body" [config]="{uiColor: '##dee2e8'}" (change)="onChange($event)" (ready)="onReady($event)"
-          (focus)="onFocus($event)" (blur)="onBlur($event)" debounce="500">
-        </ckeditor> -->
         <ckeditor name="body" formControlName="body" [config]="{uiColor: '##dee2e8'}" debounce="500">
         </ckeditor>
       </div>
+
     </div>
-  </fieldset>
 </form>
 <div class="tagWrapper">
     <h2>Tags</h2>
-    <tag-input class="form-field ckEditor" [maxItems]="8" [(ngModel)]="formTags" (onAdd)="onTagAdded($event)" (onRemove)="onTagRemoved($event)"></tag-input>
+    <tag-input class="ckEditor" [maxItems]="8" [(ngModel)]="formTags" (onAdd)="onTagAdded($event)" (onRemove)="onTagRemoved($event)"></tag-input>
 </div>
 
-<!-- <pre>
-  {{ articleTags | json }}
-</pre>
-<pre>
-  {{ formTags | json }}
-</pre> -->

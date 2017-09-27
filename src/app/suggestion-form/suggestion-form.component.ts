@@ -28,24 +28,16 @@ export class SuggestionFormComponent implements OnInit {
       this.form.patchValue(this.initialValue)
     }
   }
-
-  get title() {
-    return this.form.get('title');
-  }
-
-  get pitch() {
-    return this.form.get('pitch');
-  }
-
+  
   get valid() {
     return this.form.valid
   }
 
-  get pristine() {
-    return this.form.pristine;
-  }
-
   get value() {
     return this.form.value
+  }
+  isErrorVisible(field: string, error: string) {
+    let control = this.form.controls[field];
+    return control.dirty && control.errors && control.errors[error];
   }
 }

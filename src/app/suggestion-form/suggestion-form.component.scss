@@ -1,28 +1,22 @@
 .formWrapper {
 font-family: STHeitiSC-Light;
+min-height: 500px;
 width: 500px;
 margin: 0 auto;
 
-  label {
-    display: block;
-    text-align: left;
-    font-size: 18px;
-    margin-bottom: 5px;
+  fieldset {
+    height: 500px;
+    
+    md-form-field {
+      width: 100%;
+    }
+    
+    md-form-field:nth-child(2) {
+      margin-top: 50px;
+    }
+
   }
 
-  input {
-    width: 100%;
-    border-radius: 0;
-    border-top: 1px solid #fff;
-    border-right: 1px solid #fff;
-    border-left: 1px solid #fff;
-    border-bottom: 1px solid #263237;
-    margin-bottom: 40px;
-  }
-
-  textarea {
-    margin-bottom: 40px;
-  }
 }
 
 @media only screen and (max-width:768px) {

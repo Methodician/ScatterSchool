@@ -1,11 +1,32 @@
-<form [formGroup]="form" class="formWrapper">
-  <label>Title</label>
-  <input type="text" name="title" formControlName="title" class="formControl">
-    <div *ngIf="title.touched && title.invalid" class="alert alert-danger">
-      <div *ngIf="title.errors.required">A title is required.</div>
-      <div *ngIf="title.errors.maxlength">The title can be no more than {{title.errors.maxlength.requiredLength}} characters long.</div>
-    </div>
-  <label>Pitch</label>
-  <textarea type="text"cols="69" rows="8" name="pitch" formControlName="pitch" class="formControl"></textarea>
-    <div *ngIf="pitch.touched && pitch.invalid" class="alert alert-danger">Pitch is required.</div>
+<form [formGroup]="form" autocomplete="off" novalidate class="formWrapper">
+  <fieldset>
+    <!-- Title Input -->
+    <md-form-field color="primary">
+      <input #title mdInput placeholder="Title" type="text" name="title" formControlName="title" class="formControl" [class.input-error]="isErrorVisible('title','required')">
+      <md-hint align="end">{{title.value.length}} / 140</md-hint>
+      <md-error *ngIf="isErrorVisible('title','required')"> A title is required.</md-error>
+      <md-error *ngIf="isErrorVisible('title','maxlength')"> The title can be no more than 140 characters long.</md-error>
+    </md-form-field>
+    <!-- Pitch Input -->
+    <md-form-field class="pitch-styles" color="primary">
+      <textarea mdInput placeholder="Pitch" type="text"cols="69" rows="8" name="pitch" formControlName="pitch" class="formControl"></textarea>
+      <md-error *ngIf="isErrorVisible('pitch','required')">A pitch is required.</md-error>
+    </md-form-field>
+  </fieldset>
 </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
