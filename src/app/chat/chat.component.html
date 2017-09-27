@@ -1,13 +1,29 @@
 <div id="messages">
+  <md-toolbar color="primary">
+      <span>Chat</span>
+      <span class="spacer"></span>
+      <button md-icon-button [mdMenuTriggerFor]="menu">
+          <md-icon>more_vert</md-icon>
+        </button>
+      <md-menu #menu="mdMenu">
+        <button md-menu-item>Add User</button>
+      </md-menu>
+  </md-toolbar>
   <div id="message-list">
-    <div *ngFor="let message of messages" class="message" [class.ownMessage]="isOwnMessage(message.sentBy)">
-      <span id="author">{{ message.authorName }}</span>
-      <span id="timestamp">{{ message.timestamp | timeElapsed }}</span>
-      <span id="body">{{ message.body }}</span>
-    </div>
+    <md-card *ngFor="let message of messages">
+      <md-card-header>
+        <div md-card-avatar class="profile-image"></div>
+        <md-card-title>{{ message.authorName }}</md-card-title>
+        <md-card-subtitle>{{ message.timestamp | timeElapsed }}</md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <p>
+          {{ message.body }}
+        </p>
+      </md-card-content>
+    </md-card>
   </div>
   <div id="chat-form">
-    <chat-form #chatForm (keyup.enter)="sendMessage(chatForm)"></chat-form><span>{{chatForm.maxLength - chatForm.text.length}}</span>
-    <button [disabled]="chatForm.form.invalid || !this.currentUserInfo" (click)="sendMessage(chatForm)">Send</button>
+    <chat-form #chatForm (keyup.enter)="sendMessage(chatForm)"></chat-form>
   </div>
 </div>

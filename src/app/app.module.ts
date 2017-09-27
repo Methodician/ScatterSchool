@@ -1,5 +1,5 @@
 import { AuthGuard } from './guards/auth.guard';
-import { MdButtonModule, MdInputModule } from '@angular/material';
+import { MdButtonModule, MdInputModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -153,7 +153,11 @@ import { ReverseArrayPipe } from './pipes/reverse-array.pipe';
     TagInputModule,
     BrowserAnimationsModule,
     MdButtonModule,
-    MdInputModule
+    MdInputModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [
     AngularFireDatabase,
