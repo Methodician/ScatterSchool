@@ -1,6 +1,13 @@
 <div id="user-list">
-  <div *ngFor="let user of userList" (click)="createOrOpenChat(user)" class="user">
-    <span>{{displayName(user)}}: </span>
+  <h4>Users</h4>
+  <div *ngFor="let user of userList" (click)="createOrOpenChat([user, loggedInUser])" class="user">
+    <span *ngIf="currentChat && isNotInCurrentChat(user.$key)" class="add-member" (click)="addUserToChat(user, $event)">+</span>
+    <span>{{ displayName(user) }}: </span>
     <user-presence [userKey]="user.$key"></user-presence>
+  </div>
+
+  <h4>Chats</h4>
+  <div *ngFor="let chat of chatList " (click)="openChat(chat.$key)" class="user">
+    <span>{{ getMemberNames(chat) }}</span>
   </div>
 </div>
