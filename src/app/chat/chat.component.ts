@@ -38,11 +38,7 @@ export class ChatComponent implements OnInit {
 
   }
 
-  ngAfterViewChecked() {
-    this.niceScroll();
-  }
-
-
+  
   niceScroll() {
       document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
   }
