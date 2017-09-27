@@ -18,8 +18,16 @@
   font-family: STHeitiSC-Light;
   font-weight: bold;
   cursor: pointer;
+  position: relative;
 }
 
 .user:hover {
   box-shadow: 1px 1px 1px 1px grey;
+}
+
+.add-member {
+  position: absolute;
+  left: -20px;
+  top: 20px;
+  cursor: pointer;
 }

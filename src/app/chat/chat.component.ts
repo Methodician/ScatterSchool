@@ -27,6 +27,14 @@ export class ChatComponent implements OnInit {
       if (key) {
         this.chatSvc.getMessagesForCurrentChat().subscribe(messages => {
           this.messages = messages;
+// ---
+          console.log('messages:', this.messages.length);
+          console.log('sentBy:', this.currentUserInfo.uid);
+          console.log('chatKey:', key);
+          this.setMessageSeenCount(key, this.currentUserInfo.uid, this.messages.length);
+
+// ---
+          
           this.niceScroll();
         })
       } else {
@@ -38,6 +46,10 @@ export class ChatComponent implements OnInit {
 
   }
 
+  setMessageSeenCount(chatKey, user, totalMessages) {
+    console.log('chat component');
+    this.chatSvc.updateMessagesSeenCount(chatKey, user, totalMessages);
+  }
   
   niceScroll() {
       document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
