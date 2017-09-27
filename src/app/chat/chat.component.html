@@ -1,7 +1,9 @@
 <div id="messages">
   <div id="message-list">
-    <div *ngFor="let message of messages" class="message" [class.ownMessage]="isOwnMessage(message.authorKey)">
-      <span>{{ message.timestamp | timeElapsed }} | {{ message.authorName }}:  {{ message.body }}</span>
+    <div *ngFor="let message of messages" class="message" [class.ownMessage]="isOwnMessage(message.sentBy)">
+      <span id="author">{{ message.authorName }}</span>
+      <span id="timestamp">{{ message.timestamp | timeElapsed }}</span>
+      <span id="body">{{ message.body }}</span>
     </div>
   </div>
   <div id="chat-form">

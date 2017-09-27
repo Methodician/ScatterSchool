@@ -1,9 +1,9 @@
 .message {
-  color: #111;
-  background-color: #DDD;
+  color: white;
+  background-color: #31C2D7;
   padding: 7px;
   width: 75%;
-  margin: 5px 0px 5px auto;
+  margin: 5px 0px 5px 0px;
   border-radius: 8px;
 }
 
@@ -12,13 +12,17 @@
 }
 
 .ownMessage {
-  margin-left: 0px;
-  color: white;
-  background-color: dodgerblue;
+  color: #111;
+  background-color: #DDD;
+  margin-left: auto;
+}
+
+.ownMessage > #timestamp {
+  color: gray;
 }
 
 #message-list {
-  max-height: 365px;
+  height: 365px;
   overflow-y: scroll;
 }
 
@@ -34,4 +38,17 @@
 
 #chat-form {
   width: 75%
+}
+
+#author {
+  font-weight: bold;
+}
+
+#timestamp {
+  color: white;
+  font-size: 11px;
+}
+
+#body {
+  display: block;
 }
