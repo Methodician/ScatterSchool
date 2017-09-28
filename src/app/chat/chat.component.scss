@@ -77,3 +77,15 @@
   background-color: whitesmoke;
   box-shadow: 0px -2px 6px -3px grey;
 }
+
+.mat-drawer-shown {
+  background-color: darkred;
+}
+
+#user-list {
+  width: 320px;
+}
+
+#sidenav-container>div.mat-drawer-shown {
+  background-color: red;
+}

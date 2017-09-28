@@ -1,29 +1,42 @@
 <div id="messages">
-  <md-toolbar color="primary">
-      <span>Chat</span>
-      <span class="spacer"></span>
-      <button md-icon-button [mdMenuTriggerFor]="menu">
-          <md-icon>more_vert</md-icon>
-        </button>
-      <md-menu #menu="mdMenu">
-        <button md-menu-item>Add User</button>
-      </md-menu>
-  </md-toolbar>
-  <div id="message-list">
-    <md-card *ngFor="let message of messages">
-      <md-card-header>
-        <div md-card-avatar class="profile-image"></div>
-        <md-card-title>{{ message.authorName }}</md-card-title>
-        <md-card-subtitle>{{ message.timestamp | timeElapsed }}</md-card-subtitle>
-      </md-card-header>
-      <md-card-content>
-        <p>
-          {{ message.body }}
-        </p>
-      </md-card-content>
-    </md-card>
-  </div>
-  <div id="chat-form">
-    <chat-form #chatForm (keyup.enter)="sendMessage(chatForm)"></chat-form>
-  </div>
+  <md-sidenav-container id="sidenav-container">
+    <md-sidenav #userlist id="user-list" mode="over" position="start">
+        <md-toolbar color="primary">
+            <span>Add Users</span>
+            <span class="spacer"></span>
+            <span>Save</span>
+        </md-toolbar>
+    </md-sidenav>
+  
+    <md-toolbar color="primary">
+        <span>Chat</span>
+        <span class="spacer"></span>
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+            <md-icon>more_vert</md-icon>
+          </button>
+        <md-menu #menu="mdMenu">
+          <button md-menu-item (click)="userlist.open()">Add User</button>
+        </md-menu>
+    </md-toolbar>
+
+    <div id="message-list">
+      <md-card *ngFor="let message of messages">
+        <md-card-header>
+          <div md-card-avatar class="profile-image"></div>
+          <md-card-title>{{ message.authorName }}</md-card-title>
+          <md-card-subtitle>{{ message.timestamp | timeElapsed }}</md-card-subtitle>
+        </md-card-header>
+        <md-card-content>
+          <p>
+            {{ message.body }}
+          </p>
+        </md-card-content>
+      </md-card>
+    </div>
+
+    <div id="chat-form">
+      <chat-form #chatForm (keyup.enter)="sendMessage(chatForm)"></chat-form>
+    </div>
+  </md-sidenav-container>
 </div>
+    
