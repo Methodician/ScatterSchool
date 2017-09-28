@@ -1,89 +1,136 @@
-nav {
-  margin-top: 4rem;
-  background-color: #fff;
-  border-top: 1px solid #263237;
-  border-bottom: 1px solid #263237;
-  border-right: 1px solid #263237;
+// Spacer for the nav bar to push everything to right-side of the toolbar
+.flexBoxSpacer {
+  flex: 1 1 auto;
+}
+
+.navBarWrapper {
+  position: fixed;
+  top: 0;
+  z-index: 10;
   width: 95%;
-  margin-left: 2%;
-}
-
-a {
-  font-family: STHeitiSC-Light;
-  letter-spacing: 0.5px;
-  font-size: 1.6rem;
-}
-
-input {
-  font-family: STHeitiSC-Light;
-  border-radius: 0;
-  border-top: 1px solid #fff;
-  border-right: 1px solid #fff;
-  border-left: 1px solid #fff;
-  border-bottom:1px solid #263237;
-  height: 4.5rem;
-  width: 250px;
-  margin-left: 1px;
-}
-
-input:focus {
-  box-shadow: none;
-  border-top: 1px solid #fff;
-  border-right: 1px solid #fff;
-  border-left: 1px solid #fff;
-  border-bottom:1px solid #31C2D7;
-}
-
-.navMainWrapper {
+  margin-top: 4rem;
   display: flex;
+  justify-content: center;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0;
-  margin-right: 30px
-}
+  margin-left: 2.5%;
 
-.logoAbsolute {
-  position: absolute;
-  top: 6px;
-  left: 0;
-}
+  md-toolbar {
+    font-family: STHeitiSC-Light;
+    background-color: #fff;
+    border-top: 1px solid #263237;
+    border-bottom: 1px solid #263237;
+    border-right: 1px solid #263237;
+    width: 100%;
+    position: relative;
 
-.search-andButton-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  margin-right: -2%
-}
+  //  Logo and title
+    .logoWrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      left: 0;
 
-.logoLinkAndPhoto {
-  color: #31C2D7;
-  font-size: 3rem;
-  display: flex;
-  flex-direction: row;
-}
+      img {
+        cursor: pointer;
+      }
 
-.logoLinkAndPhoto img {
-  margin-top: -40px;
-}
+      .logoLink {
+        color: #31C2D7;
+        font-size: 2.5rem;
+        display: flex;
+        flex-direction: row;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+
+      }
+      // Breakpoint
+      @media only screen and (max-width: 768px) {
+        .logoLink {
+          display: none;
+        }
+      }
+
+    }
+    // Search Input within nav bar
+    form {
+      width: 200px;
+      position: relative;
+      margin-right: 20px;
+      
+      
+      md-icon {
+        position: absolute;
+        left: -32px;
+        top: 28px;
+        color: #b1b1b1;
+        font-size: 28px;
+      }
+
+      
+      md-form-field {
+        font-size: 12px;
+        width: 100%;
+      }
+
+    }
+    // Search input Breakpoint
+    @media only screen and (max-width: 475px) {
+      form {
+        width: 125px;
+        
+      }
+    }
+
+    //Button container 
+    .navButtonWrapper {
+
+      button {
+        margin: 10px 10px;
+        color: white;
+      }
+
+      
+      #menu {
+        display: none;
+        z-index: 10;
+      }
+      // Button break point
+      @media only screen and (max-width: 1100px) {
+        button {
+          display: none;
+        }
+        
+        #menu {
+          display: block;
+        }
+      }
+    }
+  }
+} 
 
 /*nav scroll down transition styles*/
 .scrolledUp {
   //nav styles .blue
   transition: margin-top 0.3s ease-in-out;
-
-  .logoLinkAndPhoto img {
+  
+  .logoWrapper img {
     transition: height 0.3s ease-in-out;
     height: 100px;
   }
 
   @media only screen and (max-width:768px) {
 
-    .logoLinkAndPhoto img {
+    .logoWrapper img {
       transition: height 0.3s ease-in-out;
       height: 60px;
     }
+
   }
+
 }
 
 /*nav scroll up transition styles*/
@@ -92,248 +139,15 @@ input:focus {
   transition: margin-top 0.3s ease-in-out;
   margin-top: 0;
   margin-left: 3%;
+  opacity: .7;
 
-  .navMainWrapper {
+  md-tool-bar {
     height: 60px;
   }
 
-  .logoLinkAndPhoto img {
+  .logoWrapper img {
     transition: height 0.3s ease-in-out;
     height: 60px;
-    margin-top: -21px;
-    margin-left: -21px;
   }
 
-  .searchBarForm {
-    padding: 0;
-  }
-
-  .searchInputDiv {
-    // max-width: 440px;
-    // min-width: 290px;
-    margin-right: 20px;
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
-
-  @media only screen and (max-width:768px) {
-    //nav styles .red
-    margin-left: 1.3%;
-
-    .navHamburger {
-      height: 45px;
-      background-color: #31C2D7;
-      color: #000;
-      position: absolute;
-      top: 60px;
-      left: 0;
-      border: 1px solid #000;
-    }
-    .navHamburger span {
-      background-color: #000;
-      border-radius: 2px;
-      margin: 5px 0;
-    }
-
-    .collapsedNavFix {
-      margin: 0 10px;
-      max-height: 200px;
-      position: absolute;
-      top: 80px;
-      right: -40px;
-      background-color: #fff;
-      border: 1px solid #263237;
-    }
-
-    .searchInputControl {
-      width: 240px;
-    }
-
-    #searchBar {
-      width: 50px;
-    }
-
-    #nav-links {
-      margin-left: 10px;
-    }
-
-    #nav-links > li > a {
-      padding-left: 46px;
-      width: 147px;
-    }
-
-    #sign-in {
-      margin-bottom: 20px;
-    }
-
-    #sign-up {
-      margin: 0;
-      margin-bottom: 10px;
-    }
-
-    #post-article {
-      width: 147px;
-      margin-top: 20px;
-      margin-left: 25px;
-    }
-  }
-
-}
-
-#nav-links {
-  margin-right: 2rem;
-}
-
-#nav-links > li > a {
-  border-radius: 2px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-}
-
-#searchBar {
-  background-color: #fff;
-  border-radius: 0;
-  border-top: 1px solid #fff;
-  border-right: 1px solid #fff;
-  border-left: 1px solid #fff;
-  border-bottom:1px solid #263237;
-  height: 4rem;
-  cursor: pointer;
-}
-
-#searchBar:hover {
-  transition: background-color 0.3s ease-in-out;
-  background-color: #31C2D7;
-  border-bottom:1px solid #31C2D7;
-}
-
-#sign-in {
-  color: #fff;
-  background-color: #C4275F;
-}
-
-#sign-up {
-  color: #fff;
-  background-color: #00BE9C;
-  margin: 0 20px;
-}
-
-#logout {
-  color: #fff;
-  background-color: #00BE9C;
-}
-
-#post-article {
-  color: #fff;
-  background-color: #31C2D7;
-  border-radius: 2px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-}
-
-/*Media Queries**********************/
-@media only screen and (max-width: 1004px) {
-  .logoLinkAndPhoto {
-    color: #fff;
-  }
-}
-
-@media only screen and (max-width: 769px) and (min-width: 768px) {
-
-  .collapsedNavFix {
-    display: none !important;
-  }
-
-}
-
-@media only screen and (max-width:768px) {
-
-  nav {
-    transition: margin-top 0.3s ease-in-out;
-    margin: 1rem;
-  }
-
-  .navMainWrapper {
-    height: 60px;
-  }
-
-  .logoLinkAndPhoto img {
-    height: 60px;
-    margin-top: -21px;
-    margin-left: -21px;
-  }
-
-  .searchBarForm {
-    padding: 0;
-  }
-
-  .navHamburger {
-    height: 45px;
-    background-color: #31C2D7;
-    color: #000;
-    position: absolute;
-    top: 60px;
-    left: 0;
-    border: 1px solid #000;
-  }
-  .navHamburger span {
-    background-color: #000;
-    border-radius: 2px;
-    margin: 5px 0;
-  }
-  .collapsedNavFix {
-    margin: 0 10px;
-    max-height: 200px;
-    position: absolute;
-    top: 80px;
-    right: -40px;
-    background-color: #fff;
-    border: 1px solid #263237;
-  }
-
-  .searchInputDiv {
-    max-width: 440px;
-    min-width: 290px;
-    margin-right: 20px;
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-  }
-
-  .searchInputControl {
-    width: 240px;
-  }
-
-  #searchBar {
-    width: 50px;
-  }
-
-  #nav-links {
-    margin-left: 10px;
-  }
-
-  #nav-links > li > a {
-    padding-left: 46px;
-    width: 147px;
-  }
-
-  #sign-in {
-    margin-bottom: 20px;
-  }
-
-  #sign-up {
-    margin: 0;
-    margin-bottom: 10px;
-  }
-
-  #post-article {
-    width: 147px;
-    margin-top: 20px;
-    margin-left: 25px;
-  }
 }
