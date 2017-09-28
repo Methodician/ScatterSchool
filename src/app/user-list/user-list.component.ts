@@ -27,7 +27,7 @@ export class UserListComponent implements OnInit {
       this.loggedInUser = user;
       if(user) { 
         this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
-          this.chatList = chatList;
+          this.chatList = chatList;     
         });
       }
     });
@@ -100,5 +100,11 @@ export class UserListComponent implements OnInit {
 
   displayName(user) {
     return user.alias ? user.alias : user.fName;
+  }
+
+  calculateUnreadMessages(chat) {
+    const totalMessages = chat.totalMessagesCount;
+    const messagesSeen = chat.members[this.loggedInUser.$key].messagesSeenCount;
+    return totalMessages - messagesSeen;
   }
 }

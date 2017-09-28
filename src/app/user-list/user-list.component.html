@@ -8,6 +8,6 @@
 
   <h4>Chats</h4>
   <div *ngFor="let chat of chatList " (click)="openChat(chat.$key)" class="user">
-    <span>{{ getMemberNames(chat) }}</span>
+    <span>{{ getMemberNames(chat) }} | {{ calculateUnreadMessages(chat) }}</span>
   </div>
 </div>
