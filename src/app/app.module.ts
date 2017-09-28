@@ -4,7 +4,7 @@ import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
 import { DataCleanupService } from './data-cleanup.service';
-import { fbConfig } from './config';
+import { fbConfig, fbConfigDev } from './config';
 import { AppRoutingModule } from './app-routing.module';
 import { UserService } from './services/user/user.service';
 import { ArticleService } from './services/article/article.service';
@@ -137,7 +137,8 @@ import { ReverseArrayPipe } from './pipes/reverse-array.pipe';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(fbConfig),
+    //AngularFireModule.initializeApp(fbConfig),
+    AngularFireModule.initializeApp(fbConfigDev),
     CollapseModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
