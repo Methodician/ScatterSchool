@@ -102,17 +102,18 @@ export class ArticleService {
       });
 
     this.archiveArticle(articleKey);
-    this.db.object(`articleData/articleBodies/${oldBodyKey}`).subscribe(body => {
-      let bodyLogObject: any = {};
-      bodyLogObject.body = body.$value;
-      bodyLogObject.articleKey = articleKey;
-      bodyLogObject.version = article.version;
-      bodyLogObject.nextEditorKey = editorKey;
-      this.db.object(`articleData/articleBodyArchive/${oldBodyKey}`).set(bodyLogObject).then(res => {
-        this.db.object(`articleData/articleBodies/${oldBodyKey}`).remove();
+    this.db.object(`articleData/articleBodies/${oldBodyKey}`)
+      .take(1).subscribe(body => {
+        let bodyLogObject: any = {};
+        bodyLogObject.body = body.$value;
+        bodyLogObject.articleKey = articleKey;
+        bodyLogObject.version = article.version;
+        bodyLogObject.nextEditorKey = editorKey;
+        this.db.object(`articleData/articleBodyArchive/${oldBodyKey}`).set(bodyLogObject).then(res => {
+          this.db.object(`articleData/articleBodies/${oldBodyKey}`).remove();
+        });
+        this.db.object(`articleData/bodysPerArticle/${articleKey}/${oldBodyKey}`).set(firebase.database.ServerValue.TIMESTAMP);
       });
-      this.db.object(`articleData/bodysPerArticle/${articleKey}/${oldBodyKey}`).set(firebase.database.ServerValue.TIMESTAMP);
-    });
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
     let articleToUpdate = {
       title: article.title,
