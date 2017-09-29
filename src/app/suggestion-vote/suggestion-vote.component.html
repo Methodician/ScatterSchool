@@ -1,3 +1,3 @@
-<span class="glyphicon glyphicon-chevron-up vote-up" [class.selected]="isActiveState(1)" (click)="attemptVote(1)"></span>
+<md-icon class="vote-up" [class.selected]="isActiveState(1)" (click)="attemptVote(1)">keyboard_arrow_up</md-icon>
 <span class="voteCount">{{ voteTotal }}</span>
-<span class="glyphicon glyphicon-chevron-down vote-down" [class.selected]="isActiveState(-1)" (click)="attemptVote(-1)"></span>
+<md-icon class="vote-down" [class.selected]="isActiveState(-1)" (click)="attemptVote(-1)">keyboard_arrow_down</md-icon>
