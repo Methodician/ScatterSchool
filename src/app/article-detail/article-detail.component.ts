@@ -64,6 +64,10 @@ export class ArticleDetailComponent implements OnInit {
     this.router.navigate([`editarticle/${this.articleKey}`]);
   }
 
+  navigateToHistory() {
+    this.router.navigate([`articlehistory/${this.articleKey}`]);
+  }
+
   toggleFeatured() {
     this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
       if (isLoggedIn) {

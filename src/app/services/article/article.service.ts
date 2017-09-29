@@ -58,6 +58,34 @@ export class ArticleService {
     return this.findArticlesForKeys(this.db.list(`articleData/articlesPerAuthor/${authorKey}`));
   }
 
+  getArticleBodyFromArchiveByKey(bodyKey: string) {
+    return this.db.object(`articleData/articleBodyArchive/${bodyKey}/body`)
+  }
+  getAllArticleHistory(articleKey: string) {
+    return this.db.list(`articleData/articleArchive/${articleKey}`)
+      .map(articles => {
+        return articles.map(article => {
+          article.tags = this.tagsArrayFromTagsObject(article.tags);
+          return article;
+        })
+      });
+  }
+  //  Failed attempt to do full mapping in service:
+  /* getAllArticleHistory(articleKey: string) {
+    return this.db.list(`articleData/articleArchive/${articleKey}`)
+      .map(articles => articles
+        .map(article => {
+          this.getArticleBodyByKey(article.bodyKey)
+            .map(body => {
+              article.body = body;
+              return article;
+            });
+        })
+      //return articles;
+      ).flatMap(firebaseObjects =>
+        Observable.combineLatest(firebaseObjects));
+  } */
+
   createNewArticle(authorKey: string, article: any) {
 
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;

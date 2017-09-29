@@ -1,0 +1,12 @@
+<div *ngIf="articleHistory">
+  <div id="versionSelector">
+    <p><strong>Version: {{ selectedArticle().version }}</strong></p>
+    <button (click)="selectPrevious()">previous</button>
+    <button (click)="selectNext()">next</button>
+  </div>
+  <app-article-history-detail [articleData]="selectedArticle()" [articleKey]="articleKey"></app-article-history-detail>
+</div>
+
+<!-- <pre>
+    {{ articleHistory | json }}
+</pre> -->

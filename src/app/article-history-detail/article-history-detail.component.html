@@ -7,11 +7,10 @@
         <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias}}</h4>
         <follow-btn *ngIf="article" [uid]="article?.authorKey"></follow-btn>
       </div>
-      <!-- Feel free to change the date format. Reference here: https://angular.io/api/common/DatePipe  -->
       <p class="date">Last Updated: {{ article?.lastUpdated | date }}</p>
     </div>
   </div>
-  <div class="tagsBar" *ngIf="!editingPreview">
+  <div class="tagsBar">
     <ul> Tags:
       <li *ngFor="let tag of article?.tags" class="tag"><a (click)="tagSearch(tag)">{{tag}}</a></li>
     </ul>
@@ -27,13 +26,6 @@
     <div [innerHTML]="article?.body | safeHtml" class="copyText"></div>
   </div>
 
-  <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="edit()">Edit</button>
-  <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="navigateToHistory()">View History</button>
-  <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'feature article'}}</button>
-</div>
-<div *ngIf="!editingPreview" class="comment-section-wrapper">
-  <h3>Comments</h3>
-  <hr>
-  <app-add-comment [parentKey]="articleKey"></app-add-comment>
-  <comment-list [parentKey]="articleKey"></comment-list>
+  <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="navigateToDetail()">Back to Current Article</button>
+
 </div>

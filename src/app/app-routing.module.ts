@@ -1,3 +1,4 @@
+import { ArticleHistoryComponent } from './article-history/article-history.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component';
@@ -74,6 +75,10 @@ const routes: Routes = [
   {
     path: 'articledetail/:key',
     component: ArticleDetailComponent
+  },
+  {
+    path: 'articlehistory/:key',
+    component: ArticleHistoryComponent
   },
   {
     path: 'articlesearch',
