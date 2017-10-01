@@ -13,6 +13,7 @@ export class ArticleHistoryComponent implements OnInit {
   articleHistory;
   articleCount;
   curentArticleIndex = 0;
+  intervalTimer;
 
   constructor(
     private articleSvc: ArticleService,
@@ -23,25 +24,49 @@ export class ArticleHistoryComponent implements OnInit {
     this.route.params.subscribe(params => {
       if (params['key']) {
         this.articleKey = params['key'];
-        this.articleSvc.getAllArticleHistory(this.articleKey).subscribe(history => {
+        this.articleSvc.getArticleHistoryByKey(this.articleKey).subscribe(history => {
           this.articleHistory = history;
           this.articleCount = history.length;
           this.curentArticleIndex = history.length - 1;
         });
       }
     })
-
   }
 
-  selectPrevious() {
-    if (this.curentArticleIndex > 0)
+  selectFirst() {
+    this.curentArticleIndex = 0;
+  }
+
+  selectPrevious(): boolean {
+    if (this.curentArticleIndex > 0) {
       this.curentArticleIndex--;
+      return true;
+    }
+    return false;
   }
 
-  selectNext() {
-    if (this.curentArticleIndex < (this.articleCount - 1))
+  selectNext(): boolean {
+    if (this.curentArticleIndex < (this.articleCount - 1)) {
       this.curentArticleIndex++;
+      return true;
+    }
+    return false;
   }
+
+  stopCycle() {
+    clearInterval(this.intervalTimer);
+  }
+
+  startForwardCycle() {
+    this.intervalTimer = setInterval(() => this.cycleForward(), 600);
+  }
+
+  cycleForward() {
+    if (!this.selectNext())
+      this.selectFirst();
+  }
+
+
 
   selectedArticle() {
     if (this.articleHistory)

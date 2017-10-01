@@ -61,7 +61,8 @@ export class ArticleService {
   getArticleBodyFromArchiveByKey(bodyKey: string) {
     return this.db.object(`articleData/articleBodyArchive/${bodyKey}/body`)
   }
-  getAllArticleHistory(articleKey: string) {
+
+  getArticleHistoryByKey(articleKey: string) {
     return this.db.list(`articleData/articleArchive/${articleKey}`)
       .map(articles => {
         return articles.map(article => {
@@ -143,7 +144,14 @@ export class ArticleService {
         this.db.object(`articleData/bodysPerArticle/${articleKey}/${oldBodyKey}`).set(firebase.database.ServerValue.TIMESTAMP);
       });
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
-    let articleToUpdate = {
+    let currentLogObject = {
+      body: article.body,
+      articleKey: null,
+      version: 'current',
+      nextEditorKey: null
+    };
+    this.db.object(`articleData/articleBodyArchive/${bodyKey}`).set(currentLogObject);
+    let articleToUpdate: any = {
       title: article.title,
       introduction: article.introduction,
       bodyKey: bodyKey,
@@ -153,6 +161,8 @@ export class ArticleService {
     }
     this.db.object(`articleData/editorsPerArticle/${articleKey}/${editorKey}`).set(true);
     this.db.object(`articleData/articlesPerEditor/${editorKey}/${articleKey}`).set(true);
+    articleToUpdate.authorKey = article.authorKey;
+    this.db.object(`articleData/articleArchive/${articleKey}/current`).set(articleToUpdate);
 
     return this.db.object(`articleData/articles/${articleKey}`).update(articleToUpdate);
   }

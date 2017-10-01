@@ -4,6 +4,10 @@
     <button (click)="selectPrevious()">previous</button>
     <button (click)="selectNext()">next</button>
   </div>
+  <div id="cycleController">
+    <button (click)="startForwardCycle()">cycle forward</button>
+    <button (click)="stopCycle()">stop</button>
+  </div>
   <app-article-history-detail [articleData]="selectedArticle()" [articleKey]="articleKey"></app-article-history-detail>
 </div>
 
