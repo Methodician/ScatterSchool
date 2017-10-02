@@ -7,12 +7,12 @@ export class AuthInfo {
     ) { }
 
     isLoggedIn() {
-        console.log('uid:', this.$uid);
+        //console.log('uid:', this.$uid);
         return !!this.$uid;
     }
 
     isEmailVerified() {
-        console.log('emailVerified:', this.emailVerified);
+        //console.log('emailVerified:', this.emailVerified);
         return !!this.emailVerified;
     }
 }

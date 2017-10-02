@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthInfo } from './auth-info';
 import { Injectable, Inject } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
@@ -15,6 +16,7 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
+    private router: Router
     //@Inject(FirebaseRef) fbRef
   ) {
     this.afAuth.authState.subscribe(info => {
@@ -54,6 +56,7 @@ export class AuthService {
     this.afAuth.auth.signOut();
     this.authInfo$.next(AuthService.UNKNOWN_USER);
     this.user$.next(null);
+    location.reload();
   }
 
   /*signUp(email, password): Observable<FirebaseAuthState> {
@@ -99,4 +102,23 @@ export class AuthService {
       alert('It looks like your verification email was not sent. Please try again or contact support.');
     });
   }
+
+  isLoggedInCheck(): Observable<boolean> {
+    return this.authInfo$.asObservable()
+      .map(info => info.isLoggedIn())
+      .take(1)
+      .do(allowed => {
+        if (!allowed) {
+          if (confirm('You must be logged in to do that. Would you like to be redirected?'))
+            this.router.navigate(['/login']);
+        }
+      });
+  }
+
+  //  Doesn't really work, still needs to be an observable unless we want to keep a running isLoggedIn variable around.
+  // checkIfLoggedIn() {
+  //   this.isLoggedInCheck().subscribe(isLoggedIn => {
+  //     return isLoggedIn;
+  //   })
+  // }
 }

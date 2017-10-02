@@ -12,12 +12,7 @@
 
 @media only screen and (max-width:768px) {
   .slogan {
-    display: flex;
-    justify-content: flex-end;
-    margin-right: 20px;
-    font-size: 1.4rem;
-    margin-top: 95px;
-    margin-bottom: 0;
+    font-size: 1.7rem;
   }
 }
 

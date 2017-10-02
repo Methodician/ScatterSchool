@@ -1,8 +1,10 @@
+import { AuthGuard } from './guards/auth.guard';
+import { MdButtonModule, MdInputModule, MatToolbarModule, MatIconModule, MatMenuModule, } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
 import { DataCleanupService } from './data-cleanup.service';
-import { fbConfig } from './config';
+import { fbConfig, fbConfigDev } from './config';
 import { AppRoutingModule } from './app-routing.module';
 import { UserService } from './services/user/user.service';
 import { ArticleService } from './services/article/article.service';
@@ -74,6 +76,12 @@ import { ChatService } from './services/chat/chat.service';
 import { ChatFormComponent } from './chat-form/chat-form.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { UserPresenceComponent } from './user-presence/user-presence.component';
+import { SafeHtmlPipe } from './pipes/safe-html.pipe';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { ReverseArrayPipe } from './pipes/reverse-array.pipe';
+import { ArticleHistoryComponent } from './article-history/article-history.component';
+import { ArticleHistoryDetailComponent } from './article-history-detail/article-history-detail.component';
+
 
 
 @NgModule({
@@ -130,20 +138,31 @@ import { UserPresenceComponent } from './user-presence/user-presence.component';
     ChatComponent,
     ChatFormComponent,
     UserListComponent,
-    UserPresenceComponent
+    UserPresenceComponent,
+    SafeHtmlPipe,
+    SafeUrlPipe,
+    ReverseArrayPipe,
+    ArticleHistoryComponent,
+    ArticleHistoryDetailComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(fbConfig),
+    //AngularFireModule.initializeApp(fbConfig),
+    AngularFireModule.initializeApp(fbConfigDev),
     CollapseModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
     CKEditorModule,
     TagInputModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MdButtonModule,
+    MdInputModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
   ],
   providers: [
     AngularFireDatabase,
@@ -155,7 +174,8 @@ import { UserPresenceComponent } from './user-presence/user-presence.component';
     SuggestionService,
     VoteService,
     CommentService,
-    ChatService
+    ChatService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

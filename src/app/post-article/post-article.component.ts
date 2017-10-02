@@ -32,14 +32,16 @@ export class PostArticleComponent implements OnInit {
 
   save(article) {
     const articleKey = this.articleSvc.createNewArticle(this.authInfo.$uid, article);
-    this.sendImgToUploadSvc(articleKey);
+    if (this.selectedFiles) {
+      this.sendImgToUploadSvc(articleKey);
+    }
     this.router.navigate([`articledetail/${articleKey}`]);
   }
 
   sendImgToUploadSvc(articleKey) {
-    const file = this.selectedFiles;
+    const file = this.selectedFiles.item(0);
     const basePath = 'uploads/articleCoverImages';
-    const currentUpload = new Upload(file.item(0));
+    const currentUpload = new Upload(file);
     this.uploadSvc.uploadImage(currentUpload, articleKey, basePath);
   }
 

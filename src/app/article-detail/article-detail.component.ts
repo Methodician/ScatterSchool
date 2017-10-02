@@ -1,3 +1,4 @@
+import { AuthService } from 'app/services/auth/auth.service';
 import { UploadService } from './../services/upload/upload.service';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
@@ -27,7 +28,8 @@ export class ArticleDetailComponent implements OnInit {
     private userSvc: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private uploadSvc: UploadService
+    private uploadSvc: UploadService,
+    private authSvc: AuthService
   ) { }
 
   ngOnInit() {
@@ -62,11 +64,20 @@ export class ArticleDetailComponent implements OnInit {
     this.router.navigate([`editarticle/${this.articleKey}`]);
   }
 
+  navigateToHistory() {
+    this.router.navigate([`articlehistory/${this.articleKey}`]);
+  }
+
   toggleFeatured() {
-    if (this.isArticleFeatured)
-      this.articleSvc.unsetFeaturedArticle(this.articleKey);
-    else
-      this.articleSvc.setFeaturedArticle(this.articleKey);
+    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        if (this.isArticleFeatured)
+          this.articleSvc.unsetFeaturedArticle(this.articleKey);
+        else
+          this.articleSvc.setFeaturedArticle(this.articleKey);
+      }
+    })
+
   }
 
   checkIfFeatured() {
@@ -97,8 +108,13 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   followClick() {
-    let followKey = this.article.authorKey;
-    this.userSvc.followUser(followKey);
+    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        let followKey = this.article.authorKey;
+        this.userSvc.followUser(followKey);
+      }
+    })
+
   }
 
   tagSearch(tag: string) {

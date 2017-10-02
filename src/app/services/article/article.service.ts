@@ -58,6 +58,35 @@ export class ArticleService {
     return this.findArticlesForKeys(this.db.list(`articleData/articlesPerAuthor/${authorKey}`));
   }
 
+  getArticleBodyFromArchiveByKey(bodyKey: string) {
+    return this.db.object(`articleData/articleBodyArchive/${bodyKey}/body`)
+  }
+
+  getArticleHistoryByKey(articleKey: string) {
+    return this.db.list(`articleData/articleArchive/${articleKey}`)
+      .map(articles => {
+        return articles.map(article => {
+          article.tags = this.tagsArrayFromTagsObject(article.tags);
+          return article;
+        })
+      });
+  }
+  //  Failed attempt to do full mapping in service:
+  /* getAllArticleHistory(articleKey: string) {
+    return this.db.list(`articleData/articleArchive/${articleKey}`)
+      .map(articles => articles
+        .map(article => {
+          this.getArticleBodyByKey(article.bodyKey)
+            .map(body => {
+              article.body = body;
+              return article;
+            });
+        })
+      //return articles;
+      ).flatMap(firebaseObjects =>
+        Observable.combineLatest(firebaseObjects));
+  } */
+
   createNewArticle(authorKey: string, article: any) {
 
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
@@ -102,19 +131,27 @@ export class ArticleService {
       });
 
     this.archiveArticle(articleKey);
-    this.db.object(`articleData/articleBodies/${oldBodyKey}`).subscribe(body => {
-      let bodyLogObject: any = {};
-      bodyLogObject.body = body.$value;
-      bodyLogObject.articleKey = articleKey;
-      bodyLogObject.version = article.version;
-      bodyLogObject.nextEditorKey = editorKey;
-      this.db.object(`articleData/articleBodyArchive/${oldBodyKey}`).set(bodyLogObject).then(res => {
-        this.db.object(`articleData/articleBodies/${oldBodyKey}`).remove();
+    this.db.object(`articleData/articleBodies/${oldBodyKey}`)
+      .take(1).subscribe(body => {
+        let bodyLogObject: any = {};
+        bodyLogObject.body = body.$value;
+        bodyLogObject.articleKey = articleKey;
+        bodyLogObject.version = article.version;
+        bodyLogObject.nextEditorKey = editorKey;
+        this.db.object(`articleData/articleBodyArchive/${oldBodyKey}`).set(bodyLogObject).then(res => {
+          this.db.object(`articleData/articleBodies/${oldBodyKey}`).remove();
+        });
+        this.db.object(`articleData/bodysPerArticle/${articleKey}/${oldBodyKey}`).set(firebase.database.ServerValue.TIMESTAMP);
       });
-      this.db.object(`articleData/bodysPerArticle/${articleKey}/${oldBodyKey}`).set(firebase.database.ServerValue.TIMESTAMP);
-    });
     let bodyKey = this.db.list('articleData/articleBodies').push(article.body).key;
-    let articleToUpdate = {
+    let currentLogObject = {
+      body: article.body,
+      articleKey: null,
+      version: 'current',
+      nextEditorKey: null
+    };
+    this.db.object(`articleData/articleBodyArchive/${bodyKey}`).set(currentLogObject);
+    let articleToUpdate: any = {
       title: article.title,
       introduction: article.introduction,
       bodyKey: bodyKey,
@@ -124,6 +161,8 @@ export class ArticleService {
     }
     this.db.object(`articleData/editorsPerArticle/${articleKey}/${editorKey}`).set(true);
     this.db.object(`articleData/articlesPerEditor/${editorKey}/${articleKey}`).set(true);
+    articleToUpdate.authorKey = article.authorKey;
+    this.db.object(`articleData/articleArchive/${articleKey}/current`).set(articleToUpdate);
 
     return this.db.object(`articleData/articles/${articleKey}`).update(articleToUpdate);
   }

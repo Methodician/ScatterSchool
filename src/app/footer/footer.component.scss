@@ -19,9 +19,13 @@
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
-  a:hover {
-    color: #263237;
+
+  a {
     text-decoration: none;
+  }
+  a:hover {
+    color: #C4275F;
+    text-decoration: underline;
   }
 }
 

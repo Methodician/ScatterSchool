@@ -1,44 +1,39 @@
-<nav class="navbar navbar-fixed-top" [ngClass]="lastScrolledUp() ? 'scrolledUp' : 'scrolledDown'">
-  <div class="container-fluid navMainWrapper">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed navHamburger" data-toggle="collapse" (click)="isCollapsed = !isCollapsed"
-        data-target="#topNavbar">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
+<!-- Nav Bar container -->
+<div class="navBarWrapper" [ngClass]="lastScrolledUp() ? 'scrolledUp' : 'scrolledDown'">
+  <md-toolbar>
+    <!-- Logo and Title container -->
+    <div class="logoWrapper">
+      <img height="100px" routerLink="home" src="../../assets/images/spiral_7.png" alt="Logo of Scatter School: community made open source tutorials"> 
+      <a routerLink="home" class="logoLink">Scatter School</a>
+    </div>
+    <!-- Nav Nar content spacer -->
+    <span class="flexBoxSpacer"></span>
+    <!-- Nav Bar Search Bar -->
+    <form  role="search">
+      <md-icon>search</md-icon>
+      <md-form-field color="primary">
+       <input mdInput #searchInput type="text" (keyup.enter)="search(searchInput.value)" aria-describedby="basic-addon2">
+      </md-form-field>
+    </form>
+    <!-- Button Container -->
+    <div class="navButtonWrapper">
+      <button md-raised-button color="primary" id="post-article" routerLink="postarticle">Post an article</button>
+      <button md-raised-button color="accent" *ngIf="authInfo.$uid" routerLink="account"> Hello {{ displayName }}</button>
+      <button md-raised-button color="warn" *ngIf="!authInfo.$uid" routerLink="register" id="sign-up">Sign Up</button>
+      <button md-raised-button color="warn" *ngIf="authInfo.$uid" (click)="logout()" id="logout">Log Out</button>
+      <button md-raised-button color="accent" *ngIf="!authInfo.$uid" routerLink="login" id="sign-in">Sign In</button>
+      <!-- Mobile Nav Bar Menu Button -->
+      <button id="menu" md-icon-button [mdMenuTriggerFor]="menu">
+        <md-icon color="primary">menu</md-icon>
       </button>
-      <div class="logoAbsolute">
-        <a routerLink="home" class="navbar-brand logoLinkAndPhoto">
-          <img height="100px" src="../../assets/images/spiral_7.png" alt="Logo of Scatter School: community made open source tutorials"> Scatter School
-        </a>
-      </div>
+      <!-- Mobile Nav Bar Menu Dropdown  -->
+      <md-menu #menu="mdMenu">
+        <button md-menu-item id="post-article" routerLink="postarticle">Post an article</button>
+        <button md-menu-item *ngIf="authInfo.$uid" routerLink="account"> Hello {{ displayName }}</button>
+        <button md-menu-item *ngIf="!authInfo.$uid" routerLink="register" id="sign-up">Sign Up</button>
+        <button md-menu-item *ngIf="authInfo.$uid" (click)="logout()" id="logout">Log Out</button>
+        <button md-menu-item *ngIf="!authInfo.$uid" routerLink="login" id="sign-in">Sign In</button>
+      </md-menu>
     </div>
-
-    <div class="search-andButton-wrapper">
-
-      <form class="navbar-form pull-right searchBarForm" role="search">
-        <div class="input-group searchInputDiv">
-          <input #searchInput type="text" (keyup.enter)="search(searchInput.value)" class="form-control searchInputControl" aria-describedby="basic-addon2">
-          <!-- <span [routerLink]="['articlesearch/', {query: searchInput.value}]" class="input-group-addon" id="searchBar"> -->
-          <span (click)="search(searchInput.value)" class="input-group-addon" id="searchBar">
-            <img src="../../assets/images/scatter-search-icon.png" alt="Search">
-          </span>
-        </div>
-      </form>
-      <div class="collapse navbar-collapse collapsedNavFix" id="topNavbar" [collapse]="isCollapsed" (click)="isCollapsed = true">
-        <ul class="nav navbar-nav" routerLinkActive="active">
-          <li class="nav-item"><a class="nav-link" id="post-article" routerLink="postarticle">Post an article</a></li>
-        </ul>
-
-        <ul class="nav navbar-nav navbar-right" id="nav-links">
-          <li *ngIf="authInfo.$uid"><a routerLink="account"><span class="fa fa-user"></span> Hello {{ displayName }}</a></li>
-          <li *ngIf="!authInfo.$uid"><a routerLink="register" id="sign-up"><span class="fa fa-user-plus"></span> Sign Up</a></li>
-          <li *ngIf="authInfo.$uid"><a routerLink="login" (click)="logout()" id="logout"><span class="fa fa-sign-out"></span> Logout</a></li>
-          <li *ngIf="!authInfo.$uid"><a routerLink="login" id="sign-in"><span class="fa fa-sign-in"></span> Sign In</a></li>
-        </ul>
-      </div>
-
-    </div>
-
-  </div>
-</nav>
+  </md-toolbar>
+</div>

@@ -1,3 +1,4 @@
+import { AuthService } from 'app/services/auth/auth.service';
 import { UserService } from './../services/user/user.service';
 import { CommentService } from 'app/services/comment/comment.service';
 import { Router } from '@angular/router';
@@ -18,7 +19,8 @@ export class CommentComponent implements OnInit {
   editShowing: boolean = false;
   repliesShowing: boolean = false;
 
-  constructor(private router: Router, private commentSvc: CommentService, private userSvc: UserService) { }
+  constructor(private router: Router, private commentSvc: CommentService, private userSvc: UserService,
+    private authSvc: AuthService) { }
 
   ngOnInit() {
     this.commentSvc.getCommentsByParentKey(this.comment.$key).subscribe(replies => {
@@ -50,15 +52,19 @@ export class CommentComponent implements OnInit {
 
   hasReplies() {
     return this.replies && this.replies.length > 0;
-  }  
+  }
 
   isRepliesShowing() {
     return this.hasReplies() && !this.repliesShowing;
   }
 
   tryShowAddReply(addReply) {
-    if(this.currentUserInfo) addReply.toggleReplyForm();
-    else this.router.navigate(['login']);
+    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
+      if (isLoggedIn)
+        addReply.toggleReplyForm();
+    })
+    /*     if (this.currentUserInfo) addReply.toggleReplyForm();
+        else this.router.navigate(['login']); */
   }
 
   toggleEdit() {
