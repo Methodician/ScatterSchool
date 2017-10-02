@@ -105,6 +105,6 @@ export class UserListComponent implements OnInit {
   calculateUnreadMessages(chat) {
     const totalMessages = chat.totalMessagesCount;
     const messagesSeen = chat.members[this.loggedInUser.$key].messagesSeenCount;
-    return totalMessages - messagesSeen;
+    return (totalMessages === messagesSeen) ? true : false;
   }
 }
