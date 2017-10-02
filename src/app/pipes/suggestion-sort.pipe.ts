@@ -5,18 +5,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class SuggestionSortPipe implements PipeTransform {
 
-  transform(suggestions: any[], sortType?: string): any {
+  transform(suggestions: any[], sortType?: SortOptions): any {
     if (!suggestions) return null;
     switch (sortType) {
-      case 'upvotes':
+      case SortOptions.upvotes:
         return suggestions.sort((a, b) => {
           return b.voteCount - a.voteCount;
         });
-      case 'newest':
+      case SortOptions.newest:
         return suggestions.sort((a, b) => {
           return b.lastUpdated - a.lastUpdated;
         });
-      case 'oldest':
+      case SortOptions.oldest:
         return suggestions.sort((a, b) => {
           return a.lastUpdated - b.lastUpdated;
         });
