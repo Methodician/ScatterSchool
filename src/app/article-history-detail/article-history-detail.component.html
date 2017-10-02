@@ -4,7 +4,7 @@
     <img [src]="profileImageUrl ? profileImageUrl : ''" class="profile-image">
     <div class="userTextWrapper">
       <div class="followButtonWrapper">
-        <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias}}</h4>
+        <h4 class="author">By: {{author?.alias}}</h4>
         <follow-btn *ngIf="article" [uid]="article?.authorKey"></follow-btn>
       </div>
       <p class="date">Last Updated: {{ article?.lastUpdated | date }}</p>
@@ -26,6 +26,6 @@
     <div [innerHTML]="article?.body | safeHtml" class="copyText"></div>
   </div>
 
-  <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="navigateToDetail()">Back to Current Article</button>
+  <button md-raised-button color="primary" (click)="navigateToDetail()">Back to Current Article</button>
 
 </div>
