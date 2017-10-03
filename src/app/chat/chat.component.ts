@@ -1,7 +1,7 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { ChatService } from '../services/chat/chat.service'
 import { UserService } from './../services/user/user.service';
-
+ 
 @Component({
   selector: 'chat',
   templateUrl: './chat.component.html',
@@ -25,10 +25,10 @@ export class ChatComponent implements OnInit {
     });      
     this.chatSvc.currentChatKey$.subscribe(key => {
       if (key) {
-        this.chatSvc.getMessagesForCurrentChat().subscribe(messages => {
+        this.chatSvc.getMessagesForCurrentChat().take(1).subscribe(messages => {
           this.messages = messages;
           this.updateMessagesSeenAndTotalMessages(this.currentUserInfo.$key, this.messages.length);
-          this.niceScroll();
+          this.niceScroll();          
         })
       } else {
         this.chatSvc.getAllMessages().subscribe(messages => {
@@ -36,7 +36,7 @@ export class ChatComponent implements OnInit {
         });
       }
     })
-
+    
   }
 
   updateMessagesSeenAndTotalMessages(user, totalMessages) {
