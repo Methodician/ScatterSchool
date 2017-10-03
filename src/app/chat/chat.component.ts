@@ -25,10 +25,11 @@ export class ChatComponent implements OnInit {
     });      
     this.chatSvc.currentChatKey$.subscribe(key => {
       if (key) {
-        this.chatSvc.getMessagesForCurrentChat().take(1).subscribe(messages => {
+        this.chatSvc.getMessagesForCurrentChat().subscribe(messages => {
           this.messages = messages;
+          console.log(messages);
+          
           this.updateMessagesSeenAndTotalMessages(this.currentUserInfo.$key, this.messages.length);
-          this.niceScroll();          
         })
       } else {
         this.chatSvc.getAllMessages().subscribe(messages => {
@@ -58,6 +59,7 @@ export class ChatComponent implements OnInit {
     }
     this.chatSvc.saveMessage(messageData);
     message.clearForm();
+    this.niceScroll();
   }
 
   isOwnMessage(authorKey) {
