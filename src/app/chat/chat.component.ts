@@ -18,16 +18,16 @@ export class ChatComponent implements OnInit {
     private chatSvc: ChatService,
     private userSvc: UserService
   ) { }
-
+  
   ngOnInit() {
     this.userSvc.userInfo$.subscribe(userInfo => {
       this.currentUserInfo = userInfo;
-    });
+    });      
     this.chatSvc.currentChatKey$.subscribe(key => {
       if (key) {
         this.chatSvc.getMessagesForCurrentChat().subscribe(messages => {
           this.messages = messages;
-          this.updateMessagesSeenAndTotalMessages(key, this.currentUserInfo.uid, this.messages.length);
+          this.updateMessagesSeenAndTotalMessages(this.currentUserInfo.uid, this.messages.length);
           this.niceScroll();
         })
       } else {
@@ -39,10 +39,9 @@ export class ChatComponent implements OnInit {
 
   }
 
-
-  updateMessagesSeenAndTotalMessages(chatKey, user, totalMessages) {
-    this.chatSvc.updateMessagesSeenCount(chatKey, user, totalMessages);
-    this.chatSvc.updateTotalMessagesCount(chatKey, totalMessages);
+  updateMessagesSeenAndTotalMessages(user, totalMessages) {
+    this.chatSvc.updateMessagesSeenCount(user, totalMessages);
+    this.chatSvc.updateTotalMessagesCount(totalMessages);
   }
 
   niceScroll() {

@@ -15,12 +15,12 @@ export class ChatService {
     private db: AngularFireDatabase
   ) { }
 
-  updateTotalMessagesCount(chatKey, totalMessages) {
-    return this.db.object(`chatData/chats/${chatKey}`).update({totalMessagesCount: totalMessages})
+  updateTotalMessagesCount(totalMessages) {
+    return this.db.object(`chatData/chats/${this.currentChatKey}`).update({totalMessagesCount: totalMessages})
   }
 
-  updateMessagesSeenCount(chatKey, userKey, totalMessages) {
-    return this.db.object(`chatData/chats/${chatKey}/members/${userKey}`).update({messagesSeenCount: totalMessages});
+  updateMessagesSeenCount(userKey, totalMessages) {
+    return this.db.object(`chatData/chats/${this.currentChatKey}/members/${userKey}`).update({messagesSeenCount: totalMessages});
   }
 
   getAllMessages() {
