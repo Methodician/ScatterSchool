@@ -27,7 +27,7 @@ export class ChatComponent implements OnInit {
       if (key) {
         this.chatSvc.getMessagesForCurrentChat().subscribe(messages => {
           this.messages = messages;
-          this.updateMessagesSeenAndTotalMessages(this.currentUserInfo.uid, this.messages.length);
+          this.updateMessagesSeenAndTotalMessages(this.currentUserInfo.$key, this.messages.length);
           this.niceScroll();
         })
       } else {
