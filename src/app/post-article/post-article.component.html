@@ -13,7 +13,3 @@
 <button (click)="save(form.value)" md-raised-button color="warn" [disabled]="form.isErrorVisible('title', 'maxlength') || form.isErrorVisible('introduction', 'maxlength')">Post</button>
 <br>
 <br>
-<br> Preview:
-<pre>
-    {{ form.value | json }}
-</pre>

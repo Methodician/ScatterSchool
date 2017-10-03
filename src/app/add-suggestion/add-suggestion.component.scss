@@ -1,12 +1,13 @@
-.centerBtn {
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
+
+.buttonWrapper {
   display: flex;
-  justify-content: center
+  justify-content: center;
+
+  button {
+    @include medium-button();
+  }
 }
 
-.suggestion-submit {
-  font-family: STHeitiSC-Light;
-  letter-spacing: 0.3px;
-  border-radius: 2px;
-  height: 38px;
-  width: 80px;
-}

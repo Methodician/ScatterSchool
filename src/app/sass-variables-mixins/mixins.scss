@@ -1,0 +1,36 @@
+// This is a style sheet that contains all of the mixiins for the sight. It should contain mixins for highly reusable styles across the site.
+
+// Mixins for Buttons
+
+// Small Button Mixin
+@mixin small-button() {
+    height: $sm-height;
+    width: $sm-width;
+    color: $btn-color;
+    font-family: $btn-font-family;
+    font-size: $sm-font-size;
+    letter-spacing: $btn-letter-spacing;
+    border-radius: $btn-border-radius;
+}
+
+// Medium Button Mixin
+@mixin medium-button() {
+    height: $md-height;
+    width: $md-width;
+    color: $btn-color;
+    font-family: $btn-font-family;
+    font-size: $md-font-size;
+    letter-spacing: $btn-letter-spacing;
+    border-radius: $btn-border-radius;
+}
+
+// Large Buttong Mixin
+@mixin large-button() {
+    height: $lg-height;
+    width: $lg-width;
+    color: $btn-color;
+    font-family: $btn-font-family;
+    font-size: $lg-font-size;
+    letter-spacing: $btn-letter-spacing;
+    border-radius: $btn-border-radius;
+}

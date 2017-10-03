@@ -1,0 +1,33 @@
+// This is a style sheet that holds all of the template css variables across the sight. 
+
+// Testing borders "tb" being the key selector
+$tb-red: 2px solid red;
+$tb-blue: 2px solid blue;
+$tb-lime: 2px solid lime;
+$tb-orange: 2px solid orange;
+$tb-yellow: 2px solid yellow;
+$tb-black: 2px solid black;
+$tb-cyan: 2px solid cyan;
+
+// Button styles and variables.
+
+// Global button Styles that aren't specific to button size
+$btn-font-family: STHeitiSC-Light;
+$btn-border-radius: 5px;
+$btn-letter-spacing: .5px;
+$btn-color: white;
+
+// Small Button Styles "sm" being the key selector
+$sm-height: 25px;
+$sm-width: 35px;
+$sm-font-size: 12px;
+
+// Medium Button Styles "md" being the key selector
+$md-height: 40px;
+$md-width: 95px;
+$md-font-size: 14px;
+
+// Large Button styles "lg" being the key selector
+$lg-height: 50px;
+$lg-width: 145px;
+$lg-font-size: 22px;

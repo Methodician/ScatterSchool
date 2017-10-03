@@ -1,4 +1,9 @@
 // This is a SCSS file but all of calls are currently vanilla CSS
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
+
+
 h1 {
   font-size: 30px;
   color: #31C2D7;
@@ -12,14 +17,7 @@ md-form-field {
 
 
 button {
-  font-family: STHeitiSC-Light;
-  letter-spacing: 0.5px;
-  color: #fff;
-  font-size: 1.6rem;
-  font-weight: 100;
-  border-radius: 3px;
-  width:14.3rem;
-  height: 4.5rem;
+  @include large-button();
 }
 
 .loginWrapper {

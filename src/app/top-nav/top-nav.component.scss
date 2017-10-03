@@ -1,3 +1,7 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
+
 // Spacer for the nav bar to push everything to right-side of the toolbar
 .flexBoxSpacer {
   flex: 1 1 auto;
@@ -90,9 +94,12 @@
 
       button {
         margin: 10px 10px;
-        color: white;
+        @include medium-button();
       }
-
+      
+      button:nth-child(1) {
+        width: 140px;
+      }
       
       #menu {
         display: none;
