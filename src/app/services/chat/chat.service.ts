@@ -31,6 +31,10 @@ export class ChatService {
     return this.db.list(`chatData/messagesPerChat/${this.currentChatKey}`);
   }
 
+  getMessagesByKey(chatKey) {
+    return this.db.list(`chatData/messagesPerChat/${chatKey}`);
+  }
+
   getAllChats() {
     return this.db.list('chatData/chats');
   }
