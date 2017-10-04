@@ -31,11 +31,11 @@ export class SuggestionsComponent implements OnInit {
       });
   }
 
-  isSelected(sortOption: SortOptions) {
-    return sortOption === this.currentSortOption;
+  isSelected(sortOption: string) {
+    return SortOptions[sortOption] === this.currentSortOption;
   }
 
-  sortBy(sortOption: SortOptions) {
-    this.currentSortOption = sortOption;
+  sortBy(sortOption: string) {
+    this.currentSortOption = SortOptions[sortOption];
   }
 }
