@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit, AfterContentChecked, ElementRef, ViewChild } from '@angular/core';
 import { ChatService } from '../services/chat/chat.service'
 import { UserService } from './../services/user/user.service';
  
@@ -8,6 +8,9 @@ import { UserService } from './../services/user/user.service';
   styleUrls: ['./chat.component.scss']
 })
 export class ChatComponent implements OnInit {
+  @ViewChild('messageList') private elementRef: ElementRef;
+  newMessagesSeenCount: number;
+  oldMessagesSeenCount = 0;
   // @Input() recipientKey;
   messages;
   currentUserInfo;
@@ -29,11 +32,22 @@ export class ChatComponent implements OnInit {
         if(this.messagesSubscription) this.messagesSubscription.unsubscribe();
         this.messagesSubscription = this.chatSvc.getMessagesByKey(key).subscribe(messages => {
           this.messages = messages;
-          this.updateMessagesSeenAndTotalMessages(this.currentUserInfo.$key, this.messages.length)
+          this.updateMessagesSeenAndTotalMessages(this.currentUserInfo.$key, this.messages.length);
+          this.chatSvc.getMessagesSeenCount(this.currentUserInfo.$key).subscribe(messagesSeen => {            
+            this.newMessagesSeenCount = messagesSeen.messagesSeenCount; 
+          })
         });
       }
     })
     
+  }
+
+  ngAfterViewChecked() {
+    if(this.oldMessagesSeenCount != this.newMessagesSeenCount) {
+      this.oldMessagesSeenCount = this.newMessagesSeenCount;
+      this.scrollToBottom();
+    }
+
   }
 
   updateMessagesSeenAndTotalMessages(user, totalMessages) {
@@ -41,8 +55,8 @@ export class ChatComponent implements OnInit {
     this.chatSvc.updateTotalMessagesCount(totalMessages);
   }
 
-  niceScroll() {
-      document.getElementById('message-list').scrollTop = document.getElementById('message-list').scrollHeight;
+  scrollToBottom() {
+    this.elementRef.nativeElement.scrollTop = this.elementRef.nativeElement.scrollHeight;
   }
 
   sendMessage(message) {
@@ -55,7 +69,7 @@ export class ChatComponent implements OnInit {
     }
     this.chatSvc.saveMessage(messageData);
     message.clearForm();
-    this.niceScroll();
+    // this.niceScroll();
   }
 
   isOwnMessage(authorKey) {

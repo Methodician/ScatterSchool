@@ -23,6 +23,10 @@ export class ChatService {
     return this.db.object(`chatData/chats/${this.currentChatKey}/members/${userKey}`).update({messagesSeenCount: totalMessages});
   }
 
+  getMessagesSeenCount(userKey) {
+    return this.db.object(`chatData/chats/${this.currentChatKey}/members/${userKey}`);
+  }
+
   getAllMessages() {
     return this.db.list(`chatData/messages`);
   }
