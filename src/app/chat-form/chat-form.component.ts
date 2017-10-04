@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ChatFormComponent implements OnInit {
   form: FormGroup;
-  maxLength: number = 140;
+  maxLength: number = 1000;
 
   constructor(private fb: FormBuilder) { }
 
