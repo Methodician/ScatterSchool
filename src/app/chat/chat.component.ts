@@ -12,6 +12,7 @@ export class ChatComponent implements OnInit {
   messages;
   currentUserInfo;
   recipientKey: string = "";
+  messagesSubscription;
   //currentChatKey: string;
 
   constructor(
@@ -25,15 +26,10 @@ export class ChatComponent implements OnInit {
     });      
     this.chatSvc.currentChatKey$.subscribe(key => {
       if (key) {
-        this.chatSvc.getMessagesForCurrentChat().subscribe(messages => {
+        if(this.messagesSubscription) this.messagesSubscription.unsubscribe();
+        this.messagesSubscription = this.chatSvc.getMessagesByKey(key).subscribe(messages => {
           this.messages = messages;
-          console.log(messages);
-          
-          this.updateMessagesSeenAndTotalMessages(this.currentUserInfo.$key, this.messages.length);
-        })
-      } else {
-        this.chatSvc.getAllMessages().subscribe(messages => {
-          this.messages = messages;
+          this.updateMessagesSeenAndTotalMessages(this.currentUserInfo.$key, this.messages.length)
         });
       }
     })
