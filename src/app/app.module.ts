@@ -79,12 +79,9 @@ import { UserPresenceComponent } from './user-presence/user-presence.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ReverseArrayPipe } from './pipes/reverse-array.pipe';
-<<<<<<< HEAD
 import { ArticleHistoryComponent } from './article-history/article-history.component';
 import { ArticleHistoryDetailComponent } from './article-history-detail/article-history-detail.component';
 
-=======
->>>>>>> group-messaging
 
 
 @NgModule({
@@ -144,13 +141,9 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     UserPresenceComponent,
     SafeHtmlPipe,
     SafeUrlPipe,
-<<<<<<< HEAD
     ReverseArrayPipe,
     ArticleHistoryComponent,
     ArticleHistoryDetailComponent
-=======
-    ReverseArrayPipe
->>>>>>> group-messaging
   ],
   imports: [
     BrowserModule,
@@ -167,17 +160,11 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     BrowserAnimationsModule,
     MdButtonModule,
     MdInputModule,
-<<<<<<< HEAD
-    MatToolbarModule,
-    MatIconModule,
-    MatMenuModule,
-=======
     MatCardModule,
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
     MatSidenavModule
->>>>>>> group-messaging
   ],
   providers: [
     AngularFireDatabase,
