@@ -1,12 +1,12 @@
 <div *ngIf="articleHistory">
   <div id="versionSelector">
     <p><strong>Version: {{ selectedArticle().version }}</strong></p>
-    <button (click)="selectPrevious()">previous</button>
-    <button (click)="selectNext()">next</button>
+    <button md-fab color="primary" (click)="selectPrevious()"><md-icon>skip_previous</md-icon></button>
+    <button md-fab color="primary" (click)="selectNext()"><md-icon>skip_next</md-icon></button>
   </div>
   <div id="cycleController">
-    <button (click)="startForwardCycle()">cycle forward</button>
-    <button (click)="stopCycle()">stop</button>
+    <button md-fab color="primary" (click)="startForwardCycle()"><md-icon>play_circle_outline</md-icon></button>
+    <button md-fab color="primary" (click)="stopCycle()"><md-icon>pause_circle_outline</md-icon></button>
   </div>
   <app-article-history-detail [articleData]="selectedArticle()" [articleKey]="articleKey"></app-article-history-detail>
 </div>

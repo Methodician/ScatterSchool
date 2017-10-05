@@ -1,18 +1,15 @@
-button:focus {
-  outline-color: #31C2D7;
-}
-
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
 
 .followBtn {
-  height: 38px;
-  width: 85px;
-  color: #fff;
-  border-radius: 2px;
-  letter-spacing: 0.3px;
+  @include medium-button();
 }
 
 .unfollow {
   color: #263237;
   background-color: #fff;
   border: 1px solid #263237;
+  text-align: center;
+  letter-spacing: 0.2px;
 }

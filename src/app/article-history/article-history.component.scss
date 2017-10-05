@@ -1,7 +1,19 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
+
 #versionSelector {
   text-align: center;
+
+  button {
+    color: white;
+  }
 }
 
 #cycleController {
   text-align: center;
+
+  button {
+    color: white;
+  }
 }

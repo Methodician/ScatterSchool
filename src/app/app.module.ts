@@ -1,5 +1,5 @@
 import { AuthGuard } from './guards/auth.guard';
-import { MdButtonModule, MdInputModule, MatCardModule, MatToolbarModule, MatMenuModule, MatIconModule, MatSidenavModule } from '@angular/material';
+import { MdButtonModule, MdInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -163,6 +163,9 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     MatCardModule,
     MatToolbarModule,
     MatMenuModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatChipsModule,
     MatIconModule,
     MatSidenavModule
   ],

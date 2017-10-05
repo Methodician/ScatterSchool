@@ -1,3 +1,7 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
+
 .titleWrapper{
   display: flex;
   justify-content: center;
@@ -53,9 +57,8 @@
     justify-content: center;
 
     button {
-      font-family: STHeitiSC-Light;
-      color: #fff;
-      border-radius: 2px;
+      @include large-button();
+      width: 180px;
     }
   }
 
