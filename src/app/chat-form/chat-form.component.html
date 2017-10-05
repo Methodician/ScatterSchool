@@ -1,0 +1,6 @@
+<form [formGroup]="form">
+  <md-form-field>
+    <textarea mdInput name="text" formControlName="text" class="formControl" [maxlength]="maxLength" placeholder="Message"></textarea>
+    <md-hint align="start">{{ maxLength - form.value.text.length }}</md-hint>
+  </md-form-field>
+</form>

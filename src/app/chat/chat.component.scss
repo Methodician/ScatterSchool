@@ -1,0 +1,91 @@
+.message {
+  color: white;
+  background-color: #31C2D7;
+  padding: 7px;
+  width: 75%;
+  margin: 5px 0px 5px 0px;
+  border-radius: 8px;
+}
+
+.message > span {
+  word-wrap: break-word;
+}
+
+.ownMessage {
+  color: #111;
+  background-color: #DDD;
+  margin-left: auto;
+}
+
+.ownMessage > #timestamp {
+  color: gray;
+}
+
+#message-list {
+  height: 500px;
+  overflow-y: scroll;
+  margin: 0px 10px;
+}
+
+#messages {
+  width: 400px;
+  margin: 10px;
+  box-shadow: 0px 1px 3px 0px grey;
+  border-radius: 1px;
+  display: inline-block;
+}
+
+
+#author {
+  font-weight: bold;
+}
+
+#timestamp {
+  color: white;
+  font-size: 11px;
+}
+
+#body {
+  display: block;
+}
+
+.profile-image {
+  background-image: url('../../assets/images/kid-art.jpg');
+  background-size: cover;
+}
+
+.mat-card {
+  margin: 5px;
+  padding: 10px;
+  background: rgba(256,256,256,0);
+}
+
+.mat-card-title {
+  margin-bottom: 5px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-toolbar {
+  box-shadow: 0px 2px 3px -2px black;
+  color: white;
+}
+
+#chat-form {
+  background-color: whitesmoke;
+  box-shadow: 0px -2px 6px -3px grey;
+}
+
+.mat-drawer-shown {
+  background-color: darkred;
+}
+
+#user-list {
+  width: 320px;
+}
+
+#sidenav-container>div.mat-drawer-shown {
+  background-color: red;
+}

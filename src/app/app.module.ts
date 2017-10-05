@@ -1,5 +1,5 @@
 import { AuthGuard } from './guards/auth.guard';
-import { MdButtonModule, MdInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule } from '@angular/material';
+import { MdButtonModule, MdInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -71,6 +71,11 @@ import { AddReplyComponent } from './add-reply/add-reply.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
 import { AllArticlesComponent } from './all-articles/all-articles.component';
+import { ChatComponent } from './chat/chat.component';
+import { ChatService } from './services/chat/chat.service';
+import { ChatFormComponent } from './chat-form/chat-form.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserPresenceComponent } from './user-presence/user-presence.component';
 import { SafeHtmlPipe } from './pipes/safe-html.pipe';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ReverseArrayPipe } from './pipes/reverse-array.pipe';
@@ -130,6 +135,10 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     UploadFormComponent,
     AllArticlesComponent,
     ArticleCoverImageComponent,
+    ChatComponent,
+    ChatFormComponent,
+    UserListComponent,
+    UserPresenceComponent,
     SafeHtmlPipe,
     SafeUrlPipe,
     ReverseArrayPipe,
@@ -151,12 +160,14 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     BrowserAnimationsModule,
     MdButtonModule,
     MdInputModule,
+    MatCardModule,
     MatToolbarModule,
-    MatIconModule,
     MatMenuModule,
     MatProgressSpinnerModule,
     MatCardModule,
     MatChipsModule,
+    MatIconModule,
+    MatSidenavModule
   ],
   providers: [
     AngularFireDatabase,
@@ -168,6 +179,7 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     SuggestionService,
     VoteService,
     CommentService,
+    ChatService,
     AuthGuard
   ],
   bootstrap: [AppComponent]
