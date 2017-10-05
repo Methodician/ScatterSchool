@@ -10,7 +10,7 @@
 </div>
 <app-article-form #form>
 </app-article-form>
-<button (click)="save(form.value)" md-raised-button color="warn" [disabled]="form.isErrorVisible('title', 'maxlength') || form.isErrorVisible('introduction', 'maxlength')">Post</button>
+<button (click)="save(form.value)" md-raised-button color="warn" [disabled]="!form.valid">Post</button>
 <br>
 <br>
 <br> Preview:
