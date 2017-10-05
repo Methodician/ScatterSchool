@@ -29,6 +29,10 @@ export class UserService {
     })
   }
 
+  getUserPresence(userKey) {
+    return this.db.object(`presenceData/users/${userKey}`)
+  }
+
   setUserAccess(accessLevel: number, uid: string) {
     return this.db.object(`userInfo/accessLevel/${uid}`).set(accessLevel);
   }
