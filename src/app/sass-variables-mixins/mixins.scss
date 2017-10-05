@@ -1,5 +1,32 @@
 // This is a style sheet that contains all of the mixiins for the sight. It should contain mixins for highly reusable styles across the site.
 
+// Mixin and function for accurate and responsive fontsize 
+
+// Define default font size
+@function calculateRem($size) {
+    $remSize: $size / 16px;
+    @return $remSize * 1rem;
+  }
+
+  @mixin font-size($size) {
+    font-size: $size;
+    font-size: calculateRem($size);
+  }
+
+
+// Mixin for height and width of containers
+@mixin size($height, $width) {
+    height: $height;
+    width: $width;
+}
+
+// Mixin for typography styles
+
+@mixin font-styles() {
+    font-family: $font-family;
+    letter-spacing: $letter-spacing;
+}
+
 // Mixins for Buttons
 
 // Small Button Mixin
@@ -8,7 +35,7 @@
     width: $sm-width;
     color: $btn-color;
     font-family: $btn-font-family;
-    font-size: $sm-font-size;
+    font-size: font-size($sm-font-size);
     letter-spacing: $btn-letter-spacing;
     border-radius: $btn-border-radius;
 }
@@ -19,7 +46,7 @@
     width: $md-width;
     color: $btn-color;
     font-family: $btn-font-family;
-    font-size: $md-font-size;
+    font-size: font-size($md-font-size);
     letter-spacing: $btn-letter-spacing;
     border-radius: $btn-border-radius;
 }
@@ -30,7 +57,7 @@
     width: $lg-width;
     color: $btn-color;
     font-family: $btn-font-family;
-    font-size: $lg-font-size;
+    font-size: font-size($lg-font-size);
     letter-spacing: $btn-letter-spacing;
     border-radius: $btn-border-radius;
 }

@@ -1,5 +1,14 @@
 // This is a style sheet that holds all of the template css variables across the sight. 
 
+// GLOBAL THEME COLORS FOR APP
+$primary-color: #00b8d4;
+$accent-color: #00bfa5;
+$warn-color: #c2185b;
+
+// GLOBAL TYPOGRAPHY STYLES
+$font-family: STHeitiSC-Light;
+$letter-spacing: .5px;
+
 // Testing borders "tb" being the key selector
 $tb-red: 2px solid red;
 $tb-blue: 2px solid blue;

@@ -1,4 +1,30 @@
-<div class="latestPreview">
+<md-card class="example-card">
+  <!-- Card Header Container -->
+  <md-card-header>
+    <img md-card-avatar [src]="profileImageUrl ? profileImageUrl : ''" class="profile-image" alt="">
+    <md-card-title class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:50}}</md-card-title>
+    <md-card-subtitle class="author" (click)="navigateToProfile()">By: {{author?.alias | truncate:20}}</md-card-subtitle>
+    <md-card-subtitle class="date">{{ articleData?.lastUpdated | date }}</md-card-subtitle>
+  </md-card-header>
+  <!-- Image Container -->
+  <div class="imageWrapper">
+    <img md-card-image [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" alt="article's cover image">
+  </div>
+  <!-- Card Content -->
+  <md-card-content>
+    <p class="intro">{{articleData.introduction | truncate:75 }}</p>
+  </md-card-content>
+  <!-- Card Footer Action -->
+  <md-card-actions>
+    <md-chip-list>
+      <md-chip color="primary" *ngFor="let tags of articleData.tags">{{tags | truncate:8}}</md-chip>
+    </md-chip-list>
+  </md-card-actions>
+</md-card>
+
+
+<!-- ORGINAL HTML FOR CARDS -->
+<!-- <div class="latestPreview">
   <div class="imagePreview">
     <div class="imageWrapper">
       <img 
@@ -7,6 +33,7 @@
       alt="article's cover image">
     </div>
   </div>
+
   <div class="textPreview">
     <h3 class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:50}}</h3>
     <div class="userPhotoDateWrapper">
@@ -21,10 +48,11 @@
       </div>
     </div>
     <p class="intro">{{articleData.introduction | truncate:50 }}</p>
-    <!-- <p class="rating">RATING HERE<p> -->
+ 
         <div class="tagWrapper">
           <img src="../../assets/images/ss-tag-icon.png" alt="A tag icon of all the catagories this tutoral fits under.">
           <p class="tags">{{articleData.tags | truncateTags:20 }}</p>
         </div>
   </div>
-</div>
+
+</div> -->
