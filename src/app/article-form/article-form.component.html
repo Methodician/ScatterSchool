@@ -22,7 +22,7 @@
     </div>
 </form>
 <div class="tagWrapper">
-    <h2>Tags</h2>
-    <tag-input class="ckEditor" [maxItems]="8" [(ngModel)]="formTags" (onAdd)="onTagAdded($event)" (onRemove)="onTagRemoved($event)"></tag-input>
+    <h2>Tags</h2><em>Alphenumeric characters and spaces only</em>
+    <tag-input class="ckEditor" [maxItems]="8" [(ngModel)]="formTags" [validators]="validator" (onAdd)="onTagAdded($event)" (onRemove)="onTagRemoved($event)"></tag-input>
 </div>
 
