@@ -1,4 +1,4 @@
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 
 @Component({
@@ -12,10 +12,10 @@ export class ArticleFormComponent implements OnInit {
   @Input()
   initialValue: any;
   titleError: string;
-
   form: FormGroup;
   formTags = [];
   articleTags = [];
+  validator = [this.tagValidation]
 
   constructor(
     fb: FormBuilder
@@ -61,12 +61,20 @@ export class ArticleFormComponent implements OnInit {
     }
   }
 
-  onTagAdded($event) {
-    this.articleTags.push($event.value.toUpperCase());
-    this.form.controls.tags.patchValue(this.articleTags);
-    //this.form.controls.tags.setValue(this.articleTags);
-    //this.form.title[upperTag] = true;
+  tagValidation(control: FormControl) {
+    // regex that allows only alpnanumeric characters and spaces
+    const tag = control.value,
+      regexp = new RegExp("^[a-zA-Z0-9 ]*$"),
+      test = regexp.test(tag);
+      return test ? null : {'alphanumericCheck' : true}
   }
+
+  onTagAdded($event) {
+        this.articleTags.push($event.value.toUpperCase());
+        this.form.controls.tags.patchValue(this.articleTags);
+      //this.form.controls.tags.setValue(this.articleTags);
+      //this.form.title[upperTag] = true;
+    }
 
   onTagRemoved($event) {
     console.log($event);
