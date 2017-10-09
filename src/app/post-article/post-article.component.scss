@@ -1,14 +1,9 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
 
 button {
-  font-family: STHeitiSC-Light;
-  letter-spacing: 0.5px;
-  color: #fff;
-  font-size: 1.6rem;
-  font-weight: 100;
-  /* background-color: #C4275F; */
-  border-radius: 3px;
-  width:14.3rem;
-  height: 4.5rem;
+@include large-button();
   margin: 0 auto;
   /*flex attributes*/
   display: flex;

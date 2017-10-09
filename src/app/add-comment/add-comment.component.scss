@@ -1,10 +1,11 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
+
+
 button {
-  font-family: STHeitiSC-Light;
-}
-.postCommentBtn {
-  border-radius: 2px;
-  letter-spacing: 0.5px;
-  height: 35px;
+  @include medium-button();
+  width: 140px;
 }
 
 #counter {

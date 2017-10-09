@@ -1,3 +1,7 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
+
 h3 {
   color: #31C2D7;
   font-family: STHeitiSC-Light;
@@ -6,15 +10,10 @@ h3 {
 }
 
 .suggestionBtn {
-  color: #fff;
-  width: 197px;
-  height: 40px;
-  font-family: STHeitiSC-Light;
-  letter-spacing: 0.5px;
+  @include medium-button();
+  width: 205px;
   margin-bottom: 40px;
   font-size: 18px;
-  border-radius: 3px;
-  text-decoration: none;
 }
 
 .suggestionLoop {

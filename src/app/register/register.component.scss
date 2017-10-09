@@ -1,3 +1,8 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
+
+
 .registerWrapper {
   width: 95%;
   margin: 0 auto;
@@ -49,13 +54,8 @@
     margin: 0 auto;
 
     button {
-      font-family: STHeitiSC-Light;
-      letter-spacing: 0.5px;
-      font-size: 1.6rem;
-      font-weight: 100;
-      width:14.3rem;
-      height: 4.5rem;
-      margin-top: 20px;
+      @include medium-button();
+      width: 150px;
     }
   }
 }

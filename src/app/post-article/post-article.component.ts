@@ -8,7 +8,7 @@ import { Upload } from '../services/upload/upload';
 @Component({
   selector: 'app-post-article',
   templateUrl: './post-article.component.html',
-  styleUrls: ['./post-article.component.css']
+  styleUrls: ['./post-article.component.scss']
 })
 export class PostArticleComponent implements OnInit {
   authInfo = null;

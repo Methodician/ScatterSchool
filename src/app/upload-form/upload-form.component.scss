@@ -1,3 +1,7 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
+
 input {
   font-size: 18px;
 }
@@ -18,10 +22,7 @@ progress {
   width: 500px;
   margin: 0 auto;
   .btnUpload{
-      height: 40px;
-      color: #fff;
-      background-color: #C4275F;
-      letter-spacing: 0.5px;
+      @include medium-button();
       margin-bottom: 10px;
   }
 }
