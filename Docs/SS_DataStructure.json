@@ -184,5 +184,87 @@
         "suggestionKey2": -1
       }
     }
+  },
+  "chatData": {
+    "chats": {
+      "chatKey1": {
+        "lastMessage": "THIS IS A MESSAGE",
+        "timestamp": 981241419123124
+      }
+    },
+    "messagesPerChat": {
+      "chatKey1": {
+        "messageKey1": {
+          "sentBy": "userKey2",
+          "body": "THIS IS A MESSAGE",
+          "timestamp": 12312414441
+        }
+      }
+    },
+    "membersPerChat": {
+      "chatKey1": {
+        "userKey1": true,
+        "userKey2": true
+      }
+    },
+    "chatsPerMember": {
+      "userKey1": {
+        "chatKey1": true,
+        "chatKey2": true
+      },
+      "userKey2": {
+        "chatKey1": true,
+        "chatKey2": true
+      }
+    }
+  },
+  "commentData": {
+    "comments": {
+      "commentKey1": {
+        "authorKey": "authorKey1",
+        "parentKey": "parentKey1",
+        "text": "THIS IS SOME COMMENT TEXT",
+        "timestamp": 121414141341,
+        "lastUpdated": 989889899898
+      }
+    },
+    "commentsPerUser": {
+      "userKey1": {
+        "commentKey1": true,
+        "commentKey2": true
+      }
+    },
+    "commentsPerParent": {
+      "parentKey1": {
+        "commentKey1": true,
+        "commentKey2": true
+      }
+    },
+    "commentsPerArticle": {
+      "articleKey1": {
+        "commentKey1": true,
+        "commentKey2": true
+      }
+    },
+    "repliesPerComment": {
+      "commentKey1": {
+        "commentKey3": true,
+        "commentKey4": true
+      }
+    }
+  },
+  "presenceData": {
+    "users": {
+      "onlineUserExampleKey": {
+        "connections": {
+          "arbitraryKeyToIndicateAConnection": true,
+          "secondArbitraryKeyToIndicateSecondConnection": true
+        },
+        "lastOnline": 8378137812
+      },
+      "offlineUserExampleKey": {
+        "lastOnline": 1331891342
+      }
+    }
   }
 }
