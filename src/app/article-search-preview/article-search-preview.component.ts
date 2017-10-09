@@ -1,5 +1,6 @@
+import { UploadService } from './../services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
 
 @Component({
@@ -8,21 +9,24 @@ import { ArticleService } from './../services/article/article.service';
   styleUrls: ['./article-search-preview.component.scss']
 })
 export class ArticleSearchPreviewComponent implements OnInit {
-
-  articleKey: string;
   @Input() articleData: any;
   author;
+  profileImageUrl;
+  articleCoverImageUrl;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private articleSvc: ArticleService
+    private articleSvc: ArticleService,
+    private uploadSvc: UploadService
   ) { }
 
   ngOnInit() {
     this.articleSvc.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
       this.author = author;
     });
+    this.getProfileImage(this.author.$key);
+    this.getArticleCoverImage(this.articleData.$key);
   }
 
   navigateToArticleDetail() {
@@ -30,6 +34,24 @@ export class ArticleSearchPreviewComponent implements OnInit {
   }
 
   navigateToProfile() {
-    this.articleSvc.navigateToProfile(this.author.$key);
+    this.articleSvc.navigateToProfile(this.articleData.authorKey);
+  }
+
+  getProfileImage(uid) {
+    const basePath = 'uploads/profileImages/';
+    this.uploadSvc.getImage(uid, basePath).subscribe(profileData => {
+      if (profileData.url) {
+        this.profileImageUrl = profileData.url;
+      }
+    });
+  }
+
+  getArticleCoverImage(articleKey) {
+    const basePath = 'uploads/articleCoverImages';
+    this.uploadSvc.getImage(articleKey, basePath).subscribe(articleData => {
+      if (articleData.url) {
+        this.articleCoverImageUrl = articleData.url;
+      }
+    });
   }
 }

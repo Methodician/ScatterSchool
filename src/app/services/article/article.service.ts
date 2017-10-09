@@ -251,7 +251,7 @@ export class ArticleService {
     return this.db.list('articleData/articles', {
       query: {
         orderByChild: 'timeStamp',
-        limitToLast: 7
+        limitToLast: 12
       }
     }).map(articles => {
       articles.map(article => {
