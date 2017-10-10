@@ -1,5 +1,5 @@
 import { Router, Params } from '@angular/router';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 

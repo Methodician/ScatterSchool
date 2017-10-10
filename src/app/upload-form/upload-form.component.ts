@@ -1,5 +1,5 @@
 import { ArticleService } from './../services/article/article.service';
-import { FirebaseObjectObservable } from 'angularfire2/database';
+import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { UploadService } from './../services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Upload } from '../services/upload/upload';

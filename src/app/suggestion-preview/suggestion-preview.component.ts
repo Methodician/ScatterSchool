@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { SuggestionService } from './../services/suggestion/suggestion.service'
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Router } from '@angular/router';
 
 @Component({

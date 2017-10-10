@@ -1,5 +1,5 @@
 import { AuthGuard } from './guards/auth.guard';
-import { MdButtonModule, MdInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule, MatTooltipModule } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -11,7 +11,7 @@ import { ArticleService } from './services/article/article.service';
 import { AccountComponent } from './account/account.component';
 import { AuthService } from './services/auth/auth.service';
 import { HomeComponent } from './home/home.component';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -158,8 +158,8 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     CKEditorModule,
     TagInputModule,
     BrowserAnimationsModule,
-    MdButtonModule,
-    MdInputModule,
+    MatButtonModule,
+    MatInputModule,
     MatCardModule,
     MatToolbarModule,
     MatMenuModule,
