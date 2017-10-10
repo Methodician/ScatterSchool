@@ -1,17 +1,17 @@
 <form autocomplete="off" novalidate [formGroup]="form">
   <div class="formWrapper">
     
-      <md-form-field color="primary">
-        <input mdInput placeholder="Title" #title name="title" maxlength="100" formControlName="title" type="text" [class.input-error]="isErrorVisible('title', 'required')">
-        <md-hint align="end">{{title.value.length}} / 100</md-hint>
-        <md-error *ngIf="isErrorVisible('title','required')">Please give your article a title.</md-error>
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="Title" #title name="title" maxlength="100" formControlName="title" type="text" [class.input-error]="isErrorVisible('title', 'required')">
+        <mat-hint align="end">{{title.value.length}} / 100</mat-hint>
+        <mat-error *ngIf="isErrorVisible('title','required')">Please give your article a title.</mat-error>
+      </mat-form-field>
 
-      <md-form-field color="primary">
-        <textarea mdInput placeholder="Introduction" #introduction name="introduction" maxlength="300" formControlName="introduction" type="text" [class.input-error]="isErrorVisible('introduction', 'required')"></textarea>
-        <md-hint align="end">{{introduction.value.length}} / 300</md-hint>
-        <md-error *ngIf="isErrorVisible('introduction','required')">Please tell us a little something about what this article is about.</md-error>
-      </md-form-field>
+      <mat-form-field color="primary">
+        <textarea matInput placeholder="Introduction" #introduction name="introduction" maxlength="300" formControlName="introduction" type="text" [class.input-error]="isErrorVisible('introduction', 'required')"></textarea>
+        <mat-hint align="end">{{introduction.value.length}} / 300</mat-hint>
+        <mat-error *ngIf="isErrorVisible('introduction','required')">Please tell us a little something about what this article is about.</mat-error>
+      </mat-form-field>
 
       <div class="ckEditor">
         <label>Body</label>

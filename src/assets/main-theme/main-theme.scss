@@ -1139,7 +1139,7 @@ $mat-dark-theme-foreground: (
 $mat-ripple-color-opacity: 0.1;
 
 @mixin mat-ripple() {
-  // The host element of an md-ripple directive should always have a position of "absolute" or
+  // The host element of an mat-ripple directive should always have a position of "absolute" or
   // "relative" so that the ripple divs it creates inside itself are correctly positioned.
   .mat-ripple {
     overflow: hidden;
@@ -1222,7 +1222,7 @@ $mat-ripple-color-opacity: 0.1;
 }
 
 
-/** The mixins below are shared between md-menu and md-select */
+/** The mixins below are shared between mat-menu and mat-select */
 
 // menu width must be a multiple of 56px
 $mat-menu-overlay-min-width: 112px !default;   // 56 * 2
@@ -1741,7 +1741,7 @@ $mat-menu-icon-margin: 16px !default;
 
 
 
-// Applies a focus style to an md-button element for each of the supported palettes.
+// Applies a focus style to an mat-button element for each of the supported palettes.
 @mixin _mat-button-focus-color($theme) {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -1782,7 +1782,7 @@ $mat-menu-icon-margin: 16px !default;
   }
 }
 
-// Applies a property to an md-button element for each of the supported palettes.
+// Applies a property to an mat-button element for each of the supported palettes.
 @mixin _mat-button-theme-color($theme, $property, $color: 'default') {
   $primary: map-get($theme, primary);
   $accent: map-get($theme, accent);
@@ -1860,7 +1860,7 @@ $mat-menu-icon-margin: 16px !default;
 
 
 
-// Applies a focus style to an md-button-toggle element for each of the supported palettes.
+// Applies a focus style to an mat-button-toggle element for each of the supported palettes.
 @mixin _mat-button-toggle-focus-color($theme) {
   $background: map-get($theme, background);
 
@@ -3420,7 +3420,7 @@ $mat-tooltip-vertical-padding: ($mat-tooltip-target-height - $mat-tooltip-font-s
   @include mat-pseudo-checkbox-theme($theme);
 
   // Wrapper element that provides the theme background when the
-  // user's content isn't inside of a `md-sidenav-container`.
+  // user's content isn't inside of a `mat-sidenav-container`.
   .mat-app-background {
     $background: map-get($theme, background);
     background-color: mat-color($background, background);

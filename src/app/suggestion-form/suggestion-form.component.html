@@ -1,17 +1,17 @@
 <form [formGroup]="form" autocomplete="off" novalidate class="formWrapper">
   <fieldset>
     <!-- Title Input -->
-    <md-form-field color="primary">
-      <input #title mdInput placeholder="Title" type="text" name="title" formControlName="title" class="formControl" [class.input-error]="isErrorVisible('title','required')">
-      <md-hint align="end">{{title.value.length}} / 140</md-hint>
-      <md-error *ngIf="isErrorVisible('title','required')"> A title is required.</md-error>
-      <md-error *ngIf="isErrorVisible('title','maxlength')"> The title can be no more than 140 characters long.</md-error>
-    </md-form-field>
+    <mat-form-field color="primary">
+      <input #title matInput placeholder="Title" type="text" name="title" formControlName="title" class="formControl" [class.input-error]="isErrorVisible('title','required')">
+      <mat-hint align="end">{{title.value.length}} / 140</mat-hint>
+      <mat-error *ngIf="isErrorVisible('title','required')"> A title is required.</mat-error>
+      <mat-error *ngIf="isErrorVisible('title','maxlength')"> The title can be no more than 140 characters long.</mat-error>
+    </mat-form-field>
     <!-- Pitch Input -->
-    <md-form-field class="pitch-styles" color="primary">
-      <textarea mdInput placeholder="Pitch" type="text"cols="69" rows="8" name="pitch" formControlName="pitch" class="formControl"></textarea>
-      <md-error *ngIf="isErrorVisible('pitch','required')">A pitch is required.</md-error>
-    </md-form-field>
+    <mat-form-field class="pitch-styles" color="primary">
+      <textarea matInput placeholder="Pitch" type="text"cols="69" rows="8" name="pitch" formControlName="pitch" class="formControl"></textarea>
+      <mat-error *ngIf="isErrorVisible('pitch','required')">A pitch is required.</mat-error>
+    </mat-form-field>
   </fieldset>
 </form>
 

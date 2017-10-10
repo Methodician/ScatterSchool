@@ -2,6 +2,6 @@
   <img src="../../assets/images/x-out.png" class="close-reply" (click)="toggleReplyForm()"/>
   <p class="reply-author" (click)="navigateToProfile()">{{ currentUserDisplayName() }}</p>
   <app-comment-form #form></app-comment-form>
-  <button md-raised-button color="accent" [disabled]="!form.valid" (click)="postReply(form.value)">Reply</button>
+  <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="postReply(form.value)">Reply</button>
   <span>{{form.text.value.length}}</span>
 </div>

@@ -7,11 +7,11 @@ margin: 0 auto;
   fieldset {
     height: 500px;
     
-    md-form-field {
+    mat-form-field {
       width: 100%;
     }
     
-    md-form-field:nth-child(2) {
+    mat-form-field:nth-child(2) {
       margin-top: 50px;
     }
 
