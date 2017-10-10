@@ -3,36 +3,49 @@
 @import "../sass-variables-mixins/mixins.scss";
 
 md-card {
-  width: 400px;
-  margin-bottom: 100px;
+  @include size(325px, 300px);
+  padding: 0px;
+  margin-bottom: 20px;
+  position: relative;
   
+  img {
+    @include size(150px, 100%);
+    object-fit: cover;
+    object-position: center;
+    margin: 0 auto;
+  }
+
   md-card-header {
-    min-height: 110px;
-    max-height: 110px;
+    min-height: 75px;
+    max-height: 75px;
+    position: relative;
 
-    img {
-      @include size(75px, 75px)
-    }
+    .titleWrapper {
+      height: 48px;
+      width: 100%;
 
-    md-card-title {
-      @include font-size(24px);
-      margin-left: 15px;
-      color: $primary-color;
-      cursor: pointer;
-
-      &:hover {
-        text-decoration: underline;
+      md-card-title {
+        @include font-size(20px);
+        @include font-styles();
+        color: $primary-color;
+        padding: 15px;
+        cursor: pointer;
+  
+        &:hover {
+          color: $accent-color;
+          text-decoration: underline;
+        }
       }
-
     }
 
     md-card-subtitle {
+      position: absolute;
+      bottom: 0px;
+      margin: 0;
+      max-height: 20px;
       color: $warn-color;
       font-weight: 800;
-      margin-left: 20px;
-    }
-
-    md-card-subtitle:nth-of-type(1) {
+      padding: 0px 15px;
       cursor: pointer;
 
       &:hover {
@@ -42,39 +55,127 @@ md-card {
     }
   }
 
-  .imageWrapper img {
-    margin-top: 10px;
-    @include size(250px, 448px);
-    object-fit: cover;
-  }
 
   md-card-content {
-    height: 40px;
+    padding: 15px;
+    min-height: 20px;
+    max-height: 20px;
+    margin: 0 auto;
 
     p {
-      @include font-size(20px);
+      @include font-size(14px);
     }
-
   }
 
   md-card-actions {
-    height: 70px;
+    @include size(40px, 260px);
+    margin: 0 auto !important;
+    position: absolute;
+    bottom: 5px;
+    padding: 15px;
     display: flex;
+    flex-direction: row;
     justify-content: flex-start;
-    align-items: flex-start;
-    
-    md-chip-list {
+  
+    div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-right: 10px;
 
-      md-chip {
-        @include font-styles();
-        background-color: $accent-color;
-        color: white;
+      span {
+
+        md-icon {
+          cursor: default;
+        }
+      }
+
+      p {
+        margin-left: 5px;
       }
     }
 
-  }
+    .iconSpacer {
+      flex: 1 1 auto;
+    }
 
+    div:nth-of-type(4) {
+      margin-right: 0;
+    }
+  }
 }
+
+
+
+//ORIGINAL STYLES FOR ANGULAR MATERIAL CARD SYSTEM 
+// md-card {
+//   width: 400px;
+//   margin-bottom: 100px;
+  
+//   md-card-header {
+//     min-height: 110px;
+//     max-height: 110px;
+
+//     img {
+//       @include size(75px, 75px)
+//     }
+
+//     md-card-title {
+//       @include font-size(24px);
+//       margin-left: 15px;
+//       color: $primary-color;
+//       cursor: pointer;
+//       &:hover {
+//         text-decoration: underline;
+//       }
+//     }
+
+//     md-card-subtitle {
+//       color: $warn-color;
+//       font-weight: 800;
+//       margin-left: 20px;
+//     }
+
+//     md-card-subtitle:nth-of-type(1) {
+//       cursor: pointer;
+//       &:hover {
+//         color: $accent-color;
+//         text-decoration: underline;
+//       }
+//     }
+//   }
+
+//   .imageWrapper img {
+//     margin-top: 10px;
+//     @include size(250px, 448px);
+//     object-fit: cover;
+//   }
+
+//   md-card-content {
+//     height: 40px;
+
+//     p {
+//       @include font-size(20px);
+//     }
+//   }
+
+//   md-card-actions {
+//     height: 70px;
+//     display: flex;
+//     justify-content: flex-start;
+//     align-items: flex-start;
+    
+//     md-chip-list {
+
+//       md-chip {
+//         @include font-styles();
+//         background-color: $accent-color;
+//         color: white;
+//       }
+//     }
+//   }
+// }
 
 // ORIGINAL SCSS CODE FOR CARDS
 // .latestPreview {
