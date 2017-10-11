@@ -5,15 +5,14 @@
 
 
 h1 {
-  font-size: 30px;
-  color: #31C2D7;
+  @include font-size(30px);
+  color: $primary-color;
   cursor: default;
   margin-bottom: 20px;
+  text-align: center;
 }
 
-mat-form-field {
-  margin-top: 20px;
-}
+
 
 
 button {
@@ -25,10 +24,8 @@ button {
   width: 95%;
   margin: 0 auto;
   margin-top: 90px;
-}
 
-.loginWrapper * {
-  font-family: STHeitiSC-Light;
+  @include font-styles();
 }
 
 .formWrapper {
@@ -37,6 +34,11 @@ button {
   justify-content: center;
   width: 500px;
   margin: 0 auto;
+
+  mat-form-field {
+    margin-top: 20px;
+    width: 100%;
+  }
 }
 
 .buttonWrapper {
