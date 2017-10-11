@@ -265,8 +265,15 @@ export class ArticleService {
   getAuthorByKey(authorKey: string) {
     return this.db.object(`userInfo/open/${authorKey}`);
   }
-  
-  // ------------------------------------  
+
+  isBookmarked(userKey, articleKey) {
+    return this.db.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).map(article => {
+      if(article.$value)
+        return true;
+      return false;
+    });
+  }
+
   bookmarkArticle(userKey, articleKey) {
     this.db.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
     this.db.object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`).set(firebase.database.ServerValue.TIMESTAMP);
@@ -292,14 +299,12 @@ export class ArticleService {
   getUsersByArticleKey(articleKey) {
     return this.db.list(`articleData/userBookmarksPerArticle/${articleKey}`)
     .map(article => {
-      console.log(article);
       return article.map(user => this.db.object(`userInfo/open/${user.$key}`));
     })
     .flatMap(FirebaseObjectObservable => {
       return Observable.combineLatest(FirebaseObjectObservable)
     });
   }
-// ------------------------------------
 
   navigateToArticleDetail(articleKey: any) {
     this.router.navigate([`articledetail/${articleKey}`]);

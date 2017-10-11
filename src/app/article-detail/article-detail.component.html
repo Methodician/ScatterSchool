@@ -16,14 +16,10 @@
       <li *ngFor="let tag of article?.tags" class="tag"><a (click)="tagSearch(tag)">{{tag}}</a></li>
     </ul>
   </div>
-
-  <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="bookmark()">Bookmark</button>
-  <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="unbookmark()">Unbookmark</button>
-
   <div class="headlineWrapper">
+    <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="bookmarkToggle()">{{ isArticleBookmarked ? 'unbookmark' : 'bookmark' }}</button>
     <h1>{{article?.title}}</h1>
-    <p class="rating">RATING HERE
-      <p>
+    <p class="rating">RATING HERE<p>
   </div>
   <div class="bodyWrapper">
     <p class="intro">{{article?.introduction}}</p>
