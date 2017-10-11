@@ -284,7 +284,7 @@ export class ArticleService {
     this.db.object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`).remove();
   }
 
-//returns each article a user has bookmarked
+//returns each article a particular user has bookmarked
   getBookmarksByUserKey(userKey) {
     return this.db.list(`userInfo/articleBookmarksPerUser/${userKey}`)
       .map(bookmark => {
@@ -295,7 +295,7 @@ export class ArticleService {
       });
   }
 
-//returns each user that has bookmarked an article
+//returns each user that has bookmarked a particular article
   getUsersByArticleKey(articleKey) {
     return this.db.list(`articleData/userBookmarksPerArticle/${articleKey}`)
     .map(article => {
