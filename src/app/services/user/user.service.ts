@@ -1,6 +1,6 @@
 import { AuthInfo } from './../auth/auth-info';
 import { UserInfoOpen } from './user-info';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';

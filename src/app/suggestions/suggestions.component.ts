@@ -2,7 +2,7 @@ import { Suggestion } from './../services/suggestion/suggestion.model';
 import { AuthService } from './../services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { SuggestionService } from './../services/suggestion/suggestion.service'
-import { FirebaseListObservable } from 'angularfire2/database';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { SortOptions } from './../pipes/suggestion-sort.pipe';
 
 @Component({

@@ -2,7 +2,7 @@
 	<div>
 		<app-article-form #articleForm [initialValue]="article">
 		</app-article-form>
-		<button md-raised-button color="warn" (click)="edit(articleForm.value)">Save Changes</button>
+		<button mat-raised-button color="warn" (click)="edit(articleForm.value)">Save Changes</button>
 	</div>
 	<div>
 		<app-article-cover-image *ngIf="article" [articleKey]="key"></app-article-cover-image>

@@ -6,57 +6,57 @@
     <!-- Field Set #1 of 3 First Name, Last Name, User Alias -->
     <fieldset>
       <!-- First Name Input -->
-      <md-form-field color="primary">
-          <input mdInput placeholder="First Name:" formControlName="title" maxlength="50" type="text" [class.input-error]="isErrorVisible('fName','required')" name="fName"
+      <mat-form-field color="primary">
+          <input matInput placeholder="First Name:" formControlName="title" maxlength="50" type="text" [class.input-error]="isErrorVisible('fName','required')" name="fName"
           formControlName="fName" type="text">
-          <md-error *ngIf="isErrorVisible('fName','required')">Please provide your first name.</md-error>
-      </md-form-field>
+          <mat-error *ngIf="isErrorVisible('fName','required')">Please provide your first name.</mat-error>
+      </mat-form-field>
       <!-- Last Name Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="Last Name:" formControlName="lName" maxlength="50" type="text" [class.input-error]="isErrorVisible('lName','required')" name="lName"
+      <mat-form-field color="primary">
+        <input matInput placeholder="Last Name:" formControlName="lName" maxlength="50" type="text" [class.input-error]="isErrorVisible('lName','required')" name="lName"
         formControlName="lName">
-        <md-error *ngIf="isErrorVisible('lName','required')">Please provide your last name.</md-error>
-      </md-form-field>
+        <mat-error *ngIf="isErrorVisible('lName','required')">Please provide your last name.</mat-error>
+      </mat-form-field>
       <!-- User Alias Input -->
-      <md-form-field color="primary">
-        <input #alias mdInput placeholder="User Alias:" formControlName="alias" #alias type="text" maxlength="30">
-        <md-hint align="end">{{alias.value.length}} / 30</md-hint>
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input #alias matInput placeholder="User Alias:" formControlName="alias" #alias type="text" maxlength="30">
+        <mat-hint align="end">{{alias.value.length}} / 30</mat-hint>
+      </mat-form-field>
     </fieldset>
     <!-- Field Set #2 of 3 City, State, Zip -->
     <fieldset>
       <table cellspacing="0"><tr>
         <!-- City Input -->
-       <td><md-form-field color="primary">
-          <input mdInput placeholder="City:" formControlName="city" maxlength="50" #city type="text">
-        </md-form-field></td>
+       <td><mat-form-field color="primary">
+          <input matInput placeholder="City:" formControlName="city" maxlength="50" #city type="text">
+        </mat-form-field></td>
         <!-- State Input -->
-        <td><md-form-field color="primary">
-          <input mdInput placeholder="State:" formControlName="state" maxlength="50" type="text">
-        </md-form-field></td>
+        <td><mat-form-field color="primary">
+          <input matInput placeholder="State:" formControlName="state" maxlength="50" type="text">
+        </mat-form-field></td>
         <!-- ZipCode Input -->
-        <td><md-form-field color="primary">
-          <input mdInput placeholder="Zip Code:" formControlName="zipCode" maxlength="10" [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode"
+        <td><mat-form-field color="primary">
+          <input matInput placeholder="Zip Code:" formControlName="zipCode" maxlength="10" [class.input-error]="isErrorVisible('zipCode','required')" name="zipCode"
             type="text">
-            <md-error  *ngIf="isErrorVisible('zipCode','required')">Please provide your zip code.</md-error>
-        </md-form-field></td>
+            <mat-error  *ngIf="isErrorVisible('zipCode','required')">Please provide your zip code.</mat-error>
+        </mat-form-field></td>
       </tr></table>
     </fieldset>
     <!-- Field Set #3 of 3 Email and Bio -->
     <fieldset>
       <!-- Email Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="Your Email:" formControlName="email" maxlength="150" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" type="email">
-        <md-error *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</md-error>
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="Your Email:" formControlName="email" maxlength="150" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" type="email">
+        <mat-error *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</mat-error>
+      </mat-form-field>
       <!-- Bio Input -->
-      <md-form-field color="primary">
-        <textarea mdInput placeholder="Your Bio:" formControlName="bio" type="text" rows="3" cols="50"></textarea>  
-      </md-form-field>
+      <mat-form-field color="primary">
+        <textarea matInput placeholder="Your Bio:" formControlName="bio" type="text" rows="3" cols="50"></textarea>  
+      </mat-form-field>
     </fieldset>
     <!-- Submit Button -->
     <div class="buttonWrapper">
-      <button md-raised-button color="warn" [disabled]="form.pristine || form.invalid" (click)="updateAccountDetails()">Save Settings</button>
+      <button mat-raised-button color="warn" [disabled]="form.pristine || form.invalid" (click)="updateAccountDetails()">Save Settings</button>
     </div>
   </form>
   <!-- Profile Picture Componenet -->

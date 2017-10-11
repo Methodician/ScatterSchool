@@ -1,37 +1,37 @@
-<md-card>
+<mat-card>
   <!-- Article Image -->
    <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" alt="article's cover image">
   <!-- Card Header Container -->
-  <md-card-header>
+  <mat-card-header>
     <div class="titleWrapper">
-      <md-card-title class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:40}}</md-card-title>
+      <mat-card-title class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:40}}</mat-card-title>
     </div>
-    <md-card-subtitle class="author" (click)="navigateToProfile()">Last Updated on: {{ articleData?.lastUpdated | date }}</md-card-subtitle>
-  </md-card-header>
+    <mat-card-subtitle class="author" (click)="navigateToProfile()">Last Updated on: {{ articleData?.lastUpdated | date }}</mat-card-subtitle>
+  </mat-card-header>
   <!-- Card Content -->
-  <md-card-content>
+  <mat-card-content>
     <p class="intro">{{articleData.introduction | truncate:100 }}</p>
-  </md-card-content>
+  </mat-card-content>
   <!-- Card Footer Action -->
-  <md-card-actions>
+  <mat-card-actions>
     <!-- Article Comment Icon -->
     <div>
-      <span mdTooltip="0 Comments">
-        <md-icon color="accent">comment</md-icon>
+      <span matTooltip="0 Comments">
+        <mat-icon color="accent">comment</mat-icon>
       </span>
       <p>0</p>
     </div>
     <!-- Article History Icon -->
     <div>
-      <span mdTooltip="Revised {{articleData.version}} time(s)">
-        <md-icon color="accent">history</md-icon>
+      <span matTooltip="Revised {{articleData.version}} time(s)">
+        <mat-icon color="accent">history</mat-icon>
       </span>
        <p>{{articleData.version}}</p>
     </div>
     <!-- Article Tags Icon -->
     <div>
-      <span mdTooltip="{{articleData.tags }}">
-        <md-icon color="accent">label_outline</md-icon>
+      <span matTooltip="{{articleData.tags }}">
+        <mat-icon color="accent">label_outline</mat-icon>
       </span>
       <p>{{articleData.tags.length}}</p>
     </div>
@@ -39,38 +39,38 @@
     <span class="iconSpacer"></span>
     <!-- Article Bookmark Icon -->
     <div>
-      <md-icon color="accent">bookmark_border</md-icon>
+      <mat-icon color="accent">bookmark_border</mat-icon>
     </div>
-  </md-card-actions>
-</md-card>
+  </mat-card-actions>
+</mat-card>
 
 
 
 
 <!-- ORIGINAL ANGULAR MATERIAL CARD PROTOTYPE -->
-<!-- <md-card class="example-card">
+<!-- <mat-card class="example-card">
   Card Header Container
-  <md-card-header>
-    <img md-card-avatar [src]="profileImageUrl ? profileImageUrl : ''" class="profile-image" alt="">
-    <md-card-title class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:50}}</md-card-title>
-    <md-card-subtitle class="author" (click)="navigateToProfile()">By: {{author?.alias | truncate:20}}</md-card-subtitle>
-    <md-card-subtitle class="date">{{ articleData?.lastUpdated | date }}</md-card-subtitle>
-  </md-card-header>
+  <mat-card-header>
+    <img mat-card-avatar [src]="profileImageUrl ? profileImageUrl : ''" class="profile-image" alt="">
+    <mat-card-title class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:50}}</mat-card-title>
+    <mat-card-subtitle class="author" (click)="navigateToProfile()">By: {{author?.alias | truncate:20}}</mat-card-subtitle>
+    <mat-card-subtitle class="date">{{ articleData?.lastUpdated | date }}</mat-card-subtitle>
+  </mat-card-header>
   Image Container
   <div class="imageWrapper">
-    <img md-card-image [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" alt="article's cover image">
+    <img mat-card-image [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" alt="article's cover image">
   </div>
   Card Content
-  <md-card-content>
+  <mat-card-content>
     <p class="intro">{{articleData.introduction | truncate:75 }}</p>
-  </md-card-content>
+  </mat-card-content>
   Card Footer Action
-  <md-card-actions>
-    <md-chip-list>
-      <md-chip color="primary" *ngFor="let tags of articleData.tags">{{tags | truncate:8}}</md-chip>
-    </md-chip-list>
-  </md-card-actions>
-</md-card> -->
+  <mat-card-actions>
+    <mat-chip-list>
+      <mat-chip color="primary" *ngFor="let tags of articleData.tags">{{tags | truncate:8}}</mat-chip>
+    </mat-chip-list>
+  </mat-card-actions>
+</mat-card> -->
 
 
 <!-- ORGINAL HTML FOR CARDS -->

@@ -27,9 +27,9 @@
     <div [innerHTML]="article?.body | safeHtml" class="copyText"></div>
   </div>
 
-  <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="edit()">Edit</button>
-  <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="navigateToHistory()">View History</button>
-  <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'feature article'}}</button>
+  <button mat-raised-button color="primary" *ngIf="!editingPreview" (click)="edit()">Edit</button>
+  <button mat-raised-button color="primary" *ngIf="!editingPreview" (click)="navigateToHistory()">View History</button>
+  <button mat-raised-button color="primary" *ngIf="!editingPreview" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'feature article'}}</button>
 </div>
 <div *ngIf="!editingPreview" class="comment-section-wrapper">
   <h3>Comments</h3>
