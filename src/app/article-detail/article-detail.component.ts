@@ -53,10 +53,7 @@ export class ArticleDetailComponent implements OnInit {
     this.userSvc.userInfo$.subscribe(user => {
       if (user) {
         this.user = user;
-        this.articleSvc.getUsersByArticleKey(this.articleKey).subscribe(user => {
-          if(user)
-          this.checkIfBookmarked();          
-        })  
+        this.checkIfBookmarked();          
       }
     })  
 
