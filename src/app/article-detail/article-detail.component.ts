@@ -38,7 +38,7 @@ export class ArticleDetailComponent implements OnInit {
       this.route.params.subscribe(params => {
         if (params['key'])
           this.articleKey = params['key'];
-          
+
         this.checkIfFeatured();
         this.getArticleData();
       });
@@ -49,6 +49,17 @@ export class ArticleDetailComponent implements OnInit {
       this.getAuthor(this.articleData.authorKey);
       this.getProfileImage(this.articleData.authorKey);
     }
+    // ----------------------------
+    this.userSvc.userInfo$.subscribe(user => {
+      if (user) {
+        this.user = user;
+        this.articleSvc.getBookmarksByUserKey(this.user.$key).subscribe(article => {
+        console.log('articles:', article);  
+        })        
+      }
+    })  
+    // ----------------------------
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -61,27 +72,17 @@ export class ArticleDetailComponent implements OnInit {
     this.articleSvc.navigateToProfile(this.author.$key);
   }
 // ---------------------------
- //Keep in mind only logged in user should be able to interact with this button
-
 
   bookmarkToggle() {
 
   }
 
- bookmark() {
-   this.userSvc.userInfo$.subscribe(user => {
-     if (user) {
-       this.articleSvc.bookmarkArticle(user.uid, this.articleKey);
-     }
-   })  
+  bookmark() {
+    this.articleSvc.bookmarkArticle(this.user.$key, this.articleKey);
   }
-  
- unbookmark() {
-    this.userSvc.userInfo$.subscribe(user => {
-      if(user) {
-        this.articleSvc.unBookmarkArticle(user.uid, this.articleKey);
-      }
-    })
+
+  unbookmark() {
+    this.articleSvc.unBookmarkArticle(this.user.$key, this.articleKey);
   }
 
 // ---------------------------

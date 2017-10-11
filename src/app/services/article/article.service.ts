@@ -267,10 +267,6 @@ export class ArticleService {
   }
   // ------------------------------------
 
-  getBookmarksByUserKey(userKey) {
-
-  }
-
   unBookmarkArticle(userKey, articleKey) {
     this.db.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).remove();
     this.db.object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`).remove();
@@ -280,6 +276,17 @@ export class ArticleService {
     //firebase timestamps are not exactally the same, not sure if this is okay
     this.db.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
     this.db.object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+  }
+
+  getBookmarksByUserKey(userKey) {
+    return this.db.list(`userInfo/articleBookmarksPerUser/${userKey}`)
+      .map(bookmark => {
+        console.log(bookmark);
+        return bookmark.map(article => this.db.object(`articleData/articles/${article.$key}`));
+      })
+      .flatMap(firebaseObjectObservables => {
+        return Observable.combineLatest(firebaseObjectObservables)
+      });
   }
 
 // ------------------------------------
