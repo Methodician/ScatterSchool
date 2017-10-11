@@ -38,6 +38,7 @@ export class ArticleDetailComponent implements OnInit {
       this.route.params.subscribe(params => {
         if (params['key'])
           this.articleKey = params['key'];
+          
         this.checkIfFeatured();
         this.getArticleData();
       });
@@ -59,6 +60,31 @@ export class ArticleDetailComponent implements OnInit {
   navigateToProfile() {
     this.articleSvc.navigateToProfile(this.author.$key);
   }
+// ---------------------------
+ //Keep in mind only logged in user should be able to interact with this button
+
+
+  bookmarkToggle() {
+
+  }
+
+ bookmark() {
+   this.userSvc.userInfo$.subscribe(user => {
+     if (user) {
+       this.articleSvc.bookmarkArticle(user.uid, this.articleKey);
+     }
+   })  
+  }
+  
+ unbookmark() {
+    this.userSvc.userInfo$.subscribe(user => {
+      if(user) {
+        this.articleSvc.unBookmarkArticle(user.uid, this.articleKey);
+      }
+    })
+  }
+
+// ---------------------------
 
   edit() {
     this.router.navigate([`editarticle/${this.articleKey}`]);

@@ -265,6 +265,24 @@ export class ArticleService {
   getAuthorByKey(authorKey: string) {
     return this.db.object(`userInfo/open/${authorKey}`);
   }
+  // ------------------------------------
+
+  getBookmarksByUserKey(userKey) {
+
+  }
+
+  unBookmarkArticle(userKey, articleKey) {
+    this.db.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).remove();
+    this.db.object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`).remove();
+  }
+
+  bookmarkArticle(userKey, articleKey) {
+    //firebase timestamps are not exactally the same, not sure if this is okay
+    this.db.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+    this.db.object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+  }
+
+// ------------------------------------
 
   navigateToArticleDetail(articleKey: any) {
     this.router.navigate([`articledetail/${articleKey}`]);
