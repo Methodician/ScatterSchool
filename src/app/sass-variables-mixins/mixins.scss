@@ -32,7 +32,7 @@
 // Small Button Mixin
 @mixin small-button() {
     height: $sm-height;
-    width: $sm-width;
+    min-width: $sm-width;
     color: $btn-color;
     font-family: $btn-font-family;
     font-size: font-size($sm-font-size);
@@ -43,7 +43,7 @@
 // Medium Button Mixin
 @mixin medium-button() {
     height: $mat-height;
-    width: $mat-width;
+    min-width: $mat-width;
     color: $btn-color;
     font-family: $btn-font-family;
     font-size: font-size($mat-font-size);
@@ -54,7 +54,7 @@
 // Large Buttong Mixin
 @mixin large-button() {
     height: $lg-height;
-    width: $lg-width;
+    min-width: $lg-width;
     color: $btn-color;
     font-family: $btn-font-family;
     font-size: font-size($lg-font-size);

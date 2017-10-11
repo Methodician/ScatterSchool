@@ -8,22 +8,26 @@
     </div>
     <!-- Nav Nar content spacer -->
     <span class="flexBoxSpacer"></span>
-    <!-- Nav Bar Search Bar -->
-    <form  role="search">
+    <!-- Nav Bar Search Button -->
+    <button mat-raised-button (click)="searchBarFocus()" class="searchButton">
       <mat-icon>search</mat-icon>
+    </button>
+    <!-- Nav Bar Search Bar -->
+    <form role="search" *ngIf="searchBarState === 1" [class.searchBarIsActive]="searchBarState === 1" [class.searchBarIsInActive]="searchBarState === 2">
+      <!-- <mat-icon>search</mat-icon> -->
       <mat-form-field color="primary">
-       <input matInput #searchInput type="text" (keyup.enter)="search(searchInput.value)" aria-describedby="basic-addon2">
+       <input matInput #searchInput placeholder="Search Articles" type="text" (keyup.enter)="search(searchInput.value)" aria-describedby="basic-addon2">
       </mat-form-field>
     </form>
     <!-- Button Container -->
     <div class="navButtonWrapper">
-      <button mat-raised-button color="primary" id="post-article" routerLink="postarticle">Post an article</button>
-      <button mat-raised-button color="accent" *ngIf="authInfo.$uid" routerLink="account"> Hello {{ displayName }}</button>
-      <button mat-raised-button color="warn" *ngIf="!authInfo.$uid" routerLink="register" id="sign-up">Sign Up</button>
-      <button mat-raised-button color="warn" *ngIf="authInfo.$uid" (click)="logout()" id="logout">Log Out</button>
-      <button mat-raised-button color="accent" *ngIf="!authInfo.$uid" routerLink="login" id="sign-in">Sign In</button>
+      <button mat-raised-button color="primary" id="post-article" routerLink="postarticle" class="navButtons">Post an article</button>
+      <button mat-raised-button color="accent" *ngIf="authInfo.$uid" routerLink="account" class="navButtons"> Hello {{ displayName }}</button>
+      <button mat-raised-button color="warn" *ngIf="!authInfo.$uid" routerLink="register" id="sign-up" class="navButtons">Sign Up</button>
+      <button mat-raised-button color="warn" *ngIf="authInfo.$uid" (click)="logout()" id="logout" class="navButtons">Log Out</button>
+      <button mat-raised-button color="accent" *ngIf="!authInfo.$uid" routerLink="login" id="sign-in" class="navButtons">Sign In</button>
       <!-- Mobile Nav Bar Menu Button -->
-      <button id="menu" mat-icon-button [matMenuTriggerFor]="mobileMenu">
+      <button id="menu" mat-raised-button [matMenuTriggerFor]="mobileMenu" class="hamburgerButton">
         <mat-icon color="primary">menu</mat-icon>
       </button>
       <!-- Mobile Nav Bar Menu Dropdown  -->

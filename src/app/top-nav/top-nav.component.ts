@@ -19,6 +19,7 @@ export class TopNavComponent implements OnInit {
   lastScrollY: number;
   lastScrollDirection: string = 'up';
   searchInput: string;
+  searchBarState: searchBarFocus = searchBarFocus.inactive;
 
   constructor(
     private authSvc: AuthService,
@@ -60,4 +61,17 @@ export class TopNavComponent implements OnInit {
   lastScrolledUp() {
     return this.lastScrollDirection == 'up' ? true : false;
   }
+
+  searchBarFocus() {
+    if (this.searchBarState === searchBarFocus.focus) {
+      return this.searchBarState = searchBarFocus.inactive;
+    } else if (this.searchBarState === searchBarFocus.inactive) {
+      return this.searchBarState = searchBarFocus.focus;
+    }
+  }
+}
+
+export enum searchBarFocus {
+  'focus' = 1,
+  'inactive'
 }
