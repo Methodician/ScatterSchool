@@ -49,16 +49,11 @@ export class ArticleDetailComponent implements OnInit {
       this.getAuthor(this.articleData.authorKey);
       this.getProfileImage(this.articleData.authorKey);
     }
-    // ----------------------------
     this.userSvc.userInfo$.subscribe(user => {
       if (user) {
-        this.user = user;
-        this.articleSvc.getBookmarksByUserKey(this.user.$key).subscribe(article => {
-        console.log('articles:', article);  
-        })        
+        this.user = user;       
       }
     })  
-    // ----------------------------
 
   }
 
@@ -72,7 +67,6 @@ export class ArticleDetailComponent implements OnInit {
     this.articleSvc.navigateToProfile(this.author.$key);
   }
 // ---------------------------
-
   bookmarkToggle() {
 
   }
@@ -84,7 +78,6 @@ export class ArticleDetailComponent implements OnInit {
   unbookmark() {
     this.articleSvc.unBookmarkArticle(this.user.$key, this.articleKey);
   }
-
 // ---------------------------
 
   edit() {
