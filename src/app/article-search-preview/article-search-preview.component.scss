@@ -2,7 +2,7 @@
 @import "../sass-variables-mixins/vars.scss";
 @import "../sass-variables-mixins/mixins.scss";
 
-md-card {
+mat-card {
   @include size(150px, 100%);
   padding: 15px;
   margin-bottom: 20px;
@@ -21,14 +21,14 @@ md-card {
     @include size(150px, 700px);
     margin-right: 50px;
 
-    md-card-header {
+    mat-card-header {
       @include size(40px, 100%);
       padding: 15px;
   
       .titleWrapper {
         width: 100%;
   
-        md-card-title {
+        mat-card-title {
           @include font-size(20px);
           @include font-styles();
           color: $primary-color;
@@ -40,7 +40,7 @@ md-card {
           }
         }
       
-        md-card-subtitle {
+        mat-card-subtitle {
           margin-top: 20px;
           color: $warn-color;
           font-weight: 800;
@@ -55,7 +55,7 @@ md-card {
     }
   
   
-    md-card-content {
+    mat-card-content {
       @include size(40px, 100%);
       padding: 15px;
 
@@ -79,7 +79,7 @@ md-card {
     flex: 1 1 auto;
   }
 
-  md-card-actions {
+  mat-card-actions {
     @include size(150px, 226px);
     margin-left: 0px !important;
     margin-right: 0px !important;
@@ -96,7 +96,7 @@ md-card {
 
       span {
 
-        md-icon {
+        mat-icon {
           cursor: default;
           @include font-size(40px);
         }
@@ -108,7 +108,7 @@ md-card {
     }
     div:nth-of-type(4) {
 
-      md-icon {
+      mat-icon {
         @include font-size(40px);
         margin-bottom: 13px;
       }

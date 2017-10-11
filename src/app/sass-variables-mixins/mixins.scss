@@ -42,11 +42,11 @@
 
 // Medium Button Mixin
 @mixin medium-button() {
-    height: $md-height;
-    width: $md-width;
+    height: $mat-height;
+    width: $mat-width;
     color: $btn-color;
     font-family: $btn-font-family;
-    font-size: font-size($md-font-size);
+    font-size: font-size($mat-font-size);
     letter-spacing: $btn-letter-spacing;
     border-radius: $btn-border-radius;
 }

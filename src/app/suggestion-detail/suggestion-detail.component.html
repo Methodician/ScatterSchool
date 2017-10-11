@@ -2,7 +2,7 @@
     <h1>{{suggestion?.title}}</h1>
     <p>{{suggestion?.pitch}}</p>
     <div class="btnWrapper">
-        <button md-raised-button color="primary" [routerLink]="['/postarticle']">Post an article</button>
-        <button md-raised-button color="warn" [routerLink]="['/editsuggestion', suggestion?.$key]">Edit</button>
+        <button mat-raised-button color="primary" [routerLink]="['/postarticle']">Post an article</button>
+        <button mat-raised-button color="warn" [routerLink]="['/editsuggestion', suggestion?.$key]">Edit</button>
     </div>
 </div>

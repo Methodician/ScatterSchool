@@ -1,42 +1,42 @@
 <div id="messages">
-  <md-sidenav-container id="sidenav-container">
-    <md-sidenav #userlist id="user-list" mode="over" position="start">
-        <md-toolbar color="primary">
+  <mat-sidenav-container id="sidenav-container">
+    <mat-sidenav #userlist id="user-list" mode="over" position="start">
+        <mat-toolbar color="primary">
             <span>Add Users</span>
             <span class="spacer"></span>
             <span>Save</span>
-        </md-toolbar>
-    </md-sidenav>
+        </mat-toolbar>
+    </mat-sidenav>
   
-    <md-toolbar color="primary">
+    <mat-toolbar color="primary">
         <span>Chat</span>
         <span class="spacer"></span>
-        <button md-icon-button [mdMenuTriggerFor]="menu">
-            <md-icon>more_vert</md-icon>
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
           </button>
-        <md-menu #menu="mdMenu">
-          <button md-menu-item (click)="userlist.open()">Add User</button>
-        </md-menu>
-    </md-toolbar>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="userlist.open()">Add User</button>
+        </mat-menu>
+    </mat-toolbar>
 
     <div #messageList id="message-list">
-      <md-card *ngFor="let message of messages">
-        <md-card-header>
-          <div md-card-avatar class="profile-image"></div>
-          <md-card-title>{{ message.authorName }}</md-card-title>
-          <md-card-subtitle>{{ message.timestamp | timeElapsed }}</md-card-subtitle>
-        </md-card-header>
-        <md-card-content>
+      <mat-card *ngFor="let message of messages">
+        <mat-card-header>
+          <div mat-card-avatar class="profile-image"></div>
+          <mat-card-title>{{ message.authorName }}</mat-card-title>
+          <mat-card-subtitle>{{ message.timestamp | timeElapsed }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
           <p>
             {{ message.body }}
           </p>
-        </md-card-content>
-      </md-card>
+        </mat-card-content>
+      </mat-card>
     </div>
 
     <div id="chat-form">
       <chat-form #chatForm (keyup.enter)="sendMessage(chatForm)"></chat-form>
     </div>
-  </md-sidenav-container>
+  </mat-sidenav-container>
 </div>
     

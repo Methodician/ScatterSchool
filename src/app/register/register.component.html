@@ -5,58 +5,58 @@
   <div class="formWrapper">
     <fieldset class="columnOne">
       <!-- Email Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="*Email:" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" formControlName="email" type="email">
-        <md-error *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</md-error>
-        <md-error *ngIf="isErrorVisible('email','validEmail')">Please enter a valid e-mail address.</md-error>
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="*Email:" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" formControlName="email" type="email">
+        <mat-error *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</mat-error>
+        <mat-error *ngIf="isErrorVisible('email','validEmail')">Please enter a valid e-mail address.</mat-error>
+      </mat-form-field>
       <!-- Password Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="*Password:" [class.input-error]="isErrorVisible('password','required')" name="password" formControlName="password" type="password">
-        <md-error *ngIf="isErrorVisible('password','required')">A password is required.</md-error>
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="*Password:" [class.input-error]="isErrorVisible('password','required')" name="password" formControlName="password" type="password">
+        <mat-error *ngIf="isErrorVisible('password','required')">A password is required.</mat-error>
+      </mat-form-field>
       <!-- Confirm Password Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="*Confirm Password:" [class.input-error]="isErrorVisible('confirmPass','required') || !isPasswordMatch() && isControlDirty('confirmPass')" name="confirmPass" formControlName="confirmPass" type="password">
-        <md-error *ngIf="isErrorVisible('confirmPass','required')">Please confirm your password.</md-error>
-        <md-error *ngIf="!isPasswordMatch() && isControlDirty('confirmPass')">Oops! Your password does not match yet.</md-error>
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="*Confirm Password:" [class.input-error]="isErrorVisible('confirmPass','required') || !isPasswordMatch() && isControlDirty('confirmPass')" name="confirmPass" formControlName="confirmPass" type="password">
+        <mat-error *ngIf="isErrorVisible('confirmPass','required')">Please confirm your password.</mat-error>
+        <mat-error *ngIf="!isPasswordMatch() && isControlDirty('confirmPass')">Oops! Your password does not match yet.</mat-error>
+      </mat-form-field>
       <!-- First Name Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="*First Name:" [class.input-error]="isErrorVisible('fName','required')" name="fName" formControlName="fName" type="text">
-        <md-error *ngIf="isErrorVisible('fName','required')">Please provide your first name</md-error>
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="*First Name:" [class.input-error]="isErrorVisible('fName','required')" name="fName" formControlName="fName" type="text">
+        <mat-error *ngIf="isErrorVisible('fName','required')">Please provide your first name</mat-error>
+      </mat-form-field>
       <!-- Last Name Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="*Last Name:" [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName" type="text">
-        <md-error *ngIf="isErrorVisible('lName','required')">Please provide your last name</md-error>
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="*Last Name:" [class.input-error]="isErrorVisible('lName','required')" name="lName" formControlName="lName" type="text">
+        <mat-error *ngIf="isErrorVisible('lName','required')">Please provide your last name</mat-error>
+      </mat-form-field>
     </fieldset>
     <fieldset class="columnTwo">
       <!-- Alias Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="Alias: (Optional, will show instead of name)" type="text" name="alias" formControlName="alias">
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="Alias: (Optional, will show instead of name)" type="text" name="alias" formControlName="alias">
+      </mat-form-field>
       <!-- Short Bio Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="Bio: (Optional, a short bio)" type="text" name="bio" formControlName="bio">
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="Bio: (Optional, a short bio)" type="text" name="bio" formControlName="bio">
+      </mat-form-field>
       <!-- City Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="City:" type="text" name="city" formControlName="city">
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="City:" type="text" name="city" formControlName="city">
+      </mat-form-field>
       <!-- State Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="State:" type="text" name="state" formControlName="state">
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="State:" type="text" name="state" formControlName="state">
+      </mat-form-field>
       <!-- Zip Code Input -->
-      <md-form-field color="primary">
-        <input mdInput placeholder="*Zip Code:" type="text" name="zipCode" formControlName="zipCode">
-        <md-error *ngIf="isErrorVisible('zipCode','required')">Please provide a zip code. City and state are optional.</md-error>
-      </md-form-field>
+      <mat-form-field color="primary">
+        <input matInput placeholder="*Zip Code:" type="text" name="zipCode" formControlName="zipCode">
+        <mat-error *ngIf="isErrorVisible('zipCode','required')">Please provide a zip code. City and state are optional.</mat-error>
+      </mat-form-field>
     </fieldset>
   </div>
   <div class="buttonWrapper">
-    <button md-raised-button color="warn" (click)="register()" [disabled]="!isPasswordMatch() || !formValid()">Register User</button>
+    <button mat-raised-button color="warn" (click)="register()" [disabled]="!isPasswordMatch() || !formValid()">Register User</button>
   </div>
 </form>

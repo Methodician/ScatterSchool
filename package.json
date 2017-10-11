@@ -24,7 +24,7 @@
     "@angular/platform-browser-dynamic": "^4.4.4",
     "@angular/router": "^4.4.4",
     "angular": "^1.6.6",
-    "angularfire2": "^4.0.0-rc0",
+    "angularfire2": "^5.0.0-rc.2",
     "core-js": "^2.4.1",
     "firebase": "^4.1.2",
     "ng2-ckeditor": "^1.1.8",

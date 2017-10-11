@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "/assets/main-theme/main-theme.css";
 
+
 fieldset {
     border: none;
   }
@@ -15,6 +16,6 @@ fieldset {
   // display: none;
 }
 
-md-card-actions[_ngcontent-c21] {
+mat-card-actions[_ngcontent-c21] {
   margin-left: 0px !important;
 }
