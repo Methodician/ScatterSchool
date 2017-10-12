@@ -160,6 +160,10 @@ p {
   height: 250px;
 }
 
+.bookmark-icon:hover {
+  cursor: pointer;
+}
+
 @media only screen and (max-width:768px) {
   .articleDetailWrapper {
     width: 95%;
@@ -173,5 +177,6 @@ p {
   .comment-section-wrapper {
     width: 95%;
   }
+
 }
 

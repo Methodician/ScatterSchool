@@ -102,6 +102,10 @@ mat-card {
         }
       }
 
+      mat-icon.bookmark-icon {
+        cursor: pointer;
+      }
+      
       p {
         margin-left: 15px;
       }
