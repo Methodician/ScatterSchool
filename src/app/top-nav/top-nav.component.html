@@ -3,20 +3,20 @@
   <mat-toolbar>
     <!-- Logo and Title container -->
     <div class="logoWrapper">
-      <img height="100px" routerLink="home" src="../../assets/images/applogo.png" alt="Logo of Scatter School: community made open source tutorials"> 
+      <img height="100px" routerLink="home" src="../../assets/images/applogo.png" alt="Logo of Scatter School: community made open source tutorials">
       <a routerLink="home" class="logoLink">Scatter School</a>
     </div>
     <!-- Nav Nar content spacer -->
     <span class="flexBoxSpacer"></span>
     <!-- Nav Bar Search Button -->
-    <button mat-raised-button (click)="searchBarFocus()" class="searchButton">
+    <button mat-raised-button (click)="searchBarFocus(searchInput)" class="searchButton">
       <mat-icon>search</mat-icon>
     </button>
     <!-- Nav Bar Search Bar -->
-    <form role="search" *ngIf="searchBarState === 1" [class.searchBarIsActive]="searchBarState === 1" [class.searchBarIsInActive]="searchBarState === 2">
+    <form role="search" [hidden]="searchBarState === 2" [class.searchBarIsActive]="searchBarState === 1" [class.searchBarIsInActive]="searchBarState === 2">
       <!-- <mat-icon>search</mat-icon> -->
       <mat-form-field color="primary">
-       <input matInput #searchInput placeholder="Search Articles" type="text" (keyup.enter)="search(searchInput.value)" aria-describedby="basic-addon2">
+        <input matInput #searchInput placeholder="Search Articles" type="text" (keyup.enter)="search(searchInput)" aria-describedby="basic-addon2">
       </mat-form-field>
     </form>
     <!-- Button Container -->
