@@ -31,14 +31,12 @@ export class ArticleSearchPreviewComponent implements OnInit {
     this.articleSvc.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
       this.author = author;
     });
-    // ----------------------
     this.userSvc.userInfo$.subscribe(user => {
       if (user) {
         this.user = user;
         this.checkIfBookmarked();
       }
     });
-    // ----------------------
     this.getProfileImage(this.author.$key);
     this.getArticleCoverImage(this.articleData.$key);
   }
@@ -69,12 +67,9 @@ export class ArticleSearchPreviewComponent implements OnInit {
     });
   }
 
-  // ---------------------------------------
   checkIfBookmarked() {
     this.articleSvc.isBookmarked(this.user.$key, this.articleData.$key).subscribe(bookmark => {
-      this.isArticleBookmarked = bookmark;
-      console.log(bookmark);
-      
+      this.isArticleBookmarked = bookmark;      
     })
   }
 
@@ -88,6 +83,5 @@ export class ArticleSearchPreviewComponent implements OnInit {
       }
     })
   }
-  // ---------------------------------------
 
 }

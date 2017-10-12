@@ -66,7 +66,6 @@ export class LatestPreviewComponent implements OnInit {
     });
   }
 
-  // -----------------------------------------
   checkIfBookmarked() {
     this.articleSvc.isBookmarked(this.user.$key, this.articleData.$key).subscribe(bookmark => {
       this.isArticleBookmarked = bookmark;
@@ -83,6 +82,5 @@ export class LatestPreviewComponent implements OnInit {
       }
     })
   }
-  // -----------------------------------------
 
 }
