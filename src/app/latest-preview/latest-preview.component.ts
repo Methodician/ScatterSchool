@@ -73,14 +73,10 @@ export class LatestPreviewComponent implements OnInit {
   }
 
   bookmarkToggle() {
-    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
-      if (isLoggedIn) {
-        if (this.isArticleBookmarked)
-          this.articleSvc.unBookmarkArticle(this.user.$key, this.articleData.$key);
-        else
-          this.articleSvc.bookmarkArticle(this.user.$key, this.articleData.$key);
-      }
-    })
+    if (this.isArticleBookmarked)
+      this.articleSvc.unBookmarkArticle(this.user.$key, this.articleData.$key);
+    else
+      this.articleSvc.bookmarkArticle(this.user.$key, this.articleData.$key);
   }
 
 }
