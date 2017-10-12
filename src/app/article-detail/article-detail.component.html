@@ -17,7 +17,7 @@
     </ul>
   </div>
   <div class="headlineWrapper">
-    <button md-raised-button color="primary" *ngIf="!editingPreview" (click)="bookmarkToggle()">{{ isArticleBookmarked ? 'unbookmark' : 'bookmark' }}</button>
+    <button mat-raised-button color="primary" *ngIf="!editingPreview" (click)="bookmarkToggle()">{{ isArticleBookmarked ? 'unbookmark' : 'bookmark' }}</button>
     <h1>{{article?.title}}</h1>
     <p class="rating">RATING HERE<p>
   </div>
