@@ -39,7 +39,7 @@
     <span class="iconSpacer"></span>
     <!-- Article Bookmark Icon -->
     <div>
-      <mat-icon color="accent">bookmark_border</mat-icon>
+      <mat-icon (click)="bookmarkToggle()" color="accent">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
     </div>
   </mat-card-actions>
 </mat-card>
