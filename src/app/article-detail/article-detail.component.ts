@@ -18,6 +18,7 @@ export class ArticleDetailComponent implements OnInit {
   @Input() editingPreview = false;
   author;
   article;
+  articleCoverImageUrl: string;
   iFollow: any;
   followsMe: any;
   userInfo = null;
@@ -117,6 +118,16 @@ export class ArticleDetailComponent implements OnInit {
       this.getArticleBody(articleData);
       this.getAuthor(articleData.authorKey);
       this.getProfileImage(articleData.authorKey);
+      this.getArticleCoverImage(this.articleKey)
+    });
+  }
+
+  getArticleCoverImage(articleKey) {
+    const basePath = 'uploads/articleCoverImages';
+    this.uploadSvc.getImage(articleKey, basePath).subscribe(articleData => {
+      if (articleData.url) {
+        this.articleCoverImageUrl = articleData.url;
+      }
     });
   }
 

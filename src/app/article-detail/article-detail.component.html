@@ -11,15 +11,18 @@
       <p class="date">Last Updated: {{ article?.lastUpdated | date }}</p>
     </div>
   </div>
+    <div class="image-wrapper">
+      <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" class="imageDisplay" alt="article's cover image">
+    </div>
   <div class="tagsBar" *ngIf="!editingPreview">
     <ul> Tags:
       <li *ngFor="let tag of article?.tags" class="tag"><a (click)="tagSearch(tag)">{{tag}}</a></li>
     </ul>
   </div>
   <div class="headlineWrapper">
-    <button mat-raised-button color="primary" *ngIf="!editingPreview" (click)="bookmarkToggle()">{{ isArticleBookmarked ? 'unbookmark' : 'bookmark' }}</button>
     <h1>{{article?.title}}</h1>
     <p class="rating">RATING HERE<p>
+    <mat-icon (click)="bookmarkToggle()" class="bookmark-icon" color="accent">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
   </div>
   <div class="bodyWrapper">
     <p class="intro">{{article?.introduction}}</p>
