@@ -1,0 +1,31 @@
+mat-tab-group {
+    height: 500px;
+}
+
+mat-card {
+    padding: 5px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+mat-card-header {
+    display: inline-block;
+}
+
+mat-card-subtitle {
+    margin-bottom: 0px;
+}
+
+.user-count {
+    width: 35px;
+    height: 35px;
+    color: white;
+    background-color: blue;
+    border-radius: 100%;
+    display: inline-block;
+    margin: 2px;
+}
+
+#chats {
+    overflow-y: scroll;
+}

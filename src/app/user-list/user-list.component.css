@@ -1,6 +1,6 @@
 #user-list {
   width: 100%;
-  height: 396px;
+  height: 450px;
   overflow-y: scroll;
 }
 
@@ -24,4 +24,24 @@
   left: -20px;
   top: 20px;
   cursor: pointer;
+}
+
+.profile-image {
+  background-image: url('../../assets/images/kid-art.jpg');
+  background-size: cover;
+  display: inline-block;
+}
+
+mat-card {
+  padding: 5px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+mat-card-header {
+  display: inline-block;
+}
+
+mat-card-subtitle {
+  margin-bottom: 0px;
 }

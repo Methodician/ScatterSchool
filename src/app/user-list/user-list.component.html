@@ -1,13 +1,20 @@
 <div id="user-list">
-  <h4>Users</h4>
-  <div *ngFor="let user of userList" (click)="createOrOpenChat([user, loggedInUser])" class="user">
+  <!-- <h4>Users</h4> -->
+  <!-- <div *ngFor="let user of userList" (click)="createOrOpenChat([user, loggedInUser])" class="user">
     <span *ngIf="currentChat && isNotInCurrentChat(user.$key)" class="add-member" (click)="addUserToChat(user, $event)">+</span>
     <span>{{ displayName(user) }}: </span>
     <user-presence [userKey]="user.$key"></user-presence>
-  </div>
+  </div> -->
 
-  <h4>Chats</h4>
-  <div *ngFor="let chat of chatList " (click)="openChat(chat.$key)" class="user">
-    <span *ngIf="!calculateUnreadMessages(chat)">* </span><span>{{ getMemberNames(chat) }}</span>
-  </div>
+  <mat-card *ngFor="let user of userList" (click)="createOrOpenChat([user, loggedInUser])">
+      <div class="user-count"></div>
+      <div mat-card-avatar class="profile-image"></div>
+      <mat-card-header>
+        <mat-card-title>{{ displayName(user) }}</mat-card-title>
+        <mat-card-subtitle><user-presence [userKey]="user.$key"></user-presence></mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+
+  <!-- <h4>Chats</h4> -->
+  
 </div>

@@ -10,10 +10,11 @@ import { UserService } from './../services/user/user.service';
 })
 export class UserListComponent implements OnInit {
   @Input() chatNav;
-  userList;
-  chatList;
+  @Input() userList;
+  @Input() chatList;
+  @Input() loggedInUser: UserInfoOpen;
   currentChat;
-  loggedInUser: UserInfoOpen;
+  // loggedInUser: UserInfoOpen;
 
   constructor(
     private userSvc: UserService,
@@ -21,17 +22,18 @@ export class UserListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.userSvc.getUserList().subscribe(userList => {
-      this.userList = userList;
-    });
-    this.userSvc.userInfo$.subscribe(user => {
-      this.loggedInUser = user;
-      if(user) { 
-        this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
-          this.chatList = chatList;     
-        });
-      }
-    });
+    
+    // this.userSvc.userInfo$.subscribe(user => {
+    //   this.loggedInUser = user;
+    //   if(user) { 
+    //     this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
+    //       this.chatList = chatList;
+    //       this.userSvc.getUserList().subscribe(userList => {
+    //         this.userList = userList;
+    //       });
+    //     });
+    //   }
+    // });
 
     this.chatSvc.currentChatKey$.subscribe(key => {
       if(key) {
@@ -44,10 +46,12 @@ export class UserListComponent implements OnInit {
 
   createChat(users) {
     this.chatSvc.createChat(users);
+    this.chatNav.selectedIndex = 2;
   }
 
   openChat(chatKey){
     this.chatSvc.openChat(chatKey);
+    this.chatNav.selectedIndex = 2;
   }
 
   // this code will break if there is no currently logged in user
@@ -56,7 +60,6 @@ export class UserListComponent implements OnInit {
   createOrOpenChat(users) {
     let existingChat = this.findExistingChat(users);
     (existingChat) ? this.openChat(existingChat.$key) : this.createChat(users);
-    this.chatNav.selectedIndex = 2;
   }
 
   //note: code is intentionally verbose, can be shortened if necessary

@@ -81,6 +81,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ReverseArrayPipe } from './pipes/reverse-array.pipe';
 import { ArticleHistoryComponent } from './article-history/article-history.component';
 import { ArticleHistoryDetailComponent } from './article-history-detail/article-history-detail.component';
+import { UserInteractionComponent } from './user-interaction/user-interaction.component';
 
 
 
@@ -143,7 +144,8 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     SafeUrlPipe,
     ReverseArrayPipe,
     ArticleHistoryComponent,
-    ArticleHistoryDetailComponent
+    ArticleHistoryDetailComponent,
+    UserInteractionComponent
   ],
   imports: [
     BrowserModule,
