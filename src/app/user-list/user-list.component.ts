@@ -1,6 +1,6 @@
 import { ChatService } from './../services/chat/chat.service';
 import { UserInfoOpen } from './../services/user/user-info';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from './../services/user/user.service';
 
 @Component({
@@ -9,6 +9,7 @@ import { UserService } from './../services/user/user.service';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
+  @Input() chatNav;
   userList;
   chatList;
   currentChat;
@@ -55,6 +56,7 @@ export class UserListComponent implements OnInit {
   createOrOpenChat(users) {
     let existingChat = this.findExistingChat(users);
     (existingChat) ? this.openChat(existingChat.$key) : this.createChat(users);
+    this.chatNav.selectedIndex = 2;
   }
 
   //note: code is intentionally verbose, can be shortened if necessary
