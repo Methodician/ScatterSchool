@@ -22,9 +22,9 @@
 }
 
 #message-list {
-  height: 500px;
+  height: 451px;
   overflow-y: scroll;
-  margin: 0px 10px;
+  // margin: 0px 10px;
 }
 
 #messages {
@@ -74,6 +74,9 @@
 }
 
 #chat-form {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   background-color: whitesmoke;
   box-shadow: 0px -2px 6px -3px grey;
 }
