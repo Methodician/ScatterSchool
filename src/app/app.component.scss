@@ -1,0 +1,28 @@
+// This is a SCSS file but all of calls are currently vanilla CSS
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "/sass-variables-mixins/vars.scss";
+@import "/sass-variables-mixins/mixins.scss";
+
+// .heroBgColor {
+//   @include size(500px, 100%);
+//   background-color: white;
+//   .slogan {
+//     margin-top: 140px;
+//     margin-bottom: 40px;
+//     color: $warn-color;
+//     @include font-styles();
+//     @include font-size(36px);
+//     display: flex;
+//     justify-content: center;
+//   }
+
+// }
+
+
+
+// @media only screen and (max-width:768px) {
+//   .slogan {
+//     font-size: 1.7rem;
+//   }
+// }
+
