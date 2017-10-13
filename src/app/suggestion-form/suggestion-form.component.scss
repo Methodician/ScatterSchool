@@ -1,8 +1,18 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
+h2 {
+  text-align: center;
+  @include font-styles();
+  color: $dark-gray;
+}
+
 .formWrapper {
-font-family: STHeitiSC-Light;
-min-height: 500px;
-width: 500px;
-margin: 0 auto;
+  @include font-styles();
+  min-height: 500px;
+  width: 500px;
+  margin: 0 auto;
+  
 
   fieldset {
     height: 500px;

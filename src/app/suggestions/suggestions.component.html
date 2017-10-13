@@ -1,20 +1,24 @@
-<div id="add-suggestions-wrapper">
-  <div id="add-suggestion-form">
-    <p>Want to see a tutorial on Scatter School? Add a suggestion here and someone in the community may take it on. Perhaps
-      you can find the idea for your next great tutorial here too. Happy hunting.</p>
-    <button mat-raised-button color="primary" [routerLink]="['../postsuggestion']" class="suggestionBtn"> Make a suggestion</button>
+<div class="suggestionsContainer">
+
+  <div id="add-suggestions-wrapper">
+    <div id="add-suggestion-form">
+      <p>Want to see a tutorial on Scatter School? Add a suggestion here and someone in the community may take it on. Perhaps
+        you can find the idea for your next great tutorial here too. Happy hunting.</p>
+      <button mat-raised-button color="primary" [routerLink]="['../postsuggestion']" class="suggestionBtn"> Make a suggestion</button>
+    </div>
+  </div>
+  
+  <div id="suggestions">
+    <h3>Suggestions</h3>
+    <div id="sort-buttons">
+      <span [class.selected]="isSelected('upvotes')" (click)="sortBy('upvotes')">Popular</span>
+      <span [class.selected]="isSelected('newest')" (click)="sortBy('newest')">Newest</span>
+      <span [class.selected]="isSelected('oldest')" (click)="sortBy('oldest')">Oldest</span>
+    </div>
+    <div class="suggestionLoop">
+      <app-suggestion-preview *ngFor="let suggestion of suggestions | suggestionSort: currentSortOption" [suggestion]="suggestion"
+        [currentUserKey]="currentUserKey"></app-suggestion-preview>
+    </div>
   </div>
 </div>
 
-<div id="suggestions">
-  <h3>Suggestions</h3>
-  <div id="sort-buttons">
-    <span [class.selected]="isSelected('upvotes')" (click)="sortBy('upvotes')">Popular</span>
-    <span [class.selected]="isSelected('newest')" (click)="sortBy('newest')">Newest</span>
-    <span [class.selected]="isSelected('oldest')" (click)="sortBy('oldest')">Oldest</span>
-  </div>
-  <div class="suggestionLoop">
-    <app-suggestion-preview *ngFor="let suggestion of suggestions | suggestionSort: currentSortOption" [suggestion]="suggestion"
-      [currentUserKey]="currentUserKey"></app-suggestion-preview>
-  </div>
-</div>

@@ -2,6 +2,11 @@
 @import "../sass-variables-mixins/vars.scss";
 @import "../sass-variables-mixins/mixins.scss";
 
+.suggestionsContainer {
+  min-height: 800px;
+  margin-top: 200px;
+}
+
 h3 {
   color: #31C2D7;
   font-family: STHeitiSC-Light;
@@ -17,7 +22,7 @@ h3 {
 }
 
 .suggestionLoop {
-  border-top: 1px solid #263237;
+  border-top: 1px solid $dark-gray;
 }
 
 #add-suggestions-wrapper {
@@ -35,6 +40,7 @@ h3 {
   p {
     margin-bottom: 40px;
     font-size: 20px;
+    color: $dark-gray;
   }
 }
 
