@@ -2,28 +2,30 @@
 @import "../sass-variables-mixins/vars.scss";
 @import "../sass-variables-mixins/mixins.scss";
 
-mat-card {
-  @include size(150px, 100%);
-  padding: 15px;
+mat-card, .mat-card {
+  @include size(90px, 98%);
   margin-bottom: 20px;
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  border-radius: 5px;
+  padding: 0;
   
   img {
-    @include size(150px, 150px);
+    @include size(90px, 90px);
     object-fit: cover;
     object-position: center;
     margin-right: 50px;
   }
 
   .contentWrapper {
-    @include size(150px, 700px);
-    margin-right: 50px;
+    @include size(90px, 800px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 
     mat-card-header {
-      @include size(40px, 100%);
-      padding: 15px;
   
       .titleWrapper {
         width: 100%;
@@ -33,6 +35,16 @@ mat-card {
           @include font-styles();
           color: $primary-color;
           cursor: pointer;
+
+          @media only screen and (max-width:940px) {
+            @include font-size(16px);
+          }
+          @media only screen and (max-width:700px) {
+            @include font-size(14px);
+          }
+          @media only screen and (max-width:600px) {
+            @include font-size(10px);
+          }
     
           &:hover {
             color: $accent-color;
@@ -41,10 +53,14 @@ mat-card {
         }
       
         mat-card-subtitle {
-          margin-top: 20px;
           color: $warn-color;
           font-weight: 800;
           cursor: pointer;
+          margin-bottom: 0 !important;
+          @media only screen and (max-width:940px) {
+            @include font-size(12px);
+          }
+        }
     
           &:hover {
             color: $accent-color;
@@ -55,22 +71,18 @@ mat-card {
     }
   
   
-    mat-card-content {
-      @include size(40px, 100%);
-      padding: 15px;
-
+    mat-card-content, .mat-card-content {
+      align-self: flex-start;
+      margin-bottom: 0 !important;
       p {
-        @include font-size(16px);
-      }
-
-      p:nth-of-type(2) {
+        @include font-size(14px);
         color: $primary-color;
         cursor: pointer;
-
-        &:hover {
-          color: $accent-color;
-          text-decoration: underline;
-        }
+        margin-top: 5px;
+        
+      &:hover {
+        color: $accent-color;
+        text-decoration: underline;
       }
     }
   }
@@ -80,11 +92,12 @@ mat-card {
   }
 
   mat-card-actions {
-    @include size(150px, 226px);
+    @include size(90px, 250px);
     margin-left: 0px !important;
     margin-right: 0px !important;
     padding-top: 0px !important;
     display: flex;
+    justify-content: space-around;
 
   
     div {
@@ -93,98 +106,23 @@ mat-card {
       justify-content: space-between;
       align-items: center;
       margin-right: 20px;
+      @media only screen and (max-width:940px) {
+        margin-right: 10px;
+      }
 
       span {
-
         mat-icon {
           cursor: default;
-          @include font-size(40px);
+          @include font-size(30px);
+          @media only screen and (max-width:940px) {
+            @include font-size(24px);
+          }
         }
       }
 
       p {
-        margin-left: 15px;
-      }
-    }
-    div:nth-of-type(4) {
-
-      mat-icon {
-        @include font-size(40px);
-        margin-bottom: 13px;
+        margin-left: 10px;
       }
     }
   }
 }
-
-// ORIGINAL CSS CDOE FOR THE CARDS
-// .searchWrapper {
-//   display: flex;
-//   justify-content: space-between;
-//   width: 100%;
-//   padding: 5px;
-//   border-bottom: 1px solid #263237;
-// }
-
-// .picTitleWrapper {
-//   display: flex;
-//   img {
-//     width: 80px;
-//     height: 80px;
-//     margin-right: 20px;
-//   }
-// }
-
-// .dateVersionWrapper {
-//   display: flex;
-//   flex-direction: column;
-//   justify-content: center;
-//   align-items: flex-end;
-//   width: 39%;
-// }
-
-// .title {
-//   margin: 0;
-//   align-self: center;
-//   font-size: 18px;
-//   max-width: 500px;
-// }
-
-// .title:hover {
-//   color: #31C2D7;
-//   cursor: pointer;
-// }
-
-// .author {
-//   color: #C4275F;
-//   width: 130px;
-//   margin: 0;
-//   align-self: center;
-//   font-size: 14px;
-//   margin-left: 20px;
-// }
-
-// .author:hover {
-//   text-decoration: underline;
-//   cursor: pointer;
-// }
-
-// .version {
-//   color: #00BE9C;
-// }
-
-// @media only screen and (max-width:768px) {
-
-//   .picTitleWrapper img {
-//     display: none;
-//   }
-
-//   .title {
-//     width: 160px;
-//     font-size: 14px;
-//   }
-
-//   .author {
-//     margin-right: 10px;
-//     width: 65px;
-//   }
-// }
