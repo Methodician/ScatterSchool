@@ -175,7 +175,8 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     VoteService,
     CommentService,
     ChatService,
-    AuthGuard
+    AuthGuard,
+    ArticleSearchPipe
   ],
   bootstrap: [AppComponent]
 })

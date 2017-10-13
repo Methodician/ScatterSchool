@@ -12,11 +12,13 @@ import { UserService } from './../services/user/user.service';
 })
 export class ArticleDetailComponent implements OnInit {
   articleKey: string;
+  isArticleBookmarked: boolean;
   isArticleFeatured: boolean;
   @Input() articleData: any;
   @Input() editingPreview = false;
   author;
   article;
+  articleCoverImageUrl: string;
   iFollow: any;
   followsMe: any;
   userInfo = null;
@@ -38,6 +40,7 @@ export class ArticleDetailComponent implements OnInit {
       this.route.params.subscribe(params => {
         if (params['key'])
           this.articleKey = params['key'];
+
         this.checkIfFeatured();
         this.getArticleData();
       });
@@ -48,6 +51,13 @@ export class ArticleDetailComponent implements OnInit {
       this.getAuthor(this.articleData.authorKey);
       this.getProfileImage(this.articleData.authorKey);
     }
+    this.userSvc.userInfo$.subscribe(user => {
+      if (user) {
+        this.user = user;
+        this.checkIfBookmarked();          
+      }
+    })  
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -58,6 +68,23 @@ export class ArticleDetailComponent implements OnInit {
 
   navigateToProfile() {
     this.articleSvc.navigateToProfile(this.author.$key);
+  }
+
+  checkIfBookmarked() {
+    this.articleSvc.isBookmarked(this.user.$key, this.articleKey).subscribe(bookmark => {
+      this.isArticleBookmarked = bookmark;
+    })
+  }
+
+  bookmarkToggle() {
+    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        if (this.isArticleBookmarked)
+          this.articleSvc.unBookmarkArticle(this.user.$key, this.articleKey);
+        else
+          this.articleSvc.bookmarkArticle(this.user.$key, this.articleKey);
+      }
+    })
   }
 
   edit() {
@@ -91,6 +118,16 @@ export class ArticleDetailComponent implements OnInit {
       this.getArticleBody(articleData);
       this.getAuthor(articleData.authorKey);
       this.getProfileImage(articleData.authorKey);
+      this.getArticleCoverImage(this.articleKey)
+    });
+  }
+
+  getArticleCoverImage(articleKey) {
+    const basePath = 'uploads/articleCoverImages';
+    this.uploadSvc.getImage(articleKey, basePath).subscribe(articleData => {
+      if (articleData.url) {
+        this.articleCoverImageUrl = articleData.url;
+      }
     });
   }
 

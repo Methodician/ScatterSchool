@@ -266,6 +266,46 @@ export class ArticleService {
     return this.db.object(`userInfo/open/${authorKey}`);
   }
 
+  isBookmarked(userKey, articleKey) {
+    return this.db.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).map(article => {
+      if(article.$value)
+        return true;
+      return false;
+    });
+  }
+
+  bookmarkArticle(userKey, articleKey) {
+    this.db.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+    this.db.object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+  }
+
+  unBookmarkArticle(userKey, articleKey) {
+    this.db.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).remove();
+    this.db.object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`).remove();
+  }
+
+//returns each article a particular user has bookmarked
+  getBookmarksByUserKey(userKey) {
+    return this.db.list(`userInfo/articleBookmarksPerUser/${userKey}`)
+      .map(bookmark => {
+        return bookmark.map(article => this.db.object(`articleData/articles/${article.$key}`));
+      })
+      .flatMap(firebaseObjectObservables => {
+        return Observable.combineLatest(firebaseObjectObservables)
+      });
+  }
+
+//returns each user that has bookmarked a particular article
+  getUsersByArticleKey(articleKey) {
+    return this.db.list(`articleData/userBookmarksPerArticle/${articleKey}`)
+    .map(article => {
+      return article.map(user => this.db.object(`userInfo/open/${user.$key}`));
+    })
+    .flatMap(FirebaseObjectObservable => {
+      return Observable.combineLatest(FirebaseObjectObservable)
+    });
+  }
+
   navigateToArticleDetail(articleKey: any) {
     this.router.navigate([`articledetail/${articleKey}`]);
   }
