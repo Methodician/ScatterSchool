@@ -4,7 +4,7 @@ import { UserInfoOpen } from './../services/user/user-info';
 import { UserService } from './../services/user/user.service';
 import { AuthService } from './../services/auth/auth.service';
 import { AuthInfo } from './../services/auth/auth-info';
-import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'top-nav',
@@ -72,7 +72,9 @@ export class TopNavComponent implements OnInit {
       if (this.searchBarState === searchBarFocus.focus) {
         return this.searchBarState = searchBarFocus.inactive;
       } else if (this.searchBarState === searchBarFocus.inactive) {
-        console.log(input.elementRef);
+        setTimeout(() => {
+          input.focus();
+        }, 100);
         return this.searchBarState = searchBarFocus.focus;
       }
     } else this.search(input);
