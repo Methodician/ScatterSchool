@@ -1,9 +1,10 @@
+import { element } from 'protractor';
 import { Router } from '@angular/router';
 import { UserInfoOpen } from './../services/user/user-info';
 import { UserService } from './../services/user/user.service';
 import { AuthService } from './../services/auth/auth.service';
 import { AuthInfo } from './../services/auth/auth-info';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, TemplateRef } from '@angular/core';
 
 @Component({
   selector: 'top-nav',
@@ -66,11 +67,12 @@ export class TopNavComponent implements OnInit {
     return this.lastScrollDirection == 'up' ? true : false;
   }
 
-  searchBarFocus(input?) {
+  searchBarFocus(input?: any) {
     if (input.value.length == 0) {
       if (this.searchBarState === searchBarFocus.focus) {
         return this.searchBarState = searchBarFocus.inactive;
       } else if (this.searchBarState === searchBarFocus.inactive) {
+        console.log(input.elementRef);
         return this.searchBarState = searchBarFocus.focus;
       }
     } else this.search(input);
