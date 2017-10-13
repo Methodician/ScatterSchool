@@ -22,7 +22,7 @@ export class AuthService {
     this.afAuth.authState.subscribe(info => {
       if (info) {
         // console.log('AuthState from Auth Service constructor:', info);
-        if(info.uid) this.setUserPresence(info.uid);
+        if (info.uid) this.setUserPresence(info.uid);
         this.user$.next(info);
         const authInfo = new AuthInfo(info.uid, info.emailVerified);
         this.authInfo$.next(authInfo);
@@ -37,7 +37,7 @@ export class AuthService {
     let connectionData = firebase.database().ref(`.info/connected`);
 
     connectionData.on('value', snapshot => {
-      if(snapshot.val()) {
+      if (snapshot.val()) {
         let connection = connections.push();
         this.userPresence = new UserPresence(connection, lastOnline, userKey);
       }
@@ -104,15 +104,25 @@ export class AuthService {
   }
 
   isLoggedInCheck(): Observable<boolean> {
-    return this.authInfo$.asObservable()
-      .map(info => info.isLoggedIn())
-      .take(1)
+    return this.afAuth.authState.map(info => {
+      return (info && info.uid) ? true : false;
+    }
+    ).take(1)
       .do(allowed => {
         if (!allowed) {
           if (confirm('You must be logged in to do that. Would you like to be redirected?'))
             this.router.navigate(['/login']);
         }
       });
+    // return this.authInfo$.asObservable()
+    //   .map(info => info.isLoggedIn())
+    //   .take(1)
+    //   .do(allowed => {
+    //     if (!allowed) {
+    //       if (confirm('You must be logged in to do that. Would you like to be redirected?'))
+    //         this.router.navigate(['/login']);
+    //     }
+    //   });
   }
 
   //  Doesn't really work, still needs to be an observable unless we want to keep a running isLoggedIn variable around.
