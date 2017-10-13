@@ -1,3 +1,4 @@
+import { ArticleSearchPipe } from './../pipes/article-search.pipe';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
@@ -17,7 +18,8 @@ export class ArticleSearchResultsComponent implements OnInit {
   constructor(
     private articleSvc: ArticleService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private searchPipe: ArticleSearchPipe
   ) { }
 
   ngOnInit() {
@@ -29,12 +31,14 @@ export class ArticleSearchResultsComponent implements OnInit {
         });
       }
       this.allArticles = articles;
+      this.route.params.subscribe(params => {
+        if (params['query']) {
+          this.queryString = params['query'];
+          this.searchResults = this.searchPipe.transform(this.allArticles, params['query']);
+        }
+        else console.log('No query found');
+      })
     })
-    this.route.params.subscribe(params => {
-      if (params['query']) {
-        this.queryString = params['query'];
-      }
-      else console.log('No query found');
-    })
+
   }
 }
