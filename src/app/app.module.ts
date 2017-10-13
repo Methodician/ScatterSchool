@@ -1,5 +1,5 @@
 import { AuthGuard } from './guards/auth.guard';
-import { MatButtonModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule, MatTooltipModule, MatTabsModule } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -169,6 +169,7 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     MatIconModule,
     MatSidenavModule,
     MatTooltipModule,
+    MatTabsModule
   ],
   providers: [
     AngularFireDatabase,
