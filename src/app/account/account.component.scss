@@ -2,78 +2,109 @@
 @import "../sass-variables-mixins/vars.scss";
 @import "../sass-variables-mixins/mixins.scss";
 
-.titleWrapper{
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
 
-  h1 {
-    letter-spacing: 0.5px;
-    font-size: 30px;
-    color: #31C2D7;
-    cursor: default;
-    font-family: STHeitiSC-Light;
-  }
-}
 
 .accountWrapper {
+  // 
+  height: 100%;
   display: flex;
-  justify-content: space-around;
-
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
   font-family: STHeitiSC-Light;
+  margin-top: 200px;
 
-  form {
 
-    fieldset:nth-child(1) {
+  .titleWrapper{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  
+    h1 {
+     @include font-styles();
+     @include font-size(40px);
+     color: $dark-gray;
 
-      mat-form-field {
-        width: 100%;
-        margin: 10px 0px;
+     @media only screen and (max-width:776px) {
+      @include font-size(30px);
       }
+
     }
+  }
 
-    fieldset:nth-child(2) {
+  .accountContainer{
+    min-height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 
-      table {
-        width: 100%;
+    form {
+      margin-right: 100px;
+  
+      fieldset:nth-child(1) {
+  
         mat-form-field {
-          width: 98%;
+          width: 100%;
+          margin: 10px 0px;
+        }
+      }
+  
+      fieldset:nth-child(2) {
+  
+        table {
+          width: 100%;
+          mat-form-field {
+            width: 98%;
+          }
+        }
+      }
+  
+      fieldset:nth-child(3) {
+        
+        mat-form-field {
+          width: 100%;
+          margin: 10px 0px;
         }
       }
     }
-
-    fieldset:nth-child(3) {
-      
-      mat-form-field {
-        width: 100%;
-        margin: 10px 0px;
+  
+    .buttonWrapper {
+      display: flex;
+      justify-content: center;
+  
+      button {
+        @include large-button();
+        width: 180px;
       }
     }
-  }
-
-  .buttonWrapper {
-    display: flex;
-    justify-content: center;
-
-    button {
-      @include large-button();
-      width: 180px;
+  
+    .profileImageWrapper {
+      height: 500px;
+      margin-top: 150px;
     }
+
   }
 
-  .profileImageWrapper {
-    height: 500px;
-  }
+
 
 }
 
 @media only screen and (max-width:1020px) {
   .accountWrapper {
-    flex-direction: column;
+    height: 1100px;
+    .accountContainer {
+      flex-direction: column-reverse;
 
-    .profileImageWrapper {
-      margin-top: 50px;
+      form {
+        margin-right: 0px;
+      }
+
+      .profileImageWrapper {
+        height: 250px;
+        margin-top: 20px;
+      }
     }
+
   }
 }
