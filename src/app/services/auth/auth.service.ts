@@ -48,7 +48,19 @@ export class AuthService {
     return this.fromFirebaseAuthPromise(this.auth.login({ email, password }));
   }*/
   login(email, password) {
-    return this.fromFirebaseAuthPromise(this.afAuth.auth.signInWithEmailAndPassword(email, password));
+    return this.fromFirebaseAuthPromise(this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode == 'auth/wrong-password') {
+          alert('Please enter the correct password.');
+        } else if (errorCode == 'auth/user-not-found') {
+          alert('We don\'t have any record of a user with that email address.')
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      }));
   }
 
   logout() {
@@ -63,7 +75,17 @@ export class AuthService {
     return this.fromFirebaseAuthPromise(this.auth.createUser({ email, password }));
   }*/
   register(email, password) {
-    return this.fromFirebaseAuthPromise(this.afAuth.auth.createUserWithEmailAndPassword(email, password));
+    return this.fromFirebaseAuthPromise(this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+      .catch(error => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        if (errorCode == 'auth/weak-password') {
+          alert('Your password should be stronger.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+      }));
   }
   setDisplayName(alias) { // (later create option by making args "(alias, user?)")
     //let userToSet = user || this.afAuth.auth.currentUser;
