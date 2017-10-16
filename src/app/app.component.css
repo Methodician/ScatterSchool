@@ -21,15 +21,6 @@
   right: 291px;
 }
 
-/* .mat-tab-header-pagination {
-  display: none;
-}
-
-.mat-tab-label {
-  min-width: calc(250px/3);
-  padding: 0px;
-} */
-
 #chat {
   padding: 0px;
   position: fixed;
@@ -43,6 +34,17 @@
 #chat.expanded {
   right: 20px;
 }
+
+/* .mat-tab-header-pagination {
+  display: none;
+}
+
+.mat-tab-label {
+  min-width: calc(250px / 3);
+  padding: 0px;
+} */
+
+
 
 @media only screen and (max-width:768px) {
   .slogan {

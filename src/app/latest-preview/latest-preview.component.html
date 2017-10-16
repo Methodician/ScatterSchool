@@ -1,6 +1,6 @@
 <mat-card>
   <!-- Article Image -->
-   <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" alt="article's cover image">
+  <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" alt="article's cover image">
   <!-- Card Header Container -->
   <mat-card-header>
     <div class="titleWrapper">
@@ -17,21 +17,21 @@
     <!-- Article Comment Icon -->
     <div>
       <span matTooltip="0 Comments">
-        <mat-icon color="accent">comment</mat-icon>
+        <mat-icon color="primary">comment</mat-icon>
       </span>
       <p>0</p>
     </div>
     <!-- Article History Icon -->
     <div>
       <span matTooltip="Revised {{articleData.version}} time(s)">
-        <mat-icon color="accent">history</mat-icon>
+        <mat-icon color="primary">history</mat-icon>
       </span>
-       <p>{{articleData.version}}</p>
+      <p>{{articleData.version}}</p>
     </div>
     <!-- Article Tags Icon -->
     <div>
       <span matTooltip="{{articleData.tags }}">
-        <mat-icon color="accent">label_outline</mat-icon>
+        <mat-icon color="primary">label_outline</mat-icon>
       </span>
       <p>{{articleData.tags.length}}</p>
     </div>
@@ -39,7 +39,7 @@
     <span class="iconSpacer"></span>
     <!-- Article Bookmark Icon -->
     <div>
-      <mat-icon color="accent">bookmark_border</mat-icon>
+      <mat-icon (click)="bookmarkToggle()" class="bookmark-icon" color="accent">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
     </div>
   </mat-card-actions>
 </mat-card>

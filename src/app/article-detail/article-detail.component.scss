@@ -32,7 +32,7 @@
 .articleDetailWrapper {
   margin: 0 auto;
   width: 500px;
-  margin-top: 95px;
+  margin-top: 200px;
 
   button {
     @include medium-button();
@@ -80,6 +80,7 @@
   margin-left: 10px;
   >* {
     font-family: STHeitiSC-Light;
+    color: $dark-gray;
   }
 }
 
@@ -153,6 +154,16 @@ p {
     margin-top: 0;
   }
 }
+.image-wrapper img {
+  object-fit: cover;
+  object-position: center;
+  width: 250px;
+  height: 250px;
+}
+
+.bookmark-icon:hover {
+  cursor: pointer;
+}
 
 @media only screen and (max-width:768px) {
   .articleDetailWrapper {
@@ -167,5 +178,6 @@ p {
   .comment-section-wrapper {
     width: 95%;
   }
+
 }
 

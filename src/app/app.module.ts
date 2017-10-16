@@ -28,8 +28,6 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { FeaturedArticlesComponent } from './featured-articles/featured-articles.component';
-import { LatestArticlesComponent } from './latest-articles/latest-articles.component';
 import { FeaturePreviewComponent } from './feature-preview/feature-preview.component';
 import { LatestPreviewComponent } from './latest-preview/latest-preview.component';
 import { ArticleSearchPipe } from './pipes/article-search.pipe';
@@ -70,7 +68,6 @@ import { ArticleCoverImageComponent } from './article-cover-image/article-cover-
 import { AddReplyComponent } from './add-reply/add-reply.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
-import { AllArticlesComponent } from './all-articles/all-articles.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatService } from './services/chat/chat.service';
 import { ChatFormComponent } from './chat-form/chat-form.component';
@@ -97,8 +94,6 @@ import { ChatListComponent } from './chat-list/chat-list.component';
     ArticleFormComponent,
     EditArticleComponent,
     TopNavComponent,
-    FeaturedArticlesComponent,
-    LatestArticlesComponent,
     FeaturePreviewComponent,
     LatestPreviewComponent,
     ArticleSearchPipe,
@@ -135,7 +130,6 @@ import { ChatListComponent } from './chat-list/chat-list.component';
     EditCommentComponent,
     TimeElapsedPipe,
     UploadFormComponent,
-    AllArticlesComponent,
     ArticleCoverImageComponent,
     ChatComponent,
     ChatFormComponent,
@@ -186,7 +180,8 @@ import { ChatListComponent } from './chat-list/chat-list.component';
     VoteService,
     CommentService,
     ChatService,
-    AuthGuard
+    AuthGuard,
+    ArticleSearchPipe
   ],
   bootstrap: [AppComponent]
 })

@@ -5,7 +5,7 @@
 
 
 h1 {
-  @include font-size(30px);
+  @include font-size(60px);
   color: $primary-color;
   cursor: default;
   margin-bottom: 20px;
@@ -20,10 +20,13 @@ button {
 }
 
 .loginWrapper {
-  min-height: 500px;
+  height: 100%;
   width: 95%;
   margin: 0 auto;
-  margin-top: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
   @include font-styles();
 }
@@ -32,12 +35,13 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 500px;
-  margin: 0 auto;
+  width: 700px;
+  // margin: 0 auto;
 
   mat-form-field {
     margin-top: 20px;
     width: 100%;
+    font-size: 20px;
   }
 }
 

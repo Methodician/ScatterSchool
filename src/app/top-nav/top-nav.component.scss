@@ -10,7 +10,7 @@
 .searchButton {
   @include small-button();
   margin: 10px 15px;
-  background-color: $light-gray;
+  background-color: white;
   padding: 0;
 
    mat-icon {
@@ -31,7 +31,7 @@
 
   mat-toolbar {
     font-family: STHeitiSC-Light;
-    background-color: white;
+    background-color: $light-gray;
     border: 1px solid $medium-gray;
     border-radius: 5px;
     width: 100%;
@@ -112,7 +112,7 @@
 
       .hamburgerButton {
         @include small-button();
-        background-color: $light-gray;
+        background-color: white;;
 
         mat-icon {
           color: $dark-gray;

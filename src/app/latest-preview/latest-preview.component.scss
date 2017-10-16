@@ -7,6 +7,8 @@ mat-card {
   padding: 0px;
   margin-bottom: 20px;
   position: relative;
+  border-radius: 5px;
+  margin-right: 20px;
   
   img {
     @include size(150px, 100%);
@@ -37,6 +39,7 @@ mat-card {
         }
       }
     }
+    
 
     mat-card-subtitle {
       position: absolute;
@@ -89,6 +92,10 @@ mat-card {
         mat-icon {
           cursor: default;
         }
+      }
+
+      mat-icon.bookmark-icon {
+        cursor: pointer;
       }
 
       p {
