@@ -23,12 +23,23 @@ export class UserInteractionComponent implements OnInit {
     this.userSvc.userInfo$.subscribe(user => {
       this.loggedInUser = user;
       if(user) { 
-        this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
-          this.chatList = chatList;
-          this.userSvc.getUserList().subscribe(userList => {
-            this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
-          });
-        });
+        this.chatSvc.getUserChatKeys(user.$key).subscribe(userChatKeys => {
+          if(userChatKeys.length == 0) {
+            this.userSvc.getUserList().subscribe(userList => {
+              this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
+            });
+            this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
+              this.chatList = chatList;
+            });
+          } else {
+            this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
+              this.chatList = chatList;
+              this.userSvc.getUserList().subscribe(userList => {
+                this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
+              });
+            });
+          }
+        })
       }
     });
     this.chatSvc.currentChatKey$.subscribe(key => {
@@ -43,12 +54,12 @@ export class UserInteractionComponent implements OnInit {
 
   createChat(users) {
     this.chatSvc.createChat(users);
-    this.chatTabs.selectedIndex = 2;
+    this.openTab('messages');
   }
 
   openChat(chatKey){
     this.chatSvc.openChat(chatKey);
-    this.chatTabs.selectedIndex = 2;
+    this.openTab('messages');
   }
 
   // this code will break if there is no currently logged in user
@@ -57,6 +68,21 @@ export class UserInteractionComponent implements OnInit {
   createOrOpenChat(userArray) {
     let existingChat = this.findExistingChat(userArray);
     (existingChat) ? this.openChat(existingChat.$key) : this.createChat(userArray);
+  }
+
+  openTab(tabName) {
+    switch(tabName) {
+      case 'chats':
+        this.chatTabs.selectedIndex = 1;
+        return; 
+      case 'messages':
+        this.chatTabs.selectedIndex = 2;
+        return; 
+      case 'users':
+      default:
+        this.chatTabs.selectedIndex = 0;
+        return;
+    }
   }
 
   //note: code is intentionally verbose, can be shortened if necessary
