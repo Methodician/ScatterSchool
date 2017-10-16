@@ -1,10 +1,10 @@
-<mat-tab-group #chatNav>
+<mat-tab-group #chatTabs id="chatTabs">
   <mat-tab label="Users">
-    <user-list [chatNav]="chatNav" [userList]="userList" [chatList]="chatList" [loggedInUser]="loggedInUser"></user-list>
+    <user-list (requestSender)="createOrOpenChat($event)" [userList]="userList" [loggedInUser]="loggedInUser" [currentChat]="currentChat"></user-list>
   </mat-tab>
   <mat-tab label="Chats" id="chats">
-    <mat-card *ngFor="let chat of chatList" (click)="openChat(chat.$key); chatNav.selectedIndex = 2;">
-      <div class="user-count"></div>
+    <mat-card *ngFor="let chat of chatList" (click)="openChat(chat.$key); chatTabs.selectedIndex = 2;">
+      <div mat-card-avatar class="user-count"></div>
       <mat-card-header>
         <mat-card-title>{{ getMemberNames(chat) }}</mat-card-title>
         <mat-card-subtitle>{{ chat.timestamp | timeElapsed }}</mat-card-subtitle>
