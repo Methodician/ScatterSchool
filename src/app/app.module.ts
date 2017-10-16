@@ -82,6 +82,7 @@ import { ReverseArrayPipe } from './pipes/reverse-array.pipe';
 import { ArticleHistoryComponent } from './article-history/article-history.component';
 import { ArticleHistoryDetailComponent } from './article-history-detail/article-history-detail.component';
 import { UserInteractionComponent } from './user-interaction/user-interaction.component';
+import { ChatListComponent } from './chat-list/chat-list.component';
 
 
 
@@ -145,7 +146,8 @@ import { UserInteractionComponent } from './user-interaction/user-interaction.co
     ReverseArrayPipe,
     ArticleHistoryComponent,
     ArticleHistoryDetailComponent,
-    UserInteractionComponent
+    UserInteractionComponent,
+    ChatListComponent
   ],
   imports: [
     BrowserModule,

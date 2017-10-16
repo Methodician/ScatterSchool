@@ -1,0 +1,21 @@
+@import "../sass-variables-mixins/vars.scss";
+
+.user-count {
+  background-color: $primary-color;
+  background-size: cover;
+  display: inline-block;
+}
+
+mat-card {
+  padding: 5px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+mat-card-header {
+  display: inline-block;
+}
+
+mat-card-subtitle {
+  margin-bottom: 0px;
+}

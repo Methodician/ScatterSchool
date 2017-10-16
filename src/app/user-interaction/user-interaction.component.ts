@@ -41,10 +41,6 @@ export class UserInteractionComponent implements OnInit {
     });
   }
 
-  getMemberNames(chat) {
-    return (<any>Object).values(chat.members).map(member => member.name).join(', ');
-  }
-
   createChat(users) {
     this.chatSvc.createChat(users);
     this.chatTabs.selectedIndex = 2;
