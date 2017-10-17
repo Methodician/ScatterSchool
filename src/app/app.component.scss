@@ -27,12 +27,19 @@
 // }
 
 #toggle-chat {
+  height: 65px;
+  width: 65px;
   position: fixed;
   top: calc(20vh + 2px);
-  right: -27px;
+  right: 10px;
+  z-index: 1000px;
   -webkit-transition: right .2s;
   &.expanded {
-    right: 291px;    
+    right: 302px;    
+  }
+
+  mat-icon {
+    margin-top: 5px;
   }
 }
 

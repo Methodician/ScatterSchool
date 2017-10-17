@@ -14,8 +14,8 @@
   </mat-tab>
 </mat-tab-group>
 <!-- Style messaging window below for non-logged in users and link to log-in page. -->
-<mat-tab-group *ngIf="!loggedInUser">
+<mat-tab-group *ngIf="!loggedInUser" class="notLoggedIn">
   <mat-tab label="Messaging">
-    <div>Please log in to access messaging.</div>
+    <div  routerLink="login">Please log in to access messaging.</div>
   </mat-tab>
 </mat-tab-group>

@@ -31,3 +31,8 @@ fieldset {
 mat-card-actions[_ngcontent-c21] {
   margin-left: 0px !important;
 }
+
+.mat-tab-label {
+  min-width: calc(100% / 3) !important;
+  padding: 0 !important;
+}
