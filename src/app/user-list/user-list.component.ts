@@ -19,7 +19,13 @@ export class UserListComponent implements OnInit {
   ngOnInit() {}
 
   requestChat(userArray) {
-    this.requestSender.emit(userArray);
+    this.requestSender.emit({ type: 'openChat', payload: userArray });
+  }
+
+  requestAddUser(user, event) {
+    event.stopPropagation();
+    console.log('requestAddUser: ', user);
+    this.requestSender.emit({ type: 'addUser', payload: user});
   }
   
   isNotInCurrentChat(userKey) {
