@@ -1,5 +1,5 @@
 import { AuthGuard } from './guards/auth.guard';
-import { MatButtonModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule, MatTooltipModule, MatTabsModule } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -78,6 +78,8 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ReverseArrayPipe } from './pipes/reverse-array.pipe';
 import { ArticleHistoryComponent } from './article-history/article-history.component';
 import { ArticleHistoryDetailComponent } from './article-history-detail/article-history-detail.component';
+import { UserInteractionComponent } from './user-interaction/user-interaction.component';
+import { ChatListComponent } from './chat-list/chat-list.component';
 
 
 
@@ -138,6 +140,8 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     ReverseArrayPipe,
     ArticleHistoryComponent,
     ArticleHistoryDetailComponent,
+    UserInteractionComponent,
+    ChatListComponent
   ],
   imports: [
     BrowserModule,
@@ -163,6 +167,7 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     MatIconModule,
     MatSidenavModule,
     MatTooltipModule,
+    MatTabsModule
   ],
   providers: [
     AngularFireDatabase,

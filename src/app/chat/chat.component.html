@@ -1,42 +1,18 @@
-<div id="messages">
-  <mat-sidenav-container id="sidenav-container">
-    <mat-sidenav #userlist id="user-list" mode="over" position="start">
-        <mat-toolbar color="primary">
-            <span>Add Users</span>
-            <span class="spacer"></span>
-            <span>Save</span>
-        </mat-toolbar>
-    </mat-sidenav>
+<div id="chat">
+  <div #messageList id="message-list">
+    <mat-card *ngFor="let message of messages">
+      <mat-card-header>
+        <div mat-card-avatar class="profile-image"></div>
+        <mat-card-title>{{ message.authorName }}</mat-card-title>
+        <mat-card-subtitle>{{ message.timestamp | timeElapsed }}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ message.body }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
   
-    <mat-toolbar color="primary">
-        <span>Chat</span>
-        <span class="spacer"></span>
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="userlist.open()">Add User</button>
-        </mat-menu>
-    </mat-toolbar>
-
-    <div #messageList id="message-list">
-      <mat-card *ngFor="let message of messages">
-        <mat-card-header>
-          <div mat-card-avatar class="profile-image"></div>
-          <mat-card-title>{{ message.authorName }}</mat-card-title>
-          <mat-card-subtitle>{{ message.timestamp | timeElapsed }}</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-          <p>
-            {{ message.body }}
-          </p>
-        </mat-card-content>
-      </mat-card>
-    </div>
-
-    <div id="chat-form">
-      <chat-form #chatForm (keyup.enter)="sendMessage(chatForm)"></chat-form>
-    </div>
-  </mat-sidenav-container>
+  <div id="chat-form">
+    <chat-form #chatForm (keyup.enter)="sendMessage(chatForm)"></chat-form>
+  </div>
 </div>
-    
