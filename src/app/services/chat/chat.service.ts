@@ -47,14 +47,19 @@ export class ChatService {
     return this.db.object(`chatData/chats/${chatKey}`);
   }
 
+
+  getUserChatKeys(userKey) {
+    return this.db.list(`chatData/chatsPerMember/${userKey}`)
+  }
+
   getChatsByUserKey(userKey) {
     return this.db.list(`chatData/chatsPerMember/${userKey}`)
-      .map(userChats => {
-        return userChats.map(chat => this.db.object(`chatData/chats/${chat.$key}`));
-      })
-      .flatMap(firebaseObjectObservables => { 
-        return Observable.combineLatest(firebaseObjectObservables)
-      });
+    .map(userChats => {
+      return userChats.map(chat => this.db.object(`chatData/chats/${chat.$key}`));
+    })
+    .flatMap(firebaseObjectObservables => {
+      return Observable.combineLatest(firebaseObjectObservables);
+    });
   }
 
   saveMessage(messageData) {

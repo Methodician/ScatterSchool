@@ -15,7 +15,7 @@ export class ArticleSearchPipe implements PipeTransform {
         return articlesToFilter;
       } else {
         for (let article of articlesToFilter) {
-          let title = article.title.toUpperCase();
+          let title = article.title ? article.title.toUpperCase() : '';
           if (title.includes(query)) {
             searchResults.push(article);
           } else if (this.checkTags(article.tags, query)) {
@@ -41,7 +41,7 @@ export class ArticleSearchPipe implements PipeTransform {
   }
 
   checkBody(bodyToCheck: string, query: string) {
-    let body = bodyToCheck.toUpperCase();
+    let body = bodyToCheck ? bodyToCheck.toUpperCase() : '';
     if (body.includes(query))
       return true;
     return false;

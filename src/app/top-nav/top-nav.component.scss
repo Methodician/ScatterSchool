@@ -6,13 +6,24 @@
 .flexBoxSpacer {
   flex: 1 1 auto;
 }
+// due to specaficity issues these styles needed to go further up on the stylesheet.
+.searchButton {
+  @include small-button();
+  margin: 10px 15px;
+  background-color: white;
+  padding: 0;
+
+   mat-icon {
+     color: $dark-gray;
+   }
+ }
 
 .navBarWrapper {
   position: fixed;
   top: 0;
   z-index: 10;
   width: 95%;
-  margin-top: 4rem;
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,28 +31,27 @@
 
   mat-toolbar {
     font-family: STHeitiSC-Light;
-    background-color: #fff;
-    border-top: 1px solid #263237;
-    border-bottom: 1px solid #263237;
-    border-right: 1px solid #263237;
+    background-color: $light-gray;
+    border: 1px solid $medium-gray;
+    border-radius: 5px;
     width: 100%;
     position: relative;
-
   //  Logo and title
     .logoWrapper {
       display: flex;
       justify-content: space-between;
       align-items: center;
       position: absolute;
-      left: 0;
+      left: -1px;
 
       img {
         cursor: pointer;
       }
 
       .logoLink {
-        color: #31C2D7;
-        font-size: 2.5rem;
+        color: $primary-color;
+        @include font-size(34px);
+        margin-left: 20px;
         display: flex;
         flex-direction: row;
         text-decoration: none;
@@ -54,59 +64,69 @@
       // Breakpoint
       @media only screen and (max-width: 768px) {
         .logoLink {
+          @include font-size(20px);
+        }
+      }
+      @media only screen and (max-width: 572px) {
+        .logoLink {
           display: none;
         }
       }
 
     }
+
     // Search Input within nav bar
     form {
-      width: 200px;
+      width: 300px;
       position: relative;
       margin-right: 20px;
       
-      
-      mat-icon {
-        position: absolute;
-        left: -32px;
-        top: 28px;
-        color: #b1b1b1;
-        font-size: 28px;
-      }
-
-      
       mat-form-field {
-        font-size: 12px;
+        margin-top: 23px;
+        font-size: 14px;
         width: 100%;
       }
 
     }
     // Search input Breakpoint
-    @media only screen and (max-width: 475px) {
+
+    @media only screen and (max-width: 1200px) {
       form {
-        width: 125px;
-        
+        width: 225px; 
+      }
+    }
+
+    @media only screen and (max-width: 854px) {
+      form {
+        width: 150px; 
       }
     }
 
     //Button container 
     .navButtonWrapper {
 
-      button {
+      .navButtons {
         margin: 10px 10px;
         @include medium-button();
       }
-      
-      button:nth-child(1) {
-        width: 140px;
+
+      .hamburgerButton {
+        @include small-button();
+        background-color: white;;
+
+        mat-icon {
+          color: $dark-gray;
+        }
       }
-      
+
+
       #menu {
         display: none;
         z-index: 10;
       }
+
       // Button break point
-      @media only screen and (max-width: 1100px) {
+      @media only screen and (max-width: 1120px) {
         button {
           display: none;
         }
@@ -121,40 +141,45 @@
 
 /*nav scroll down transition styles*/
 .scrolledUp {
-  //nav styles .blue
-  transition: margin-top 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
+
+  mat-toolbar {
+    transition: all 0.5s ease-in-out;
+    border: 1px solid $medium-gray;
+  }
   
   .logoWrapper img {
-    transition: height 0.3s ease-in-out;
+    transition: all 0.5s ease-in-out;
     height: 100px;
   }
 
   @media only screen and (max-width:768px) {
 
     .logoWrapper img {
-      transition: height 0.3s ease-in-out;
-      height: 60px;
+      transition: all 0.5s ease-in-out;
+      height: 80px;
     }
-
   }
-
 }
 
 /*nav scroll up transition styles*/
 .scrolledDown {
-  //nav styles .red
-  transition: margin-top 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
   margin-top: 0;
-  margin-left: 3%;
-  opacity: .7;
+  margin-left: 0;
+  opacity: .5;
+  width: 100vw;
 
-  mat-tool-bar {
-    height: 60px;
+  mat-toolbar {
+    transition: all 0.5s ease-in-out;
+    background-color: $dark-gray;
+    border-radius: 0px;
+    border-bottom: none;
   }
-
+  
   .logoWrapper img {
-    transition: height 0.3s ease-in-out;
-    height: 60px;
+    transition: all 0.5s ease-in-out;
+    height: 50px;
+    margin-left: 10px;
   }
-
 }

@@ -17,35 +17,53 @@
   </div>
   <!-- Flexbox Spacer Span -->
   <span class="contentSpacer"></span>
-   <!-- Card Footer Action -->
+  <!-- Card Footer Action -->
   <mat-card-actions>
     <!-- Article Comment Icon -->
-     <div>
-       <span matTooltip="0 Comments">
-         <mat-icon color="accent">comment</mat-icon>
-       </span>
-       <p>0</p>
+    <span matTooltip="0 Comments">
+      <mat-icon color="primary">comment</mat-icon>
+    </span>
+    <p>0</p>
+    <!-- Article History Icon -->
+    <div>
+      <span matTooltip="Revised {{articleData.version}} time(s)">
+        <mat-icon color="accent">history</mat-icon>
+      </span>
+      <p>{{articleData.version}}</p>
+    </div>
+    <!-- Article Tags Icon -->
+    <div>
+      <span matTooltip="{{articleData.tags }}">
+        <mat-icon color="accent">label_outline</mat-icon>
+      </span>
+      <p>{{articleData.tags.length}}</p>
+    </div>
+    <!-- Article Bookmark Icon -->
+    <div>
+      <mat-icon (click)="bookmarkToggle()" class="bookmark-icon" color="accent">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
     </div>
     <!-- Article History Icon -->
-      <div>
-        <span matTooltip="Revised {{articleData.version}} time(s)">
-          <mat-icon color="accent">history</mat-icon>
-        </span>
-        <p>{{articleData.version}}</p>
-      </div>
-      <!-- Article Tags Icon -->
-      <div>
-        <span matTooltip="{{articleData.tags }}">
-          <mat-icon color="accent">label_outline</mat-icon>
-        </span>
-        <p>{{articleData.tags.length}}</p>
-      </div>
-      <!-- Article Bookmark Icon -->
-      <div>
-        <mat-icon color="accent">bookmark_border</mat-icon>
-      </div>
-    </mat-card-actions>
-  </mat-card>
+    <div>
+      <span matTooltip="Revised {{articleData.version}} time(s)">
+        <mat-icon color="primary">history</mat-icon>
+      </span>
+      <p>{{articleData.version}}</p>
+    </div>
+    <!-- Article Tags Icon -->
+    <div>
+      <span matTooltip="{{articleData.tags }}">
+        <mat-icon color="primary">label_outline</mat-icon>
+      </span>
+      <p>{{articleData.tags.length}}</p>
+    </div>
+    <!-- Article Bookmark Icon -->
+    <div>
+      <span matTooltip="Bookmark This Article">
+        <mat-icon color="primary" id="bookmarkIcon">bookmark_border</mat-icon>
+      </span>
+    </div>
+  </mat-card-actions>
+</mat-card>
 
 
 <!-- <div class="searchWrapper">

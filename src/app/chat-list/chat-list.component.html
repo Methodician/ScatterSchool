@@ -1,0 +1,7 @@
+<mat-card *ngFor="let chat of chatList" (click)="requestChat(chat.$key)">
+  <div mat-card-avatar class="user-count"></div>
+  <mat-card-header>
+    <mat-card-title>{{ getMemberNames(chat) }}</mat-card-title>
+    <mat-card-subtitle>{{ chat.timestamp | timeElapsed }}</mat-card-subtitle>
+  </mat-card-header>
+</mat-card>

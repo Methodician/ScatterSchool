@@ -2,6 +2,8 @@ import { UploadService } from './../services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from './../services/article/article.service';
+import { UserService } from './../services/user/user.service';
+import { AuthService } from './../services/auth/auth.service';
 
 @Component({
   selector: 'latest-preview',
@@ -13,16 +15,26 @@ export class LatestPreviewComponent implements OnInit {
   author;
   profileImageUrl;
   articleCoverImageUrl;
+  user;
+  isArticleBookmarked;
 
   constructor(
     private articleSvc: ArticleService,
     private router: Router,
-    private uploadSvc: UploadService
+    private uploadSvc: UploadService,
+    private userSvc: UserService,
+    private authSvc: AuthService
   ) { }
 
   ngOnInit() {
     this.articleSvc.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
       this.author = author;
+    });
+    this.userSvc.userInfo$.subscribe(user => {
+      if (user) {
+        this.user = user;
+        this.checkIfBookmarked();
+      }
     });
     this.getProfileImage(this.author.$key);
     this.getArticleCoverImage(this.articleData.$key);
@@ -53,4 +65,22 @@ export class LatestPreviewComponent implements OnInit {
       }
     });
   }
+
+  checkIfBookmarked() {
+    this.articleSvc.isBookmarked(this.user.$key, this.articleData.$key).subscribe(bookmark => {
+      this.isArticleBookmarked = bookmark;
+    })
+  }
+
+  bookmarkToggle() {
+    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
+      if (isLoggedIn) {
+        if (this.isArticleBookmarked)
+          this.articleSvc.unBookmarkArticle(this.user.$key, this.articleData.$key);
+        else
+          this.articleSvc.bookmarkArticle(this.user.$key, this.articleData.$key);
+      }
+    })
+  }
+
 }

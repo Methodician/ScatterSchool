@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AllArticlesComponent } from './all-articles.component';
+import { UserInteractionComponent } from './user-interaction.component';
 
-describe('AllArticlesComponent', () => {
-  let component: AllArticlesComponent;
-  let fixture: ComponentFixture<AllArticlesComponent>;
+describe('UserInteractionComponent', () => {
+  let component: UserInteractionComponent;
+  let fixture: ComponentFixture<UserInteractionComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AllArticlesComponent ]
+      declarations: [ UserInteractionComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AllArticlesComponent);
+    fixture = TestBed.createComponent(UserInteractionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

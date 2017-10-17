@@ -1,53 +1,128 @@
-// This is a scss file but currently, all of these calls are vanilla css calls
-.featurePreview {
-  background-color: rgba(255, 255, 255, 0.8);
-  padding: 5px;
-}
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
 
-.featurePreview:hover {
-  transition: color 0.1s ease-in-out;
-  color: #31C2D7;
-}
-
-.title {
-  margin-top: 10px;
-}
-
-.author {
-  color: #C4275F;
-}
-
-.author:hover {
-  text-decoration: underline;
-}
-
-.intro {
-  color: #00BE9C;
-  font-weight: bold;
-}
-
-h3, h4, p {
-  position: relative;
-  z-index: 1;
-}
-
-.image-wrapper {
-  position: relative;
-}
-
-.text-wrapper {
-  background-color: rgba(255, 255, 255, 0.8);
-  position: relative;
-  z-index: 0;
-  padding: 5px;
-}
-
-.background {
-  margin: -15px;
+mat-card, .mat-card {
+  @include size(90px, 98%);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border-radius: 5px;
   padding: 0;
-  position: absolute;
-  z-index: 0;
-  height: 249px;
-  width: 223px;
-  overflow: hidden; 
+  
+  img {
+    @include size(90px, 90px);
+    object-fit: cover;
+    object-position: center;
+    margin-right: 50px;
+  }
+
+  .contentWrapper {
+    @include size(90px, 800px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    mat-card-header {
+  
+      .titleWrapper {
+        width: 100%;
+  
+        mat-card-title {
+          @include font-size(20px);
+          @include font-styles();
+          color: $primary-color;
+          cursor: pointer;
+
+          @media only screen and (max-width:940px) {
+            @include font-size(16px);
+          }
+          @media only screen and (max-width:700px) {
+            @include font-size(14px);
+          }
+          @media only screen and (max-width:600px) {
+            @include font-size(10px);
+          }
+    
+          &:hover {
+            color: $accent-color;
+            text-decoration: underline;
+          }
+        }
+      
+        mat-card-subtitle {
+          color: $warn-color;
+          font-weight: 800;
+          cursor: pointer;
+          margin-bottom: 0 !important;
+          @media only screen and (max-width:940px) {
+            @include font-size(12px);
+          }
+        }
+    
+          &:hover {
+            color: $accent-color;
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  
+  
+    mat-card-content, .mat-card-content {
+      align-self: flex-start;
+      margin-bottom: 0 !important;
+      p {
+        @include font-size(14px);
+        color: $primary-color;
+        cursor: pointer;
+        margin-top: 5px;
+        
+      &:hover {
+        color: $accent-color;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .contentSpacer {
+    flex: 1 1 auto;
+  }
+
+  mat-card-actions {
+    @include size(90px, 250px);
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    padding-top: 0px !important;
+    display: flex;
+    justify-content: space-around;
+
+  
+    div {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      margin-right: 20px;
+      @media only screen and (max-width:940px) {
+        margin-right: 10px;
+      }
+
+      span {
+        mat-icon {
+          cursor: default;
+          @include font-size(30px);
+          @media only screen and (max-width:940px) {
+            @include font-size(24px);
+          }
+        }
+      }
+
+      p {
+        margin-left: 10px;
+      }
+    }
+  }
 }

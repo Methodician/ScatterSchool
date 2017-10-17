@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 @import "/assets/main-theme/main-theme.css";
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "src/app/sass-variables-mixins/vars.scss";
+@import "src/app/sass-variables-mixins/mixins.scss";
 
 
 fieldset {
@@ -8,6 +11,15 @@ fieldset {
   
 *, html, body {
   font-family: STHeitiSC-Light;
+}
+
+  
+ html, body {
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: $light-gray;
 }
 
 .mat-card-header-text {

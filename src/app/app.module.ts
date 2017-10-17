@@ -1,5 +1,5 @@
 import { AuthGuard } from './guards/auth.guard';
-import { MatButtonModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule, MatTooltipModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule, MatTooltipModule, MatTabsModule } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
 import { Upload } from './services/upload/upload';
 import { CharacterCounterComponent } from './character-counter/character-counter.component';
@@ -28,8 +28,6 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { EditArticleComponent } from './edit-article/edit-article.component';
 import { TopNavComponent } from './top-nav/top-nav.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { FeaturedArticlesComponent } from './featured-articles/featured-articles.component';
-import { LatestArticlesComponent } from './latest-articles/latest-articles.component';
 import { FeaturePreviewComponent } from './feature-preview/feature-preview.component';
 import { LatestPreviewComponent } from './latest-preview/latest-preview.component';
 import { ArticleSearchPipe } from './pipes/article-search.pipe';
@@ -70,7 +68,6 @@ import { ArticleCoverImageComponent } from './article-cover-image/article-cover-
 import { AddReplyComponent } from './add-reply/add-reply.component';
 import { EditCommentComponent } from './edit-comment/edit-comment.component';
 import { TimeElapsedPipe } from './pipes/time-elapsed.pipe';
-import { AllArticlesComponent } from './all-articles/all-articles.component';
 import { ChatComponent } from './chat/chat.component';
 import { ChatService } from './services/chat/chat.service';
 import { ChatFormComponent } from './chat-form/chat-form.component';
@@ -81,6 +78,8 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ReverseArrayPipe } from './pipes/reverse-array.pipe';
 import { ArticleHistoryComponent } from './article-history/article-history.component';
 import { ArticleHistoryDetailComponent } from './article-history-detail/article-history-detail.component';
+import { UserInteractionComponent } from './user-interaction/user-interaction.component';
+import { ChatListComponent } from './chat-list/chat-list.component';
 
 
 
@@ -95,8 +94,6 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     ArticleFormComponent,
     EditArticleComponent,
     TopNavComponent,
-    FeaturedArticlesComponent,
-    LatestArticlesComponent,
     FeaturePreviewComponent,
     LatestPreviewComponent,
     ArticleSearchPipe,
@@ -133,7 +130,6 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     EditCommentComponent,
     TimeElapsedPipe,
     UploadFormComponent,
-    AllArticlesComponent,
     ArticleCoverImageComponent,
     ChatComponent,
     ChatFormComponent,
@@ -143,7 +139,9 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     SafeUrlPipe,
     ReverseArrayPipe,
     ArticleHistoryComponent,
-    ArticleHistoryDetailComponent
+    ArticleHistoryDetailComponent,
+    UserInteractionComponent,
+    ChatListComponent
   ],
   imports: [
     BrowserModule,
@@ -169,6 +167,7 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     MatIconModule,
     MatSidenavModule,
     MatTooltipModule,
+    MatTabsModule
   ],
   providers: [
     AngularFireDatabase,
@@ -181,7 +180,8 @@ import { ArticleHistoryDetailComponent } from './article-history-detail/article-
     VoteService,
     CommentService,
     ChatService,
-    AuthGuard
+    AuthGuard,
+    ArticleSearchPipe
   ],
   bootstrap: [AppComponent]
 })

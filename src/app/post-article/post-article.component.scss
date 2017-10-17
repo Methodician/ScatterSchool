@@ -36,6 +36,18 @@ progress {
   color: #00BE9C;
 }
 
+.postArticleContainer {
+  height: 100%;
+  width: 95%;
+  margin-left: 2.5%;
+  margin-top: 100px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .uploadForm {
   display: flex;
   margin: 0 auto;
@@ -51,7 +63,7 @@ progress {
   width: 500px;
 }
 
-@media only screen and (max-width:768px) {
+@media only screen and (max-width:950px) {
   input {
       width: 100%;
   }
@@ -62,5 +74,10 @@ progress {
     width: 95%;
     margin: 0 auto;
     margin-top: 95px;
+  }
+
+  .postArticleContainer {
+    margin-top: 50px;
+    height: 1150px;
   }
 }

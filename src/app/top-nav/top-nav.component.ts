@@ -1,9 +1,10 @@
+import { element } from 'protractor';
 import { Router } from '@angular/router';
 import { UserInfoOpen } from './../services/user/user-info';
 import { UserService } from './../services/user/user.service';
 import { AuthService } from './../services/auth/auth.service';
 import { AuthInfo } from './../services/auth/auth-info';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'top-nav',
@@ -11,6 +12,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./top-nav.component.scss']
 })
 export class TopNavComponent implements OnInit {
+  //@ViewChild('searchInput') searchInput;
+
   isCollapsed: boolean = true;
 
   authInfo: AuthInfo = new AuthInfo(null, false);
@@ -18,7 +21,8 @@ export class TopNavComponent implements OnInit {
   scrollEvent: any;
   lastScrollY: number;
   lastScrollDirection: string = 'up';
-  searchInput: string;
+  //searchInput: string;
+  searchBarState: searchBarFocus = searchBarFocus.inactive;
 
   constructor(
     private authSvc: AuthService,
@@ -49,8 +53,10 @@ export class TopNavComponent implements OnInit {
     });
   }
 
-  search(query: string) {
-    this.router.navigate([`articlesearch/${query}`]);
+  search(input: any) {
+    this.router.navigate([`articlesearch/${input.value}`]);
+    input.value = '';
+    this.searchBarState = searchBarFocus.inactive;
   }
 
   logout() {
@@ -60,4 +66,23 @@ export class TopNavComponent implements OnInit {
   lastScrolledUp() {
     return this.lastScrollDirection == 'up' ? true : false;
   }
+
+  searchBarFocus(input?: any) {
+    if (input.value.length == 0) {
+      if (this.searchBarState === searchBarFocus.focus) {
+        return this.searchBarState = searchBarFocus.inactive;
+      } else if (this.searchBarState === searchBarFocus.inactive) {
+        setTimeout(() => {
+          input.focus();
+        }, 100);
+        return this.searchBarState = searchBarFocus.focus;
+      }
+    } else this.search(input);
+
+  }
+}
+
+export enum searchBarFocus {
+  'focus' = 1,
+  'inactive'
 }
