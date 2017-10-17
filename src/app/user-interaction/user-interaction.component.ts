@@ -52,12 +52,27 @@ export class UserInteractionComponent implements OnInit {
     });
   }
 
+  handleRequest(request) {
+    switch(request.type) {
+      case 'openChat':
+        this.createOrOpenChat(request.payload)
+        return
+      case 'addUser':
+        this.addUserToChat(request.payload);
+        return;
+      default:
+        return;
+    }
+  }
+
   createChat(users) {
+    console.log('creating chat with: ', users)
     this.chatSvc.createChat(users);
     this.openTab('messages');
   }
 
   openChat(chatKey){
+    console.log('opening chat: ', chatKey)
     this.chatSvc.openChat(chatKey);
     this.openTab('messages');
   }
@@ -98,8 +113,7 @@ export class UserInteractionComponent implements OnInit {
     // return the first (and only) chat from the filtered array
   }
 
-  addUserToChat(user, event) {
-    event.stopPropagation();
+  addUserToChat(user) {
     let users = this.membersObjectToUsersArray(this.currentChat.members);
     users.push(user);
     this.createOrOpenChat(users)

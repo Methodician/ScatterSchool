@@ -1,6 +1,6 @@
 <mat-tab-group *ngIf="loggedInUser" #chatTabs> 
   <mat-tab label="Users" id="users">
-    <user-list (requestSender)="createOrOpenChat($event)" [userList]="userList" [loggedInUser]="loggedInUser" [currentChat]="currentChat"></user-list>
+    <user-list (requestSender)="handleRequest($event)" [userList]="userList" [loggedInUser]="loggedInUser" [currentChat]="currentChat"></user-list>
   </mat-tab>
   <mat-tab label="Chats" id="chats">
     <chat-list *ngIf="chatList" (requestSender)="openChat($event)" [chatList]="chatList"></chat-list>
