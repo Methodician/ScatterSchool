@@ -3,7 +3,7 @@
     <user-list (requestSender)="handleRequest($event)" [userList]="userList" [loggedInUser]="loggedInUser" [currentChat]="currentChat"></user-list>
   </mat-tab>
   <mat-tab label="Chats" id="chats">
-    <chat-list *ngIf="chatList" (requestSender)="openChat($event)" [chatList]="chatList"></chat-list>
+    <chat-list *ngIf="chatList" (requestSender)="openChat($event)" [chatList]="chatList" [loggedInUser]="loggedInUser"></chat-list>
     <!-- Style div to redirect users without any chats -->
     <div *ngIf="!chatList" (click)="openTab('users')">No open chats.</div>
   </mat-tab>
