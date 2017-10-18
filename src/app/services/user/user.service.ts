@@ -114,6 +114,10 @@ export class UserService {
     return this.db.object(`userInfo/open/${uid}`).set(userInfo);
   }
 
+  getProfileImageUrl(userKey: string) {
+    return this.db.object(`uploads/profileImages/${userKey}/url`);
+  }
+
   /*isAdmin() {
     let sub = new Subject();
     this.authSvc.authInfo$.subscribe(info => {

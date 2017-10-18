@@ -3,8 +3,10 @@
     <mat-card *ngFor="let message of messages">
       <mat-card-header>
         <div mat-card-avatar class="profile-image"></div>
-        <mat-card-title>{{ message.authorName }}</mat-card-title>
-        <mat-card-subtitle>{{ message.timestamp | timeElapsed }}</mat-card-subtitle>
+        <div class="authorContainer">
+          <mat-card-title>{{ message.authorName }}</mat-card-title>
+          <mat-card-subtitle>{{ message.timestamp | timeElapsed }}</mat-card-subtitle>
+        </div>
       </mat-card-header>
       <mat-card-content>
         <p>{{ message.body }}</p>

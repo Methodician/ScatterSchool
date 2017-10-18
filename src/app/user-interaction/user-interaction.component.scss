@@ -11,7 +11,28 @@ mat-tab-group {
   overflow-y: scroll;
 }
 
+.loggedIn {
+
+  div {
+    @include size(100px, 100%);
+    background-color: $light-gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    @include font-size(18px);
+    color: $dark-gray;
+    cursor: pointer;
+
+    &:hover {
+      color: $accent-color;
+      text-decoration: underline;
+      
+    }
+  }
+}
+
 .notLoggedIn {
+  
   div {
     @include size(100px, 100%);
     background-color: $light-gray;

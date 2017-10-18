@@ -18,6 +18,6 @@ export class ChatListComponent implements OnInit {
   }
 
   getMemberNames(chat) {
-    return (<any>Object).values(chat.members).map(member => member.name).join(', ');
+    return (<any>Object).values(chat.members).map(member => member.name).join(',  ');
   }
 }
