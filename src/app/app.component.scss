@@ -3,36 +3,23 @@
 @import "/sass-variables-mixins/vars.scss";
 @import "/sass-variables-mixins/mixins.scss";
 
-// .heroBgColor {
-//   @include size(500px, 100%);
-//   background-color: white;
-//   .slogan {
-//     margin-top: 140px;
-//     margin-bottom: 40px;
-//     color: $warn-color;
-//     @include font-styles();
-//     @include font-size(36px);
-//     display: flex;
-//     justify-content: center;
-//   }
-
-// }
-
-
-
-// @media only screen and (max-width:768px) {
-//   .slogan {
-//     font-size: 1.7rem;
-//   }
-// }
-
 #toggle-chat {
+  height: 65px;
+  width: 65px;
   position: fixed;
-  top: calc(20vh + 2px);
-  right: -27px;
+  top: calc(20vh + 1px);
+  right: 10px;
   -webkit-transition: right .2s;
+
   &.expanded {
-    right: 291px;    
+    right: 289px;  
+    mat-icon {
+      margin-right: 23px;
+    }
+  }
+
+  mat-icon {
+    margin-top: 5px;
   }
 }
 
@@ -40,7 +27,7 @@
   padding: 0px;
   position: fixed;
   top: 20vh;
-  right: -300px;
+  right: -311px;
   width: 300px;
   height: 500px;
   -webkit-transition: right .2s;
@@ -48,12 +35,3 @@
     right: 20px;
   }
 }
-
-/* .mat-tab-header-pagination {
-  display: none;
-}
-
-.mat-tab-label {
-  min-width: calc(250px / 3);
-  padding: 0px;
-} */

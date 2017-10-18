@@ -1,4 +1,5 @@
 @import "../sass-variables-mixins/vars.scss";
+@import "../sass-variables-mixins/mixins.scss";
 
 .user-count {
   background-color: $primary-color;
@@ -14,6 +15,8 @@ mat-card {
 
 mat-card-header {
   display: inline-block;
+  margin-left: 5px;
+  @include font-size(14px);
 }
 
 mat-card-subtitle {
