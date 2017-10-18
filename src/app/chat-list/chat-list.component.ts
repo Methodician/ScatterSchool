@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { UserInfoOpen } from 'app/services/user/user-info';
 
 @Component({
   selector: 'chat-list',
@@ -7,6 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 })
 export class ChatListComponent implements OnInit {
   @Input() chatList;
+  @Input() loggedInUser: UserInfoOpen;
   @Output() requestSender = new EventEmitter();
 
   constructor() { }
@@ -18,6 +20,10 @@ export class ChatListComponent implements OnInit {
   }
 
   getMemberNames(chat) {
-    return (<any>Object).values(chat.members).map(member => member.name).join(', ');
+    let memberNames = "";
+    for(let memberKey in chat.members) {
+      if(memberKey != this.loggedInUser.$key) memberNames += `${chat.members[memberKey].name}, `;
+    }
+    return memberNames.substr(0, memberNames.length - 2)
   }
 }
