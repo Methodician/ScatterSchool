@@ -72,6 +72,6 @@ export class CommentComponent implements OnInit {
   }
 
   deleteComment() {
-    this.commentSvc.deleteComment(this.comment.$key);
+    this.commentSvc.deleteComment(this.comment);
   }
 }

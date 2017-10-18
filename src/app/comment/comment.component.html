@@ -2,7 +2,7 @@
   <img *ngIf="hasReplies()" src="../../assets/images/chevron.png" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()"/>
 
   <p class="comment-author" (click)="navigateToProfile()">{{ displayName }}</p>
-  <span class="date-updated">{{ comment.lastUpdated | timeElapsed }}</span>
+  <span class="date-updated">comments: {{comment.commentCount ? comment.commentCount : '0'}} {{ comment.lastUpdated | timeElapsed }}</span>
   
   <p *ngIf="!editShowing" class="comment-text">{{comment.text}}</p>
   <span *ngIf="!editShowing" id="reply-button" (click)="tryShowAddReply(addReply)">Reply</span>

@@ -5,5 +5,8 @@
         <mat-card-title>{{ displayName(user) }}</mat-card-title>
         <mat-card-subtitle><user-presence [userKey]="user.$key"></user-presence></mat-card-subtitle>
       </mat-card-header>
+      <button *ngIf="currentChat && isNotInCurrentChat(user.$key)" (click)="requestAddUser(user, $event)" mat-icon-button color="primary" matTooltip="Add to Chat" matTooltipPosition="below" class="add-to-chat">
+        <mat-icon class="mat-24" aria-label="Add to Chat">person_add</mat-icon>
+      </button>
     </mat-card>
 </div>
