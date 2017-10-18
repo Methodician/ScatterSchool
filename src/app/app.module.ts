@@ -1,3 +1,4 @@
+import { FirestoreTestingService } from './firestore-testing.service';
 import { AuthGuard } from './guards/auth.guard';
 import { MatButtonModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule, MatTooltipModule, MatTabsModule } from '@angular/material';
 import { UploadService } from './services/upload/upload.service';
@@ -17,6 +18,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppComponent } from './app.component';
 import { RouterModule, Routes } from '@angular/router';
@@ -80,6 +82,7 @@ import { ArticleHistoryComponent } from './article-history/article-history.compo
 import { ArticleHistoryDetailComponent } from './article-history-detail/article-history-detail.component';
 import { UserInteractionComponent } from './user-interaction/user-interaction.component';
 import { ChatListComponent } from './chat-list/chat-list.component';
+import { FirestoreTestingComponent } from './firestore-testing/firestore-testing.component';
 
 
 
@@ -141,7 +144,8 @@ import { ChatListComponent } from './chat-list/chat-list.component';
     ArticleHistoryComponent,
     ArticleHistoryDetailComponent,
     UserInteractionComponent,
-    ChatListComponent
+    ChatListComponent,
+    FirestoreTestingComponent
   ],
   imports: [
     BrowserModule,
@@ -150,6 +154,7 @@ import { ChatListComponent } from './chat-list/chat-list.component';
     HttpModule,
     //AngularFireModule.initializeApp(fbConfig),
     AngularFireModule.initializeApp(fbConfigDev),
+    AngularFirestoreModule,
     CollapseModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
@@ -180,6 +185,7 @@ import { ChatListComponent } from './chat-list/chat-list.component';
     VoteService,
     CommentService,
     ChatService,
+    FirestoreTestingService,
     AuthGuard,
     ArticleSearchPipe
   ],

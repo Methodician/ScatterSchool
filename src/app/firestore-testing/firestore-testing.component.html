@@ -1,0 +1,28 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>
+  firestore-testing works!
+</p>
+
+<input #stuff type="text">
+<button (click)="update(stuff.value)">Update</button>
+
+<pre>
+  {{ item$ | async | json }}
+</pre>
+<pre *ngIf="test">
+  {{ test }}
+</pre>
+
+
+<input #foo type="text">
+<button (click)="add(foo.value)">Add</button>
+
+<pre>
+  {{ collection$ | async | json }}
+</pre>

@@ -1,3 +1,4 @@
+import { FirestoreTestingComponent } from './firestore-testing/firestore-testing.component';
 import { ArticleHistoryComponent } from './article-history/article-history.component';
 import { AuthGuard } from './guards/auth.guard';
 import { UploadFormComponent } from './upload-form/upload-form.component';
@@ -24,6 +25,10 @@ import { UserListComponent } from "app/user-list/user-list.component";
 
 
 const routes: Routes = [
+  {
+    path: 'test',
+    component: FirestoreTestingComponent
+  },
   {
     path: 'home',
     component: HomeComponent
