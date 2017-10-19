@@ -9,25 +9,23 @@ export class FirestoreTestingService {
   ) { }
 
   setTest(object) {
-    this.getDoc().set(object);
+    this.getDocument().set(object);
   }
 
   updateTest(object) {
-    this.getDoc().update(object);
+    this.getDocument().update(object);
   }
 
-  getDoc() {
-    const doc: AngularFirestoreDocument<any> = this.afs.doc<any>('test/2');
-    return doc;
+  getDocument(): AngularFirestoreDocument<any> {
+    return this.afs.doc<any>('test/2');
   }
 
   addTest(object) {
     this.getCollection().add(object);
   }
 
-  getCollection() {
-    const collection: AngularFirestoreCollection<any> = this.afs.collection<any>('test');
-    return collection;
+  getCollection(): AngularFirestoreCollection<any> {
+    return this.afs.collection<any>('test');;
   }
 
 

@@ -24,7 +24,7 @@ export class FirestoreTestingComponent implements OnInit {
 
   ngOnInit() {
     //const itemDoc: AngularFirestoreDocument<any> = this.afs.document<any>('test/2');
-    this.document = this.ftSvc.getDoc();
+    this.document = this.ftSvc.getDocument();
     this.item$ = this.document.valueChanges();
     this.document.snapshotChanges().subscribe(snap => {
       this.docPath = snap.payload.ref.path;
