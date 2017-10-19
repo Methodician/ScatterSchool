@@ -3,16 +3,23 @@
 @import "../sass-variables-mixins/mixins.scss";
 
 button {
-@include large-button();
+  @include large-button();
   margin: 0 auto;
   /*flex attributes*/
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 
 pre {
+  width: 1200px;
   width: 75rem;
   border: 1px solid #C4275F;
   border-radius: 0;
@@ -22,6 +29,7 @@ pre {
 
 label {
   color: #243237;
+  font-size: 36.8px;
   font-size: 2.3rem;
   font-weight: 200;
   font-family: STHeitiSC-Light;
@@ -42,16 +50,31 @@ progress {
   margin-left: 2.5%;
   margin-top: 100px;
 
+  display: -webkit-box;
+
+  display: -ms-flexbox;
+
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .uploadForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin: 0 auto;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   border-bottom: 1px solid #263237;
   width: 500px;
 }

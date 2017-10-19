@@ -2,24 +2,40 @@
 @import "../sass-variables-mixins/mixins.scss";
 
 #chat {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   height: 450px;
   
   #message-list {
-    flex: 2;
+    -webkit-box-flex: 2;
+        -ms-flex: 2;
+            flex: 2;
     overflow-y: scroll;
     
     mat-card {
       margin: 5px;
       padding: 10px;
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      flex-direction: column;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
 
 
       mat-card-header {
         // border: $tb-red;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
 
         .profile-image {
