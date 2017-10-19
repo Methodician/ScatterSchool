@@ -36,7 +36,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
   }
 
   register() {
@@ -45,11 +45,11 @@ export class RegisterComponent implements OnInit {
     this.authSvc.register(val.email, val.password)
       .subscribe(
       res => {
-        console.log('Signup result from RegisterComp:', res);
+        //console.log('Signup result from RegisterComp:', res);
         delete val.password;
         delete val.confirmPass;
         this.authSvc.sendVerificationEmail();
-        alert('Thanks for creating an account! You must respond to the verification email to complete the process. Your organization must also be approved by an administrator.');
+        alert('Thanks for creating an account! Play nice, make friends, and contribute to the wealth of knowledge we\'re building together.');
         this.userSvc.createUser(val, res.uid).then(user => {
           if (val.alias) {
             this.authSvc.setDisplayName(val.alias);
