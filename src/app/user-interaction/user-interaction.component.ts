@@ -15,6 +15,7 @@ export class UserInteractionComponent implements OnInit {
   userList;
   chatSubscription;
   currentChat;
+  windowExpanded = false;
   constructor(
     private userSvc: UserService,
     private chatSvc: ChatService
@@ -101,6 +102,10 @@ export class UserInteractionComponent implements OnInit {
     }
   }
 
+  toggleWindow() {
+    this.windowExpanded = !this.windowExpanded;
+  }
+
   //note: code is intentionally verbose, can be shortened if necessary
   findExistingChat(queriedUserList) {
     if(!this.chatList) return false;
@@ -108,7 +113,8 @@ export class UserInteractionComponent implements OnInit {
     return this.chatList.filter(chat => {
       let chatMembersLength = Object.keys(chat.members).length;
       // chat is identical if the queriedUserList is of the same length and contains every memberKey that chat.members contains
-      return queriedUserList.length === chatMembersLength  && queriedUserList.every(user => chat.members[user.$key])
+      return queriedUserList.length === chatMembersLength
+          && queriedUserList.every(user => chat.members[user.$key])
     })[0];
     // ^ we can guarantee that there will never be identical chats the the database, so we always
     // return the first (and only) chat from the filtered array
