@@ -1,4 +1,4 @@
-<mat-tab-group *ngIf="loggedInUser" #chatTabs class="loggedIn">  
+<mat-tab-group *ngIf="loggedInUser.uid" #chatTabs class="loggedIn">  
   <mat-tab label="Users" id="users">
     <user-list (requestSender)="handleRequest($event)" [userList]="userList" [loggedInUser]="loggedInUser" [currentChat]="currentChat"></user-list>
   </mat-tab>
@@ -14,7 +14,7 @@
   </mat-tab>
 </mat-tab-group>
 <!-- Style messaging window below for non-logged in users and link to log-in page. -->
-<mat-tab-group *ngIf="!loggedInUser" class="notLoggedIn">
+<mat-tab-group *ngIf="!loggedInUser.uid" class="notLoggedIn">
   <mat-tab label="Messaging">
     <div  routerLink="login">Please log in to access messaging.</div>
   </mat-tab>
