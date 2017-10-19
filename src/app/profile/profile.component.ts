@@ -46,7 +46,7 @@ export class ProfileComponent implements OnInit {
 
   getUserInfo(uid: string) {
     this.userSvc.getUserInfo(uid).subscribe(userInfo => {
-      this.userInfo = userInfo
+      this.userInfo = userInfo;
     });
   }
 
