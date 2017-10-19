@@ -32,8 +32,6 @@
 }
 
 .profile-image {
-  background-image: url('../../assets/images/kid-art.jpg');
-  background-size: cover;
   display: inline-block;
 }
 
@@ -45,8 +43,9 @@ mat-card {
 
 mat-card-header {
   display: inline-block;
+  margin-left: 10px; 
 }
 
 mat-card-subtitle {
-  margin-bottom: 0px;
+  margin-bottom: 5px;
 }
