@@ -1,33 +1,61 @@
+// Docs: https://firebase.google.com/docs/functions/get-started
+// Use command 'firebase deploy --only functions' from root dir to deploy file changes the cloud
+
+// Important: You must return a Promise when performing asynchronous tasks 
+// inside a functions such a writing to the Firebase Realtime Database.
+
 const functions = require('firebase-functions');
-//import functions from 'firebase-functions';
-const admin = require('firebase-admin');
-admin.initializeApp(functions.config().firebase);
+const firebase = require('firebase-admin');
+firebase.initializeApp(functions.config().firebase);
 
-exports.addMessage = functions.https.onRequest((req, res) => {
-    const original = req.query.text;
-    admin.database().ref('/messages').push({ original: original }).then(snapshot => {
-        res.redirect(303, snapshot.ref);
-    });
-});
-
-exports.makeUppercase = functions.database.ref('/messages/{pushId}/original')
-    //  Listens for messages added to /messages/:pushId/original
+//-------------v CommentAssociations v-------------
+exports.makeCommentAssociations = functions.database.ref('/commentData/comments/{pushId}')
     .onWrite(event => {
-        const original = event.data.val();
-        console.log('Uppercasing', event.params.pushId, original);
-        const uppercase = original.toUpperCase();
-        if (uppercase == original)
-            return null;
-        else
-            return event.data.ref.parent.child('uppercase').set(uppercase);
-        // You must return a Promise when performing asynchronous tasks inside a Functions such as
-        // writing to the Firebase Realtime Database.
-        // Setting an "uppercase" sibling in the Realtime Database returns a Promise.
-    });
+        const newCommentKey = event.data.key;
+        const newCommentValue = event.data.val();
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+        commentAssociations({
+            rootRef: firebase.database().ref(),
+            commentKey: newCommentKey,
+            commentValue: newCommentValue
+        }).then(_ => {
+            console.log('Success: commentAssociations.');
+        }).catch(err => {
+            console.error('Fail: commentAssociations.', err)
+        });
+    });
+    
+// This is an atomic function. As a guide I used
+// this video: https://www.youtube.com/watch?v=i1n9Kw3AORw starting at 5:35
+function commentAssociations({rootRef, commentKey, commentValue}) {
+    // Create empty update object
+    let updateObj = {}
+    //  Add to updateObj: The path and value you would like to update
+        updateObj[makeParentAssociation(commentValue.parentKey, commentKey)] = true;
+        updateObj[makeUserAssociation(commentValue.parentKey, commentKey)] = true;
+        updateObj[makeParentTypeAssociation(commentValue.parentType, commentValue.parentKey, commentKey)] = true;
+    // Updates the database, return the promise 
+    return rootRef.update(updateObj)
+}
+
+function makeParentAssociation(parentKey, commentKey) {
+    return `commentData/commentsPerParent/${parentKey}/${commentKey}`;
+}
+
+function makeUserAssociation(authorKey, commentKey) {
+    return `commentData/commentsPerUser/${authorKey}/${commentKey}`;
+}
+
+function makeParentTypeAssociation(parentType, parentKey, childKey) {
+    if (parentType === 'article') return makeCommentsPerArticleAssociation(parentKey, childKey);
+    if (parentType === 'comment') return makeRepliesPerCommentAssociation(parentKey, childKey);
+}
+
+function makeCommentsPerArticleAssociation(parentKey, commentKey) {
+    return `commentData/commentsPerArticle/${parentKey}/${commentKey}`;
+}
+
+function makeRepliesPerCommentAssociation(parentKey, commentKey) {
+    return `commentData/repliesPerComment/${parentKey}/${commentKey}`;
+}
+//-------------^ CommentAssociations ^-------------

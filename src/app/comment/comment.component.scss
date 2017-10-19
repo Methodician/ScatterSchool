@@ -22,10 +22,14 @@
     top: 0px;
     width: 9px;
     height: 14px;
+    -webkit-transition: -webkit-transform .1s ease-in;
+    transition: -webkit-transform .1s ease-in;
     transition: transform .1s ease-in;
+    transition: transform .1s ease-in, -webkit-transform .1s ease-in;
 
     &.showing {
-      transform: rotate(90deg)
+      -webkit-transform: rotate(90deg);
+              transform: rotate(90deg)
     }
   }
 
