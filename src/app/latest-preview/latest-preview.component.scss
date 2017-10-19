@@ -12,8 +12,10 @@ mat-card {
   
   img {
     @include size(150px, 100%);
-    object-fit: cover;
-    object-position: center;
+    -o-object-fit: cover;
+       object-fit: cover;
+    -o-object-position: center;
+       object-position: center;
     margin: 0 auto;
   }
 
@@ -76,15 +78,31 @@ mat-card {
     position: absolute;
     bottom: 5px;
     padding: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
   
     div {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: row;
+              flex-direction: row;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
       margin-right: 10px;
 
       span {
@@ -104,7 +122,9 @@ mat-card {
     }
 
     .iconSpacer {
-      flex: 1 1 auto;
+      -webkit-box-flex: 1;
+          -ms-flex: 1 1 auto;
+              flex: 1 1 auto;
     }
 
     div:nth-of-type(4) {
@@ -112,6 +132,7 @@ mat-card {
     }
   }
 }
+
 
 
 
