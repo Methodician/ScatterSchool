@@ -45,21 +45,21 @@ export class ProfileComponent implements OnInit {
   }
 
   getUserInfo(uid: string) {
-    this.userSvc.getUserInfo(uid).subscribe(userInfo =>
+    this.userSvc.getUserInfo(uid).subscribe(userInfo => {
       this.userInfo = userInfo
-    );
+    });
   }
 
   getUsersFollowed(uid: string) {
-    this.userSvc.getUsersFollowed(uid).subscribe(followed =>
-      this.usersFollowed = followed
-    );
+    this.userSvc.getUsersFollowed(uid).subscribe(followed => {
+      this.usersFollowed = followed;
+    });
   }
 
   getFollowersOfUser(uid: string) {
-    this.userSvc.getFollowersOfUser(uid).subscribe(following =>
-      this.followersOfUser = following
-    );
+    this.userSvc.getFollowersOfUser(uid).subscribe(following => {
+      this.followersOfUser = following;
+    });
   }
 
   getArticlesPerAuthor(uid: string) {
