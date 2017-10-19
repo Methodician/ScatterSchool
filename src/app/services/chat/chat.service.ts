@@ -47,7 +47,6 @@ export class ChatService {
     return this.db.object(`chatData/chats/${chatKey}`);
   }
 
-
   getUserChatKeys(userKey) {
     return this.db.list(`chatData/chatsPerMember/${userKey}`)
   }

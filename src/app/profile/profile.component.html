@@ -9,7 +9,7 @@
       <div *ngIf="userInfo" class="followButtonWrapper">
         <h3 class="author">{{userInfo?.alias || userInfo?.fName + ' ' + userInfo?.lName}}</h3>
         <!-- <button type="button" class="btn followBtn" (click)="followClick()">Follow</button> -->
-        <follow-btn [uid]="user?.uid"></follow-btn>
+        <follow-btn [uid]="userInfo.uid"></follow-btn>
       </div>
     </div>
     <h4 class="bio">{{userInfo?.bio}}</h4>
@@ -45,7 +45,7 @@
       <h3>Following</h3>
       <div class="followAuthorLoop">
         <div *ngFor="let user of usersFollowed">
-          <followed-user [user]="user"></followed-user>
+          <follower-user [user]="user"></follower-user>
         </div>
       </div>
     </div>
@@ -57,7 +57,6 @@
         </div>
       </div>
     </div>
-
   </div>
 </div>
 

@@ -64,6 +64,9 @@
         // border: $tb-lime;
         overflow-wrap: break-word;
         width: 100%;
+        p {
+          white-space: pre-wrap;
+        }
       }
     }
   }
