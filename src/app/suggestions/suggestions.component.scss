@@ -34,9 +34,16 @@ h3 {
   font-family: STHeitiSC-Light;
   margin: 0 auto;
   max-width: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   p {
     margin-bottom: 40px;
     font-size: 20px;

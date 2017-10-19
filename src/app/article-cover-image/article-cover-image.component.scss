@@ -10,6 +10,7 @@ input {
 
 h2 {
   color: #243237;
+  font-size: 36.8px;
   font-size: 2.3rem;
   font-weight: 200;
   font-family: STHeitiSC-Light;
@@ -21,8 +22,12 @@ h2 {
   width: 500px;
   margin: 0 auto;
   .image-wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    justify-content: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
 
   .imageDisplay {
@@ -30,7 +35,8 @@ h2 {
     height: 250px;
     margin-bottom: 20px;
     border: 1px solid #263237;
-    object-fit: cover;
+    -o-object-fit: cover;
+       object-fit: cover;
   }
 }
 

@@ -4,7 +4,9 @@
 
 // Spacer for the nav bar to push everything to right-side of the toolbar
 .flexBoxSpacer {
-  flex: 1 1 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
 }
 // due to specaficity issues these styles needed to go further up on the stylesheet.
 .searchButton {
@@ -24,9 +26,15 @@
   z-index: 10;
   width: 95%;
   margin-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   margin-left: 2.5%;
 
   mat-toolbar {
@@ -38,9 +46,15 @@
     position: relative;
   //  Logo and title
     .logoWrapper {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
       position: absolute;
       left: -1px;
 
@@ -52,8 +66,13 @@
         color: $primary-color;
         @include font-size(34px);
         margin-left: 20px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-direction: row;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-direction: row;
+                flex-direction: row;
         text-decoration: none;
 
         &:hover {
@@ -141,14 +160,17 @@
 
 /*nav scroll down transition styles*/
 .scrolledUp {
+  -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
 
   mat-toolbar {
+    -webkit-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
     border: 1px solid $medium-gray;
   }
   
   .logoWrapper img {
+    -webkit-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
     height: 100px;
   }
@@ -156,6 +178,7 @@
   @media only screen and (max-width:768px) {
 
     .logoWrapper img {
+      -webkit-transition: all 0.5s ease-in-out;
       transition: all 0.5s ease-in-out;
       height: 80px;
     }
@@ -164,13 +187,16 @@
 
 /*nav scroll up transition styles*/
 .scrolledDown {
+  -webkit-transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
   margin-top: 0;
   margin-left: 0;
   opacity: .5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
   width: 100vw;
 
   mat-toolbar {
+    -webkit-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
     background-color: $dark-gray;
     border-radius: 0px;
@@ -178,6 +204,7 @@
   }
   
   .logoWrapper img {
+    -webkit-transition: all 0.5s ease-in-out;
     transition: all 0.5s ease-in-out;
     height: 50px;
     margin-left: 10px;
