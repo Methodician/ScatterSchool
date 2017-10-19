@@ -12,13 +12,19 @@ import { UserInfoOpen } from './../services/user/user-info';
 export class FollowerUserComponent implements OnInit {
   @Input() user: any;
 
-  constructor(private userSvc: UserService) { }
+  constructor(private userSvc: UserService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   navigateToProfile() {
     this.userSvc.navigateToProfile(this.user.uid);
   }
 
+  getProfileImageUrl(userKey: string) {
+    return this.userSvc.getProfileImageUrl(userKey);
+  }
+
+  stopPropagation(event) {
+    event.stopPropagation();
+  }
 }
