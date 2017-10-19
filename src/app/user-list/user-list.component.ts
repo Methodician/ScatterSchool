@@ -24,7 +24,6 @@ export class UserListComponent implements OnInit {
 
   requestAddUser(user, event) {
     event.stopPropagation();
-    console.log('requestAddUser: ', user);
     this.requestSender.emit({ type: 'addUser', payload: user});
   }
   

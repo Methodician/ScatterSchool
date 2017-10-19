@@ -68,13 +68,11 @@ export class UserInteractionComponent implements OnInit {
   }
 
   createChat(users) {
-    console.log('creating chat with: ', users)
     this.chatSvc.createChat(users);
     this.openTab('messages');
   }
 
   openChat(chatKey){
-    console.log('opening chat: ', chatKey)
     this.chatSvc.openChat(chatKey);
     this.openTab('messages');
   }
