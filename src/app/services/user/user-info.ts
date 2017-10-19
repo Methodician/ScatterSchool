@@ -10,4 +10,8 @@ export class UserInfoOpen {
         public city?: string,
         public state?: string,
     ) { }
+
+    displayName() {
+        return this.alias ? this.alias : this.fName;
+    }
 }

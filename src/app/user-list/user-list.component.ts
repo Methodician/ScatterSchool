@@ -14,7 +14,7 @@ export class UserListComponent implements OnInit {
   @Input() currentChat;
   @Output() requestSender = new EventEmitter();
 
-  constructor() {}
+  constructor(private userSvc: UserService) {}
 
   ngOnInit() {}
 
@@ -40,5 +40,9 @@ export class UserListComponent implements OnInit {
     const totalMessages = chat.totalMessagesCount;
     const messagesSeen = chat.members[this.loggedInUser.$key].messagesSeenCount;
     return (totalMessages === messagesSeen) ? true : false;
+  }
+
+  getProfileImageUrl(userKey: string) {
+    return this.userSvc.getProfileImageUrl(userKey);
   }
 }

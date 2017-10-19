@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class UserService {
-
-  userInfo$: BehaviorSubject<UserInfoOpen> = new BehaviorSubject<UserInfoOpen>(null);
+  private NULL_USER = new UserInfoOpen(null, null, null, null)
+  userInfo$: BehaviorSubject<UserInfoOpen> = new BehaviorSubject<UserInfoOpen>(this.NULL_USER);
   loggedInUserKey: string;
   uid;
 
@@ -22,7 +22,8 @@ export class UserService {
     this.authSvc.authInfo$.subscribe(authInfo => {
       this.getUserInfo(authInfo.$uid).subscribe(info => {
         if (info.$key != 'null') {
-          this.userInfo$.next(info);
+          let userInfo =  new UserInfoOpen(info.alias, info.fName, info.lName, info.zipCode, info.$key, info.uid, info.bio, info.city, info.state);
+          this.userInfo$.next(userInfo);
           this.loggedInUserKey = info.$key;
         }
       })
@@ -112,6 +113,10 @@ export class UserService {
   updateUser(userInfo, uid) {
     userInfo.uid = null;
     return this.db.object(`userInfo/open/${uid}`).set(userInfo);
+  }
+
+  getProfileImageUrl(userKey: string) {
+    return this.db.object(`uploads/profileImages/${userKey}/url`);
   }
 
   /*isAdmin() {

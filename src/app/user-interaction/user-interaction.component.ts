@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'app/services/user/user.service';
 import { ChatService } from 'app/services/chat/chat.service';
+import { UserInfoOpen } from 'app/services/user/user-info';
 
 @Component({
   selector: 'user-interaction',
@@ -9,7 +10,7 @@ import { ChatService } from 'app/services/chat/chat.service';
 })
 export class UserInteractionComponent implements OnInit {
   @ViewChild("chatTabs") chatTabs;
-  loggedInUser;
+  loggedInUser: UserInfoOpen;
   chatList;
   userList;
   chatSubscription;
@@ -22,7 +23,7 @@ export class UserInteractionComponent implements OnInit {
   ngOnInit() {
     this.userSvc.userInfo$.subscribe(user => {
       this.loggedInUser = user;
-      if(user) { 
+      if(user) {        
         this.chatSvc.getUserChatKeys(user.$key).subscribe(userChatKeys => {
           if(userChatKeys.length == 0) {
             this.userSvc.getUserList().subscribe(userList => {
