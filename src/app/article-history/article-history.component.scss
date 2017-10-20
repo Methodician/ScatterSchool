@@ -2,18 +2,45 @@
 @import "../sass-variables-mixins/vars.scss";
 @import "../sass-variables-mixins/mixins.scss";
 
-#versionSelector {
-  text-align: center;
-
-  button {
-    color: white;
+.articleHistoryWrapper {
+  
+    .articleControlWrapper {
+      width: 350px;
+      margin: 0 auto;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+          -ms-flex-direction: column;
+              flex-direction: column;
+      -webkit-box-pack: center;
+          -ms-flex-pack: center;
+              justify-content: center;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      .versionWrapper {
+        @include font-styles();
+      }
+    
+      .buttonWrapper {
+        margin-top: 20px;
+        width: 100%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: distribute;
+            justify-content: space-around;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+  
+        button {
+          mat-icon{
+            color: white;
+          }
+        }
+      }
+    }
   }
-}
-
-#cycleController {
-  text-align: center;
-
-  button {
-    color: white;
-  }
-}

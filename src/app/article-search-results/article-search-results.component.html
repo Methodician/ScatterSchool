@@ -1,9 +1,11 @@
 <div class="searchList">
   <h3 class="headline">Search Results For: {{ queryString }}</h3>
-  <h2 *ngIf="searchResults?.length == 0">We couldn't find any results.</h2>
   <div class="searchDisplay">
     <div class="searchTile" *ngFor="let article of searchResults">
       <article-search-preview [articleData]="article"></article-search-preview>
     </div>
+  </div>
+  <div class="noResults">
+    <h2 *ngIf="searchResults?.length == 0">We couldn't find any results.</h2>
   </div>
 </div>

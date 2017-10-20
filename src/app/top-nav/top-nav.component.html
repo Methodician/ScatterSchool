@@ -22,22 +22,27 @@
     <!-- Button Container -->
     <div class="navButtonWrapper">
       <button mat-raised-button color="primary" id="post-article" routerLink="postarticle" class="navButtons">Post an article</button>
-      <button mat-raised-button color="accent" *ngIf="authInfo.$uid" routerLink="account" class="navButtons"> Hello {{ displayName }}</button>
-      <button mat-raised-button color="warn" *ngIf="!authInfo.$uid" routerLink="register" id="sign-up" class="navButtons">Sign Up</button>
-      <button mat-raised-button color="warn" *ngIf="authInfo.$uid" (click)="logout()" id="logout" class="navButtons">Log Out</button>
-      <button mat-raised-button color="accent" *ngIf="!authInfo.$uid" routerLink="login" id="sign-in" class="navButtons">Sign In</button>
+      <button mat-raised-button color="accent" *ngIf="authInfo.$uid" class="navButtons" [matMenuTriggerFor]="optionMenu"> Hello {{ displayName }}</button>
+      <button mat-raised-button color="primary" *ngIf="!authInfo.$uid" routerLink="login" id="sign-in" class="navButtons">Sign In</button>
+      <button mat-raised-button color="accent" *ngIf="!authInfo.$uid" routerLink="register" id="sign-up" class="navButtons">Sign Up</button>
       <!-- Mobile Nav Bar Menu Button -->
-      <button id="menu" mat-raised-button [matMenuTriggerFor]="mobileMenu" class="hamburgerButton">
-        <mat-icon color="primary">menu</mat-icon>
+      <button color="primary" id="menu" mat-raised-button [matMenuTriggerFor]="mobileMenu" class="hamburgerButton">
+        <mat-icon>menu</mat-icon>
       </button>
+      <!-- Option Nav Bar Menu Dropdown  -->
+      <mat-menu #optionMenu="matMenu">
+        <button mat-menu-item *ngIf="authInfo.$uid" routerLink="account">Profile</button>
+        <button mat-menu-item *ngIf="authInfo.$uid" (click)="logout()" id="logout">Log Out</button>
+      </mat-menu>
       <!-- Mobile Nav Bar Menu Dropdown  -->
       <mat-menu #mobileMenu="matMenu">
         <button mat-menu-item id="post-article" routerLink="postarticle">Post an article</button>
-        <button mat-menu-item *ngIf="authInfo.$uid" routerLink="account"> Hello {{ displayName }}</button>
+        <button mat-menu-item *ngIf="authInfo.$uid" routerLink="account">Profile</button>
         <button mat-menu-item *ngIf="!authInfo.$uid" routerLink="register" id="sign-up">Sign Up</button>
         <button mat-menu-item *ngIf="authInfo.$uid" (click)="logout()" id="logout">Log Out</button>
         <button mat-menu-item *ngIf="!authInfo.$uid" routerLink="login" id="sign-in">Sign In</button>
       </mat-menu>
+
     </div>
   </mat-toolbar>
 </div>
