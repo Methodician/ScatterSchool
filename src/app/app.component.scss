@@ -3,6 +3,12 @@
 @import "/sass-variables-mixins/vars.scss";
 @import "/sass-variables-mixins/mixins.scss";
 
+.navContainer {
+  border: $tb-red;
+  @include size(170px, 99.5%);
+  overflow-x: hidden;
+}
+
 #toggle-chat {
   height: 65px;
   width: 65px;

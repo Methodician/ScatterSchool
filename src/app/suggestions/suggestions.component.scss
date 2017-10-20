@@ -4,7 +4,7 @@
 
 .suggestionsContainer {
   min-height: 800px;
-  margin-top: 200px;
+  margin-top: 50px;
 }
 
 h3 {
@@ -23,6 +23,7 @@ h3 {
 
 .suggestionLoop {
   border-top: 1px solid $dark-gray;
+  margin-bottom: 50px;
 }
 
 #add-suggestions-wrapper {
