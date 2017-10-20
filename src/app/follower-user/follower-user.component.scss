@@ -1,3 +1,20 @@
+.mat-card-header {
+  display: inline-block;
+}
+
+.mat-card {
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+  .mat-card-subtitle {
+    margin-bottom: 0px;
+  }
+}
+
+follow-btn {
+  position: absolute;
+  right: 10px;
+}
 
 .followWrapper {
   width: 100%;

@@ -80,22 +80,27 @@ export class UserService {
 
   UserArrayFromKeyArray(userKeys: Observable<string[]>): Observable<UserInfoOpen[]> {
     return userKeys
-      .map(usersPerKey =>
-        usersPerKey.map((user: any) =>
-          this.db.object(`userInfo/open/${user.$key}`).map(user => {
-            user.uid = user.$key;
-            return user;
-          })))
+      .map(usersPerKey => {
+         return usersPerKey.map((user: any) => {
+          return this.db.object(`userInfo/open/${user.$key}`).map(user => {
+            return new UserInfoOpen(user.alias, user.fName, user.lName, user.zipCode, user.$key, user.$key, user.bio, user.city, user.state);
+          })
+        })
+      })
       .flatMap(firebaseObjects =>
         Observable.combineLatest(firebaseObjects));
   }
 
   getUsersFollowed(uid: string): Observable<UserInfoOpen[]> {
-    return this.UserArrayFromKeyArray(this.db.list(`userInfo/usersPerFollower/${uid}`));
+    let usersFollowedKeysList = this.db.list(`userInfo/usersPerFollower/${uid}`);
+    let usersFollowedObservable = this.UserArrayFromKeyArray(usersFollowedKeysList);
+    return usersFollowedObservable;
   }
 
   getFollowersOfUser(uid: string): Observable<UserInfoOpen[]> {
-    return this.UserArrayFromKeyArray(this.db.list(`userInfo/followersPerUser/${uid}`));
+    let followerKeysList = this.db.list(`userInfo/followersPerUser/${uid}`);
+    let followersListObservable = this.UserArrayFromKeyArray(followerKeysList);
+    return followersListObservable;
   }
 
   navigateToProfile(uid: any) {

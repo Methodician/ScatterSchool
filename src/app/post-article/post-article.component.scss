@@ -48,12 +48,8 @@ progress {
   height: 100%;
   width: 95%;
   margin-left: 2.5%;
-  margin-top: 100px;
-
   display: -webkit-box;
-
   display: -ms-flexbox;
-
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
@@ -82,7 +78,6 @@ progress {
 .upload-wrapper {
   font-family: STHeitiSC-Light;
   margin: 0 auto;
-  margin-top: 95px;
   width: 500px;
 }
 
@@ -96,11 +91,9 @@ progress {
   .upload-wrapper{
     width: 95%;
     margin: 0 auto;
-    margin-top: 95px;
   }
 
   .postArticleContainer {
-    margin-top: 50px;
     height: 1150px;
   }
 }

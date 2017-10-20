@@ -1,9 +1,11 @@
-<top-nav></top-nav>
+<div class="navContainer">
+  <top-nav></top-nav>
+</div>
 <router-outlet></router-outlet>
-<button [class.expanded]="chatExpanded" (click)="toggleChat()" mat-fab color="warn" id="toggle-chat">
+<button [class.expanded]="userInteraction.windowExpanded" (click)="userInteraction.toggleWindow()" mat-fab color="warn" id="toggle-chat">
   <mat-icon class="mat-24" aria-label="Open Chat">chat</mat-icon>
 </button>
-<mat-card id="chat" [class.expanded]="chatExpanded">
-  <user-interaction></user-interaction>
+<mat-card id="chat" [class.expanded]="userInteraction.windowExpanded">
+  <user-interaction #userInteraction></user-interaction>
 </mat-card>
 <footer></footer>
