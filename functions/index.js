@@ -59,3 +59,40 @@ function makeRepliesPerCommentAssociation(parentKey, commentKey) {
     return `commentData/repliesPerComment/${parentKey}/${commentKey}`;
 }
 //-------------^ CommentAssociations ^-------------
+//-------------v ChatAssociations v-------------
+exports.makeChatAssociations = functions.database.ref('chatDataTest/chats/{pushId}')
+    .onWrite(event => {
+        const newChatKey = event.data.key;
+        const newChatValue = event.data.val();
+        // console.log('key/value', newChatKey, newChatValue);
+        chatAssociations({
+            rootRef: firebase.database().ref(),
+            chatKey: newChatKey
+        }).then(_ => {
+            console.log('Success: chatAssociations.');
+        }).catch(err => {
+            console.error('Fail: chatAssociations.', err)
+        });
+    });
+
+    function chatAssociations({rootRef, chatKey}) {
+        const chatMembersRef = rootRef.child(`chatDataTest/chats/${chatKey}/members`);
+        return chatMembersRef.once('value').then(members => {
+            let updateObj = {};
+            members.forEach(member => {
+                    console.log('member', member);
+                // updateObj[`chatDataTest/chats/${chatKey}/members/${member.key}`] = {name: member.name, messagesSeenCount: 0};
+                // updateObj[`chatDataTest/chatsPerMember/${member.key}/${chatKey}`] = true;
+                // updateObj[`chatDataTest/membersPerChat/${chatKey}/${member.key}`] = { name: member.name};
+            });
+        });
+
+    }
+//-------------^ ChatAssociations ^-------------
+
+// for (let user of users) {
+//     let displayName = user.alias ? user.alias : user.fName;
+//     this.db.object(`chatDataTest/chats/${chatKey}/members/${user.$key}`).update({ name: displayName, messagesSeenCount: 0 });
+//     this.db.object(`chatDataTest/chatsPerMember/${user.$key}/${chatKey}`).set(true);
+//     this.db.object(`chatDataTest/membersPerChat/${chatKey}/${user.$key}`).update({ name: displayName });
+// }
