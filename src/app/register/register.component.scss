@@ -10,6 +10,11 @@
   margin-top: 50px;
   @include font-styles();
 
+  @media only screen and (max-width:900px) {
+    margin-top: 0px;
+    min-height: 800px;
+  }
+
   .titleWrapper {
     margin: 0 auto;
     display: -webkit-box;
@@ -43,7 +48,7 @@
     margin-right: 40px;
 
     @media only screen and (max-width:900px) {
-      width: 380px;
+      width: 350px;
       margin-right: 0;
     }
   
@@ -62,7 +67,7 @@
     width: 600px;
   
     @media only screen and (max-width:900px) {
-      width: 380px;
+      width: 350px;
       margin-left: 0;
     }
 
