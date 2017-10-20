@@ -16,46 +16,46 @@ export class ChatService {
   ) { }
 
   updateTotalMessagesCount(totalMessages) {
-    return this.db.object(`chatData/chats/${this.currentChatKey}`).update({totalMessagesCount: totalMessages})
+    return this.db.object(`chatDataTest/chats/${this.currentChatKey}`).update({totalMessagesCount: totalMessages})
   }
 
   updateMessagesSeenCount(userKey, totalMessages) {
-    return this.db.object(`chatData/chats/${this.currentChatKey}/members/${userKey}`).update({messagesSeenCount: totalMessages});
+    return this.db.object(`chatDataTest/chats/${this.currentChatKey}/members/${userKey}`).update({messagesSeenCount: totalMessages});
   }
 
   getMessagesSeenCount(userKey) {
-    return this.db.object(`chatData/chats/${this.currentChatKey}/members/${userKey}`);
+    return this.db.object(`chatDataTest/chats/${this.currentChatKey}/members/${userKey}`);
   }
 
   getAllMessages() {
-    return this.db.list(`chatData/messages`);
+    return this.db.list(`chatDataTest/messages`);
   }
 
   getMessagesForCurrentChat() {
-    return this.db.list(`chatData/messagesPerChat/${this.currentChatKey}`);
+    return this.db.list(`chatDataTest/messagesPerChat/${this.currentChatKey}`);
   }
 
   getMessagesByKey(chatKey) {
-    return this.db.list(`chatData/messagesPerChat/${chatKey}`);
+    return this.db.list(`chatDataTest/messagesPerChat/${chatKey}`);
   }
 
   getAllChats() {
-    return this.db.list('chatData/chats');
+    return this.db.list('chatDataTest/chats');
   }
 
   getChatByKey(chatKey) {
-    return this.db.object(`chatData/chats/${chatKey}`);
+    return this.db.object(`chatDataTest/chats/${chatKey}`);
   }
 
 
   getUserChatKeys(userKey) {
-    return this.db.list(`chatData/chatsPerMember/${userKey}`)
+    return this.db.list(`chatDataTest/chatsPerMember/${userKey}`)
   }
 
   getChatsByUserKey(userKey) {
-    return this.db.list(`chatData/chatsPerMember/${userKey}`)
+    return this.db.list(`chatDataTest/chatsPerMember/${userKey}`)
     .map(userChats => {
-      return userChats.map(chat => this.db.object(`chatData/chats/${chat.$key}`));
+      return userChats.map(chat => this.db.object(`chatDataTest/chats/${chat.$key}`));
     })
     .flatMap(firebaseObjectObservables => {
       return Observable.combineLatest(firebaseObjectObservables);
@@ -75,12 +75,12 @@ export class ChatService {
     this.currentChatKey = chatKey;
     this.currentChatKey$.next(chatKey);
     
-    for (let user of users) {
-      let displayName = user.alias ? user.alias : user.fName;
-      this.db.object(`chatData/chats/${chatKey}/members/${user.$key}`).update({ name: displayName, messagesSeenCount: 0 });
-      this.db.object(`chatData/chatsPerMember/${user.$key}/${chatKey}`).set(true);
-      this.db.object(`chatData/membersPerChat/${chatKey}/${user.$key}`).update({ name: displayName });
-    }
+    // for (let user of users) {
+    //   let displayName = user.alias ? user.alias : user.fName;
+    //   this.db.object(`chatDataTest/chats/${chatKey}/members/${user.$key}`).update({ name: displayName, messagesSeenCount: 0 });
+    //   this.db.object(`chatDataTest/chatsPerMember/${user.$key}/${chatKey}`).set(true);
+    //   this.db.object(`chatDataTest/membersPerChat/${chatKey}/${user.$key}`).update({ name: displayName });
+    // }
   }
 
   openChat(chatKey: string) {
