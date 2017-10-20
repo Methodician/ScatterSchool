@@ -4,7 +4,8 @@
 @import "/sass-variables-mixins/mixins.scss";
 
 .navContainer {
-  border: $tb-red;
+  // border: $tb-red;
+  background-color: white;
   @include size(170px, 99.5%);
   overflow-x: hidden;
 }
@@ -14,18 +15,21 @@
   width: 65px;
   position: fixed;
   top: calc(20vh + 1px);
-  right: 10px;
+  right: -30px;
   -webkit-transition: right .2s;
+  color: white;
+
+  @media only screen and (max-width:980px) {
+    top: calc(28vh + 1px);
+  } 
 
   &.expanded {
     right: 289px;  
-    mat-icon {
-      margin-right: 23px;
-    }
   }
 
   mat-icon {
     margin-top: 5px;
+    margin-right: 23px;
   }
 }
 
@@ -37,6 +41,9 @@
   width: 300px;
   height: 500px;
   -webkit-transition: right .2s;
+  @media only screen and (max-width:980px) {
+    top: 28vh;
+  } 
   &.expanded {
     right: 20px;
   }
