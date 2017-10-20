@@ -21,14 +21,7 @@ export class CommentService {
       lastUpdated: firebase.database.ServerValue.TIMESTAMP,
       commentCount: 0
     }
-
     let dbSaveData = this.db.list('commentData/comments').push(commentToSave);
-    
-    this.makeParentAssociation(commentData.parentKey, dbSaveData.key);
-    this.makeUserAssociation(commentData.authorKey, dbSaveData.key);
-    this.makeParentTypeAssociation(commentData.parentType, commentData.parentKey, dbSaveData.key);
-    this.makeCommentsPerArticleAssociation(commentData.parentKey, dbSaveData.key);
-    this.updateCommentCount(commentData.parentKey, commentData.parentType, 1)
   }
 
   // this could be replaced with an enum
@@ -71,35 +64,17 @@ export class CommentService {
     this.updateCommentCount(comment.parentKey, comment.parentType, -1);
   }
 
-  makeParentTypeAssociation(parentType, parentKey, childKey) {
-    if (parentType === 'article') this.makeCommentsPerArticleAssociation(parentKey, childKey);
-    if (parentType === 'comment') this.makeRepliesPerCommentAssociation(parentKey, childKey);
-  }
-
-  makeRepliesPerCommentAssociation(parentCommentKey, replyCommentKey) {
-    this.db.object(`commentData/repliesPerComment/${parentCommentKey}/${replyCommentKey}`).set(true);
-  }
-
-  getCommentsByParentKey(parentKey) {
-    return this.db.list(`commentData/comments`, {query: {
-      orderByChild: 'parentKey',
-      equalTo: parentKey
-    }});
-  }
-
-  makeCommentsPerArticleAssociation(articleKey, childCommentKey) {
-    this.db.object(`commentData/commentsPerArticle/${articleKey}/${childCommentKey}`).set(true);
-  }
-
-  makeParentAssociation(parentKey, childCommentKey) {
-    this.db.object(`commentData/commentsPerParent/${parentKey}/${childCommentKey}`).set(true);
-  }
-
-  makeUserAssociation(userKey, commentKey) {
-    this.db.object(`commentData/commentsPerUser/${userKey}/${commentKey}`).set(true);
-  }
-
   getAllComments() {
     return this.db.list(`commentData/comments`)
   }
+
+  getCommentsByParentKey(parentKey) {
+    return this.db.list(`commentData/comments`, {
+      query: {
+        orderByChild: 'parentKey',
+        equalTo: parentKey
+      }
+    });
+  }
+
 }

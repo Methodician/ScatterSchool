@@ -1,7 +1,8 @@
-import { Component, OnInit, AfterContentChecked, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, AfterContentChecked, ElementRef, ViewChild, Input } from '@angular/core';
 import { ChatService } from '../services/chat/chat.service'
 import { UserService } from './../services/user/user.service';
- 
+import { UserInfoOpen } from 'app/services/user/user-info';
+
 @Component({
   selector: 'chat',
   templateUrl: './chat.component.html',
@@ -9,31 +10,26 @@ import { UserService } from './../services/user/user.service';
 })
 export class ChatComponent implements OnInit {
   @ViewChild('messageList') private elementRef: ElementRef;
+  @Input() loggedInUser: UserInfoOpen;
   newMessagesSeenCount: number;
   oldMessagesSeenCount = 0;
-  // @Input() recipientKey;
   messages;
-  currentUserInfo;
   recipientKey: string = "";
   messagesSubscription;
-  //currentChatKey: string;
 
   constructor(
     private chatSvc: ChatService,
     private userSvc: UserService
   ) { }
   
-  ngOnInit() {
-    this.userSvc.userInfo$.subscribe(userInfo => {
-      this.currentUserInfo = userInfo;
-    });      
+  ngOnInit() {   
     this.chatSvc.currentChatKey$.subscribe(key => {
       if (key) {
         if(this.messagesSubscription) this.messagesSubscription.unsubscribe();
         this.messagesSubscription = this.chatSvc.getMessagesByKey(key).subscribe(messages => {
           this.messages = messages;
-          this.updateMessagesSeenAndTotalMessages(this.currentUserInfo.$key, this.messages.length);
-          this.chatSvc.getMessagesSeenCount(this.currentUserInfo.$key).subscribe(messagesSeen => {            
+          this.updateMessagesSeenAndTotalMessages(this.loggedInUser.$key, this.messages.length);
+          this.chatSvc.getMessagesSeenCount(this.loggedInUser.$key).subscribe(messagesSeen => {            
             this.newMessagesSeenCount = messagesSeen.messagesSeenCount; 
           })
         });
@@ -59,20 +55,19 @@ export class ChatComponent implements OnInit {
     this.elementRef.nativeElement.scrollTop = this.elementRef.nativeElement.scrollHeight;
   }
 
-  sendMessage(message) {
-    let authorName = this.currentUserInfo.alias ? this.currentUserInfo.alias : this.currentUserInfo.fName;
-    let messageData = {
-      sentBy: this.currentUserInfo.$key,
-      authorName: authorName,
-      //recipientKey: this.recipientKey,
-      body: message.text,
+  postMessage(chatForm) {
+    if(chatForm.valid) {
+      let message = {
+        sentBy: this.loggedInUser.$key,
+        authorName: this.loggedInUser.displayName(),
+        body: chatForm.text
+      }
+      this.chatSvc.saveMessage(message);
+      chatForm.clearForm();
     }
-    this.chatSvc.saveMessage(messageData);
-    message.clearForm();
-    // this.niceScroll();
   }
 
   isOwnMessage(authorKey) {
-    return this.currentUserInfo && authorKey == this.currentUserInfo.$key;
+    return this.loggedInUser && authorKey == this.loggedInUser.$key;
   }
 }
