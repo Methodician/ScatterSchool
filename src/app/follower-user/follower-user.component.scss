@@ -1,3 +1,20 @@
+.mat-card-header {
+  display: inline-block;
+}
+
+.mat-card {
+  margin: 5px;
+  padding: 10px;
+  cursor: pointer;
+  .mat-card-subtitle {
+    margin-bottom: 0px;
+  }
+}
+
+follow-btn {
+  position: absolute;
+  right: 10px;
+}
 
 .followWrapper {
   width: 100%;
@@ -6,25 +23,30 @@
 }
 
 .followPhoto {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   a {
     color: #C4275F;
     font-size: 18px;
   }
 }
 
-// .followBtn {
-//   height: 38px;
-//   color: #fff;
-//   background-color: #C4275F;
-// }
-
 .bioWrapper {
   margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   p {
     font-style: italic;
     color: #00BE9C;
@@ -35,3 +57,4 @@
 @media only screen and (max-width:768px) {
 
 }
+

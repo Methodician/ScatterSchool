@@ -13,15 +13,22 @@
   border: 10px solid #fff;
   border-radius: 3px;
   padding: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   height: 498px;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   img {
-    align-self: center;
+    -ms-flex-item-align: center;
+        align-self: center;
     margin-bottom: 40px;
   }
   h1 {
-    align-self: center;
+    -ms-flex-item-align: center;
+        align-self: center;
     color: #31C2D7;
     margin-bottom: 0;
   }

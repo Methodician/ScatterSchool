@@ -4,8 +4,12 @@
   padding: 0px 10px;
 
   .previewWrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    align-items: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
 
   .suggestion-title {

@@ -14,7 +14,11 @@ export class ChatFormComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      text: ['', [Validators.required, Validators.maxLength(this.maxLength)]]
+      text: ['', [
+        Validators.required,
+        Validators.maxLength(this.maxLength),
+        Validators.pattern(new RegExp(/(\S+\s+)/))
+      ]]
     });
   }
 

@@ -1,4 +1,3 @@
-
 .followWrapper {
   width: 100%;
   padding: 5px;
@@ -6,9 +5,15 @@
 }
 
 .followPhoto {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   a {
     color: #C4275F;
     font-size: 18px;
@@ -23,8 +28,13 @@
 
 .bioWrapper {
   margin-top: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   p {
     font-style: italic;
     color: #00BE9C;

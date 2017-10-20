@@ -6,9 +6,16 @@ img {
   width: 95%;
   margin:0 auto;
   margin-top: 90px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .aboutUsWrapper * {
@@ -16,7 +23,8 @@ img {
 }
 
 .aboutUsHeader {
-  align-self: flex-start;
+  -ms-flex-item-align: start;
+      align-self: flex-start;
   font-size: 30px;
   color: #31C2D7;
   cursor: default;
