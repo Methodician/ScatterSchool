@@ -48,7 +48,7 @@ mat-card {
       bottom: 0px;
       margin: 0;
       max-height: 20px;
-      color: $warn-color;
+      color: $dark-grey;
       font-weight: 800;
       padding: 0px 15px;
       cursor: pointer;
@@ -69,6 +69,7 @@ mat-card {
 
     p {
       @include font-size(14px);
+      color: $dark-grey;
     }
   }
 
