@@ -7,7 +7,7 @@ export interface Item { text: string; }
 export interface ItemWithId extends Item { id: string; }
 
 export interface StringAndNumber { text: string, amount: number }
-export interface StringAndNumberWIthId extends StringAndNumber { id: string }
+export interface StringAndNumberWithId extends StringAndNumber { id: string }
 
 @Injectable()
 export class FirestoreTestingService {
@@ -56,6 +56,34 @@ export class FirestoreTestingService {
     });
   }
 
+  auditTrailConsoleTest() {
+    this.getCollection().auditTrail().subscribe(console.log);
+  }
+
+  updateById(id: string, value: string) {
+    //  Note: Here we could preceed with a slash, or not. Both will work: '/7IBpoDGJZMR3UXcS33uW' or '7IBpoDGJZMR3UXcS33uW' for the path.
+    this.getCollection().doc(id).update({ this: value });
+  }
+
+  getAuditTrailMapTest(): Observable<ItemWithId[]> {
+    return this.getCollection().auditTrail().map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Item;
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      });
+    });
+  }
+
+  getOnlyModifiedTest(): Observable<Item[]> {
+    //  Note, array can contain any combo of 'added' 'removed' and 'modified' and defaults to all three if nothing included.
+    return this.getCollection().snapshotChanges(['modified']).map(item => {
+      return item.map(stuff => {
+        return stuff.payload.doc.data() as Item;
+      });
+    });
+  }
+
   addSandN(text: string, amount: number) {
     const object = { text: text, amount: amount };
     this.getSandNCollection().add(object);
@@ -64,5 +92,19 @@ export class FirestoreTestingService {
   getSandNCollection(): AngularFirestoreCollection<StringAndNumber> {
     return this.afs.collection<StringAndNumber>('stringsAndNumbers');
   }
+
+  getSandNCollectionStateChanges() {
+    //  stateChanges() can contain added, removed, and modified, presumably any or all in the array.
+    return this.getSandNCollection().stateChanges(['added'])
+      .map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as StringAndNumber;
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      });
+  }
+
+
 
 }

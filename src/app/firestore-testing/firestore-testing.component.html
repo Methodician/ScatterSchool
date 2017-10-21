@@ -1,10 +1,10 @@
 <div id="testing-wrapper">
-  <p>
-    firestore-testing works!
-  </p>
 
   <input #stuff type="text" (keyup.enter)="update(stuff.value)">
   <button (click)="update(stuff.value)">Update</button>
+  <br>
+  <input #stuffId type="text" (keyup.enter)="updateById(stuffId.value, stuff.value)">
+  <button (click)="updateById(stuffId.value, stuff.value)">Update item with this ID</button>
 
   <pre>
     {{ item$ | async | json }}
@@ -22,26 +22,37 @@
   <input #bar type="text" (keyup.enter)="addWithId(bar.value)">
   <button (click)="add(bar.value)">Add with ID</button>
 
-  <p>valueChanges() result:</p>
+  <h3>snapshotChanges() but only on modified:</h3>
+  <p>Note: documentation seems to suggest this works with valueChanges() but it does not seem so...</p>
+  <pre>
+    {{ itemCollOnlyModified$ | async | json }}
+  </pre>
+
+  <h3>valueChanges() result:</h3>
   <pre>
     {{ itemColl$ | async | json }}
   </pre>
 
-  <p>snapshotChanges() result with ID mapped on:</p>
+  <h3>snapshotChanges() result with ID mapped on:</h3>
   <pre>
     {{ itemCollWithId$ | async | json }}
+  </pre>
+
+  <h3>auditTrail() result with ID mapped on:</h3>
+  <pre>
+    {{ itemCollFromAuditTrail$ | async | json }}
   </pre>
 
   <input #string type="text">
   <input #number type="number" (keyup.enter)="addStringAndNumber(string.value, number.value)">
   <button (click)="addStringAndNumber(string.value, number.value)">Add string and number</button>
 
-  <p>valueChanges() result:</p>
+  <h3>valueChanges() result:</h3>
   <pre>
-    
+    {{ deposits$ | async | json }}
   </pre>
-  <p>stateChanes() maped result:</p>
+  <h3>stateChanes() maped result:</h3>
   <pre>
-    
+    {{ depositsStateChanges$ | async | json }}
   </pre>
 </div>

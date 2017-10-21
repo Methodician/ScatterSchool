@@ -1,5 +1,5 @@
-import { Observable } from 'rxjs/Rx';
-import { FirestoreTestingService, Item, ItemWithId, StringAndNumber, StringAndNumberWIthId } from './../firestore-testing.service';
+import { Observable } from 'rxjs/Observable';
+import { FirestoreTestingService, Item, ItemWithId, StringAndNumber, StringAndNumberWithId } from './../firestore-testing.service';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 
@@ -23,9 +23,12 @@ export class FirestoreTestingComponent implements OnInit {
   itemCollWithId$: Observable<ItemWithId[]>;
   collectionWithId: AngularFirestoreCollection<ItemWithId>;
 
-  private depositCollection: AngularFirestoreCollection<StringAndNumber>;
-  deposits: Observable<StringAndNumber[]>;
-  //deposits: Observable<StringAndNumberWIthId[]>;
+  itemCollFromAuditTrail$: Observable<ItemWithId[]>;
+  itemCollOnlyModified$: Observable<Item[]>;
+
+  depositCollection$: AngularFirestoreCollection<StringAndNumber>;
+  deposits$: Observable<StringAndNumber[]>;
+  depositsStateChanges$: Observable<StringAndNumberWithId[]>;
 
   constructor(
     private ftSvc: FirestoreTestingService
@@ -54,7 +57,12 @@ export class FirestoreTestingComponent implements OnInit {
 
     this.itemCollWithId$ = this.ftSvc.getCollectionMappedWithIds();
 
-    this.deposits = this.ftSvc.getSandNCollection().valueChanges();
+    this.deposits$ = this.ftSvc.getSandNCollection().valueChanges();
+    this.depositsStateChanges$ = this.ftSvc.getSandNCollectionStateChanges();
+
+    this.ftSvc.auditTrailConsoleTest();
+    this.itemCollFromAuditTrail$ = this.ftSvc.getAuditTrailMapTest();
+    this.itemCollOnlyModified$ = this.ftSvc.getOnlyModifiedTest();
   }
 
   update(stuff: string) {
@@ -74,6 +82,10 @@ export class FirestoreTestingComponent implements OnInit {
 
   addStringAndNumber(text: string, amount: number) {
     this.ftSvc.addSandN(text, amount);
+  }
+
+  updateById(id: string, value: string) {
+    this.ftSvc.updateById(id, value);
   }
 
 }
