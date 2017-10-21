@@ -1,7 +1,9 @@
-import { FirestoreTestingService } from './../firestore-testing.service';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs/Rx';
+import { FirestoreTestingService, Item, ItemWithId, StringAndNumber, StringAndNumberWIthId } from './../firestore-testing.service';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
+
+
 
 @Component({
   selector: 'app-firestore-testing',
@@ -15,8 +17,15 @@ export class FirestoreTestingComponent implements OnInit {
   item$: Observable<any>;
   document: AngularFirestoreDocument<any>;
 
-  itemColl$: Observable<any>;
+  itemColl$: Observable<any[]>;
   collection: AngularFirestoreCollection<any>;
+
+  itemCollWithId$: Observable<ItemWithId[]>;
+  collectionWithId: AngularFirestoreCollection<ItemWithId>;
+
+  private depositCollection: AngularFirestoreCollection<StringAndNumber>;
+  deposits: Observable<StringAndNumber[]>;
+  //deposits: Observable<StringAndNumberWIthId[]>;
 
   constructor(
     private ftSvc: FirestoreTestingService
@@ -41,7 +50,11 @@ export class FirestoreTestingComponent implements OnInit {
     this.itemColl$ = this.collection.valueChanges();
     this.collection.snapshotChanges().subscribe(snap => {
       this.collectionKeys = snap.keys;
-    })
+    });
+
+    this.itemCollWithId$ = this.ftSvc.getCollectionMappedWithIds();
+
+    this.deposits = this.ftSvc.getSandNCollection().valueChanges();
   }
 
   update(stuff: string) {
@@ -52,6 +65,15 @@ export class FirestoreTestingComponent implements OnInit {
   add(item: string) {
     const itemObj = { foo: item };
     this.ftSvc.addTest(itemObj);
+  }
+
+  addWithId(item: string) {
+    //const itemObj = { bar: item };
+    this.ftSvc.addWithIdTest(item);
+  }
+
+  addStringAndNumber(text: string, amount: number) {
+    this.ftSvc.addSandN(text, amount);
   }
 
 }
