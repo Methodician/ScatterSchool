@@ -24,7 +24,7 @@ export class ArticleSearchPipe implements PipeTransform {
             searchResults.push(article);
           }
         }
-        console.log(searchResults);
+        //console.log(searchResults);
         return searchResults;
       }
     }

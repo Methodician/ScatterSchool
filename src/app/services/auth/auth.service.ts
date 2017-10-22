@@ -98,9 +98,9 @@ export class AuthService {
 
     promise
       .then(res => {
-        console.log('Auth Service promise result:', res);
+        //console.log('Auth Service promise result:', res);
         this.afAuth.authState.subscribe(state => {
-          console.log('Auth State:', state);
+          //console.log('Auth State:', state);
         });
         const authInfo = new AuthInfo(this.afAuth.auth.currentUser.uid, res.emailVerified);
         //const authInfo = new AuthInfo('figure out how to get uid', false);
@@ -118,7 +118,7 @@ export class AuthService {
 
   sendVerificationEmail() {
     let user = this.afAuth.auth.currentUser;
-    console.log('afAuth.auth.currentUser:', user);
+    //console.log('afAuth.auth.currentUser:', user);
     user.sendEmailVerification().then(() => {
     }, (error) => {
       alert('It looks like your verification email was not sent. Please try again or contact support.');

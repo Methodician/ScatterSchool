@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup;
   authInfo: AuthInfo;
-  
+
   constructor(
     private authSvc: AuthService,
     private userSvc: UserService,
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    window.scrollTo(0,0)
+    window.scrollTo(0, 0)
   }
 
   login() {
@@ -37,9 +37,9 @@ export class LoginComponent implements OnInit {
     this.authSvc.login(val.email, val.password)
       .subscribe(
       res => {
-        console.log('Login result from LoginComp:', res);
+        //console.log('Login result from LoginComp:', res);
         delete val.password;
-        this.userSvc.getUserInfo(res.uid).subscribe(res => console.log);
+        //this.userSvc.getUserInfo(res.uid).subscribe(res => console.log);
         this.router.navigateByUrl('/account');
       },
       err => alert(err)

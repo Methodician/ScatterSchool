@@ -45,7 +45,7 @@ export class ArticleFormComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges) {
     //  Must make sure form is initalized before checking...
     if (changes['initialValue'] && changes['initialValue'].currentValue) {
-      console.log(changes);
+      //console.log(changes);
       // We have two methods to set a form's value: setValue and patchValue.
       this.form.patchValue(changes['initialValue'].currentValue);
       this.initializeTags(changes['initialValue'].currentValue.tags);
@@ -66,18 +66,18 @@ export class ArticleFormComponent implements OnInit {
     const tag = control.value,
       regexp = new RegExp("^[a-zA-Z0-9 ]*$"),
       test = regexp.test(tag);
-      return test ? null : {'alphanumericCheck' : true}
+    return test ? null : { 'alphanumericCheck': true }
   }
 
   onTagAdded($event) {
-        this.articleTags.push($event.value.toUpperCase());
-        this.form.controls.tags.patchValue(this.articleTags);
-      //this.form.controls.tags.setValue(this.articleTags);
-      //this.form.title[upperTag] = true;
-    }
+    this.articleTags.push($event.value.toUpperCase());
+    this.form.controls.tags.patchValue(this.articleTags);
+    //this.form.controls.tags.setValue(this.articleTags);
+    //this.form.title[upperTag] = true;
+  }
 
   onTagRemoved($event) {
-    console.log($event);
+    //console.log($event);
     let tagToRemove = $event.value.toUpperCase();
     this.removeTag(tagToRemove);
     this.form.controls.tags.patchValue(this.articleTags);
