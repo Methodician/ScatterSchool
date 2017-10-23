@@ -7,14 +7,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./data-cleanup.component.scss']
 })
 export class DataCleanupComponent implements OnInit {
-
-  constructor(private dataCleanupSvc: DataCleanupService) { }
+  chats: any;
+  constructor(private dataSvc: DataCleanupService) { }
 
   ngOnInit() {
   }
 
   articleNodeIdToKey() {
-    this.dataCleanupSvc.articleNodeIdToKey();
+    this.dataSvc.articleNodeIdToKey();
+  }
+
+  getChatsFromFirebase() {
+    this.chats = this.dataSvc.getChatsFromFirebase();
+  }
+
+  getChatsFromFirestore() {
+    this.chats = this.dataSvc.getChatsFromFirestore().valueChanges();
+  }
+
+  moveChatsToFirestore() {
+    this.dataSvc.chatDataFromFirebaseToFirestore();
   }
 
 }

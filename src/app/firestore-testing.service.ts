@@ -1,5 +1,4 @@
 import { Observable } from 'rxjs/Observable';
-import { ItemWithId, StringAndNumber } from './firestore-testing.service';
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 

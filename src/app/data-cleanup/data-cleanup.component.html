@@ -1,4 +1,10 @@
-<p>
-  data-cleanup works!
-</p>
-<button (click)="articleNodeIdToKey()">Replace ~Id with ~Key in article node</button>
+<div id="wrapper" style="margin-left: 100px;">
+  <!-- <button (click)="articleNodeIdToKey()">Replace ~Id with ~Key in article node</button> -->
+  <button (click)="getChatsFromFirebase()">Get chats from Firebase</button>
+  <button (click)="getChatsFromFirestore()">Get chats from Firestore</button>
+  <button (click)="moveChatsToFirestore()">Move chats to Firestore</button>
+</div>
+<h3>chats:</h3>
+<pre>
+  {{ chats | async | json }}  
+</pre>
