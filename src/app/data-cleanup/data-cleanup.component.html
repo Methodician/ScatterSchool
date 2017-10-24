@@ -2,9 +2,18 @@
   <!-- <button (click)="articleNodeIdToKey()">Replace ~Id with ~Key in article node</button> -->
   <button (click)="getChatsFromFirebase()">Get chats from Firebase</button>
   <button (click)="getChatsFromFirestore()">Get chats from Firestore</button>
+  <button (click)="addMembersToChats()">Add members to chats</button>
   <button (click)="moveChatsToFirestore()">Move chats to Firestore</button>
+  <h3>chats:</h3>
+
+  <!--   <div *ngFor="let chat of chats | async">
+    <pre>
+      {{ chat | json }}
+      {{ getMembersForChat(chat.id) | async | json }}
+    </pre>
+  </div> -->
+  <pre>
+    <!-- {{ chats | async | json }} -->  
+    {{ chats | json }}  
+  </pre>
 </div>
-<h3>chats:</h3>
-<pre>
-  {{ chats | async | json }}  
-</pre>

@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 
 import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
@@ -21,8 +22,18 @@ export class DataCleanupService {
     return this.fsd.collection<any>('chats');
   }
 
+  getChatsWithMoreMessagesThan(messagesCount: number) {
+    return this.fsd.collection<any>('chats', ref =>
+      ref.where('totalMessagesCount', '>', messagesCount)
+    );
+  }
+
   getChatFromFirestoreById(id: string) {
     return this.fsd.doc(`chats/${id}`);
+  }
+
+  getMembersForChat(chatId) {
+    return this.getChatFromFirestoreById(chatId).collection('members');
   }
 
   chatDataFromFirebaseToFirestore() {
@@ -33,18 +44,17 @@ export class DataCleanupService {
             timestamp: chat.timestamp,
             totalMessagesCount: chat.totalMessagesCount
           }
-          // this.getChatFromFirestoreById(chat.$key).set(newChat);
-          // for (let memberKey in chat.members) {
-          //   this.getChatFromFirestoreById(chat.$key)
-          //     .collection('members').doc(memberKey).set(chat.members[memberKey]);
-          // }
-          this.getChatsFromFirestore().add(newChat).then(fsChat => {
-            for (let memberKey in chat.members) {
-              //console.log(member);
-              this.getChatFromFirestoreById(fsChat.id)
-                .collection('members').doc(memberKey).set(chat.members[memberKey]);
-            }
-          });
+          this.getChatFromFirestoreById(chat.$key).set(newChat);
+          for (let memberKey in chat.members) {
+            this.getChatFromFirestoreById(chat.$key)
+              .collection('members').doc(memberKey).set(chat.members[memberKey]);
+          }
+          // this.getChatsFromFirestore().add(newChat).then(fsChat => {
+          //   for (let memberKey in chat.members) {
+          //     this.getChatFromFirestoreById(fsChat.id)
+          //       .collection('members').doc(memberKey).set(chat.members[memberKey]);
+          //   }
+          // });
         }
       }
     })
