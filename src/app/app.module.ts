@@ -12,6 +12,7 @@ import { AccountComponent } from './account/account.component';
 import { AuthService } from './services/auth/auth.service';
 import { HomeComponent } from './home/home.component';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase as AngularFireDatabase5 } from 'angularfire2/database'
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -181,7 +182,8 @@ import { ChatListComponent } from './chat-list/chat-list.component';
     CommentService,
     ChatService,
     AuthGuard,
-    ArticleSearchPipe
+    ArticleSearchPipe,
+    AngularFireDatabase5
   ],
   bootstrap: [AppComponent]
 })
