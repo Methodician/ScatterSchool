@@ -14,9 +14,6 @@ export class DataCleanupService {
     private fsd: AngularFirestore
   ) { }
 
-  getChatsFromFirebase() {
-    return this.fbd.list('chatData/chats');
-  }
 
   getChatsFromFirestore() {
     return this.fsd.collection<any>('chats');
@@ -34,6 +31,10 @@ export class DataCleanupService {
 
   getMembersForChat(chatId) {
     return this.getChatFromFirestoreById(chatId).collection('members');
+  }
+
+  getMessagesForChat(chatId) {
+    return this.getChatFromFirestoreById(chatId).collection('messages');
   }
 
   chatDataFromFirebaseToFirestore() {
@@ -55,9 +56,24 @@ export class DataCleanupService {
           //       .collection('members').doc(memberKey).set(chat.members[memberKey]);
           //   }
           // });
+          this.getChatMessagesFromFirebase(chat.$key)
+            .subscribe(messages => {
+              for (let m of messages) {
+                this.getChatFromFirestoreById(chat.$key)
+                  .collection('messages').add(m);
+              }
+            });
         }
       }
     })
+  }
+
+  getChatsFromFirebase() {
+    return this.fbd.list('chatData/chats');
+  }
+
+  getChatMessagesFromFirebase(chatKey) {
+    return this.fbd.list(`chatData/messagesPerChat/${chatKey}`);
   }
 
   articleNodeIdToKey() {

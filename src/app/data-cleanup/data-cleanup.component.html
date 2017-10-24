@@ -1,19 +1,23 @@
 <div id="wrapper" style="margin-left: 100px;">
   <!-- <button (click)="articleNodeIdToKey()">Replace ~Id with ~Key in article node</button> -->
-  <button (click)="getChatsFromFirebase()">Get chats from Firebase</button>
-  <button (click)="getChatsFromFirestore()">Get chats from Firestore</button>
-  <button (click)="addMembersToChats()">Add members to chats</button>
-  <button (click)="moveChatsToFirestore()">Move chats to Firestore</button>
-  <h3>chats:</h3>
+  <!-- <button (click)="getChatsFromFirebase()">Get chats from Firebase</button> -->
+  <!-- <button (click)="getChatsWithMembersFromFirestore()">Get chats with members from Firestore</button> -->
+  <button (click)="getChatsFromFirestore()">Get chats from firestore</button>
+  <!-- <button (click)="addMembersToChats()">Add members to chats</button> -->
+  <!-- <button (click)="moveChatsToFirestore()">Move chats to Firestore</button> -->
+  <h3>Selected Chat:</h3>
+  <pre *ngIf="selectedChat">
+    {{ selectedChat | json }}
+  </pre>
 
-  <!--   <div *ngFor="let chat of chats | async">
+  <h3>chats:</h3>
+  <div *ngFor="let chat of chats | async">
     <pre>
       {{ chat | json }}
-      {{ getMembersForChat(chat.id) | async | json }}
+      <button (click)="selectChat(chat)">select me</button>
     </pre>
-  </div> -->
-  <pre>
-    <!-- {{ chats | async | json }} -->  
-    {{ chats | json }}  
-  </pre>
+  </div>
+  <!--   <pre>
+    {{ chats | async | json }}  
+  </pre> -->
 </div>
