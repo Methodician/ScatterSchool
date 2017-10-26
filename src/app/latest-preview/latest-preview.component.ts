@@ -36,7 +36,7 @@ export class LatestPreviewComponent implements OnInit {
         this.checkIfBookmarked();
       }
     });
-    this.getProfileImage(this.author.$key);
+    if(this.author) this.getProfileImage(this.author.$key);
     this.getArticleCoverImage(this.articleData.$key);
   }
 

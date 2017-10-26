@@ -107,7 +107,7 @@ export class UserInteractionComponent implements OnInit {
   //note: code is intentionally verbose, can be shortened if necessary
   findExistingChat(queriedUserList) {
     if(!this.chatList) return false;
-
+    console.log('chatList: ', this.chatList)
     return this.chatList.filter(chat => {
       let chatMembersLength = Object.keys(chat.members).length;
       // chat is identical if the queriedUserList is of the same length and contains every memberKey that chat.members contains

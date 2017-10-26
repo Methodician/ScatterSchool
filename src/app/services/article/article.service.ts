@@ -1,6 +1,6 @@
 import { ArticleDetailOpen } from './article-info';
 import { Input } from '@angular/core';
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ export class ArticleService {
   ) { }
 
   getAllArticles() {
-    return this.db.list('articleData/articles').map(articles => {
+    return this.includeListMetadata(this.db.list('articleData/articles')).map(articles => {
       return articles.map(article => {
         article.tags = this.tagsArrayFromTagsObject(article.tags);
         return article;
@@ -27,21 +27,21 @@ export class ArticleService {
   }
 
   getArticleByKey(articleKey: string) {
-    return this.db.object(`articleData/articles/${articleKey}`).map(article => {
+    return this.includeObjectMetadata(this.db.object(`articleData/articles/${articleKey}`)).map(article => {
       article.tags = this.tagsArrayFromTagsObject(article.tags);
       return article;
     });
   }
 
   getArticleBodyByKey(bodyKey: string) {
-    return this.db.object('articleData/articleBodies/' + bodyKey);
+    return this.includeObjectMetadata(this.db.object('articleData/articleBodies/' + bodyKey));
   }
 
   findArticlesForKeys(articleKeys$: Observable<any[]>): Observable<ArticleDetailOpen[]> {
     return articleKeys$
       .map(articlesPerKey => articlesPerKey
         .map(article =>
-          this.db.object(`articleData/articles/${article.$key}`)
+          this.includeObjectMetadata(this.db.object(`articleData/articles/${article.$key}`))
             .map(article => {
               article.tags = this.tagsArrayFromTagsObject(article.tags);
               return article;
@@ -51,19 +51,19 @@ export class ArticleService {
   }
 
   findArticlesPerEditor(editorKey: string): Observable<ArticleDetailOpen[]> {
-    return this.findArticlesForKeys(this.db.list(`articleData/articlesPerEditor/${editorKey}`));
+    return this.findArticlesForKeys(this.includeListMetadata(this.db.list(`articleData/articlesPerEditor/${editorKey}`)));
   }
 
   findArticlesPerAuthor(authorKey: string): Observable<ArticleDetailOpen[]> {
-    return this.findArticlesForKeys(this.db.list(`articleData/articlesPerAuthor/${authorKey}`));
+    return this.findArticlesForKeys(this.includeListMetadata(this.db.list(`articleData/articlesPerAuthor/${authorKey}`)));
   }
 
   getArticleBodyFromArchiveByKey(bodyKey: string) {
-    return this.db.object(`articleData/articleBodyArchive/${bodyKey}/body`)
+    return this.includeObjectMetadata(this.db.object(`articleData/articleBodyArchive/${bodyKey}/body`));
   }
 
   getArticleHistoryByKey(articleKey: string) {
-    return this.db.list(`articleData/articleArchive/${articleKey}`)
+    return this.includeListMetadata(this.db.list(`articleData/articleArchive/${articleKey}`))
       .map(articles => {
         return articles.map(article => {
           article.tags = this.tagsArrayFromTagsObject(article.tags);
@@ -122,7 +122,7 @@ export class ArticleService {
     let tagsObject = this.tagsObjectFromStringArray(article.tags);
 
     //  Really wanted to reduce trips to the db...
-    this.db.object(`articleData/articles/${articleKey}/tags`)
+    this.includeObjectMetadata(this.db.object(`articleData/articles/${articleKey}/tags`))
       .map(tags => this.tagsArrayFromTagsObject(tags))
       .subscribe(oldTags => {
         if ((article.tags && article.tags != []) || (oldTags && oldTags != [])) {
@@ -131,7 +131,7 @@ export class ArticleService {
       });
 
     this.archiveArticle(articleKey);
-    this.db.object(`articleData/articleBodies/${oldBodyKey}`)
+    this.includeObjectMetadata(this.db.object(`articleData/articleBodies/${oldBodyKey}`))
       .take(1).subscribe(body => {
         let bodyLogObject: any = {};
         bodyLogObject.body = body.$value;
@@ -191,7 +191,7 @@ export class ArticleService {
   }
 
   addGlobalTag(tag: string) {
-    this.db.object(`articleData/tags/${tag}`).take(1).subscribe(data => {
+    this.includeObjectMetadata(this.db.object(`articleData/tags/${tag}`)).take(1).subscribe(data => {
       if (!data.$key)
         this.db.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
     });
@@ -222,13 +222,13 @@ export class ArticleService {
   }
 
   archiveArticle(articleKey) {
-    this.db.object(`articleData/articles/${articleKey}`).take(1).subscribe(article => {
+    this.includeObjectMetadata(this.db.object(`articleData/articles/${articleKey}`)).take(1).subscribe(article => {
       this.db.object(`articleData/articleArchive/${articleKey}/${article.version}`).set(article);
     });
   }
 
   isArticleFeatured(articleKey: string) {
-    return this.db.object(`articleData/featuredArticles/${articleKey}`).map(res => {
+    return this.includeObjectMetadata(this.db.object(`articleData/featuredArticles/${articleKey}`)).map(res => {
       if (res.$value)
         return true;
       return false;
@@ -244,16 +244,13 @@ export class ArticleService {
   }
 
   getAllFeatured() {
-    return this.findArticlesForKeys(this.db.list('articleData/featuredArticles'));
+    return this.findArticlesForKeys(this.includeListMetadata(this.db.list('articleData/featuredArticles')));
   }
 
   getLatest() {
-    return this.db.list('articleData/articles', {
-      query: {
-        orderByChild: 'timeStamp',
-        limitToLast: 12
-      }
-    }).map(articles => {
+    return this.includeListMetadata(this.db.list('articleData/articles', ref => {
+      return ref.orderByChild('timeStamp').limitToLast(12)
+    })).map(articles => {
       articles.map(article => {
         article.tags = this.tagsArrayFromTagsObject(article.tags);
         return article;
@@ -263,11 +260,11 @@ export class ArticleService {
   }
 
   getAuthorByKey(authorKey: string) {
-    return this.db.object(`userInfo/open/${authorKey}`);
+    return this.includeObjectMetadata(this.db.object(`userInfo/open/${authorKey}`));
   }
 
   isBookmarked(userKey, articleKey) {
-    return this.db.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).map(article => {
+    return this.includeObjectMetadata(this.db.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`)).map(article => {
       if(article.$value)
         return true;
       return false;
@@ -286,7 +283,7 @@ export class ArticleService {
 
 //returns each article a particular user has bookmarked
   getBookmarksByUserKey(userKey) {
-    return this.db.list(`userInfo/articleBookmarksPerUser/${userKey}`)
+    return this.includeListMetadata(this.db.list(`userInfo/articleBookmarksPerUser/${userKey}`))
       .map(bookmark => {
         return bookmark.map(article => this.db.object(`articleData/articles/${article.$key}`));
       })
@@ -297,7 +294,7 @@ export class ArticleService {
 
 //returns each user that has bookmarked a particular article
   getUsersByArticleKey(articleKey) {
-    return this.db.list(`articleData/userBookmarksPerArticle/${articleKey}`)
+    return this.includeListMetadata(this.db.list(`articleData/userBookmarksPerArticle/${articleKey}`))
     .map(article => {
       return article.map(user => this.db.object(`userInfo/open/${user.$key}`));
     })
@@ -312,5 +309,27 @@ export class ArticleService {
 
   navigateToProfile(uid: any) {
     this.router.navigate([`profile/${uid}`]);
+  }
+  
+  includeObjectMetadata(objectRef: AngularFireObject<{}>) {
+    return objectRef.snapshotChanges().map(action => {
+      const $key = action.payload.key;
+      const data = {
+        $key, ...action.payload.val()
+      }
+      return data;
+    })
+  }
+
+  includeListMetadata(listRef: AngularFireList<{}>) {
+    return listRef.snapshotChanges().map(actions => {
+      return actions.map(action => {
+        const $key = action.payload.key;
+        const data = {
+          $key, ...action.payload.val()
+        };
+        return data;
+      })
+    });
   }
 }

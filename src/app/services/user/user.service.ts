@@ -1,6 +1,6 @@
 import { AuthInfo } from './../auth/auth-info';
 import { UserInfoOpen } from './user-info';
-import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
@@ -31,7 +31,7 @@ export class UserService {
   }
 
   getUserPresence(userKey) {
-    return this.db.object(`presenceData/users/${userKey}`)
+    return this.includeObjectMetadata(this.db.object(`presenceData/users/${userKey}`))
   }
 
   setUserAccess(accessLevel: number, uid: string) {
@@ -44,14 +44,15 @@ export class UserService {
   }
 
   getUserList() {
-    return this.db.list('userInfo/open');
+    return this.includeListMetadata(this.db.list('userInfo/open'));
   }
 
   getUserInfo(uid) {
-    return this.db.object(`userInfo/open/${uid}`).map(user => {
-      user.uid = uid;
-      return user;
-    })
+    return this.includeObjectMetadata(this.db.object(`userInfo/open/${uid}`))
+      .map(user => {
+        user.uid = uid;
+        return user;
+      })
   }
 
   updateUserInfo(userInfo, uid) {
@@ -82,7 +83,7 @@ export class UserService {
     return userKeys
       .map(usersPerKey => {
          return usersPerKey.map((user: any) => {
-          return this.db.object(`userInfo/open/${user.$key}`).map(user => {
+          return this.includeObjectMetadata(this.db.object(`userInfo/open/${user.$key}`)).map(user => {
             return new UserInfoOpen(user.alias, user.fName, user.lName, user.zipCode, user.$key, user.$key, user.bio, user.city, user.state);
           })
         })
@@ -92,13 +93,13 @@ export class UserService {
   }
 
   getUsersFollowed(uid: string): Observable<UserInfoOpen[]> {
-    let usersFollowedKeysList = this.db.list(`userInfo/usersPerFollower/${uid}`);
+    let usersFollowedKeysList = this.includeListMetadata(this.db.list(`userInfo/usersPerFollower/${uid}`));
     let usersFollowedObservable = this.UserArrayFromKeyArray(usersFollowedKeysList);
     return usersFollowedObservable;
   }
 
   getFollowersOfUser(uid: string): Observable<UserInfoOpen[]> {
-    let followerKeysList = this.db.list(`userInfo/followersPerUser/${uid}`);
+    let followerKeysList = this.includeListMetadata(this.db.list(`userInfo/followersPerUser/${uid}`));
     let followersListObservable = this.UserArrayFromKeyArray(followerKeysList);
     return followersListObservable;
   }
@@ -108,7 +109,7 @@ export class UserService {
   }
 
   isFollowingUser(uid: string) {
-    return this.db.object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${uid}`).map(res => {
+    return this.includeObjectMetadata(this.db.object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${uid}`)).map(res => {
       if (res.$value) {
         return true;
       } return false;
@@ -121,7 +122,29 @@ export class UserService {
   }
 
   getProfileImageUrl(userKey: string) {
-    return this.db.object(`uploads/profileImages/${userKey}/url`);
+    return this.includeObjectMetadata(this.db.object(`uploads/profileImages/${userKey}/url`));
+  }
+
+  includeObjectMetadata(objectRef: AngularFireObject<{}>) {
+    return objectRef.snapshotChanges().map(action => {
+      const $key = action.payload.key;
+      const data = {
+        $key, ...action.payload.val()
+      }
+      return data;
+    })
+  }
+
+  includeListMetadata(listRef: AngularFireList<{}>) {
+    return listRef.snapshotChanges().map(actions => {
+      return actions.map(action => {
+        const $key = action.payload.key;
+        const data = {
+          $key, ...action.payload.val()
+        };
+        return data;
+      })
+    });
   }
 
   /*isAdmin() {

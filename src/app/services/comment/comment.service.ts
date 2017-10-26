@@ -1,5 +1,5 @@
 import { Router, Params } from '@angular/router';
-import { AngularFireDatabase as AngularFireDatabase5 } from 'angularfire2/database';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 
@@ -7,7 +7,7 @@ import * as firebase from 'firebase';
 export class CommentService {
 
   constructor(
-    private db: AngularFireDatabase5,
+    private db: AngularFireDatabase,
     private router: Router
   ) {}
 
@@ -65,16 +65,17 @@ export class CommentService {
   }
 
   getAllComments() {
-    return this.db.list(`commentData/comments`).snapshotChanges()
-    .map(actions => {
-      return actions.map(action => {
-        const $key = action.payload.key;
-        const data = {
-          $key, ...action.payload.val()
-        };
-        return data;
+    return this.db.list(`commentData/comments`)
+      .snapshotChanges()
+      .map(actions => {
+        return actions.map(action => {
+          const $key = action.payload.key;
+          const data = {
+            $key, ...action.payload.val()
+          };
+          return data;
+        })
       })
-    })
   }
 
   getCommentsByParentKey(parentKey) {

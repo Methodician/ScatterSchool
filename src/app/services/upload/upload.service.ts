@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
-import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Upload } from '../upload/upload';
 import { UserService } from 'app/services/user/user.service';
 import { AuthService } from 'app/services/auth/auth.service';
+import { AngularFireObject } from 'angularfire2/database';
 
 @Injectable()
 export class UploadService {
@@ -67,7 +68,18 @@ constructor(private afd: AngularFireDatabase) { }
 
 // return an image from the database
   getImage(key, basePath) {
-    return this.afd.object(`${basePath}/${key}`);
+    return this.includeObjectMetadata(this.afd.object(`${basePath}/${key}`));
+  }
+
+  // import eventually
+  includeObjectMetadata(objectRef: AngularFireObject<{}>) {
+    return objectRef.snapshotChanges().map(action => {
+      const $key = action.payload.key;
+      const data = {
+        $key, ...action.payload.val()
+      }
+      return data;
+    })
   }
 }
 
