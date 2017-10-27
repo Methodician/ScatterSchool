@@ -15,67 +15,6 @@ export class DataCleanupService {
   ) { }
 
 
-  getChatsFromFirestore() {
-    return this.fsd.collection<any>('chats');
-  }
-
-  getChatsWithMoreMessagesThan(messagesCount: number) {
-    return this.fsd.collection<any>('chats', ref =>
-      ref.where('totalMessagesCount', '>', messagesCount)
-    );
-  }
-
-  getChatFromFirestoreById(id: string) {
-    return this.fsd.doc(`chats/${id}`);
-  }
-
-  getMembersForChat(chatId) {
-    return this.getChatFromFirestoreById(chatId).collection('members');
-  }
-
-  getMessagesForChat(chatId) {
-    return this.getChatFromFirestoreById(chatId).collection('messages');
-  }
-
-  chatDataFromFirebaseToFirestore() {
-    this.getChatsFromFirebase().subscribe(chats => {
-      for (let chat of chats) {
-        if (chat.members && chat.totalMessagesCount) {
-          let newChat = {
-            timestamp: chat.timestamp,
-            totalMessagesCount: chat.totalMessagesCount
-          }
-          this.getChatFromFirestoreById(chat.$key).set(newChat);
-          for (let memberKey in chat.members) {
-            this.getChatFromFirestoreById(chat.$key)
-              .collection('members').doc(memberKey).set(chat.members[memberKey]);
-          }
-          // this.getChatsFromFirestore().add(newChat).then(fsChat => {
-          //   for (let memberKey in chat.members) {
-          //     this.getChatFromFirestoreById(fsChat.id)
-          //       .collection('members').doc(memberKey).set(chat.members[memberKey]);
-          //   }
-          // });
-          this.getChatMessagesFromFirebase(chat.$key)
-            .subscribe(messages => {
-              for (let m of messages) {
-                this.getChatFromFirestoreById(chat.$key)
-                  .collection('messages').add(m);
-              }
-            });
-        }
-      }
-    })
-  }
-
-  getChatsFromFirebase() {
-    return this.fbd.list('chatData/chats');
-  }
-
-  getChatMessagesFromFirebase(chatKey) {
-    return this.fbd.list(`chatData/messagesPerChat/${chatKey}`);
-  }
-
   articleNodeIdToKey() {
     return this.fbd.list('articleData/articles').subscribe(articles => {
       for (let article of articles) {

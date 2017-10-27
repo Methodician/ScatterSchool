@@ -87,6 +87,7 @@ export class AuthService {
         console.log(error);
       }));
   }
+
   setDisplayName(alias) { // (later create option by making args "(alias, user?)")
     //let userToSet = user || this.afAuth.auth.currentUser;
     let userToSet = this.afAuth.auth.currentUser;

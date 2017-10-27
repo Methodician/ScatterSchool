@@ -1,3 +1,4 @@
+import { ChatService } from './../services/firestore/chat.service';
 import { Observable } from 'rxjs/Observable';
 import { DataCleanupService } from './../data-cleanup.service';
 import { Component, OnInit } from '@angular/core';
@@ -11,7 +12,10 @@ export class DataCleanupComponent implements OnInit {
   chats: any;
   selectedChat: any;
 
-  constructor(private dataSvc: DataCleanupService) { }
+  constructor(
+    private dataSvc: DataCleanupService,
+    private chatSvc: ChatService
+  ) { }
 
   ngOnInit() {
   }
@@ -21,16 +25,16 @@ export class DataCleanupComponent implements OnInit {
   }
 
   getChatsFromFirebase() {
-    this.chats = this.dataSvc.getChatsFromFirebase();
+    this.chats = this.chatSvc.getChatsFromFirebase();
   }
 
   getChatsWithMembersFromFirestore() {
-    this.chats = this.dataSvc.getChatsFromFirestore().snapshotChanges()
+    this.chats = this.chatSvc.getChatsFromFirestore().snapshotChanges()
       .map(chatSnaps => {
         return chatSnaps.map(chat => {
           const chatData = chat.payload.doc.data();
           const chatId = chat.payload.doc.id;
-          return this.dataSvc.getMembersForChat(chatId)
+          return this.chatSvc.getMembersForChat(chatId)
             .snapshotChanges()
             .map(memberSnaps => {
               return memberSnaps.map(member => {
@@ -55,7 +59,7 @@ export class DataCleanupComponent implements OnInit {
   }
 
   getChatsFromFirestore() {
-    this.chats = this.dataSvc.getChatsFromFirestore().snapshotChanges()
+    this.chats = this.chatSvc.getChatsFromFirestore().snapshotChanges()
       .map(chats => {
         return chats.map(chat => {
           const data = chat.payload.doc.data();
@@ -68,7 +72,7 @@ export class DataCleanupComponent implements OnInit {
 
   getChatDetail(chat) {
     //console.log(chat);
-    this.dataSvc.getMembersForChat(chat.id).snapshotChanges()
+    this.chatSvc.getMembersForChat(chat.id).snapshotChanges()
       .map(memberSnaps => {
         return memberSnaps.map(member => {
           const data = member.payload.doc.data();
@@ -79,7 +83,7 @@ export class DataCleanupComponent implements OnInit {
         chat.members = members;
       });
 
-    this.dataSvc.getMessagesForChat(chat.id).valueChanges()
+    this.chatSvc.getMessagesForChat(chat.id).valueChanges()
       .subscribe(messages => {
         chat.messages = messages;
       });
@@ -93,7 +97,7 @@ export class DataCleanupComponent implements OnInit {
 
   addMembersToChats() {
     for (let chat of this.chats) {
-      this.dataSvc.getMembersForChat(chat.id).snapshotChanges()
+      this.chatSvc.getMembersForChat(chat.id).snapshotChanges()
         .map(membersSnaps => {
           return membersSnaps.map(member => {
             const data = member.payload.doc.data();
@@ -109,7 +113,7 @@ export class DataCleanupComponent implements OnInit {
   }
 
   moveChatsToFirestore() {
-    this.dataSvc.chatDataFromFirebaseToFirestore();
+    this.chatSvc.chatDataFromFirebaseToFirestore();
   }
 
 }
