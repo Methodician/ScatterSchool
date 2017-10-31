@@ -15,6 +15,7 @@ export class UserInteractionComponent implements OnInit {
   userList;
   chatSubscription;
   currentChat;
+  unreadMessages: boolean = false;
   windowExpanded = false;
   constructor(
     private userSvc: UserService,
@@ -31,11 +32,13 @@ export class UserInteractionComponent implements OnInit {
               this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
             });
             this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
-              this.chatList = chatList;
+              this.chatList = chatList.reverse();
+              this.checkUnreadMessages();
             });
           } else {
             this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
-              this.chatList = chatList;
+              this.chatList = chatList.reverse();
+              this.checkUnreadMessages();
               this.userSvc.getUserList().subscribe(userList => {
                 this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
               });
@@ -52,6 +55,12 @@ export class UserInteractionComponent implements OnInit {
         });
       }
     });
+  }
+
+  checkUnreadMessages() {
+    this.unreadMessages = !this.chatList.every(chat => {
+      return chat.totalMessagesCount === chat.members[this.loggedInUser.$key].messagesSeenCount
+    })
   }
 
   handleRequest(request) {
