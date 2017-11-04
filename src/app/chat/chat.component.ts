@@ -37,7 +37,7 @@ export class ChatComponent implements OnInit {
             this.newMessagesSeenCount = messagesSeen.messagesSeenCount;
             // This gets called a million times...
             this.chatSvc.shouldUpdateSeenCount$.subscribe(iShould => {
-              // this.selectedTabIndex = tabIndex
+              //  this gets called repeatedly...
               if (iShould)
                 this.updateMessagesSeenAndTotalMessages(this.loggedInUser.$key, this.messages.length);
             });
