@@ -2,6 +2,7 @@ import { Component, OnInit, AfterContentChecked, ElementRef, ViewChild, Input } 
 import { ChatService } from '../services/chat/chat.service'
 import { UserService } from './../services/user/user.service';
 import { UserInfoOpen } from 'app/services/user/user-info';
+import { LogService } from "app/services/log/log.service";
 
 @Component({
   selector: 'chat',
@@ -22,12 +23,22 @@ export class ChatComponent implements OnInit {
 
   constructor(
     private chatSvc: ChatService,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private logSvc: LogService
   ) { }
 
   ngOnInit() {
-
+    let initLog = {
+      timestamp: this.logSvc.makeFbTimestamp(),
+      currentChatKeyBackCount: 0,
+      shouldUpdateSeenCount: 0,
+      updateSeenCount: 0
+    };
     this.chatSvc.currentChatKey$.subscribe(key => {
+      initLog.currentChatKeyBackCount += 1;
+      console.log(initLog);
+      const initKey = this.logSvc.getChatCompInitKey();
+      this.logSvc.updateChatCompInitLog(initLog, initKey);
       if (key) {
         if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
         this.messagesSubscription = this.chatSvc.getMessagesByKey(key).subscribe(messages => {
@@ -38,8 +49,14 @@ export class ChatComponent implements OnInit {
             // This gets called a million times...
             this.chatSvc.shouldUpdateSeenCount$.subscribe(iShould => {
               //  this gets called repeatedly...
-              if (iShould)
+              initLog.shouldUpdateSeenCount += 1;
+              this.logSvc.updateChatCompInitLog(initLog, initKey);
+              if (iShould) {
+                initLog.updateSeenCount += 1;
+                console.log(initLog);
+                this.logSvc.updateChatCompInitLog(initLog, initKey);
                 this.updateMessagesSeenAndTotalMessages(this.loggedInUser.$key, this.messages.length);
+              }
             });
 
           })

@@ -80,6 +80,7 @@ import { ArticleHistoryComponent } from './article-history/article-history.compo
 import { ArticleHistoryDetailComponent } from './article-history-detail/article-history-detail.component';
 import { UserInteractionComponent } from './user-interaction/user-interaction.component';
 import { ChatListComponent } from './chat-list/chat-list.component';
+import { LogService } from "app/services/log/log.service";
 
 
 
@@ -180,6 +181,7 @@ import { ChatListComponent } from './chat-list/chat-list.component';
     VoteService,
     CommentService,
     ChatService,
+    LogService,
     AuthGuard,
     ArticleSearchPipe
   ],
