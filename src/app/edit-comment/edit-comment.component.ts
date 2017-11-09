@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { CommentService } from './../services/comment/comment.service';
+import { CommentService } from 'app/shared/services/comment/comment.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
@@ -13,7 +13,7 @@ export class EditCommentComponent implements OnInit {
 
   constructor(private commentSvc: CommentService, private router: Router) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   tryUpdateComment(commentData) {
     if (this.currentUserInfo) this.updateComment(commentData);

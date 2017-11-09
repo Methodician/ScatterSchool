@@ -1,4 +1,4 @@
-import { SuggestionService } from './../services/suggestion/suggestion.service';
+import { SuggestionService } from 'app/shared/services/suggestion/suggestion.service';
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,9 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AddSuggestionComponent {
 
-  constructor(private service: SuggestionService) {}
+  constructor(private service: SuggestionService) { }
 
-   saveSuggestion(formData) {
-     this.service.saveSuggestion(formData);
-   }
+  saveSuggestion(formData) {
+    this.service.saveSuggestion(formData);
+  }
 }

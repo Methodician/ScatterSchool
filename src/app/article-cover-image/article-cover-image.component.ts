@@ -1,6 +1,6 @@
 import { UploadFormComponent } from './..//upload-form/upload-form.component';
 import { Component, OnInit, Input } from '@angular/core';
-import { UploadService } from 'app/services/upload/upload.service';
+import { UploadService } from 'app/shared/services/upload/upload.service';
 
 @Component({
   selector: 'app-article-cover-image',
@@ -11,7 +11,7 @@ export class ArticleCoverImageComponent implements OnInit {
   @Input() articleKey;
   articleCoverImageUrl;
 
-  constructor( private uploadSvc: UploadService ) { }
+  constructor(private uploadSvc: UploadService) { }
 
   ngOnInit() {
     this.getArticleCoverImage(this.articleKey);

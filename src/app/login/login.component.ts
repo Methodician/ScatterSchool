@@ -1,7 +1,7 @@
-import { AuthInfo } from './../services/auth/auth-info';
+import { AuthInfo } from 'app/shared/class/auth-info';
 import { FormBuilder, FormGroup, Validators, FormControlName } from '@angular/forms';
-import { UserService } from './../services/user/user.service';
-import { AuthService } from './../services/auth/auth.service';
+import { UserService } from 'app/shared/services/user/user.service';
+import { AuthService } from 'app/shared/services/auth/auth.service';
 import { Component, OnInit, } from '@angular/core';
 import { Router } from '@angular/router';
 

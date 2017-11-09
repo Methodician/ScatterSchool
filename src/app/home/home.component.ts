@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
-import { ArticleService } from './../services/article/article.service';
+import { ArticleService } from 'app/shared/services/article/article.service';
 
 
 @Component({
@@ -20,8 +20,8 @@ export class HomeComponent implements OnInit {
   currentSelectedLatestPreview: SelectedPreview = SelectedPreview.latestTile;
   currentSelectedAllPreview: SelectedPreview = SelectedPreview.allTile;
 
-  constructor(private route: ActivatedRoute, private articleService: ArticleService,) { }
-  
+  constructor(private route: ActivatedRoute, private articleService: ArticleService, ) { }
+
   ngOnInit() {
     // call for All Articles
     this.articleService.getAllFeatured().subscribe(articles => {
@@ -32,11 +32,11 @@ export class HomeComponent implements OnInit {
       this.latestArticles = latest;
     });
     // call for All Articles
-    this.articleService.getAllArticles().subscribe( response => {
+    this.articleService.getAllArticles().subscribe(response => {
       this.allArticles = response;
     });
   }
-  
+
   // Methods for toggling between Latest and All Previews 
   selectLatest() {
     this.currentSelectedTab = SelectedTab.latest;

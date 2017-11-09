@@ -1,7 +1,7 @@
-import { ChatService } from './../services/chat/chat.service';
-import { UserInfoOpen } from './../services/user/user-info';
+import { ChatService } from 'app/shared/services/chat/chat.service';
+import { UserInfoOpen } from 'app/shared/class/user-info';
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { UserService } from './../services/user/user.service';
+import { UserService } from 'app/shared/services/user/user.service';
 
 @Component({
   selector: 'user-list',
@@ -14,9 +14,9 @@ export class UserListComponent implements OnInit {
   @Input() currentChat;
   @Output() requestSender = new EventEmitter();
 
-  constructor(private userSvc: UserService) {}
+  constructor(private userSvc: UserService) { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   requestChat(userArray) {
     this.requestSender.emit({ type: 'openChat', payload: userArray });
@@ -24,12 +24,12 @@ export class UserListComponent implements OnInit {
 
   requestAddUser(user, event) {
     event.stopPropagation();
-    this.requestSender.emit({ type: 'addUser', payload: user});
+    this.requestSender.emit({ type: 'addUser', payload: user });
   }
-  
+
   isNotInCurrentChat(userKey) {
     return !this.currentChat.members[userKey];
-  }  
+  }
 
   displayName(user) {
     return user.alias ? user.alias : user.fName;

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserService } from 'app/services/user/user.service';
-import { ChatService } from 'app/services/chat/chat.service';
-import { UserInfoOpen } from 'app/services/user/user-info';
+import { UserService } from 'app/shared/services/user/user.service';
+import { ChatService } from 'app/shared/services/chat/chat.service';
+import { UserInfoOpen } from 'app/shared/class/user-info';
 
 @Component({
   selector: 'user-interaction',
@@ -19,14 +19,14 @@ export class UserInteractionComponent implements OnInit {
   constructor(
     private userSvc: UserService,
     private chatSvc: ChatService
-  ){}
+  ) { }
 
   ngOnInit() {
     this.userSvc.userInfo$.subscribe(user => {
       this.loggedInUser = user;
-      if(user) {        
+      if (user) {
         this.chatSvc.getUserChatKeys(user.$key).subscribe(userChatKeys => {
-          if(userChatKeys.length == 0) {
+          if (userChatKeys.length == 0) {
             this.userSvc.getUserList().subscribe(userList => {
               this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
             });
@@ -45,8 +45,8 @@ export class UserInteractionComponent implements OnInit {
       }
     });
     this.chatSvc.currentChatKey$.subscribe(key => {
-      if(key) {
-        if(this.chatSubscription) this.chatSubscription.unsubscribe();
+      if (key) {
+        if (this.chatSubscription) this.chatSubscription.unsubscribe();
         this.chatSubscription = this.chatSvc.getChatByKey(key).subscribe(chat => {
           this.currentChat = chat;
         });
@@ -55,7 +55,7 @@ export class UserInteractionComponent implements OnInit {
   }
 
   handleRequest(request) {
-    switch(request.type) {
+    switch (request.type) {
       case 'openChat':
         this.createOrOpenChat(request.payload)
         return
@@ -72,7 +72,7 @@ export class UserInteractionComponent implements OnInit {
     this.openTab('messages');
   }
 
-  openChat(chatKey){
+  openChat(chatKey) {
     this.chatSvc.openChat(chatKey);
     this.openTab('messages');
   }
@@ -86,13 +86,13 @@ export class UserInteractionComponent implements OnInit {
   }
 
   openTab(tabName) {
-    switch(tabName) {
+    switch (tabName) {
       case 'chats':
         this.chatTabs.selectedIndex = 1;
-        return; 
+        return;
       case 'messages':
         this.chatTabs.selectedIndex = 2;
-        return; 
+        return;
       case 'users':
       default:
         this.chatTabs.selectedIndex = 0;
@@ -106,13 +106,13 @@ export class UserInteractionComponent implements OnInit {
 
   //note: code is intentionally verbose, can be shortened if necessary
   findExistingChat(queriedUserList) {
-    if(!this.chatList) return false;
+    if (!this.chatList) return false;
 
     return this.chatList.filter(chat => {
       let chatMembersLength = Object.keys(chat.members).length;
       // chat is identical if the queriedUserList is of the same length and contains every memberKey that chat.members contains
       return queriedUserList.length === chatMembersLength
-          && queriedUserList.every(user => chat.members[user.$key])
+        && queriedUserList.every(user => chat.members[user.$key])
     })[0];
     // ^ we can guarantee that there will never be identical chats the the database, so we always
     // return the first (and only) chat from the filtered array

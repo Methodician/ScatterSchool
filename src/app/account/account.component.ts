@@ -1,7 +1,7 @@
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserInfoOpen } from './../services/user/user-info';
-import { AuthService } from './../services/auth/auth.service';
-import { UserService } from './../services/user/user.service';
+import { UserInfoOpen } from 'app/shared/class/user-info';
+import { AuthService } from 'app/shared/services/auth/auth.service';
+import { UserService } from 'app/shared/services/user/user.service';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
@@ -90,10 +90,10 @@ export class AccountComponent implements OnInit {
   updateSettings(userInfo) {
     const userValues = userInfo._value;
     this.userSvc.updateUser(userValues, userValues.uid);
-      alert('Your changes have been saved!');
-    } catch (error) {
-      alert(error);
-    }
+    alert('Your changes have been saved!');
+  } catch(error) {
+    alert(error);
+  }
 }
 
   /*   ngOnChanges(changes: SimpleChanges) {

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { SuggestionService } from './../services/suggestion/suggestion.service'
+import { SuggestionService } from 'app/shared/services/suggestion/suggestion.service'
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Router } from '@angular/router';
 
@@ -7,13 +7,13 @@ import { Router } from '@angular/router';
   selector: 'app-suggestion-preview',
   templateUrl: './suggestion-preview.component.html',
   styleUrls: ['./suggestion-preview.component.scss'],
-  providers: [ SuggestionService ]
+  providers: [SuggestionService]
 })
 
 export class SuggestionPreviewComponent {
   @Input() suggestion;
   @Input() currentUserKey;
-  
-  constructor(private service: SuggestionService){}
+
+  constructor(private service: SuggestionService) { }
 
 }

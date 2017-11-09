@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterContentChecked, ElementRef, ViewChild, Input } from '@angular/core';
-import { ChatService } from '../services/chat/chat.service'
-import { UserService } from './../services/user/user.service';
-import { UserInfoOpen } from 'app/services/user/user-info';
+import { ChatService } from 'app/shared/services/chat/chat.service'
+import { UserService } from 'app/shared/services/user/user.service';
+import { UserInfoOpen } from 'app/shared/class/user-info';
 
 @Component({
   selector: 'chat',
@@ -21,25 +21,25 @@ export class ChatComponent implements OnInit {
     private chatSvc: ChatService,
     private userSvc: UserService
   ) { }
-  
-  ngOnInit() {   
+
+  ngOnInit() {
     this.chatSvc.currentChatKey$.subscribe(key => {
       if (key) {
-        if(this.messagesSubscription) this.messagesSubscription.unsubscribe();
+        if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
         this.messagesSubscription = this.chatSvc.getMessagesByKey(key).subscribe(messages => {
           this.messages = messages;
           this.updateMessagesSeenAndTotalMessages(this.loggedInUser.$key, this.messages.length);
-          this.chatSvc.getMessagesSeenCount(this.loggedInUser.$key).subscribe(messagesSeen => {            
-            this.newMessagesSeenCount = messagesSeen.messagesSeenCount; 
+          this.chatSvc.getMessagesSeenCount(this.loggedInUser.$key).subscribe(messagesSeen => {
+            this.newMessagesSeenCount = messagesSeen.messagesSeenCount;
           })
         });
       }
     })
-    
+
   }
 
   ngAfterViewChecked() {
-    if(this.oldMessagesSeenCount != this.newMessagesSeenCount) {
+    if (this.oldMessagesSeenCount != this.newMessagesSeenCount) {
       this.oldMessagesSeenCount = this.newMessagesSeenCount;
       this.scrollToBottom();
     }
@@ -56,7 +56,7 @@ export class ChatComponent implements OnInit {
   }
 
   postMessage(chatForm) {
-    if(chatForm.valid) {
+    if (chatForm.valid) {
       let message = {
         sentBy: this.loggedInUser.$key,
         authorName: this.loggedInUser.displayName(),

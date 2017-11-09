@@ -1,9 +1,9 @@
-import { Suggestion } from './../services/suggestion/suggestion.model';
-import { AuthService } from './../services/auth/auth.service';
+import { Suggestion } from 'app/shared/class/suggestion.model';
+import { AuthService } from 'app/shared/services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
-import { SuggestionService } from './../services/suggestion/suggestion.service'
+import { SuggestionService } from 'app/shared/services/suggestion/suggestion.service'
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
-import { SortOptions } from './../pipes/suggestion-sort.pipe';
+import { SortOptions } from 'app/shared/pipes/suggestion-sort.pipe';
 
 @Component({
   selector: 'app-suggestions',

@@ -1,14 +1,14 @@
-import { UploadService } from './../services/upload/upload.service';
+import { UploadService } from 'app/shared/services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ArticleService } from './../services/article/article.service';
+import { ArticleService } from 'app/shared/services/article/article.service';
 
 @Component({
   selector: 'app-feature-preview',
   templateUrl: './feature-preview.component.html',
   styleUrls: ['./feature-preview.component.scss']
 })
- 
+
 export class FeaturePreviewComponent implements OnInit {
   @Input() articleData: any;
   author;

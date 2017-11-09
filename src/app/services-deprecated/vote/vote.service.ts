@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database-deprecated";
-import { Vote } from "app/services/vote/vote";
+import { Vote } from "app/shared/class/vote";
 
 @Injectable()
 export class VoteService {

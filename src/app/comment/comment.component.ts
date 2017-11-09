@@ -1,9 +1,9 @@
-import { AuthService } from 'app/services/auth/auth.service';
-import { UserService } from './../services/user/user.service';
-import { CommentService } from 'app/services/comment/comment.service';
+import { AuthService } from 'app/shared/services/auth/auth.service';
+import { UserService } from 'app/shared/services/user/user.service';
+import { CommentService } from 'app/shared/services/comment/comment.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
-import { UserInfoOpen } from "app/services/user/user-info";
+import { UserInfoOpen } from "app/shared/class/user-info";
 
 @Component({
   selector: 'app-comment',

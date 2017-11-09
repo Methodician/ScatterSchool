@@ -1,9 +1,9 @@
 import { element } from 'protractor';
 import { Router } from '@angular/router';
-import { UserInfoOpen } from './../services/user/user-info';
-import { UserService } from './../services/user/user.service';
-import { AuthService } from './../services/auth/auth.service';
-import { AuthInfo } from './../services/auth/auth-info';
+import { UserInfoOpen } from 'app/shared/class/user-info';
+import { UserService } from 'app/shared/services/user/user.service';
+import { AuthService } from 'app/shared/services/auth/auth.service';
+import { AuthInfo } from 'app/shared/class/auth-info';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({

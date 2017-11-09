@@ -1,9 +1,9 @@
-import { UploadService } from './../services/upload/upload.service';
-import { AuthService } from './../services/auth/auth.service';
+import { UploadService } from 'app/shared/services/upload/upload.service';
+import { AuthService } from 'app/shared/services/auth/auth.service';
 import { Router } from '@angular/router';
-import { ArticleService } from './../services/article/article.service';
+import { ArticleService } from 'app/shared/services/article/article.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Upload } from '../services/upload/upload';
+import { Upload } from 'app/shared/class/upload';
 
 @Component({
   selector: 'app-post-article',

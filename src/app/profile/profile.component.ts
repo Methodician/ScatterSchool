@@ -1,10 +1,10 @@
-import { UploadService } from 'app/services/upload/upload.service';
+import { UploadService } from 'app/shared/services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserService } from './../services/user/user.service';
-import { ArticleService } from './../services/article/article.service';
-import { UserInfoOpen } from './../services/user/user-info';
-import { ArticleDetailOpen } from './../services/article/article-info';
+import { UserService } from 'app/shared/services/user/user.service';
+import { ArticleService } from 'app/shared/services/article/article.service';
+import { UserInfoOpen } from 'app/shared/class/user-info';
+import { ArticleDetailOpen } from 'app/shared/class/article-info';
 
 @Component({
   selector: 'profile',

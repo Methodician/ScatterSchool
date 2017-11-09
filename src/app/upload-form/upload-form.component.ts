@@ -1,8 +1,8 @@
-import { ArticleService } from './../services/article/article.service';
+import { ArticleService } from 'app/shared/services/article/article.service';
 import { FirebaseObjectObservable } from 'angularfire2/database-deprecated';
-import { UploadService } from './../services/upload/upload.service';
+import { UploadService } from 'app/shared/services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Upload } from '../services/upload/upload';
+import { Upload } from 'app/shared/class/upload';
 import { Router } from '@angular/router';
 
 @Component({
@@ -52,4 +52,4 @@ export class UploadFormComponent implements OnInit {
 }
 
 
- 
+

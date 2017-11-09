@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
-import { CommentService } from './../services/comment/comment.service';
-import { UserService } from './../services/user/user.service';
-import { AuthService } from './../services/auth/auth.service';
+import { CommentService } from 'app/shared/services/comment/comment.service';
+import { UserService } from 'app/shared/services/user/user.service';
+import { AuthService } from 'app/shared/services/auth/auth.service';
 import { Component, OnInit, Input } from '@angular/core';
 
 @Component({

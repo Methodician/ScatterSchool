@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserInfoOpen } from './../services/user/user-info';
-import { UserService } from './../services/user/user.service';
-import { AuthService } from './../services/auth/auth.service';
-import { AuthInfo } from './../services/auth/auth-info';
+import { UserInfoOpen } from '../shared/class/user-info';
+import { AuthInfo } from '../shared/class/auth-info';
+import { UserService } from '../shared/services/user/user.service';
+import { AuthService } from '../shared/services/auth/auth.service';
 
 @Component({
   selector: 'footer',

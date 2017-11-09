@@ -1,4 +1,4 @@
-import { CommentService } from './../services/comment/comment.service';
+import { CommentService } from 'app/shared/services/comment/comment.service';
 import { Router } from '@angular/router';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -19,7 +19,7 @@ export class AddReplyComponent implements OnInit {
   }
 
   postReply(replyData) {
-    if(this.currentUserInfo) this.saveReply(replyData);
+    if (this.currentUserInfo) this.saveReply(replyData);
     else this.router.navigate(['login']);
   }
 

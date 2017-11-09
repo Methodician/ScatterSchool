@@ -1,8 +1,8 @@
 import { Router } from '@angular/router';
-import { SuggestionService } from 'app/services/suggestion/suggestion.service';
+import { SuggestionService } from 'app/shared/services/suggestion/suggestion.service';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { VoteService } from "app/services/vote/vote.service";
-import { Vote } from "app/services/vote/vote";
+import { VoteService } from "app/shared/services/vote/vote.service";
+import { Vote } from "app/shared/class/vote";
 
 @Component({
   selector: 'vote',

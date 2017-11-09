@@ -1,6 +1,6 @@
-import { AuthService } from './../services/auth/auth.service';
+import { AuthService } from 'app/shared/services/auth/auth.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from './../services/user/user.service';
+import { UserService } from 'app/shared/services/user/user.service';
 
 @Component({
   selector: 'follow-btn',

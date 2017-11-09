@@ -1,5 +1,6 @@
+//  This could be broken out into a more modular approach
 import { ArticleHistoryComponent } from './article-history/article-history.component';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from 'app/shared/routing/guards/auth.guard';
 import { UploadFormComponent } from './upload-form/upload-form.component';
 import { DataCleanupComponent } from './data-cleanup/data-cleanup.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';

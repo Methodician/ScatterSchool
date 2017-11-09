@@ -1,6 +1,6 @@
-import { UploadService } from './../services/upload/upload.service';
+import { UploadService } from 'app/shared/services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Upload } from './../services/upload/upload';
+import { Upload } from 'app/shared/class/upload';
 
 @Component({
   selector: 'profile-image',
@@ -11,7 +11,7 @@ export class ProfileImageComponent implements OnInit {
   @Input() uid;
   profileImageUrl;
 
-  constructor( private uploadSvc: UploadService ) { }
+  constructor(private uploadSvc: UploadService) { }
 
   ngOnInit() {
     this.getProfileImage(this.uid);

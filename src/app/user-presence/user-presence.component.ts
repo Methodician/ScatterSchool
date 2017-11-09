@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { UserService } from './../services/user/user.service';
+import { UserService } from 'app/shared/services/user/user.service';
 
 @Component({
   selector: 'user-presence',
@@ -19,7 +19,7 @@ export class UserPresenceComponent implements OnInit {
   }
 
   userState() {
-    if(this.userPresence.connections) return 'online';
-    if(this.userPresence.lastOnline) return 'offline';
+    if (this.userPresence.connections) return 'online';
+    if (this.userPresence.lastOnline) return 'offline';
   }
 }

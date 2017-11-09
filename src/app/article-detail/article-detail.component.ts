@@ -1,9 +1,9 @@
-import { AuthService } from 'app/services/auth/auth.service';
-import { UploadService } from './../services/upload/upload.service';
+import { AuthService } from 'app/shared/services/auth/auth.service';
+import { UploadService } from 'app/shared/services/upload/upload.service';
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ArticleService } from './../services/article/article.service';
-import { UserService } from './../services/user/user.service';
+import { ArticleService } from 'app/shared/services/article/article.service';
+import { UserService } from 'app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-article-detail',
@@ -54,9 +54,9 @@ export class ArticleDetailComponent implements OnInit {
     this.userSvc.userInfo$.subscribe(user => {
       if (user) {
         this.user = user;
-        this.checkIfBookmarked();          
+        this.checkIfBookmarked();
       }
-    })  
+    })
 
   }
 

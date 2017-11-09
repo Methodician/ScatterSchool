@@ -1,7 +1,7 @@
-import { ArticleSearchPipe } from './../pipes/article-search.pipe';
+import { ArticleSearchPipe } from 'app/shared/pipes/article-search.pipe';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ArticleService } from './../services/article/article.service';
+import { ArticleService } from 'app/shared/services/article/article.service';
 
 @Component({
   selector: 'app-article-search-results',

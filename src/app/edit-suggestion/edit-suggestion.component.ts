@@ -1,7 +1,7 @@
-import { Suggestion } from './../services/suggestion/suggestion.model';
+import { Suggestion } from 'app/shared/class/suggestion.model';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from "@angular/router";
-import { SuggestionService } from "app/services/suggestion/suggestion.service";
+import { SuggestionService } from "app/shared/services/suggestion/suggestion.service";
 
 @Component({
   selector: 'app-edit-suggestion',

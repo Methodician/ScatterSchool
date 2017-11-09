@@ -1,9 +1,9 @@
-import { UploadService } from './../services/upload/upload.service';
+import { UploadService } from 'app/shared/services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { ArticleService } from './../services/article/article.service';
-import { UserService } from './../services/user/user.service';
-import { AuthService } from './../services/auth/auth.service';
+import { ArticleService } from 'app/shared/services/article/article.service';
+import { UserService } from 'app/shared/services/user/user.service';
+import { AuthService } from 'app/shared/services/auth/auth.service';
 
 @Component({
   selector: 'article-search-preview',
@@ -69,7 +69,7 @@ export class ArticleSearchPreviewComponent implements OnInit {
 
   checkIfBookmarked() {
     this.articleSvc.isBookmarked(this.user.$key, this.articleData.$key).subscribe(bookmark => {
-      this.isArticleBookmarked = bookmark;      
+      this.isArticleBookmarked = bookmark;
     })
   }
 
