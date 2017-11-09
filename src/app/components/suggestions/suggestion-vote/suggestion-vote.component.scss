@@ -1,0 +1,17 @@
+span {
+  display: block; 
+}
+
+mat-icon {
+  cursor: pointer;
+  font-size: 20px;
+  color: #263237;
+
+  &.vote-up.selected {
+    color: #00BE9C;
+  }
+
+  &.vote-down.selected {
+    color: #C4275F;
+  }
+}

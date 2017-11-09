@@ -1,0 +1,76 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "app/sass-variables-mixins/vars.scss";
+@import "app/sass-variables-mixins/mixins.scss";
+.suggestionsContainer {
+  min-height: 800px;
+  margin-top: 50px;
+}
+
+h3 {
+  color: #31C2D7;
+  font-family: STHeitiSC-Light;
+  margin-bottom: 40px;
+  font-size: 30px;
+}
+
+.suggestionBtn {
+  @include medium-button();
+  width: 205px;
+  margin-bottom: 40px;
+  font-size: 18px;
+}
+
+.suggestionLoop {
+  border-top: 1px solid $dark-gray;
+  margin-bottom: 50px;
+}
+
+#add-suggestions-wrapper {
+  width: 95%;
+  margin: 0 auto;
+}
+
+#add-suggestion-form {
+  font-family: STHeitiSC-Light;
+  margin: 0 auto;
+  max-width: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  p {
+    margin-bottom: 40px;
+    font-size: 20px;
+    color: $dark-gray;
+  }
+}
+
+#suggestions {
+  width: 95%;
+  margin: 0 auto;
+}
+
+#sort-buttons {
+  margin-bottom: 40px;
+  margin-top: -20px;
+  span {
+    cursor: pointer;
+    font-family: STHeitiSC-Light;
+    margin-right: 5px;
+  }
+  span.selected {
+    color: #C4275F;
+  }
+}
+
+@media only screen and (max-width:768px) {
+  #add-suggestions-wrapper {
+    margin-top: 90px;
+  }
+}

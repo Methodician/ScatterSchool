@@ -1,0 +1,62 @@
+<div class="authorWrapper">
+  <div class="userInfoWrapper">
+    <div class="photoNameWrapper">  
+      <img src="../../assets/images/ss-user-photo-frame.jpg" alt="">  
+      <img 
+        [src]="profileImageUrl ? profileImageUrl : ''"
+        class="profile-image" 
+        alt="">
+      <div *ngIf="userInfo" class="followButtonWrapper">
+        <h3 class="author">{{userInfo?.alias || userInfo?.fName + ' ' + userInfo?.lName}}</h3>
+        <!-- <button type="button" class="btn followBtn" (click)="followClick()">Follow</button> -->
+        <follow-btn [uid]="userInfo.uid"></follow-btn>
+      </div>
+    </div>
+    <h4 class="bio">{{userInfo?.bio}}</h4>
+    <!-- these are to be used when we can change the virtual DOM to ONLY show the followers/ees on the page -->
+    <div class="followPageLinks">
+      <a>Following</a>
+      <a>Followers</a>
+    </div>
+  </div>
+  <!-- <pre>
+    {{ userInfo | json }}
+  </pre> -->
+  <div class="authorEditorWrapper">
+    <div class="articleAuthorBlock">
+      <h3>Articles as the Original Author</h3>
+      <div class="authorLoop">
+        <div *ngFor="let article of articlesAuthored">
+          <author-article-preview [articleData]="article"></author-article-preview>
+        </div>
+      </div>
+    </div>
+    <div class="articleEditorBlock">
+      <h3>Articles as an Editor</h3>
+      <div class="editorLoop">
+        <div *ngFor="let article of articlesEdited">
+          <author-article-preview [articleData]="article"></author-article-preview>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="followersWrapper">
+    <div class="followAuthorBlock">
+      <h3>Following</h3>
+      <div class="followAuthorLoop">
+        <div *ngFor="let user of usersFollowed">
+          <follower-user [user]="user"></follower-user>
+        </div>
+      </div>
+    </div>
+    <div class="followingUserBlock">
+      <h3>Followers</h3>
+      <div class="followingUserLoop">
+        <div *ngFor="let user of followersOfUser">
+          <follower-user [user]="user"></follower-user>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

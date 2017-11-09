@@ -1,0 +1,20 @@
+<div id="chat">
+  <div #messageList id="message-list">
+    <mat-card *ngFor="let message of messages">
+      <mat-card-header>
+        <div mat-card-avatar class="profile-image"></div>
+        <div class="authorContainer">
+          <mat-card-title>{{ message.authorName }}</mat-card-title>
+          <mat-card-subtitle>{{ message.timestamp | timeElapsed }}</mat-card-subtitle>
+        </div>
+      </mat-card-header>
+      <mat-card-content>
+        <p>{{ message.body }}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  <div id="chat-form">
+    <chat-form #chatForm (keyup.enter)="postMessage(chatForm)"></chat-form>
+  </div>
+</div>

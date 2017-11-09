@@ -1,0 +1,17 @@
+<div class="wrapper">
+	<div>
+		<app-article-form #articleForm [initialValue]="article">
+		</app-article-form>
+		<button mat-raised-button color="warn" (click)="edit(articleForm.value)">Save Changes</button>
+	</div>
+	<div>
+		<app-article-cover-image *ngIf="article" [articleKey]="key"></app-article-cover-image>
+	</div>
+</div>
+<br>
+<br>
+<div class="editPreview">
+	<p>Preview</p>
+</div>
+
+<app-article-detail *ngIf="article" [articleData]="articleForm.value" [editingPreview]="true"></app-article-detail>

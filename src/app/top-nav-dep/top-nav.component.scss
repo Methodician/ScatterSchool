@@ -1,0 +1,183 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "app/sass-variables-mixins/vars.scss";
+@import "app/sass-variables-mixins/mixins.scss";
+// Spacer for the nav bar to push everything to right-side of the toolbar
+.flexBoxSpacer {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+}
+
+// due to specaficity issues these styles needed to go further up on the stylesheet.
+.searchButton {
+  @include small-button();
+  margin: 10px 15px;
+  background-color: $light-grey;
+  padding: 0;
+  mat-icon {
+    color: $dark-gray;
+  }
+}
+
+.navBarWrapper {
+  position: fixed;
+  top: 0;
+  z-index: 10;
+  width: 95%;
+  margin-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-left: 2.5%;
+  mat-toolbar {
+    font-family: STHeitiSC-Light;
+    background-color: white;
+    border: 1px solid $medium-gray;
+    border-radius: 5px;
+    width: 100%;
+    position: relative; //  Logo and title
+    .logoWrapper {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      position: absolute;
+      left: -1px;
+      img {
+        cursor: pointer;
+      }
+      .logoLink {
+        color: $primary-color;
+        @include font-size(34px);
+        margin-left: 20px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+        flex-direction: row;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
+      } // Breakpoint
+      @media only screen and (max-width: 768px) {
+        .logoLink {
+          @include font-size(20px);
+        }
+      }
+      @media only screen and (max-width: 572px) {
+        .logoLink {
+          display: none;
+        }
+      }
+    } // Search Input within nav bar
+    form {
+      width: 300px;
+      position: relative;
+      margin-right: 20px;
+      mat-form-field {
+        margin-top: 23px;
+        font-size: 14px;
+        width: 100%;
+      }
+    } // Search input Breakpoint
+    @media only screen and (max-width: 1200px) {
+      form {
+        width: 225px;
+      }
+    }
+    @media only screen and (max-width: 854px) {
+      form {
+        width: 150px;
+      }
+    } //Button container 
+    .navButtonWrapper {
+      .navButtons {
+        margin: 10px 10px;
+        @include medium-button();
+      }
+      .hamburgerButton {
+        @include small-button();
+        mat-icon {
+          color: white;
+        }
+      }
+      #menu {
+        display: none;
+        z-index: 10;
+      } // Button break point
+      @media only screen and (max-width: 1120px) {
+        button {
+          display: none;
+        }
+        #menu {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+
+/*nav scroll down transition styles*/
+
+.scrolledUp {
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  mat-toolbar {
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    border: 1px solid $medium-gray;
+  }
+  .logoWrapper img {
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    height: 100px;
+  }
+  @media only screen and (max-width:768px) {
+    .logoWrapper img {
+      -webkit-transition: all 0.5s ease-in-out;
+      transition: all 0.5s ease-in-out;
+      height: 80px;
+    }
+  }
+}
+
+
+/*nav scroll up transition styles*/
+
+.scrolledDown {
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  margin-top: 0;
+  margin-left: 0;
+  opacity: .5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  width: 100vw;
+  mat-toolbar {
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    background-color: $dark-gray;
+    border-radius: 0px;
+    border-bottom: none;
+  }
+  .logoWrapper img {
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    height: 50px;
+    margin-left: 10px;
+  }
+}

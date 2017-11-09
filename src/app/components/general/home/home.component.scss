@@ -1,0 +1,245 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "app/sass-variables-mixins/vars.scss";
+@import "app/sass-variables-mixins/mixins.scss";
+.activePreviewState {
+  color: $primary-color;
+}
+
+.heroBgColor {
+  @include size(300px, 100%);
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  text-align: center;
+  h1 {
+    @include font-size(70px);
+    @include font-styles();
+    color: $dark-gray;
+  }
+  h2 {
+    @include font-size(36px);
+    @include font-styles();
+    color: $dark-gray;
+    padding: 0px 30px;
+    margin-bottom: 50px;
+  } // media queries for responsive hero text
+  @media only screen and (max-width:1620px) {
+    h1 {
+      @include font-size(58px);
+    }
+    h2 {
+      @include font-size(36px);
+    }
+  }
+  @media only screen and (max-width:1340px) {
+    h1 {
+      @include font-size(50px);
+    }
+    h2 {
+      @include font-size(30px);
+    }
+  }
+  @media only screen and (max-width:1200px) {
+    h1 {
+      @include font-size(40px);
+    }
+    h2 {
+      @include font-size(28px);
+    }
+  }
+  @media only screen and (max-width:980px) {
+    h1 {
+      @include font-size(36px);
+    }
+    h2 {
+      @include font-size(20px);
+    }
+  }
+  @media only screen and (max-width:700px) {
+    h1 {
+      @include font-size(30px);
+    }
+    h2 {
+      @include font-size(18px);
+    }
+  }
+}
+
+@media only screen and (max-width:1200px) {
+  .heroBgColor {
+    height: 200px;
+  }
+}
+
+.bodyBgColor {
+  width: 100%;
+  background-color: $light-grey;
+  .featuredArticleWrapper {
+    width: 95%;
+    margin-left: 2.5%;
+    .featuredOptions {
+      height: 100%;
+      width: 100%;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -ms-flex-line-pack: center;
+      align-content: center;
+      color: white;
+      h2 {
+        @include font-styles();
+        @include font-size(60px);
+        color: $dark-gray;
+        @media only screen and (max-width: 776px) {
+          @include font-size(40px);
+        }
+        @media only screen and (max-width:600px) {
+          @include font-size(30px);
+        }
+      }
+      .iconWrapper {
+        width: 75px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        mat-icon {
+          cursor: pointer;
+          font-size: 30px;
+        }
+      }
+    }
+    .grid {
+      @include size(100%, 100%);
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      @media only screen and (max-width: 1030px) {
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+      }
+    }
+  }
+  .latestAndAllWrapper {
+    width: 95%;
+    margin-left: 2.5%;
+    .article-options {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      margin-top: 20px;
+      .header-style {
+        @include font-styles();
+        @include font-size(30px);
+        color: white;
+        cursor: pointer;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+        justify-content: space-between;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        h2 {
+          margin-right: 50px;
+        }
+        @media only screen and (max-width:776px) {
+          @include font-size(20px);
+        }
+        @media only screen and (max-width:680px) {
+          @include font-size(17px);
+          h2 {
+            margin-right: 25px;
+          }
+        }
+      }
+      .activeArticleState {
+        color: $primary-color;
+        text-decoration: underline;
+      }
+      .latestViewToggle,
+      .allViewToggle {
+        color: white;
+        width: 75px;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+        mat-icon {
+          cursor: pointer;
+          font-size: 30px;
+        }
+      }
+    }
+    .grid {
+      @include size(100%, 100%);
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+      @media only screen and (max-width: 1030px) {
+        -ms-flex-pack: distribute;
+        justify-content: space-around;
+      }
+    }
+  }
+}
+
+// .article-options {
+//     display: flex;
+//     justify-content: flex-start;
+//     margin-top: 20px;
+//     .header-style {
+//         font-family: STHeitiSC-Light;
+//         color: #31C2D7;
+//         letter-spacing: 0.5px;
+//         font-size: 30px;
+//         margin-left: 2.5%;
+//         cursor: pointer;
+//     }
+//     .activeArticleState {
+//         color: #C4275F;
+//         text-decoration: underline;
+//     }
+// }
+// .allArticleWrapper {
+//     width: 95%;
+//     margin-left: 2.5%;
+//     margin-top: 25px;
+// }

@@ -1,0 +1,7 @@
+<div class="suggestionContainer">
+    <suggestion-form #form></suggestion-form>
+    <div class="buttonWrapper">
+        <button mat-raised-button color="warn" class="suggestion-submit" (click)="saveSuggestion(form.value)" [disabled]="!form.valid">Submit</button>
+    </div>
+</div>
+

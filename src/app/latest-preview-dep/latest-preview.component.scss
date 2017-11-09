@@ -1,0 +1,283 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "app/sass-variables-mixins/vars.scss";
+@import "app/sass-variables-mixins/mixins.scss";
+mat-card {
+  @include size(325px, 300px);
+  padding: 0px;
+  margin-bottom: 20px;
+  position: relative;
+  border-radius: 5px;
+  margin-right: 20px;
+  img {
+    @include size(150px, 100%);
+    -o-object-fit: cover;
+    object-fit: cover;
+    -o-object-position: center;
+    object-position: center;
+    margin: 0 auto;
+  }
+  mat-card-header {
+    min-height: 75px;
+    max-height: 75px;
+    position: relative;
+    .titleWrapper {
+      height: 48px;
+      width: 100%;
+      mat-card-title {
+        @include font-size(20px);
+        @include font-styles();
+        color: $primary-color;
+        padding: 15px;
+        cursor: pointer;
+        &:hover {
+          color: $accent-color;
+          text-decoration: underline;
+        }
+      }
+    }
+    mat-card-subtitle {
+      position: absolute;
+      bottom: 0px;
+      margin: 0;
+      max-height: 20px;
+      color: $dark-grey;
+      font-weight: 800;
+      padding: 0px 15px;
+      cursor: pointer;
+      &:hover {
+        color: $accent-color;
+        text-decoration: underline;
+      }
+    }
+  }
+  mat-card-content {
+    padding: 15px;
+    min-height: 20px;
+    max-height: 20px;
+    margin: 0 auto;
+    p {
+      @include font-size(14px);
+      color: $dark-grey;
+    }
+  }
+  mat-card-actions {
+    @include size(40px, 260px);
+    margin: 0 auto !important;
+    position: absolute;
+    bottom: 5px;
+    padding: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    div {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+      margin-right: 10px;
+      span {
+        mat-icon {
+          cursor: default;
+        }
+      }
+      mat-icon.bookmark-icon {
+        cursor: pointer;
+      }
+      p {
+        margin-left: 5px;
+      }
+    }
+    .iconSpacer {
+      -webkit-box-flex: 1;
+      -ms-flex: 1 1 auto;
+      flex: 1 1 auto;
+    }
+    div:nth-of-type(4) {
+      margin-right: 0;
+    }
+  }
+}
+
+//ORIGINAL STYLES FOR ANGULAR MATERIAL CARD SYSTEM 
+// mat-card {
+//   width: 400px;
+//   margin-bottom: 100px;
+//   mat-card-header {
+//     min-height: 110px;
+//     max-height: 110px;
+//     img {
+//       @include size(75px, 75px)
+//     }
+//     mat-card-title {
+//       @include font-size(24px);
+//       margin-left: 15px;
+//       color: $primary-color;
+//       cursor: pointer;
+//       &:hover {
+//         text-decoration: underline;
+//       }
+//     }
+//     mat-card-subtitle {
+//       color: $warn-color;
+//       font-weight: 800;
+//       margin-left: 20px;
+//     }
+//     mat-card-subtitle:nth-of-type(1) {
+//       cursor: pointer;
+//       &:hover {
+//         color: $accent-color;
+//         text-decoration: underline;
+//       }
+//     }
+//   }
+//   .imageWrapper img {
+//     margin-top: 10px;
+//     @include size(250px, 448px);
+//     object-fit: cover;
+//   }
+//   mat-card-content {
+//     height: 40px;
+//     p {
+//       @include font-size(20px);
+//     }
+//   }
+//   mat-card-actions {
+//     height: 70px;
+//     display: flex;
+//     justify-content: flex-start;
+//     align-items: flex-start;
+//     mat-chip-list {
+//       mat-chip {
+//         @include font-styles();
+//         background-color: $accent-color;
+//         color: white;
+//       }
+//     }
+//   }
+// }
+// ORIGINAL SCSS CODE FOR CARDS
+// .latestPreview {
+//   display: flex;
+//   flex-direction: row;
+// }
+// .textPreview {
+//   display: flex;
+//   flex-direction: column;
+//   padding: 20px;
+//   width: 100%;
+//   justify-content: space-between;
+//   border-left: 1px solid #263237;
+// }
+// .latestPreview:hover {
+//   transition: color 0.1s ease-in-out;
+//   color: #31C2D7;
+// }
+// .imagePreview img {
+//   height: 327px;
+//   width: 250px;
+//   object-fit: cover;
+// }
+// .title {
+//   margin-top: 0;
+//   font-size: 22px;
+// }
+// .intro {
+//   font-size: 16px;
+// }
+// .author, .date, .tags {
+//   font-size: 14px;
+// }
+// .userPhotoDateWrapper {
+//   position: relative;
+//   display: flex;
+//   flex-direction: row;
+//   align-items: center;
+//   margin-bottom: 10px;
+// }
+// .userTextWrapper {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: flex-start;
+//   margin-left: 10px;
+// }
+// .profile-image {
+//   position: absolute;
+//   z-index: 2;
+//   top: 7px;
+//   left: 4px;
+//   width: 55px;
+//   height: 55px;
+//   border-radius: 100%;
+// }
+// .author {
+//   color: #C4275F;
+//   margin-top: 0;
+// }
+// .author:hover {
+//   text-decoration: underline;
+// }
+// .date {
+//   margin: 0;
+// }
+// .intro {
+//   color: #00BE9C;
+//   font-weight: bold;
+// }
+// .rating {
+//   align-self: flex-end;
+//   margin: 0;
+// }
+// .tagWrapper {
+//   display: flex;
+//   flex-direction: row;
+//   background-color: #DCDCDC;
+//   border-top: 1px solid #263237;
+//   margin-left: -20px;
+//   margin-bottom: -20px;
+//   margin-right: -20px;
+// }
+// .tagWrapper img {
+//   margin: 10px;
+// }
+// .tags {
+//   align-self: center;
+//   color: #C4275F;
+//   margin: 0;
+// }
+// @media only screen and (max-width:768px) {
+//   .latestPreview {
+//     width: 95%;
+//     position: relative;
+//   }
+//   .imagePreview img {
+//     width: 105.2%;
+//     height: 293px;
+//   }
+//   .textPreview {
+//     position: absolute;
+//     display: flex;
+//     align-self: center;
+//     left: 10px;
+//     border: none;
+//     background-color: rgba(255, 255, 255, .8);
+//   }
+//   .tagWrapper {
+//     border: 1px solid #263237;
+//   }
+// }

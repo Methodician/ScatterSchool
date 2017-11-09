@@ -1,0 +1,20 @@
+<form autocomplete="off" novalidate [formGroup]="form" class="loginWrapper">
+  <fieldset class="formWrapper">
+    <h1>Login :</h1>
+    <!-- Email Input -->
+    <mat-form-field color="primary">
+      <input matInput formControlName="email" placeholder="Email" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email"  type="email">
+      <mat-error *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</mat-error>
+      <mat-error *ngIf="isErrorVisible('email','validEmail')">Please enter a valid e-mail address.</mat-error>
+    </mat-form-field>
+    <!-- Password Input -->
+    <mat-form-field color="primary">   
+      <input matInput placeholder="Password" [class.input-error]="isErrorVisible('password','required')" name="password" formControlName="password" type="password">
+      <mat-error *ngIf="isErrorVisible('password','required')">A password is required.</mat-error>
+    </mat-form-field>
+  </fieldset>
+  <!-- Submit Button -->
+  <div class="buttonWrapper">
+    <button mat-raised-button (click)="login()" [disabled]="!formValid()" color="primary">Login</button>
+  </div>
+</form>

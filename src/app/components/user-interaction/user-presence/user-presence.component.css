@@ -1,0 +1,11 @@
+.online {
+  color: #00BE9C;
+}
+
+.offline {
+  color: #C4275F;
+}
+
+.unknown {
+  color: gray;
+}

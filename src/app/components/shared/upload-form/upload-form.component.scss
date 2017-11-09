@@ -1,0 +1,43 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "app/sass-variables-mixins/vars.scss";
+@import "app/sass-variables-mixins/mixins.scss";
+input {
+  font-size: 18px;
+}
+
+progress {
+  color: #00BE9C;
+}
+
+.uploadForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  border-bottom: 1px solid #263237;
+}
+
+.upload-wrapper {
+  font-family: STHeitiSC-Light;
+  width: 500px;
+  margin: 0 auto;
+  .btnUpload {
+    @include medium-button();
+    margin-bottom: 10px;
+  }
+}
+
+@media only screen and (max-width:768px) {
+  input {
+    width: 300px;
+  }
+  .upload-wrapper {
+    width: 100%;
+    margin: 0 auto;
+  }
+}

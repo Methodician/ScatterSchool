@@ -1,27 +1,27 @@
 //  This could be broken out into a more modular approach
-import { ArticleHistoryComponent } from './article-history/article-history.component';
+import { ArticleHistoryComponent } from 'app/components/articles/article-history/article-history.component';
 import { AuthGuard } from 'app/shared/routing/guards/auth.guard';
-import { UploadFormComponent } from './upload-form/upload-form.component';
-import { DataCleanupComponent } from './data-cleanup/data-cleanup.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ArticleDetailComponent } from './article-detail/article-detail.component';
-import { ArticleSearchResultsComponent } from './article-search-results/article-search-results.component';
-import { EditArticleComponent } from './edit-article/edit-article.component';
-import { PostArticleComponent } from './post-article/post-article.component';
-import { AccountComponent } from './account/account.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { AboutUsComponent } from './about-us/about-us.component';
-import { HomeComponent } from './home/home.component';
+import { UploadFormComponent } from 'app/components/shared/upload-form/upload-form.component';
+import { DataCleanupComponent } from 'app/components/general/data-cleanup/data-cleanup.component';
+import { PageNotFoundComponent } from 'app/components/general/page-not-found/page-not-found.component';
+import { ProfileComponent } from 'app/components/account/profile/profile.component';
+import { ArticleDetailComponent } from 'app/components/articles/article-detail/article-detail.component';
+import { ArticleSearchResultsComponent } from 'app/components/general/article-search-results/article-search-results.component';
+import { EditArticleComponent } from 'app/components/articles/edit-article/edit-article.component';
+import { PostArticleComponent } from 'app/components/articles/post-article/post-article.component';
+import { AccountComponent } from 'app/components/account/account/account.component';
+import { LoginComponent } from 'app/components/account/login/login.component';
+import { RegisterComponent } from 'app/components/account/register/register.component';
+import { AboutUsComponent } from 'app/components/general/about-us/about-us.component';
+import { HomeComponent } from 'app/components/general/home/home.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SuggestionsComponent } from "app/suggestions/suggestions.component";
-import { SuggestionDetailComponent } from "app/suggestion-detail/suggestion-detail.component";
-import { AddSuggestionComponent } from "app/add-suggestion/add-suggestion.component";
-import { EditSuggestionComponent } from "app/edit-suggestion/edit-suggestion.component";
-import { ChatComponent } from "app/chat/chat.component";
-import { UserListComponent } from "app/user-list/user-list.component";
+import { SuggestionsComponent } from "app/components/suggestions/suggestions/suggestions.component";
+import { SuggestionDetailComponent } from "app/components/suggestions/suggestion-detail/suggestion-detail.component";
+import { AddSuggestionComponent } from "app/components/suggestions/add-suggestion/add-suggestion.component";
+import { EditSuggestionComponent } from "app/components/suggestions/edit-suggestion/edit-suggestion.component";
+import { ChatComponent } from "app/components/user-interaction/chat/chat.component";
+import { UserListComponent } from "app/components/user-interaction/user-list/user-list.component";
 
 
 const routes: Routes = [
