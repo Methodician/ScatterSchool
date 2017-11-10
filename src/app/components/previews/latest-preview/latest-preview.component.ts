@@ -29,6 +29,7 @@ export class LatestPreviewComponent implements OnInit {
   ngOnInit() {
     this.articleSvc.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
       this.author = author;
+      if (author.$key) this.getProfileImage(author.$key);
     });
     this.userSvc.userInfo$.subscribe(user => {
       if (user) {
@@ -36,7 +37,6 @@ export class LatestPreviewComponent implements OnInit {
         this.checkIfBookmarked();
       }
     });
-    this.getProfileImage(this.author.$key);
     this.getArticleCoverImage(this.articleData.$key);
   }
 

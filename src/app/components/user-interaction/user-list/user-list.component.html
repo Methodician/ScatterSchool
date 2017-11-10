@@ -1,6 +1,6 @@
 <div id="user-list">
   <mat-card *ngFor="let user of userList" (click)="requestChat([user, loggedInUser])">
-      <img [src]="((getProfileImageUrl(user.$key) | async).$value) || '../../assets/images/kid-art.jpg'" mat-card-avatar class="profile-image">
+      <!-- <img [src]="((getProfileImageUrl(user.$key) | async).$value) || '../../assets/images/kid-art.jpg'" mat-card-avatar class="profile-image"> -->
       <mat-card-header>
         <mat-card-title>{{ displayName(user) }}</mat-card-title>
         <mat-card-subtitle><user-presence [userKey]="user.$key"></user-presence></mat-card-subtitle>
