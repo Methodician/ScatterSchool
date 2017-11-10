@@ -1,5 +1,5 @@
-@import "app/sass-variables-mixins/vars.scss";
-@import "app/sass-variables-mixins/mixins.scss";
+@import "../../../sass-variables-mixins/vars.scss";
+@import "../../../sass-variables-mixins/mixins.scss";
 #chat {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -33,7 +33,7 @@
         display: -ms-flexbox;
         display: flex;
         .profile-image {
-          background-image: url('../../assets/images/kid-art.jpg');
+          background-image: url('../../../../assets/images/kid-art.jpg');
           background-size: cover;
         }
         .authorContainer {

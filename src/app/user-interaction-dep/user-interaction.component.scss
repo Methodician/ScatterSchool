@@ -1,7 +1,7 @@
 // This is a SCSS file but all of calls are currently vanilla CSS
 // imports for the variable and mixin files found within the sass-variables-mixins folder
-@import "app/sass-variables-mixins/vars.scss";
-@import "app/sass-variables-mixins/mixins.scss";
+@import "../../../sass-variables-mixins/vars.scss";
+@import "../../../sass-variables-mixins/mixins.scss";
 mat-tab-group {
   height: 500px;
 }
