@@ -19,7 +19,8 @@ export class UserPresenceComponent implements OnInit {
   }
 
   userState() {
-    if(this.userPresence.connections) return 'online';
-    if(this.userPresence.lastOnline) return 'offline';
+    if(this.userPresence && this.userPresence.connections) return 'online';
+    if(this.userPresence && this.userPresence.lastOnline) return 'offline';
+    return false;
   }
 }
