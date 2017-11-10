@@ -1,6 +1,0 @@
-<form [formGroup]="form">
-  <mat-form-field>
-    <textarea matInput name="text" formControlName="text" class="formControl" [maxlength]="maxLength" placeholder="Message"></textarea>
-    <mat-hint align="start">{{ maxLength - form.value.text.length }}</mat-hint>
-  </mat-form-field>
-</form>

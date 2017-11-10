@@ -1,5 +1,0 @@
-<div [ngSwitch]="userState()">
-  <span *ngSwitchCase="'online'" class="online">online</span>
-  <span *ngSwitchCase="'offline'" class="offline">last online {{ userPresence.lastOnline | timeElapsed }}</span>
-  <span *ngSwitchDefault class="unknown">unknown</span>
-</div>

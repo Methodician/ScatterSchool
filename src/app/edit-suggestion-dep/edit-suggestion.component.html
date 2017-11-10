@@ -1,7 +1,0 @@
-<div class="editWrapper" *ngIf="suggestion">
-  <h3>Edit Suggestion</h3>
-  <suggestion-form #form [initialValue]="suggestion"></suggestion-form>
-  <div class="btnWrapper">
-    <button mat-raised-button color="warn" (click)="saveSuggestion(form.value)" [disabled]="form.pristine || !form.valid">Save</button>
-  </div>
-</div>
