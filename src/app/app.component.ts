@@ -12,8 +12,5 @@ export class AppComponent {
   constructor(private db: AngularFireDatabase) {}
 
   ngOnInit() {
-    this.db.object('/').subscribe(data => {
-      this.data = data;
-    })
   }
 }

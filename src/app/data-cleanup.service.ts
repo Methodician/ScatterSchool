@@ -18,7 +18,7 @@ export class DataCleanupService {
   articleNodeIdToKey() {
     return this.fbd.list('articleData/articles').subscribe(articles => {
       for (let article of articles) {
-        console.log(article);
+        //console.log(article);
         if (article.bodyId) {
           article.bodyKey = article.bodyId;
           delete (article.bodyId);
