@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs/Observable';
-import { FirestoreTestingService, Item, ItemWithId, StringAndNumber, StringAndNumberWithId } from './../firestore-testing.service';
+import { FirestoreTestingService, Item, ItemWithId, StringAndNumber, StringAndNumberWithId } from 'app/firestore-testing.service';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 

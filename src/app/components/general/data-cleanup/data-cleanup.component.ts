@@ -1,6 +1,6 @@
-import { ChatService } from 'app/services/firestore/chat.service';
+import { ChatService } from 'app/shared/services/firestore/chat.service';
 import { Observable } from 'rxjs/Observable';
-import { DataCleanupService } from 'app/data-cleanup.service';
+import { DataCleanupService } from 'app/shared/services/firestore/data-cleanup.service';
 //import { DataCleanupService } from 'app/shared/services/data-cleanup.service';
 import { Component, OnInit } from '@angular/core';
 
