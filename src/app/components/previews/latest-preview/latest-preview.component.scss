@@ -10,9 +10,7 @@ mat-card {
   margin-right: 20px;
   img {
     @include size(150px, 100%);
-    -o-object-fit: cover;
     object-fit: cover;
-    -o-object-position: center;
     object-position: center;
     margin: 0 auto;
   }
@@ -66,29 +64,13 @@ mat-card {
     position: absolute;
     bottom: 5px;
     padding: 15px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
     flex-direction: row;
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
     justify-content: flex-start;
     div {
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-orient: horizontal;
-      -webkit-box-direction: normal;
-      -ms-flex-direction: row;
       flex-direction: row;
-      -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
       justify-content: space-between;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
       align-items: center;
       margin-right: 10px;
       span {
@@ -104,8 +86,6 @@ mat-card {
       }
     }
     .iconSpacer {
-      -webkit-box-flex: 1;
-      -ms-flex: 1 1 auto;
       flex: 1 1 auto;
     }
     div:nth-of-type(4) {
@@ -114,7 +94,7 @@ mat-card {
   }
 }
 
-//ORIGINAL STYLES FOR ANGULAR MATERIAL CARD SYSTEM 
+//ORIGINAL STYLES FOR ANGULAR MATERIAL CARD SYSTEM
 // mat-card {
 //   width: 400px;
 //   margin-bottom: 100px;

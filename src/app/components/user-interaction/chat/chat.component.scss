@@ -1,43 +1,25 @@
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
 #chat {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   height: 450px;
   #message-list {
-    -webkit-box-flex: 2;
-    -ms-flex: 2;
     flex: 2;
     overflow-y: scroll;
     mat-card {
       margin: 5px;
       padding: 10px;
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-orient: vertical;
-      -webkit-box-direction: normal;
-      -ms-flex-direction: column;
       flex-direction: column;
       mat-card-header {
-        // border: $tb-red;
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
         .profile-image {
           background-image: url('../../../../assets/images/kid-art.jpg');
           background-size: cover;
         }
         .authorContainer {
-          // border: $tb-blue;
           margin-left: 10px;
           width: 100%;
           mat-card-title {
@@ -50,7 +32,7 @@
         }
       }
       mat-card-content {
-        margin-top: 10px; // border: $tb-lime;
+        margin-top: 10px;
         overflow-wrap: break-word;
         width: 100%;
         p {

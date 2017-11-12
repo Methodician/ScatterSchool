@@ -13,11 +13,7 @@
   }
   .titleWrapper {
     margin: 0 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
     h1 {
       font-size: 50px;
@@ -30,11 +26,7 @@
   .formWrapper {
     width: 95%;
     margin: 0 auto;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
   }
   .columnOne {
@@ -70,11 +62,7 @@
   }
   .buttonWrapper {
     width: 150px;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
     margin: 0 auto;
     button {
@@ -87,13 +75,7 @@
 @media only screen and (max-width:768px) {
   .formWrapper {
     width: 80%;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    -ms-grid-row-align: center;
     align-items: center;
   }
 }

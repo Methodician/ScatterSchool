@@ -19,8 +19,6 @@ pre {
 
 .photoNameWrapper {
   position: relative;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-bottom: 20px;
   img {
@@ -41,25 +39,15 @@ pre {
 }
 
 .followButtonWrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  flex-direction: row;
+  justify-content: space-between;
   width: 420px;
 }
 
 .followPageLinks {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -ms-flex-pack: distribute;
-      justify-content: space-around;
+  justify-content: space-around;
   margin-top: 40px;
   a {
     color: #263237;
@@ -78,8 +66,7 @@ pre {
   height: 38px;
   color: #fff;
   background-color: #C4275F;
-  -ms-flex-item-align: center;
-      align-self: center;
+  align-self: center;
   font-family: STHeitiSC-Light;
 }
 
@@ -90,8 +77,6 @@ pre {
 }
 
 .authorEditorWrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 95%;
   margin: 0 auto;
@@ -130,8 +115,6 @@ pre {
 }
 
 .followersWrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 95%;
   margin: 0 auto;
@@ -172,17 +155,11 @@ pre {
 
 @media only screen and (max-width: 1004px) {
   .authorEditorWrapper {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
   }
 
   .followersWrapper {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
   }
 
   .articleAuthorBlock {

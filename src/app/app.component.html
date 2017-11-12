@@ -1,11 +1,22 @@
+<!--Container  for nav-bar and top-nav component rendering within the div-->
 <div class="navContainer">
-    <top-nav></top-nav>
+  <top-nav></top-nav>
 </div>
-<router-outlet></router-outlet>
-<button [class.expanded]="userInteraction.windowExpanded" (click)="userInteraction.toggleWindow()" mat-fab color="warn" id="toggle-chat">
+<!--Root div container with the router-outlet rendering page components within the div-->
+<div class="root">
+  <router-outlet></router-outlet>
+</div>
+<!--Footer Container with the footer component rendering within the div-->
+<div class="footerContainer">
+  <footer></footer>
+</div>
+<!--Chat Container with the chat Button, a md card and the user-interaction component being rendered within the mat-card-->
+<!--TODO: Turn this portion of the chat component into it's own component, maybe something like chat-preview-->
+<div class="chat-container">
+  <button [class.expanded]="userInteraction.windowExpanded" (click)="userInteraction.toggleWindow()" mat-fab color="warn" id="toggle-chat">
     <mat-icon class="mat-24" aria-label="Open Chat">chat</mat-icon>
-</button>
-<mat-card id="chat" [class.expanded]="userInteraction.windowExpanded">
+  </button>
+  <mat-card id="chat" [class.expanded]="userInteraction.windowExpanded">
     <user-interaction #userInteraction></user-interaction>
-</mat-card>
-<footer></footer>
+  </mat-card>
+</div>

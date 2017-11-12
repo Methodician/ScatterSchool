@@ -2,27 +2,20 @@ form {
   font-family: STHeitiSC-Light;
 
   .formWrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
+    flex-direction: column;
 
     mat-form-field {
       width: 95%;
       margin: 10px 0px;
-      -ms-flex-item-align: center;
-          align-self: center;
+      align-self: center;
     }
   }
 }
 
 .ckEditor {
   width: 95%;
-  -ms-flex-item-align: center;
-      align-self: center;
+  align-self: center;
 }
 
 .tagWrapper {
@@ -43,7 +36,7 @@ form {
   tag-input {
     width: 100% !important;
   }
-  
+
 }
 
 

@@ -22,12 +22,8 @@ h2 {
   width: 500px;
   margin: 0 auto;
   .image-wrapper {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+    justify-content: center;
   }
 
   .imageDisplay {
@@ -35,8 +31,7 @@ h2 {
     height: 250px;
     margin-bottom: 20px;
     border: 1px solid #263237;
-    -o-object-fit: cover;
-       object-fit: cover;
+    object-fit: cover;
   }
 }
 

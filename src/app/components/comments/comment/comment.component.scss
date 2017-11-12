@@ -5,7 +5,7 @@
   margin-bottom: 10px;
   border: 1px solid gray;
   position: relative;
-  
+
   p.first-child {
     margin-bottom: 0px;
   }
@@ -22,7 +22,6 @@
     top: 0px;
     width: 9px;
     height: 14px;
-    -webkit-transition: -webkit-transform .1s ease-in;
     transition: -webkit-transform .1s ease-in;
     transition: transform .1s ease-in;
     transition: transform .1s ease-in, -webkit-transform .1s ease-in;
