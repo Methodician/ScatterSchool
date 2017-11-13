@@ -26,16 +26,11 @@ export class ChatComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-<<<<<<< HEAD:src/app/chat/chat.component.ts
-
-=======
->>>>>>> master:src/app/components/user-interaction/chat/chat.component.ts
     this.chatSvc.currentChatKey$.subscribe(key => {
       if (key) {
         if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
         this.messagesSubscription = this.chatSvc.getMessagesByKey(key).subscribe(messages => {
           this.messages = messages;
-<<<<<<< HEAD:src/app/chat/chat.component.ts
           //this.updateMessagesSeenAndTotalMessages(this.loggedInUser.$key, this.messages.length);
           this.chatSvc.getMessagesSeenCount(this.loggedInUser.$key).subscribe(messagesSeen => {
             this.newMessagesSeenCount = messagesSeen.messagesSeenCount;
@@ -45,12 +40,6 @@ export class ChatComponent implements OnInit {
               if (iShould)
                 this.updateMessagesSeenAndTotalMessages(this.loggedInUser.$key, this.messages.length);
             });
-
-=======
-          this.updateMessagesSeenAndTotalMessages(this.loggedInUser.$key, this.messages.length);
-          this.chatSvc.getMessagesSeenCount(this.loggedInUser.$key).subscribe(messagesSeen => {
-            this.newMessagesSeenCount = messagesSeen.messagesSeenCount;
->>>>>>> master:src/app/components/user-interaction/chat/chat.component.ts
           })
         });
       }

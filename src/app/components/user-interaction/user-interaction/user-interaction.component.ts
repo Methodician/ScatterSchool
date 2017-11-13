@@ -1,14 +1,7 @@
-<<<<<<< HEAD:src/app/user-interaction/user-interaction.component.ts
-import { Component, OnInit, ViewChild, SimpleChanges } from '@angular/core';
-import { UserService } from 'app/services/user/user.service';
-import { ChatService } from 'app/services/chat/chat.service';
-import { UserInfoOpen } from 'app/services/user/user-info';
-=======
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'app/shared/services/user/user.service';
 import { ChatService } from 'app/shared/services/chat/chat.service';
 import { UserInfoOpen } from 'app/shared/class/user-info';
->>>>>>> master:src/app/components/user-interaction/user-interaction/user-interaction.component.ts
 
 @Component({
   selector: 'user-interaction',
@@ -35,13 +28,9 @@ export class UserInteractionComponent implements OnInit {
       if (user) {
         this.chatSvc.getUserChatKeys(user.$key).subscribe(userChatKeys => {
           if (userChatKeys.length == 0) {
-<<<<<<< HEAD:src/app/user-interaction/user-interaction.component.ts
-            this.getUserList();
-=======
             this.userSvc.getUserList().subscribe(userList => {
               this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
             });
->>>>>>> master:src/app/components/user-interaction/user-interaction/user-interaction.component.ts
             this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
               this.chatList = chatList.reverse();
               this.checkUnreadMessages();
@@ -85,10 +74,6 @@ export class UserInteractionComponent implements OnInit {
   }
 
   handleRequest(request) {
-<<<<<<< HEAD:src/app/user-interaction/user-interaction.component.ts
-    console.log(request);
-=======
->>>>>>> master:src/app/components/user-interaction/user-interaction/user-interaction.component.ts
     switch (request.type) {
       case 'openChat':
         this.createOrOpenChat(request.payload)

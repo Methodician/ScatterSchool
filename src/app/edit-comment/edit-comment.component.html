@@ -1,3 +1,0 @@
-<app-comment-form #form [initialValue]="initialCommentValue"></app-comment-form>
-<span>{{form.text.value.length}}</span>
-<button mat-raised-button color="accent" [disabled]="!form.valid" (click)="tryUpdateComment(form.value)">Save</button>
