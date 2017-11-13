@@ -10,7 +10,7 @@ import { Chat } from 'app/shared/class/chat';
   styleUrls: ['./user-interaction.component.scss']
 })
 export class UserInteractionComponent implements OnInit {
-  @ViewChild("chatTabs") chatTabs;
+  @ViewChild("uiTabs") uiTabs;
   selectedTab: string;
   loggedInUser: UserInfoOpen;
   chatList;
@@ -76,6 +76,7 @@ export class UserInteractionComponent implements OnInit {
     this.unreadMessages = !this.chatList.every(chat => {
       return chat.totalMessagesCount === chat.members[this.loggedInUser.$key].messagesSeenCount
     })
+    this.chatSvc.unreadMessages$.next(this.unreadMessages);
   }
 
   handleRequest(request) {
@@ -110,12 +111,12 @@ export class UserInteractionComponent implements OnInit {
   }
 
   setCurrentTab(tabIndex: number) {
-    //  Enums get reverse mapping. Cool! So ChatTabs[1] is 'chats' and ChatTabs['chats'] is 1
-    this.selectedTab = ChatTabs[tabIndex];
+    //  Enums get reverse mapping. Cool! So UITabs[1] is 'chats' and UITabs['chats'] is 1
+    this.selectedTab = UITabs[tabIndex];
   }
 
   openTab(tabName: string) {
-    this.chatTabs.selectedIndex = ChatTabs[tabName];
+    this.uiTabs.selectedIndex = UITabs[tabName];
     // switch (tabName) {
     //   case 'chats':
     //     this.chatTabs.selectedIndex = 1;
@@ -132,7 +133,7 @@ export class UserInteractionComponent implements OnInit {
 
   toggleWindow() {
     this.windowExpanded = !this.windowExpanded;
-    if (this.windowExpanded && this.unreadMessages)
+    if (this.windowExpanded && this.unreadMessages && (this.selectedTab != 'messages'))
       this.openTab('chats');
     this.chatSvc.toggleUserInteractionWindow(this.windowExpanded);
   }
@@ -177,7 +178,7 @@ export class UserInteractionComponent implements OnInit {
   }
 }
 
-export enum ChatTabs {
+export enum UITabs {
   'users' = 0,
   'chats' = 1,
   'messages' = 2

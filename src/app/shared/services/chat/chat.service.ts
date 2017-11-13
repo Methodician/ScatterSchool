@@ -18,6 +18,8 @@ export class ChatService {// maybe should be renamed to UserInteractionService
   userInteractionWindowExpanded = false;
   shouldUpdateSeenCount$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  unreadMessages$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
   constructor(
     private db: AngularFireDatabase
   ) {
