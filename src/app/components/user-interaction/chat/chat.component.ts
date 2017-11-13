@@ -11,8 +11,6 @@ import { UserInfoOpen } from 'app/shared/class/user-info';
 export class ChatComponent implements OnInit {
   @ViewChild('messageList') private elementRef: ElementRef;
   @Input() loggedInUser: UserInfoOpen;
-  // @Input() selectedTabIndex: number;
-  // selectedTabIndex: number;
   @Input() totalMessages: number;
   newMessagesSeenCount: number;
   oldMessagesSeenCount = 0;
