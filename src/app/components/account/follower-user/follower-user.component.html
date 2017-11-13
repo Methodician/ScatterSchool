@@ -1,0 +1,11 @@
+<mat-card (click)="navigateToProfile()">
+  <img [src]="((getProfileImageUrl(user.$key) | async).$value) || '../../assets/images/kid-art.jpg'" mat-card-avatar class="profile-image">
+  <follow-btn (click)="stopPropagation($event)" [uid]="user.uid"></follow-btn>
+  <mat-card-header>
+    <mat-card-title>{{ user.displayName() }}</mat-card-title>
+    <mat-card-subtitle><user-presence [userKey]="user.$key"></user-presence></mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content *ngIf="user.bio?.length > 0">
+    <p>{{ user.bio }}</p>
+  </mat-card-content>
+</mat-card>

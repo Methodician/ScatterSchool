@@ -1,0 +1,12 @@
+<div id="user-list">
+  <mat-card *ngFor="let user of userList" (click)="requestChat([user, loggedInUser])">
+      <!-- <img [src]="((getProfileImageUrl(user.$key) | async).$value) || '../../assets/images/kid-art.jpg'" mat-card-avatar class="profile-image"> -->
+      <mat-card-header>
+        <mat-card-title>{{ displayName(user) }}</mat-card-title>
+        <mat-card-subtitle><user-presence [userKey]="user.$key"></user-presence></mat-card-subtitle>
+      </mat-card-header>
+      <button *ngIf="currentChat && isNotInCurrentChat(user.$key)" (click)="requestAddUser(user, $event)" mat-icon-button color="primary" matTooltip="Add to Chat" matTooltipPosition="below" class="add-to-chat">
+        <mat-icon class="mat-24" aria-label="Add to Chat">person_add</mat-icon>
+      </button>
+    </mat-card>
+</div>

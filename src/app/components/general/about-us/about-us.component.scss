@@ -1,0 +1,45 @@
+img {
+  margin-bottom: 40px;
+}
+
+.aboutUsWrapper {
+  width: 95%;
+  margin:0 auto;
+  margin-top: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.aboutUsWrapper * {
+  font-family: STHeitiSC-Light;
+}
+
+.aboutUsHeader {
+  -ms-flex-item-align: start;
+      align-self: flex-start;
+  font-size: 30px;
+  color: #31C2D7;
+  cursor: default;
+  margin-bottom: 20px;
+}
+
+.copyWrapper {
+  width: 600px;
+  p {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width:768px) {
+  .copyWrapper {
+    width: 80%;
+  }
+}

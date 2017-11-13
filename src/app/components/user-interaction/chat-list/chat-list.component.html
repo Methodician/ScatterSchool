@@ -1,0 +1,10 @@
+<mat-card *ngFor="let chat of chatList" (click)="requestChat(chat.$key)">
+  <div mat-card-avatar class="user-count">
+    <p>{{ userCount(chat) }}</p>
+  </div>
+  <mat-card-header>
+    <mat-card-title [matTooltipDisabled]="getMemberNames(chat).length < 25" matTooltip="{{ getMemberNames(chat) }}" matTooltipPosition="below">{{ getMemberNames(chat) | truncate : 25 }}</mat-card-title>
+    <mat-card-subtitle>{{ chat.timestamp | timeElapsed }}</mat-card-subtitle>
+  </mat-card-header>
+  <p class="unread-count" *ngIf="hasUnreadMessages(chat)">Unread: {{ unreadMessagesCount(chat) }}</p>
+</mat-card>

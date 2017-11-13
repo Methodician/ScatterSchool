@@ -1,0 +1,12 @@
+<!-- NOTE: This component is currently unused. The follower-user component handles displaing information for both followed users and follower users -->
+<div class="followWrapper">
+  <div class="followPhoto">
+    <img src="../../assets/images/ss-user-photo-frame.jpg" alt="photo of the initial tutorial creator">
+    <a (click)="navigateToProfile()">{{user.alias}}</a>
+    <follow-btn [uid]="user.uid"></follow-btn>
+  </div>
+  <div class="bioWrapper">
+    <p>{{user.bio}}</p>
+  </div>
+
+</div>

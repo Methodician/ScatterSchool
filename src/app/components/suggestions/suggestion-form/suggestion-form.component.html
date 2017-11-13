@@ -1,0 +1,19 @@
+<div class="formContainer">
+  <h2>Article Suggestion:</h2>
+  <form [formGroup]="form" autocomplete="off" novalidate class="formWrapper">
+    <fieldset>
+      <!-- Title Input -->
+      <mat-form-field color="primary">
+        <input #title matInput placeholder="Title" type="text" name="title" formControlName="title" class="formControl" [class.input-error]="isErrorVisible('title','required')">
+        <mat-hint align="end">{{title.value.length}} / 140</mat-hint>
+        <mat-error *ngIf="isErrorVisible('title','required')"> A title is required.</mat-error>
+        <mat-error *ngIf="isErrorVisible('title','maxlength')"> The title can be no more than 140 characters long.</mat-error>
+      </mat-form-field>
+      <!-- Pitch Input -->
+      <mat-form-field class="pitch-styles" color="primary">
+        <textarea matInput placeholder="Pitch" type="text"cols="69" rows="8" name="pitch" formControlName="pitch" class="formControl"></textarea>
+        <mat-error *ngIf="isErrorVisible('pitch','required')">A pitch is required.</mat-error>
+      </mat-form-field>
+    </fieldset>
+  </form>
+</div>
