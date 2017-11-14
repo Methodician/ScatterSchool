@@ -11,6 +11,7 @@ import { UserInfoOpen } from 'app/shared/class/user-info';
 export class ChatComponent implements OnInit {
   @ViewChild('messageList') private elementRef: ElementRef;
   @Input() loggedInUser: UserInfoOpen;
+  @Input() totalMessages: number;
   newMessagesSeenCount: number;
   oldMessagesSeenCount = 0;
   messages;
@@ -28,9 +29,15 @@ export class ChatComponent implements OnInit {
         if (this.messagesSubscription) this.messagesSubscription.unsubscribe();
         this.messagesSubscription = this.chatSvc.getMessagesByKey(key).subscribe(messages => {
           this.messages = messages;
-          this.updateMessagesSeenAndTotalMessages(this.loggedInUser.$key, this.messages.length);
+          //this.updateMessagesSeenAndTotalMessages(this.loggedInUser.$key, this.messages.length);
           this.chatSvc.getMessagesSeenCount(this.loggedInUser.$key).subscribe(messagesSeen => {
             this.newMessagesSeenCount = messagesSeen.messagesSeenCount;
+            // This gets called a million times...
+            this.chatSvc.shouldUpdateSeenCount$.subscribe(iShould => {
+              //  this gets called repeatedly...
+              if (iShould)
+                this.updateMessagesSeenAndTotalMessages(this.loggedInUser.$key, this.messages.length);
+            });
           })
         });
       }
@@ -47,8 +54,11 @@ export class ChatComponent implements OnInit {
   }
 
   updateMessagesSeenAndTotalMessages(user, totalMessages) {
-    this.chatSvc.updateMessagesSeenCount(user, totalMessages);
-    this.chatSvc.updateTotalMessagesCount(totalMessages);
+    if ((this.newMessagesSeenCount != totalMessages))
+      this.chatSvc.updateMessagesSeenCount(user, totalMessages);
+    if (this.totalMessages != totalMessages)
+      //  Even with that check, this may be getting called several times by each client connected to the chat!!!
+      this.chatSvc.updateTotalMessagesCount(totalMessages);
   }
 
   scrollToBottom() {

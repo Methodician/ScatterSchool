@@ -26,9 +26,17 @@
     right: 289px;
   }
 
+  &.unread {
+    right: 5px;
+    mat-icon {
+      margin-right: 0px;
+    }
+  }
+
   mat-icon {
     margin-top: 5px;
     margin-right: 23px;
+    -webkit-transition: margin-right .2s;
   }
 }
 
