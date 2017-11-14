@@ -1,7 +1,7 @@
 // This is a SCSS file but all of calls are currently vanilla CSS
 // imports for the variable and mixin files found within the sass-variables-mixins folder
-@import "../../../sass-variables-mixins/vars.scss";
-@import "../../../sass-variables-mixins/mixins.scss";
+@import "../../../sass-variables-mixins/vars";
+@import "../../../sass-variables-mixins/mixins";
 h1 {
   @include font-size(60px);
   color: $primary-color;
