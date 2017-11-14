@@ -35,11 +35,7 @@ export class UserListComponent implements OnInit {
     return user.alias ? user.alias : user.fName;
   }
 
-  calculateUnreadMessages(chat) {
-    const totalMessages = chat.totalMessagesCount;
-    const messagesSeen = chat.members[this.loggedInUser.$key].messagesSeenCount;
-    return (totalMessages === messagesSeen) ? true : false;
-  }
+
 
   getProfileImageUrl(userKey: string) {
     return this.userSvc.getProfileImageUrl(userKey);

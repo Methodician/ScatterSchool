@@ -26,4 +26,22 @@ export class ChatListComponent implements OnInit {
     }
     return memberNames.substr(0, memberNames.length - 2);
   }
+
+  calculateUnreadMessages(chat) {
+    const totalMessages = chat.totalMessagesCount;
+    const messagesSeen = chat.members[this.loggedInUser.$key].messagesSeenCount;
+    return totalMessages === messagesSeen;
+  }
+
+  hasUnreadMessages(chat) {
+    return chat.totalMessagesCount !== chat.members[this.loggedInUser.$key].messagesSeenCount;
+  }
+
+  unreadMessagesCount(chat) {
+    return chat.totalMessagesCount - chat.members[this.loggedInUser.$key].messagesSeenCount;
+  }
+
+  userCount(chat) {
+    return Object.keys(chat.members).length - 1;
+  }
 }

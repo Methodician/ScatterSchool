@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { UserService } from 'app/shared/services/user/user.service';
 import { ChatService } from 'app/shared/services/chat/chat.service';
 import { UserInfoOpen } from 'app/shared/class/user-info';
+import { Chat } from 'app/shared/class/chat';
 
 @Component({
   selector: 'user-interaction',
@@ -9,12 +10,14 @@ import { UserInfoOpen } from 'app/shared/class/user-info';
   styleUrls: ['./user-interaction.component.scss']
 })
 export class UserInteractionComponent implements OnInit {
-  @ViewChild("chatTabs") chatTabs;
+  @ViewChild("uiTabs") uiTabs;
+  selectedTab: string;
   loggedInUser: UserInfoOpen;
   chatList;
   userList;
   chatSubscription;
-  currentChat;
+  currentChat: Chat;
+  unreadMessages: boolean = false;
   windowExpanded = false;
   constructor(
     private userSvc: UserService,
@@ -25,25 +28,36 @@ export class UserInteractionComponent implements OnInit {
     this.userSvc.userInfo$.subscribe(user => {
       this.loggedInUser = user;
       if (user) {
-        this.chatSvc.getUserChatKeys(user.$key).subscribe(userChatKeys => {
-          if (userChatKeys.length == 0) {
-            this.userSvc.getUserList().subscribe(userList => {
-              this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
-            });
-            this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
-              this.chatList = chatList;
-            });
-          } else {
-            this.chatSvc.getChatsByUserKey(user.$key).subscribe(chatList => {
-              this.chatList = chatList;
-              this.userSvc.getUserList().subscribe(userList => {
-                this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
-              });
-            });
-          }
-        })
+        this.initializeChats(user.$key);
       }
     });
+    this.openCurrentChat();
+    this.chatSvc.userInteractionTabSelected$.subscribe(selectedTabIndex => {
+      this.setCurrentTab(selectedTabIndex);
+    })
+  }
+
+  initializeChats(userKey: string) {
+    this.chatSvc.getUserChatKeys(userKey).subscribe(userChatKeys => {
+      if (userChatKeys.length == 0) {
+        this.userSvc.getUserList().subscribe(userList => {
+          this.userList = userList.filter(user => userKey != this.loggedInUser.$key);
+        });
+        this.chatSvc.getChatsByUserKey(userKey).subscribe(chatList => {
+          this.chatList = chatList.reverse();
+          this.checkUnreadMessages();
+        });
+      } else {
+        this.chatSvc.getChatsByUserKey(userKey).subscribe(chatList => {
+          this.chatList = chatList.reverse();
+          this.checkUnreadMessages();
+          this.getUserList();
+        });
+      }
+    })
+  }
+
+  openCurrentChat() {
     this.chatSvc.currentChatKey$.subscribe(key => {
       if (key) {
         if (this.chatSubscription) this.chatSubscription.unsubscribe();
@@ -52,6 +66,17 @@ export class UserInteractionComponent implements OnInit {
         });
       }
     });
+  }
+
+  tabSelected($e) {
+    this.chatSvc.selectUserInteractionTab($e.index);
+  }
+
+  checkUnreadMessages() {
+    this.unreadMessages = !this.chatList.every(chat => {
+      return chat.totalMessagesCount === chat.members[this.loggedInUser.$key].messagesSeenCount
+    })
+    this.chatSvc.unreadMessages$.next(this.unreadMessages);
   }
 
   handleRequest(request) {
@@ -85,23 +110,32 @@ export class UserInteractionComponent implements OnInit {
     (existingChat) ? this.openChat(existingChat.$key) : this.createChat(userArray);
   }
 
-  openTab(tabName) {
-    switch (tabName) {
-      case 'chats':
-        this.chatTabs.selectedIndex = 1;
-        return;
-      case 'messages':
-        this.chatTabs.selectedIndex = 2;
-        return;
-      case 'users':
-      default:
-        this.chatTabs.selectedIndex = 0;
-        return;
-    }
+  setCurrentTab(tabIndex: number) {
+    //  Enums get reverse mapping. Cool! So UITabs[1] is 'chats' and UITabs['chats'] is 1
+    this.selectedTab = UITabs[tabIndex];
+  }
+
+  openTab(tabName: string) {
+    this.uiTabs.selectedIndex = UITabs[tabName];
+    // switch (tabName) {
+    //   case 'chats':
+    //     this.chatTabs.selectedIndex = 1;
+    //     return;
+    //   case 'messages':
+    //     this.chatTabs.selectedIndex = 2;
+    //     return;
+    //   case 'users':
+    //   default:
+    //     this.chatTabs.selectedIndex = 0;
+    //     return;
+    // }
   }
 
   toggleWindow() {
     this.windowExpanded = !this.windowExpanded;
+    if (this.windowExpanded && this.unreadMessages && (this.selectedTab != 'messages'))
+      this.openTab('chats');
+    this.chatSvc.toggleUserInteractionWindow(this.windowExpanded);
   }
 
   //note: code is intentionally verbose, can be shortened if necessary
@@ -136,4 +170,16 @@ export class UserInteractionComponent implements OnInit {
       }
     });
   }
+
+  getUserList() {
+    this.userSvc.getUserList().subscribe(userList => {
+      this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
+    });
+  }
+}
+
+export enum UITabs {
+  'users' = 0,
+  'chats' = 1,
+  'messages' = 2
 }

@@ -5,15 +5,9 @@ mat-card,
 .mat-card {
   @include size(90px, 98%);
   margin-bottom: 20px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
   justify-content: flex-start;
   border-radius: 5px;
   padding: 0;
@@ -24,26 +18,15 @@ mat-card,
   }
   img {
     @include size(90px, 90px);
-    -o-object-fit: cover;
     object-fit: cover;
-    -o-object-position: center;
     object-position: center;
     margin-right: 50px;
   }
   .contentWrapper {
     @include size(90px, 800px);
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
     justify-content: center;
-    -webkit-box-align: start;
-    -ms-flex-align: start;
     align-items: flex-start;
     mat-card-header {
       .titleWrapper {
@@ -88,7 +71,6 @@ mat-card,
   }
   mat-card-content,
   .mat-card-content {
-    -ms-flex-item-align: start;
     align-self: flex-start;
     margin-bottom: 0 !important;
     p {
@@ -103,8 +85,6 @@ mat-card,
     }
   }
   .contentSpacer {
-    -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
     flex: 1 1 auto;
   }
   mat-card-actions {
@@ -112,24 +92,12 @@ mat-card,
     margin-left: 0px !important;
     margin-right: 0px !important;
     padding-top: 0px !important;
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: distribute;
     justify-content: space-around;
     div {
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-orient: horizontal;
-      -webkit-box-direction: normal;
-      -ms-flex-direction: row;
       flex-direction: row;
-      -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
       justify-content: space-around;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
       align-items: center;
       margin-right: 10px;
       @media only screen and (max-width: 940px) {
