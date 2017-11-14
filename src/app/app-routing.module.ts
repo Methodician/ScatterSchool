@@ -1,5 +1,5 @@
 //  This could be broken out into a more modular approach
-import { FirestoreTestingComponent } from './firestore-testing/firestore-testing.component';
+import { FirestoreTestingComponent } from 'app/components/general/firestore-testing/firestore-testing.component';
 import { ArticleHistoryComponent } from 'app/components/articles/article-history/article-history.component';
 import { AuthGuard } from 'app/shared/routing/guards/auth.guard';
 import { UploadFormComponent } from 'app/components/shared/upload-form/upload-form.component';

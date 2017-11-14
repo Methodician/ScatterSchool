@@ -1,10 +1,10 @@
 import { AuthGuard } from 'app/shared/routing/guards/auth.guard';
-import { FirestoreTestingService } from './firestore-testing.service';
+import { FirestoreTestingService } from 'app/shared/services/firestore/firestore-testing.service';
 import { MatButtonModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule, MatTooltipModule, MatTabsModule } from '@angular/material';
 import { UploadService } from 'app/shared/services/upload/upload.service';
 import { Upload } from 'app/shared/class/upload';
 import { CharacterCounterComponent } from 'app/components/shared/character-counter/character-counter.component';
-import { DataCleanupService } from './data-cleanup.service';
+import { DataCleanupService } from 'app/shared/services/firestore/data-cleanup.service';
 import { fbConfig, fbConfigDev } from './config';
 import { AppRoutingModule } from './app-routing.module';
 import { UserService } from 'app/shared/services/user/user.service';
@@ -82,7 +82,7 @@ import { ArticleHistoryComponent } from 'app/components/articles/article-history
 import { ArticleHistoryDetailComponent } from 'app/components/articles/article-history-detail/article-history-detail.component';
 import { UserInteractionComponent } from 'app/components/user-interaction/user-interaction/user-interaction.component';
 import { ChatListComponent } from 'app/components/user-interaction/chat-list/chat-list.component';
-import { FirestoreTestingComponent } from './firestore-testing/firestore-testing.component';
+import { FirestoreTestingComponent } from 'app/components/general/firestore-testing/firestore-testing.component';
 
 
 @NgModule({
