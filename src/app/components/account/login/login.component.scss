@@ -14,14 +14,20 @@ button {
   @include large-button();
 }
 
-.loginWrapper {
-  height: 100%;
+.loginContainer {
+  min-height: calc(100vh - 248px);
   width: 95%;
   margin-left: 2.5%;
-  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginForm {
+  width: 700px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   @include font-styles();
 }
@@ -30,7 +36,7 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 700px; // margin: 0 auto;
+  width: 100%;
   mat-form-field {
     margin-top: 20px;
     width: 100%;
@@ -39,21 +45,23 @@ button {
 }
 
 .buttonWrapper {
-  width: 500px;
   display: flex;
   justify-content: center;
-  margin: 0 auto;
+  margin-top: 50px;
   button {
     color: white;
     font-size: 20px;
   }
 }
-
+//Media queries
 @media only screen and (max-width:768px) {
-  .formWrapper {
-    width: 80%;
+  .LoginForm {
+    width: 400px;
   }
-  .buttonWrapper {
-    width: 80%;
+}
+
+@media only screen and (max-width:568px) {
+  .LoginForm {
+    width: 250px;
   }
 }
