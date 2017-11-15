@@ -8,15 +8,8 @@
 .heroBgColor {
   @include size(300px, 100%);
   background-color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
   justify-content: flex-end;
   text-align: center;
   h1 {
@@ -88,13 +81,8 @@
     .featuredOptions {
       height: 100%;
       width: 100%;
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
       justify-content: space-between;
-      -ms-flex-line-pack: center;
       align-content: center;
       color: white;
       h2 {
@@ -110,13 +98,8 @@
       }
       .iconWrapper {
         width: 75px;
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
-        -ms-flex-pack: distribute;
         justify-content: space-around;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
         align-items: center;
         mat-icon {
           cursor: pointer;
@@ -126,16 +109,10 @@
     }
     .grid {
       @include size(100%, 100%);
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
       justify-content: space-between;
-      -ms-flex-wrap: wrap;
       flex-wrap: wrap;
       @media only screen and (max-width: 1030px) {
-        -ms-flex-pack: distribute;
         justify-content: space-around;
       }
     }
@@ -144,14 +121,8 @@
     width: 95%;
     margin-left: 2.5%;
     .article-options {
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
       justify-content: space-between;
-      -webkit-box-align: center;
-      -ms-flex-align: center;
       align-items: center;
       margin-top: 20px;
       .header-style {
@@ -159,14 +130,8 @@
         @include font-size(30px);
         color: white;
         cursor: pointer;
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
-        -webkit-box-pack: justify;
-        -ms-flex-pack: justify;
         justify-content: space-between;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
         align-items: center;
         h2 {
           margin-right: 50px;
@@ -189,13 +154,8 @@
       .allViewToggle {
         color: white;
         width: 75px;
-        display: -webkit-box;
-        display: -ms-flexbox;
         display: flex;
-        -ms-flex-pack: distribute;
         justify-content: space-around;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
         align-items: center;
         mat-icon {
           cursor: pointer;
@@ -205,41 +165,12 @@
     }
     .grid {
       @include size(100%, 100%);
-      display: -webkit-box;
-      display: -ms-flexbox;
       display: flex;
-      -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
       justify-content: space-between;
-      -ms-flex-wrap: wrap;
       flex-wrap: wrap;
       @media only screen and (max-width: 1030px) {
-        -ms-flex-pack: distribute;
         justify-content: space-around;
       }
     }
   }
 }
-
-// .article-options {
-//     display: flex;
-//     justify-content: flex-start;
-//     margin-top: 20px;
-//     .header-style {
-//         font-family: STHeitiSC-Light;
-//         color: #31C2D7;
-//         letter-spacing: 0.5px;
-//         font-size: 30px;
-//         margin-left: 2.5%;
-//         cursor: pointer;
-//     }
-//     .activeArticleState {
-//         color: #C4275F;
-//         text-decoration: underline;
-//     }
-// }
-// .allArticleWrapper {
-//     width: 95%;
-//     margin-left: 2.5%;
-//     margin-top: 25px;
-// }
