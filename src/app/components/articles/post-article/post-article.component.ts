@@ -4,6 +4,9 @@ import { Router } from '@angular/router';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Upload } from 'app/shared/class/upload';
+import { UserService } from 'app/shared/services/user/user.service';
+import { UserInfoOpen } from 'app/shared/class/user-info';
+import { FirestoreArticleService } from 'app/shared/services/article/firestore-article.service';
 
 @Component({
   selector: 'app-post-article',
@@ -12,18 +15,24 @@ import { Upload } from 'app/shared/class/upload';
 })
 export class PostArticleComponent implements OnInit {
   authInfo = null;
+  userInfo: UserInfoOpen = null;
   article: any;
   selectedFiles;
 
   constructor(
     private articleSvc: ArticleService,
+    private fsArticleSvc: FirestoreArticleService,
     private router: Router,
     private authSvc: AuthService,
+    private userSvc: UserService,
     private uploadSvc: UploadService
   ) {
     authSvc.authInfo$.subscribe(info => {
       this.authInfo = info;
     });
+    userSvc.userInfo$.subscribe(user => {
+      this.userInfo = user;
+    })
   }
 
   ngOnInit() {
@@ -31,11 +40,16 @@ export class PostArticleComponent implements OnInit {
   }
 
   save(article) {
-    const articleKey = this.articleSvc.createNewArticle(this.authInfo.$uid, article);
-    if (this.selectedFiles) {
-      this.sendImgToUploadSvc(articleKey);
-    }
-    this.router.navigate([`articledetail/${articleKey}`]);
+    return this.fsArticleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article).then(articleId => {
+      if (this.selectedFiles) {
+        this.sendImgToUploadSvc(articleId);
+      }
+    });
+    // const articleKey = this.articleSvc.createNewArticle(this.authInfo.$uid, article);
+    // if (this.selectedFiles) {
+    //   this.sendImgToUploadSvc(articleKey);
+    // }
+    // this.router.navigate([`articledetail/${articleKey}`]);
   }
 
   sendImgToUploadSvc(articleKey) {

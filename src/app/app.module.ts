@@ -83,6 +83,7 @@ import { ArticleHistoryDetailComponent } from 'app/components/articles/article-h
 import { UserInteractionComponent } from 'app/components/user-interaction/user-interaction/user-interaction.component';
 import { ChatListComponent } from 'app/components/user-interaction/chat-list/chat-list.component';
 import { FirestoreTestingComponent } from 'app/components/general/firestore-testing/firestore-testing.component';
+import { FirestoreArticleService } from 'app/shared/services/article/firestore-article.service';
 
 
 @NgModule({
@@ -178,6 +179,7 @@ import { FirestoreTestingComponent } from 'app/components/general/firestore-test
     AuthService,
     UserService,
     ArticleService,
+    FirestoreArticleService,
     DataCleanupService,
     UploadService,
     SuggestionService,
