@@ -14,4 +14,9 @@ export class UserInfoOpen {
     displayName() {
         return this.alias ? this.alias : this.fName;
     }
+
+    // returns true if $key or uid contains a truthy value (is neither null nor an empty string)
+    exists() {
+        return !!(this.$key || this.uid)
+    }
 }

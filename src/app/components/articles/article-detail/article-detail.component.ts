@@ -52,7 +52,7 @@ export class ArticleDetailComponent implements OnInit {
       this.getProfileImage(this.articleData.authorKey);
     }
     this.userSvc.userInfo$.subscribe(user => {
-      if (user) {
+      if (user.exists()) {
         this.user = user;
         this.checkIfBookmarked();
       }

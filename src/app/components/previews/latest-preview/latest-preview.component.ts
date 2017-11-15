@@ -32,7 +32,7 @@ export class LatestPreviewComponent implements OnInit {
       if (author.$key) this.getProfileImage(author.$key);
     });
     this.userSvc.userInfo$.subscribe(user => {
-      if (user) {
+      if (user.exists()) {
         this.user = user;
         this.checkIfBookmarked();
       }
