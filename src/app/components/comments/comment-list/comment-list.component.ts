@@ -18,12 +18,14 @@ export class CommentListComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userSvc.userInfo$.subscribe(userInfo => {
-      this.currentUserInfo = userInfo;
-    });
 
-    this.commentSvc.getCommentsByParentKey(this.parentKey).subscribe(comments => {
-      this.comments = comments
-    });
+    if (this.parentKey) {
+      this.userSvc.userInfo$.subscribe(userInfo => {
+        this.currentUserInfo = userInfo;
+      });
+      this.commentSvc.getCommentsByParentKey(this.parentKey).subscribe(comments => {
+        this.comments = comments
+      });
+    }
   }
 }

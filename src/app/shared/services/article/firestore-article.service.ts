@@ -11,6 +11,14 @@ export class FirestoreArticleService {
     private afs: AngularFirestore
   ) { }
 
+  getArticleById(articleId: string) {
+    return this.afs.doc(`articleData/articles/articles/${articleId}`);
+  }
+
+  getArticleBodyById(bodyId: string) {
+    return this.afs.doc(`articleData/bodies/active/${bodyId}`);
+  }
+
   createNewArticle(author: UserInfoOpen, authorId: string, article: any) {
     let newArticle: any = {
       title: article.title,
@@ -19,8 +27,8 @@ export class FirestoreArticleService {
       version: 1,
       authorId: authorId,
       commentCount: 0,
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+      timestamp: this.fsServerTimestamp(),
+      lastUpdated: this.fsServerTimestamp()
     }
     return this.addArticleBody(article.body).then(bodyDoc => {
       const bodyId: string = bodyDoc.id;
@@ -32,11 +40,16 @@ export class FirestoreArticleService {
           name: author.displayName(),
           // TODO: profileImageUrl: author.profileImageUrl
         }).then(editorDoc => {
-          return articleId;
+          return this.addEditedArticleToUser(authorId, articleId).then(() => {
+            return this.addAuthoredArticleToUser(authorId, articleId).then(() => {
+              return articleId;
+            }).catch(err => alert('Trouble adding article authored event to user' + err))
+          }).catch(err => alert('Trouble adding article edit event to user' + err))
         }).catch(err => alert('Trouble saving article author' + err));
       }).catch(err => alert('Trouble saving article' + err));
     }).catch(err => alert('Trouble saving article body' + err));
   }
+
 
   addArticleBody(body: any) {
     let bodyCollectionRef = this.afs.collection('articleData').doc('bodies').collection('active');
@@ -53,21 +66,23 @@ export class FirestoreArticleService {
   }
 
   addEditedArticleToUser(userId: string, articleId: string) {
-    let docRef = this.afs.collection('userData').doc(userId).collection('articlesEdited').doc('articleId');
+    let docRef = this.afs.collection('userData').doc(userId).collection('articlesEdited').doc(articleId);
     return docRef.set({
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      timestamp: this.fsServerTimestamp(),
       articleId: articleId
     });
   }
 
   addAuthoredArticleToUser(userId: string, articleId: string) {
-    let docRef = this.afs.collection('userData').doc(userId).collection('articlesAuthored').doc('articleId');
+    let docRef = this.afs.collection('userData').doc(userId).collection('articlesAuthored').doc(articleId);
     return docRef.set({
-      timestamp: firebase.database.ServerValue.TIMESTAMP,
+      timestamp: this.fsServerTimestamp(),
       articleId: articleId
     });
   }
 
-
+  fsServerTimestamp() {
+    return firebase.firestore.FieldValue.serverTimestamp();
+  }
 
 }
