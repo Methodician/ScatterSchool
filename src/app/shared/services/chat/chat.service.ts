@@ -98,18 +98,24 @@ export class ChatService {// maybe should be renamed to UserInteractionService
   }
 
   createChat(users) {
-    let dbChatsRef = this.getAllChats();
+    let dbChatsRef = this.db.list("chatData/chats");
     let chatKey = dbChatsRef.push({ timestamp: firebase.database.ServerValue.TIMESTAMP }).key;
 
-    this.currentChatKey = chatKey;
-    this.currentChatKey$.next(chatKey);
+    let updateObject = {};
+    let memberObject = {};
 
     for (let user of users) {
       let displayName = user.alias ? user.alias : user.fName;
-      this.db.object(`chatData/chats/${chatKey}/members/${user.$key}`).update({ name: displayName, messagesSeenCount: 0 });
-      this.db.object(`chatData/chatsPerMember/${user.$key}/${chatKey}`).set(true);
-      this.db.object(`chatData/membersPerChat/${chatKey}/${user.$key}`).update({ name: displayName });
+      updateObject[`members/${user.$key}/name`] = displayName;
+      updateObject[`members/${user.$key}/messagesSeenCount`] = 0;
+      memberObject[`${user.$key}/${chatKey}`] = true;
     }
+  
+    this.db.object(`chatData/chats/${chatKey}`).update(updateObject);
+    this.db.object(`chatData/chatsPerMember`).update(memberObject);
+  
+    this.openChat(chatKey);
+
   }
 
   openChat(chatKey: string) {

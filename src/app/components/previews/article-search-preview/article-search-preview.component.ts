@@ -32,7 +32,7 @@ export class ArticleSearchPreviewComponent implements OnInit {
       this.author = author;
     });
     this.userSvc.userInfo$.subscribe(user => {
-      if (user) {
+      if (user.exists()) {
         this.user = user;
         this.checkIfBookmarked();
       }
