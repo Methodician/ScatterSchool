@@ -27,7 +27,7 @@ export class UserInteractionComponent implements OnInit {
   ngOnInit() {
     this.userSvc.userInfo$.subscribe(user => {
       this.loggedInUser = user;
-      if (user) {
+      if (user.exists()) {
         this.initializeChats(user.$key);
       }
     });
@@ -41,7 +41,7 @@ export class UserInteractionComponent implements OnInit {
     this.chatSvc.getUserChatKeys(userKey).subscribe(userChatKeys => {
       if (userChatKeys.length == 0) {
         this.userSvc.getUserList().subscribe(userList => {
-          this.userList = userList.filter(user => userKey != this.loggedInUser.$key);
+          this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
         });
         this.chatSvc.getChatsByUserKey(userKey).subscribe(chatList => {
           this.chatList = chatList.reverse();
