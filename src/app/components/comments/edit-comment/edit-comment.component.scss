@@ -1,0 +1,7 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../../../sass-variables-mixins/vars.scss";
+@import "../../../sass-variables-mixins/mixins.scss";
+button {
+  @include medium-button();
+  color: white !important;
+}

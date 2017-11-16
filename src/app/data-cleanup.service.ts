@@ -11,7 +11,7 @@ export class DataCleanupService {
   articleNodeIdToKey() {
     return this.db.list('articleData/articles').subscribe(articles => {
       for (let article of articles) {
-        console.log(article);
+        //console.log(article);
         if (article.bodyId) {
           article.bodyKey = article.bodyId;
           delete (article.bodyId);
@@ -22,7 +22,7 @@ export class DataCleanupService {
           delete (article.authorId);
         }
 
-        console.log(article);
+        //console.log(article);
         this.db.object(`articleData/articles/${article.$key}`).set(article);
       }
     });

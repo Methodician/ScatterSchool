@@ -1,0 +1,26 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../../../sass-variables-mixins/vars.scss";
+@import "../../../sass-variables-mixins/mixins.scss";
+.editWrapper {
+  font-family: STHeitiSC-Light;
+  width: 500px;
+  margin: 0 auto;
+  h3 {
+    color: #31C2D7;
+    margin-bottom: 40px;
+  }
+  .btnWrapper {
+    display: flex;
+    justify-content: center;
+  }
+  button {
+    @include medium-button();
+  }
+}
+
+@media only screen and (max-width:768px) {
+  .editWrapper {
+    width: 95%;
+    margin-top: 90px;
+  }
+}

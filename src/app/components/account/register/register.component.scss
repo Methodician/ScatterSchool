@@ -1,0 +1,61 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../../../sass-variables-mixins/vars.scss";
+@import "../../../sass-variables-mixins/mixins.scss";
+.registerContainer {
+  //border: $tb-red;
+  min-height: calc(100vh - 248px);
+  width: 95%;
+  margin-left: 2.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.registerForm {
+  @include font-styles();
+
+  .titleWrapper {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    h1 {
+      font-size: 50px;
+      color: $primary-color;
+      cursor: default;
+      margin-bottom: 20px;
+      @include font-styles();
+    }
+  }
+  .formWrapper {
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .columnOne {
+    width: 90%;
+    mat-form-field {
+      width: 100%;
+      margin-top: 10px;
+      font-size: 20px;
+    }
+  }
+  .columnTwo {
+    width: 90%;
+    mat-form-field {
+      margin-top: 10px;
+      width: 100%;
+      font-size: 20px;
+    }
+  }
+  .buttonWrapper {
+    margin: 50px 0;
+    display: flex;
+    justify-content: center;
+    button {
+      @include large-button();
+      width: 150px;
+    }
+  }
+}

@@ -1,0 +1,46 @@
+h3 {
+  color: #31C2D7;
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+input {
+  font-size: 18px;
+}
+
+h2 {
+  color: #243237;
+  font-size: 36.8px;
+  font-size: 2.3rem;
+  font-weight: 200;
+  font-family: STHeitiSC-Light;
+  margin-bottom: 20px;
+}
+
+.upload-wrapper {
+  font-family: STHeitiSC-Light;
+  width: 500px;
+  margin: 0 auto;
+  .image-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .imageDisplay {
+    width: 250px;
+    height: 250px;
+    margin-bottom: 20px;
+    border: 1px solid #263237;
+    object-fit: cover;
+  }
+}
+
+@media only screen and (max-width:768px) {
+  input {
+    width: 100%;
+  }
+  .upload-wrapper{
+    width: 95%;
+    margin: 0 auto;
+  }
+}

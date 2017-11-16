@@ -1,0 +1,50 @@
+@import "../../../sass-variables-mixins/vars.scss";
+@import "../../../sass-variables-mixins/mixins.scss";
+#chat {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 450px;
+  #message-list {
+    flex: 2;
+    overflow-y: scroll;
+    mat-card {
+      margin: 5px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      mat-card-header {
+        display: flex;
+        .profile-image {
+          background-image: url('../../../../assets/images/kid-art.jpg');
+          background-size: cover;
+        }
+        .authorContainer {
+          margin-left: 10px;
+          width: 100%;
+          mat-card-title {
+            margin-bottom: 10px !important;
+          }
+          mat-card-subtitle {
+            margin-bottom: 0px !important;
+            margin-top: 0px !important;
+          }
+        }
+      }
+      mat-card-content {
+        margin-top: 10px;
+        overflow-wrap: break-word;
+        width: 100%;
+        p {
+          white-space: pre-wrap;
+        }
+      }
+    }
+  }
+  #chat-form {
+    min-height: 85px;
+    width: 100%;
+    background-color: $light-gray;
+    box-shadow: 0px -2px 6px -3px $medium-gray;
+  }
+}

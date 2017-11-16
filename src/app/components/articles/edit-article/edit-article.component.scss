@@ -1,0 +1,21 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../../../sass-variables-mixins/vars.scss";
+@import "../../../sass-variables-mixins/mixins.scss";
+.wrapper {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-around;
+}
+
+.editPreview {
+  @include size(30px, 100%);
+  text-align: center;
+  background-color: $accent-color;
+  opacity: .5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  @include font-size(22px);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

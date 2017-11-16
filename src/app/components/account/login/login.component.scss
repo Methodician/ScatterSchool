@@ -1,0 +1,67 @@
+// This is a SCSS file but all of calls are currently vanilla CSS
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../../../sass-variables-mixins/vars";
+@import "../../../sass-variables-mixins/mixins";
+h1 {
+  @include font-size(60px);
+  color: $primary-color;
+  cursor: default;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+button {
+  @include large-button();
+}
+
+.loginContainer {
+  min-height: calc(100vh - 248px);
+  width: 95%;
+  margin-left: 2.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginForm {
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  @include font-styles();
+}
+
+.formWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  mat-form-field {
+    margin-top: 20px;
+    width: 100%;
+    font-size: 20px;
+  }
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 50px;
+  button {
+    color: white;
+    font-size: 20px;
+  }
+}
+//Media queries
+@media only screen and (max-width:768px) {
+  .LoginForm {
+    width: 400px;
+  }
+}
+
+@media only screen and (max-width:568px) {
+  .LoginForm {
+    width: 250px;
+  }
+}
