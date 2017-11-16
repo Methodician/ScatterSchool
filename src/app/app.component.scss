@@ -3,7 +3,7 @@
 @import "/sass-variables-mixins/vars.scss";
 @import "/sass-variables-mixins/mixins.scss";
 
-.navContainer {
+#navContainer {
   background-color: white;
   @include size(170px, 100%);
   overflow-x: hidden;

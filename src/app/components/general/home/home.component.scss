@@ -10,47 +10,23 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
+  align-items: center;
   text-align: center;
   h1 {
-    @include font-size(70px);
+    @include font-size(68px);
     @include font-styles();
     color: $dark-gray;
   }
   h2 {
-    @include font-size(36px);
+    @include font-size(28px);
     @include font-styles();
     color: $dark-gray;
-    padding: 0px 30px;
-    margin-bottom: 50px;
-  } // media queries for responsive hero text
-  @media only screen and (max-width:1620px) {
-    h1 {
-      @include font-size(58px);
-    }
-    h2 {
-      @include font-size(36px);
-    }
   }
-  @media only screen and (max-width:1340px) {
-    h1 {
-      @include font-size(50px);
-    }
-    h2 {
-      @include font-size(30px);
-    }
-  }
-  @media only screen and (max-width:1200px) {
-    h1 {
-      @include font-size(40px);
-    }
-    h2 {
-      @include font-size(28px);
-    }
-  }
+  // media queries for responsive hero text
   @media only screen and (max-width:980px) {
     h1 {
-      @include font-size(36px);
+      @include font-size(52px);
     }
     h2 {
       @include font-size(20px);
@@ -58,17 +34,25 @@
   }
   @media only screen and (max-width:700px) {
     h1 {
-      @include font-size(30px);
+      @include font-size(42px);
     }
     h2 {
       @include font-size(18px);
+    }
+  }
+  @media only screen and (max-width:568px) {
+    h1 {
+      @include font-size(32px);
+    }
+    h2 {
+      @include font-size(14px);
     }
   }
 }
 
 @media only screen and (max-width:1200px) {
   .heroBgColor {
-    height: 200px;
+    height: 250px;
   }
 }
 

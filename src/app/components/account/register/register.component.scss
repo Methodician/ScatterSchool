@@ -1,16 +1,18 @@
 // imports for the variable and mixin files found within the sass-variables-mixins folder
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
-.registerWrapper {
-  height: 100%;
+.registerContainer {
+  //border: $tb-red;
+  min-height: calc(100vh - 248px);
   width: 95%;
-  margin: 0 auto;
-  margin-top: 50px;
+  margin-left: 2.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.registerForm {
   @include font-styles();
-  @media only screen and (max-width: 900px) {
-    margin-top: 0px;
-    min-height: 800px;
-  }
+
   .titleWrapper {
     margin: 0 auto;
     display: flex;
@@ -24,58 +26,36 @@
     }
   }
   .formWrapper {
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
   }
   .columnOne {
-    width: 600px;
-    margin-right: 40px;
-    @media only screen and (max-width: 900px) {
-      width: 350px;
-      margin-right: 0;
-    }
+    width: 90%;
     mat-form-field {
       width: 100%;
       margin-top: 10px;
       font-size: 20px;
-      @media only screen and (max-width: 900px) {
-        @include font-size(14px);
-      }
     }
   }
   .columnTwo {
-    width: 600px;
-    @media only screen and (max-width: 900px) {
-      width: 350px;
-      margin-left: 0;
-    }
+    width: 90%;
     mat-form-field {
       margin-top: 10px;
       width: 100%;
       font-size: 20px;
-      @media only screen and (max-width: 900px) {
-        @include font-size(14px);
-      }
     }
   }
   .buttonWrapper {
-    width: 150px;
+    margin: 50px 0;
     display: flex;
     justify-content: center;
-    margin: 0 auto;
     button {
-      @include medium-button();
+      @include large-button();
       width: 150px;
     }
-  }
-}
-
-@media only screen and (max-width:768px) {
-  .formWrapper {
-    width: 80%;
-    flex-direction: column;
-    align-items: center;
   }
 }
