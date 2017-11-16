@@ -111,11 +111,10 @@ export class ChatService {// maybe should be renamed to UserInteractionService
       memberObject[`${user.$key}/${chatKey}`] = true;
     }
   
-    this.db.database.ref().child(`chatData/chats/${chatKey}`).update(updateObject)
-    this.db.database.ref().child(`chatData/chatsPerMember`).update(memberObject)
+    this.db.object(`chatData/chats/${chatKey}`).update(updateObject);
+    this.db.object(`chatData/chatsPerMember`).update(memberObject);
   
-    this.currentChatKey = chatKey;
-    this.currentChatKey$.next(chatKey);
+    this.openChat(chatKey);
 
   }
 
