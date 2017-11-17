@@ -18,8 +18,8 @@ export class TimeElapsedPipe implements PipeTransform {
       case timeSince >= 2592000000:
         return "1 month ago"
       case timeSince >= 1209600000:
-        return `${Math.floor(timeSince / 6048000000)} weeks ago`
-      case timeSince >= 6048000000:
+        return `${Math.floor(timeSince / 604800000)} weeks ago`
+      case timeSince >= 604800000:
         return "1 week ago"
       case timeSince >= 172800000:
         return `${Math.floor(timeSince / 86400000)} days ago`
@@ -29,7 +29,7 @@ export class TimeElapsedPipe implements PipeTransform {
         return `${Math.floor(timeSince / 3600000)} hours ago`
       case timeSince >= 3600000:
         return "1 hour ago"
-      case timeSince >= 120000:
+      case timeSince >= 12000:
         return `${Math.floor(timeSince / 60000)} minutes ago`
       case timeSince >= 60000:
         return "1 minute ago"
