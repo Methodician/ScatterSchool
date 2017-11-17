@@ -42,7 +42,7 @@ export class UploadService {
         upload.size = snap.metadata.size;
         upload.type = snap.metadata.contentType;
         upload.name = snap.metadata.name;
-        upload.timeStamp = firebase.database.ServerValue.TIMESTAMP;
+        upload.timestamp = firebase.database.ServerValue.TIMESTAMP;
         upload.progress = null;
         // save metadata to live database
         this.saveImageData(upload, key, basePath);

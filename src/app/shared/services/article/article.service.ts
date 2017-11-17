@@ -99,7 +99,7 @@ export class ArticleService {
       tags: tagsObject,
       version: 1,
       authorKey: authorKey,
-      timeStamp: firebase.database.ServerValue.TIMESTAMP,
+      timestamp: firebase.database.ServerValue.TIMESTAMP,
       lastUpdated: firebase.database.ServerValue.TIMESTAMP
     }
 
@@ -250,7 +250,7 @@ export class ArticleService {
   getLatest() {
     return this.db.list('articleData/articles', {
       query: {
-        orderByChild: 'timeStamp',
+        orderByChild: 'timestamp',
         limitToLast: 12
       }
     }).map(articles => {

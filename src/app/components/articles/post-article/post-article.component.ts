@@ -43,6 +43,7 @@ export class PostArticleComponent implements OnInit {
     return this.fsArticleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article).then(articleId => {
       if (this.selectedFiles) {
         this.sendImgToUploadSvc(articleId);
+        this.router.navigate([`articledetail/${articleId}`]);
       }
     });
     // const articleKey = this.articleSvc.createNewArticle(this.authInfo.$uid, article);

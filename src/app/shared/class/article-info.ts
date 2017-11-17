@@ -4,7 +4,7 @@ export class ArticleDetailOpen {
         public title: string,
         public bodyId: string,
         public lastUpdated: number,
-        public timeStamp: number,
+        public timestamp: number,
         public version: number,
         public tags?: string[]
     ) { }
@@ -14,14 +14,30 @@ export class ArticleDetailFirestore {
     constructor(
         public authorId: string,
         public bodyId: string,
-        public commentCount: number,
+        public title: string,
         public introduction: string,
         public lastUpdated: Date,
-        public timeStamp: Date,
-        public title: string,
+        public timestamp: Date,
         public version: number,
+        public commentCount: number,
+        public viewCount: number,
+        public tags?: string[],
+        public body?: string,
+        public articleId?: string,
         public isFeatured?: boolean,
-        public tags?: string[]
+    ) { }
+}
+
+export class ArticleBodyFirestore {
+    constructor(
+        public body: string
+    ) { }
+}
+
+export class GlobalTag {
+    constructor(
+        public count: number,
+        public timestamp: Date
     ) { }
 }
 
