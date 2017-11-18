@@ -17,6 +17,10 @@ export class FirestoreArticleService {
     this.primeTags();
   }
 
+  getAllArticles() {
+    return this.afs.collection('articleData').doc('articles').collection('articles')
+  }
+
   getArticleById(articleId: string) {
     return this.afs.doc(`articleData/articles/articles/${articleId}`);
   }
@@ -33,6 +37,18 @@ export class FirestoreArticleService {
     return this.getArticleById(articleId).collection('history');
   }
 
+  getGlobalTags() {
+    return this.afs.doc('articleData/tags');
+  }
+
+  getArticlesEditedByUid(userId: string) {
+    return this.afs.collection('userData').doc(userId).collection('articlesEdited');
+  }
+
+  getArticlesAuthoredByUid(userId: string) {
+    return this.afs.collection('userData').doc(userId).collection('articlesAuthored');
+  }
+
   createNewArticle(author: UserInfoOpen, authorId: string, article: any) {
     let newArticle: any = this.newObjectFromArticle(article, authorId);
     //  Terribly un-atomic approach. Research needed on atomic Firestore updates.
@@ -47,7 +63,6 @@ export class FirestoreArticleService {
         return articleDoc.collection('editors').doc(authorId).set({
           editorId: authorId,
           name: author.displayName(),
-          // TODO: profileImageUrl: author.profileImageUrl
         }).then(editorDoc => {
           return this.addEditedArticleToUser(authorId, articleId).then(() => {
             return this.addAuthoredArticleToUser(authorId, articleId).then(() => {
@@ -68,8 +83,11 @@ export class FirestoreArticleService {
           return this.archiveArticle(oldArticle, articleId, editorId)
             .then((res: any) => {
               if (res) {
-                // res.unsubscribe();
                 this.addArticleBody(article.body).then(bodyDoc => {
+                  this.removeArticleBody(article.bodyId)
+                    .catch(err => {
+                      alert('There was a problem removing the article body that was archived. Please send a screenshot to the ScatterSchool dev team.' + err.toString());
+                    });
                   const bodyId = bodyDoc.id;
                   this.addEditorToArticle(articleId, editorId, editor, articleDoc)
                   const dbArticle: any = this.updateObjectFromArticle(article, articleId);
@@ -100,8 +118,13 @@ export class FirestoreArticleService {
     return bodyCollectionRef.add({ body });
   }
 
+  removeArticleBody(bodyId: string) {
+    let bodyCollectionRef = this.getArticleBodyById(bodyId);
+    return bodyCollectionRef.delete();
+  }
+
   addArticle(article: any) {
-    let articleCollectionRef = this.afs.collection('articleData').doc('articles').collection('articles');
+    let articleCollectionRef = this.getAllArticles();
     return articleCollectionRef.add(article)
   }
 
@@ -109,17 +132,19 @@ export class FirestoreArticleService {
     return articleDoc.collection('editors').doc(editorId).set({
       editorId: editorId,
       name: editor.displayName(),
-      // TODO: profileImageUrl: author.profileImageUrl
-    }).then(editorDoc => {
-      return this.addEditedArticleToUser(editorId, articleId).then(() => {
-        return articleId;
-      }).catch(err => alert('Trouble adding article edit event to user' + err.toString()))
-    }).catch(err => alert('Trouble saving article editor' + err.toString()))
-      .catch(err => alert('Trouble adding editor to article' + err.toString()));
+    })
+      .then(editorDoc => {
+        return this.addEditedArticleToUser(editorId, articleId)
+          .then(() => {
+            return articleId;
+          })
+          .catch(err => alert('Trouble adding article edit event to user' + err.toString()))
+      })
+      .catch(err => alert('Trouble saving article editor' + err.toString()));
   }
 
   addEditedArticleToUser(userId: string, articleId: string) {
-    let docRef = this.afs.collection('userData').doc(userId).collection('articlesEdited').doc(articleId);
+    let docRef = this.getArticlesEditedByUid(userId).doc(articleId);
     return docRef.set({
       timestamp: this.fsServerTimestamp(),
       articleId: articleId
@@ -127,7 +152,7 @@ export class FirestoreArticleService {
   }
 
   addAuthoredArticleToUser(userId: string, articleId: string) {
-    let docRef = this.afs.collection('userData').doc(userId).collection('articlesAuthored').doc(articleId);
+    let docRef = this.getArticlesAuthoredByUid(userId).doc(articleId);
     return docRef.set({
       timestamp: this.fsServerTimestamp(),
       articleId: articleId
@@ -141,62 +166,53 @@ export class FirestoreArticleService {
     return new Promise(resolve => {
       archiveRef.set(archiveObject)
         .then(() => {
-          let bodySub = bodyRef.valueChanges().first()
+          bodyRef.valueChanges().first()
             .subscribe((body: ArticleBodyFirestore) => {
               this.archiveArticleBody(body, oldArticle.bodyId, articleId, editorId, oldArticle.version)
                 .then((res) => {
-                  // if (archiveWasSuccessful)
                   resolve(true);
                 })
                 .catch(err => {
                   alert('trouble deleting old article body. Please take a screenshot and report to ScatterSchool team' + err.toString());
                   resolve(err);
-                })
-            })
+                });
+            });
         })
         .catch(err => {
+          alert('Trouble archiving the article. Please take a screenshot and report to scatterschool team' + err.toString());
           resolve(err);
-          alert('Trouble archiving the article. Please take a screenshot and report to scatterschool team' + err.toString()
-          )
-        }
-        );
-    })
-
+        });
+    });
   }
 
   archiveArticleBody(articleBody: ArticleBodyFirestore, bodyId: string, articleId: string, editorId: string, version: number) {
-    const bodyLogObject: any = {};
-    bodyLogObject.body = articleBody.body;
-    bodyLogObject.articleId = articleId;
-    bodyLogObject.version = version;
-    bodyLogObject.nextEditorId = editorId;
-    return this.afs.doc(`articleData/bodies/history/${bodyId}`).set(bodyLogObject);
+    const bodyLogObject: any = {
+      body: articleBody.body,
+      articleId: articleId,
+      version: version,
+      nextEditorId: editorId
+    };
+    return this.getArchivedArticleBodyById(bodyId).set(bodyLogObject);
   }
 
   processGlobalTags(newTags: string[], oldTags: string[], articleId) {
-    let deletedTags = [];
     if (newTags) {
       for (let tag of newTags) {
         if (!oldTags.includes(tag))
           this.addGlobalTag(tag);
       }
     }
-
     if (oldTags && oldTags.length > 0) {
       for (let tag of oldTags) {
         if (!newTags.includes(tag)) {
-          deletedTags.push(tag);
+          this.decrementGlobalTag(tag)
         }
       }
-    }
-
-    for (let tag of deletedTags) {
-      this.decrementGlobalTag(tag);
     }
   }
 
   addGlobalTag(tag: any) {
-    const tagsRef = this.afs.doc('articleData/tags');
+    const tagsRef = this.getGlobalTags();
     if (this.globalTags) {
       let gTag = this.globalTags[tag];
       if (gTag !== undefined) {
@@ -216,7 +232,7 @@ export class FirestoreArticleService {
   }
 
   decrementGlobalTag(tag: any) {
-    const tagsRef = this.afs.doc('articleData/tags');
+    const tagsRef = this.getGlobalTags();
     if (this.globalTags) {
       let gTag = this.globalTags[tag];
       if (gTag !== undefined && gTag.count > 1) {
@@ -268,7 +284,7 @@ export class FirestoreArticleService {
   primeTags() {
     return new Promise(resolve => {
       if (!this.globalTags) {
-        const tagsRef = this.afs.doc('articleData/tags');
+        const tagsRef = this.getGlobalTags();
         tagsRef.valueChanges()
           .subscribe((tags: any) => {
             if (tags) {
