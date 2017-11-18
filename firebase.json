@@ -1,8 +1,14 @@
+// to deploy this file (including db rules) use: 
+// firebase deploy --only database
 {
+  "database": {
+    "rules": "database-rules.json"
+  },
   "hosting": {
     "public": "dist",
     "ignore": [
       "firebase.json",
+      "database-rules.json",
       "**/.*",
       "**/node_modules/**"
     ],
