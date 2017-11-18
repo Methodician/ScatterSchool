@@ -46,7 +46,6 @@ export class UploadService {
         upload.progress = null;
         // save metadata to live database
         this.saveImageData(upload, key, basePath);
-        alert('success!');
         return undefined;
       }
     );

@@ -177,7 +177,8 @@ export class FirestoreArticleService {
     let deletedTags = [];
     if (newTags) {
       for (let tag of newTags) {
-        this.addGlobalTag(tag);
+        if (!oldTags.includes(tag))
+          this.addGlobalTag(tag);
       }
     }
 
