@@ -2,13 +2,13 @@
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
 .accountWrapper {
-  height: 100%;
+  height: clac(100vh -248px);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   font-family: STHeitiSC-Light;
-  margin-top: 50px;
+  //margin-top: 50px;
   .titleWrapper {
     display: flex;
     justify-content: center;
@@ -73,6 +73,11 @@
       flex-direction: column-reverse;
       form {
         margin-right: 0px;
+        fieldset{
+          mat-form-field {
+            width: 75%;
+          }
+        }
       }
       .profileImageWrapper {
         height: 250px;

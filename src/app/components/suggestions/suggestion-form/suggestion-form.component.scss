@@ -7,17 +7,18 @@ h2 {
   color: $dark-gray;
 }
 
+.formContainer {
+  margin-top: 50px;
+}
+
 .formWrapper {
   @include font-styles();
-  min-height: 500px;
-  width: 500px;
   margin: 0 auto;
   fieldset {
-    height: 500px;
     mat-form-field {
       width: 100%;
     }
-    mat-form-field:nth-child(2) {
+    .pitch-styles {
       margin-top: 50px;
     }
   }
