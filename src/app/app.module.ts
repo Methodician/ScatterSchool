@@ -80,7 +80,7 @@ import { ArticleHistoryComponent } from 'app/components/articles/article-history
 import { ArticleHistoryDetailComponent } from 'app/components/articles/article-history-detail/article-history-detail.component';
 import { UserInteractionComponent } from 'app/components/user-interaction/user-interaction/user-interaction.component';
 import { ChatListComponent } from 'app/components/user-interaction/chat-list/chat-list.component';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 
 
@@ -149,8 +149,9 @@ import { AngularFirestore } from 'angularfire2/firestore';
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(fbConfig),
-    // AngularFireModule.initializeApp(fbConfigDev),
+    //AngularFireModule.initializeApp(fbConfig),
+    AngularFireModule.initializeApp(fbConfigDev),
+    AngularFirestoreModule,
     CollapseModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
@@ -172,7 +173,6 @@ import { AngularFirestore } from 'angularfire2/firestore';
   ],
   providers: [
     AngularFireDatabase,
-    AngularFirestore,
     AuthService,
     UserService,
     ArticleService,
