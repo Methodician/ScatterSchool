@@ -4,6 +4,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { UserService } from 'app/shared/services/user/user.service';
+import { UserInfoOpen } from 'app/shared/class/user-info';
 
 @Component({
   selector: 'app-article-detail',
@@ -21,9 +22,9 @@ export class ArticleDetailComponent implements OnInit {
   articleCoverImageUrl: string;
   iFollow: any;
   followsMe: any;
-  userInfo = null;
+  // userInfo = null;
   profileImageUrl;
-  user = null;
+  userInfo = new UserInfoOpen(null, null, null, null);
 
   constructor(
     private articleSvc: ArticleService,
@@ -53,7 +54,7 @@ export class ArticleDetailComponent implements OnInit {
     }
     this.userSvc.userInfo$.subscribe(user => {
       if (user.exists()) {
-        this.user = user;
+        this.userInfo = user;
         this.checkIfBookmarked();
       }
     })
@@ -71,18 +72,19 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   checkIfBookmarked() {
-    this.articleSvc.isBookmarked(this.user.$key, this.articleKey).subscribe(bookmark => {
+    this.articleSvc.isBookmarked(this.userInfo.$key, this.articleKey).subscribe(bookmark => {
       this.isArticleBookmarked = bookmark;
     })
   }
 
   bookmarkToggle() {
+    // could replace by accessing the userInfoOpen object
     this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
       if (isLoggedIn) {
         if (this.isArticleBookmarked)
-          this.articleSvc.unBookmarkArticle(this.user.$key, this.articleKey);
+          this.articleSvc.unBookmarkArticle(this.userInfo.$key, this.articleKey);
         else
-          this.articleSvc.bookmarkArticle(this.user.$key, this.articleKey);
+          this.articleSvc.bookmarkArticle(this.userInfo.$key, this.articleKey);
       }
     })
   }

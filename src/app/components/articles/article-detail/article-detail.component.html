@@ -21,7 +21,9 @@
   </div>
   <div class="headlineWrapper">
     <h1>{{article?.title}}</h1>
-    <p class="rating">RATING HERE<p>
+    <div class="rating">
+        <article-rating *ngIf="userInfo.exists() && articleKey" [userInfo]="userInfo" [articleKey]="articleKey"></article-rating>
+    <div>
     <mat-icon matTooltip="Bookmark this Article" (click)="bookmarkToggle()" class="bookmark-icon" color="primary">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
   </div>
   <div class="bodyWrapper">

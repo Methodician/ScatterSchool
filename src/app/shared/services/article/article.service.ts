@@ -313,4 +313,12 @@ export class ArticleService {
   navigateToProfile(uid: any) {
     this.router.navigate([`profile/${uid}`]);
   }
+
+  getRatingByUserKey(userKey, articleKey) {
+    return this.db.object(`userInfo/articleRatingsPerUser/${userKey}/${articleKey}`);
+  }
+
+  submitRating(rating, userKey, articleKey) {
+    this.db.object(`userInfo/articleRatingsPerUser/${userKey}/${articleKey}`).set(rating)
+  }
 }
