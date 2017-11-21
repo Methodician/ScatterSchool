@@ -1,4 +1,6 @@
-<p>
-  data-cleanup works!
-</p>
-<button (click)="articleNodeIdToKey()">Replace ~Id with ~Key in article node</button>
+<button (click)="copyAllToFirestore()">
+  Copy all articles to Firestore</button>
+
+<pre>
+  {{ articles | json }}
+</pre>
