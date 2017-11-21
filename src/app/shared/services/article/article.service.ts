@@ -318,7 +318,13 @@ export class ArticleService {
     return this.db.object(`userInfo/articleRatingsPerUser/${userKey}/${articleKey}`);
   }
 
-  submitRating(rating, userKey, articleKey) {
-    this.db.object(`userInfo/articleRatingsPerUser/${userKey}/${articleKey}`).set(rating)
+  submitRating(rating: number, userKey: string, articleKey: string) {
+    const userRating = this.db.object(`userInfo/articleRatingsPerUser/${userKey}/${articleKey}`);
+    if(rating) {
+      userRating.set({
+        rating: rating,
+        timestamp: firebase.database.ServerValue.TIMESTAMP
+      })
+    } else userRating.set(null)
   }
 }

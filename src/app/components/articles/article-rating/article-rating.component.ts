@@ -15,8 +15,10 @@ export class ArticleRatingComponent implements OnInit {
   constructor(private articleSvc: ArticleService) {}
 
   ngOnInit() {
-    this.articleSvc.getRatingByUserKey(this.userInfo.$key, this.articleKey).subscribe(rating => {
-      this.ratingState = rating.$value;
+    this.articleSvc.getRatingByUserKey(this.userInfo.$key, this.articleKey).subscribe(ratingInfo => {
+      if(ratingInfo.$exists()) this.ratingState = ratingInfo.rating;
+      else this.ratingState = null;
+      
     });
   }
 
