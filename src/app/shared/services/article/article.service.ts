@@ -27,6 +27,10 @@ export class ArticleService {
     return this.afs.collection('articleData').doc('articles').collection('articles')
   }
 
+  getLatestArticles() {
+    return this.afs.collection('articleData').doc('articles').collection('articles', ref => ref.orderBy('timestamp', 'desc').limit(3));
+  }
+
   getArticleById(articleId: string) {
     return this.afs.doc(`articleData/articles/articles/${articleId}`);
   }

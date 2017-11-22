@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { UserService } from 'app/shared/services/user/user.service';
 import { AuthService } from 'app/shared/services/auth/auth.service';
+import { DataCleanupService } from 'app/data-cleanup.service';
 
 @Component({
   selector: 'app-data-cleanup',
@@ -17,6 +18,7 @@ export class DataCleanupComponent implements OnInit {
 
   constructor(
     private articleSvc: ArticleService,
+    private dataSvc: DataCleanupService,
     userSvc: UserService,
     authSvc: AuthService
   ) {
@@ -35,8 +37,9 @@ export class DataCleanupComponent implements OnInit {
       this.articles = articles;
       for (let article of this.articles) {
         this.articleSvc.getArticleBodyByKey(article.bodyKey).subscribe(body => {
-          article.body = body.$value;
-          this.articleSvc.createNewArticleFirestore(this.userInfo, this.authInfo.$uid, article);
+          //article.body = body.$value;
+          this.dataSvc.transferArticleFbToFs(article.authorKey, article, body, article.$key);
+          // this.dataSvc.transferArticleFbToFs(article.)
         })
       }
     });

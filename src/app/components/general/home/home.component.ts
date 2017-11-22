@@ -28,13 +28,23 @@ export class HomeComponent implements OnInit {
       this.featuredArticles = articles;
     });
     // call For Latest Articles
+    //  Firestore way:
+    this.articleService.getLatestArticles().valueChanges().subscribe(latest => {
+      this.latestArticles = latest;
+    });
+    //  Firebase way:
     this.articleService.getLatest().subscribe(latest => {
       this.latestArticles = latest;
     });
-    // call for All Articles
-    this.articleService.getAllArticles().subscribe(response => {
+    //  call for All Articles
+    //  Firestore way:
+    this.articleService.getAllArticlesFirestore().valueChanges().subscribe(response => {
       this.allArticles = response;
     });
+    //  Firebase way:
+    // this.articleService.getAllArticles().subscribe(response => {
+    //   this.allArticles = response;
+    // });
   }
 
   // Methods for toggling between Latest and All Previews 
