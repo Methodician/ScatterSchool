@@ -20,7 +20,12 @@ export class DataCleanupComponent implements OnInit {
     userSvc: UserService,
     authSvc: AuthService
   ) {
-
+    authSvc.authInfo$.subscribe(info => {
+      this.authInfo = info;
+    });
+    userSvc.userInfo$.subscribe(user => {
+      this.userInfo = user;
+    });
   }
   ngOnInit() {
   }
@@ -31,6 +36,7 @@ export class DataCleanupComponent implements OnInit {
       for (let article of this.articles) {
         this.articleSvc.getArticleBodyByKey(article.bodyKey).subscribe(body => {
           article.body = body.$value;
+          this.articleSvc.createNewArticleFirestore(this.userInfo, this.authInfo.$uid, article);
         })
       }
     });
