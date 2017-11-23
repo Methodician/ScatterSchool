@@ -2,6 +2,7 @@ import { UploadService } from 'app/shared/services/upload/upload.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from 'app/shared/services/article/article.service';
+import { ArticleDetailFirestore } from 'app/shared/class/article-info';
 
 @Component({
   selector: 'app-feature-preview',
@@ -10,7 +11,7 @@ import { ArticleService } from 'app/shared/services/article/article.service';
 })
 
 export class FeaturePreviewComponent implements OnInit {
-  @Input() articleData: any;
+  @Input() articleData: ArticleDetailFirestore;
   author;
   articleCoverImageUrl;
 
@@ -21,25 +22,25 @@ export class FeaturePreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.articleService.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
+    this.articleService.getAuthorByKey(this.articleData.authorId).subscribe(author => {
       this.author = author;
     });
-    this.getArticleCoverImage(this.articleData.$key);
+    this.getArticleCoverImage();
   }
 
   navigateToArticleDetail() {
-    this.articleService.navigateToArticleDetail(this.articleData.$key);
+    this.articleService.navigateToArticleDetail(this.articleData.articleId);
   }
 
   navigateToProfile() {
-    this.articleService.navigateToProfile(this.articleData.authorKey);
+    this.articleService.navigateToProfile(this.articleData.authorId);
   }
 
-  getArticleCoverImage(articleKey) {
+  getArticleCoverImage() {
     const basePath = 'uploads/articleCoverImages';
-    this.uploadSvc.getImage(articleKey, basePath).subscribe(articleData => {
-      if (articleData.url) {
-        this.articleCoverImageUrl = articleData.url;
+    this.uploadSvc.getImage(this.articleData.articleId, basePath).subscribe(imageData => {
+      if (imageData.url) {
+        this.articleCoverImageUrl = imageData.url;
       }
     });
   }

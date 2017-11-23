@@ -29,7 +29,7 @@ export class ArticleFormComponent implements OnInit {
       tags: [[]],
       bodyKey: '',
       lastUpdated: 0,
-      timeStamp: 0,
+      timestamp: 0,
       version: 1,
       articleKey: '',
       authorKey: ''

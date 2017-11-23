@@ -28,7 +28,11 @@ export class ArticleService {
   }
 
   getLatestArticles() {
-    return this.afs.collection('articleData').doc('articles').collection('articles', ref => ref.orderBy('timestamp', 'desc').limit(3));
+    return this.afs.collection('articleData').doc('articles').collection('articles', ref => ref.orderBy('timestamp', 'desc').limit(12));
+  }
+
+  getFeaturedArticles() {
+    return this.afs.collection('articleData').doc('articles').collection('articles', ref => ref.where('isFeatured', '==', true));
   }
 
   getArticleById(articleId: string) {

@@ -11,6 +11,7 @@ import { UserService } from 'app/shared/services/user/user.service';
 @Injectable()
 export class DataCleanupService {
 
+
   constructor(
     private db: AngularFireDatabase,
     private afs: AngularFirestore,
@@ -18,53 +19,81 @@ export class DataCleanupService {
     private userSvc: UserService
   ) { }
 
-  createArticleFbToFs(authorId: string, article: any) {
-    this.userSvc.getUserInfo(authorId).subscribe(info => {
-      let user: UserInfoOpen = info;
-      let batch = this.afs.firestore.batch();
-      let newArticle: any = this.articleSvc.newObjectFromArticle(article, authorId);
 
-      //  Attempting to refactor in atomic way:
-      const bodyId = this.afs.createId();
-      newArticle.bodyId = bodyId;
-      const articleId = this.afs.createId();
+  transferArticleHistory(article: any, articleId: string, bodyLog: any, bodyId: string) {
 
-      const bodyRef = this.articleSvc.getArticleBodyById(bodyId).ref;
-      batch.set(bodyRef, { body: article.body });
+  }
 
-      const articleRef = this.articleSvc.getArticleById(articleId).ref;
-      batch.set(articleRef, newArticle);
 
-      const articleEditorRef = this.articleSvc.getArticleById(articleId).collection('editors').doc(authorId).ref;
-      batch.set(articleEditorRef, {
-        editorId: authorId,
-        name: user.alias || user.fName
+  addArticleHistory(body: any, bodyId: any, history: any, articleId: string) {
+    let batch = this.afs.firestore.batch();
+    const articleDoc = this.articleSvc.getArticleById(articleId);
+
+    const archiveDoc = this.articleSvc.getArchivedArticlesById(articleId).doc(history.version.toString());
+    const archiveArticleObject = this.historyObjectFromFBHistory(history, articleId);
+    if (!archiveArticleObject.timestamp.getDate())
+      archiveArticleObject.timestamp = archiveArticleObject.lastUpdated;
+    const archiveBodyDoc = this.articleSvc.getArchivedArticleBodyById(bodyId);
+
+    const bodyLogObject: any = {
+      body: body.body,
+      articleId: articleId,
+      version: body.version,
+      nextEditorId: body.nextEditorKey || archiveArticleObject.authorId
+    };
+    if (!bodyLogObject.nextEditorId)
+      debugger
+
+    batch.set(archiveDoc.ref, archiveArticleObject);
+    batch.set(archiveBodyDoc.ref, bodyLogObject);
+    // batch.set(articleEditorRef, {
+    //   editorId: bodyLogObject,
+    //   name: editor.displayName()
+    // });
+    // batch.set(userArticleEditedRef, {
+    //   timestamp: this.fsServerTimestamp(),
+    //   articleId: articleId
+    // });
+    // batch.update(articleDoc.ref, updatedArticleObject);
+
+    batch.commit()
+      .then(success => {
+        console.log('worked for article ' + articleId + ' and body ' + bodyId);
+      })
+      .catch(err => {
+        console.log('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
       });
 
-      const userArticleEditedRef = this.articleSvc.getArticlesEditedByUid(authorId).doc(articleId).ref;
-      batch.set(userArticleEditedRef, {
-        timestamp: this.articleSvc.fsServerTimestamp(),
-        articleId: articleId
-      });
+  }
 
-      const userArticleAuthoredRef = this.articleSvc.getArticlesAuthoredByUid(authorId).doc(articleId).ref;
-      batch.set(userArticleAuthoredRef, {
-        timestamp: this.articleSvc.fsServerTimestamp(),
-        articleId: articleId
-      });
+  historyObjectFromFBHistory(article: any, articleId: string) {
+    return {
+      authorId: article.authorKey,
+      bodyId: article.bodyKey,
+      title: article.title,
+      introduction: article.introduction,
+      lastUpdated: new Date(article.lastUpdated),
+      timestamp: new Date(article.timeStamp) || new Date(article.lastUpdated),
+      version: article.version,
+      commentCount: article.commentCount || 0,
+      viewCount: article.viewCount || 0,
+      tags: article.tags || [],
+      articleId: articleId,
+      isFeatured: article.isFeatured || null
+    }
+  }
 
-      for (let tag of article.tags) {
-        this.articleSvc.addGlobalTagFirestore(tag);
+  getBodyLogObjectFirebase(bodyKey) {
+    return this.db.object(`articleData/articleBodyArchive/${bodyKey}`);
+  }
+
+  transferFeaturedStatus() {
+    this.db.list('articleData/featuredArticles').subscribe(keys => {
+      for (let key of keys) {
+        const articleDoc = this.afs.doc(`articleData/articles/articles/${key.$key}`);
+        articleDoc.update({ isFeatured: true });
       }
-
-      return batch.commit()
-        .then(success => {
-          return articleId;
-        })
-        .catch(err => {
-          alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
-        });
-    });
+    })
   }
 
   transferArticleFbToFs(authorId: string, originalArticle: ArticleDetailOpen, body: string, articleId: string) {
@@ -86,17 +115,8 @@ export class DataCleanupService {
         let author: UserInfoOpen = info;
         let batch = this.afs.firestore.batch();
         const articleDoc = this.articleSvc.getArticleById(articleId);
-
-        // articleDoc.valueChanges().first()
-        // .subscribe((oldArticle: ArticleDetailFirestore) => {
-        //  Would like to make global tags processing atomic as well.
         this.articleSvc.processGlobalTags(originalArticle.tags, [], articleId);
-        //const archiveDoc = this.articleSvc.getArchivedArticlesById(articleId).doc(oldArticle.version.toString());
-        //const archiveArticleObject = this.articleSvc.updateObjectFromArticle(oldArticle, articleId);
-        //const currentBodyDoc = this.articleSvc.getArticleBodyById(oldArticle.bodyId);
-        //const newBodyId = this.afs.createId();
         const newBodyDoc = this.articleSvc.getArticleBodyById(article.bodyId);
-        //const archiveBodyDoc = this.articleSvc.getArchivedArticleBodyById(oldArticle.bodyId);
         const articleEditorRef = this.articleSvc.getArticleById(articleId).collection('editors').doc(authorId).ref;
         const userArticleEditedRef = this.articleSvc.getArticlesEditedByUid(authorId).doc(articleId).ref;
         const userArticleAuthoredRef = this.articleSvc.getArticlesAuthoredByUid(article.authorId).doc(articleId).ref;
@@ -106,19 +126,7 @@ export class DataCleanupService {
         updatedArticleObject.timestamp = article.timestamp;
         updatedArticleObject.bodyId = article.bodyId;
 
-        // currentBodyDoc.valueChanges().first()
-        // .subscribe((body: ArticleBodyFirestore) => {
-        // const bodyLogObject: any = {
-        //   body: body.body,
-        //   articleId: articleId,
-        //   version: oldArticle.version,
-        //   nextEditorId: editorId
-        // };
-
-        // batch.set(archiveDoc.ref, archiveArticleObject);
-        // batch.set(archiveBodyDoc.ref, bodyLogObject);
         batch.set(newBodyDoc.ref, { body: article.body });
-        // batch.delete(currentBodyDoc.ref);
         batch.set(articleEditorRef, {
           editorId: authorId,
           name: author.alias || author.fName
@@ -141,29 +149,21 @@ export class DataCleanupService {
             alert('There was a problem saving your originalArticle. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
             resolve(err);
           });
-        // });
-
       });
     });
-
-    // });
   }
 
   articleNodeIdToKey() {
     return this.db.list('articleData/articles').subscribe(articles => {
       for (let article of articles) {
-        //console.log(article);
         if (article.bodyId) {
           article.bodyKey = article.bodyId;
           delete (article.bodyId);
-
         }
         if (article.authorId) {
           article.authorKey = article.authorId;
           delete (article.authorId);
         }
-
-        //console.log(article);
         this.db.object(`articleData/articles/${article.$key}`).set(article);
       }
     });

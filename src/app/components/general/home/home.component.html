@@ -49,11 +49,11 @@
       <div *ngIf="currentSelectedTab === 1">
         <!-- Latest Article Grid View -->
         <div class="grid" *ngIf="currentSelectedLatestPreview === 4">
-          <latest-preview [articleData]="article" *ngFor="let article of latestArticles | reverseArray"></latest-preview>
+          <latest-preview [articleData]="article" *ngFor="let article of latestArticles"></latest-preview>
         </div>
         <!-- Latest Article List View -->
         <div class="list" *ngIf="currentSelectedLatestPreview === 3">
-          <app-feature-preview [articleData]="article" *ngFor="let article of latestArticles | reverseArray"></app-feature-preview>
+          <app-feature-preview [articleData]="article" *ngFor="let article of latestArticles"></app-feature-preview>
         </div>
       </div>
       <!-- All Article Preview -->
@@ -70,4 +70,3 @@
     </div>
   </div>
 </div>
-
