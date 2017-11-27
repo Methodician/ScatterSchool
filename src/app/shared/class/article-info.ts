@@ -26,6 +26,7 @@ export class ArticleDetailFirestore {
         public body?: string,
         public articleId?: string,
         public isFeatured?: boolean,
+        public lastEditorId?: string
     ) { }
 }
 

@@ -32,6 +32,50 @@ export class DataCleanupComponent implements OnInit {
   ngOnInit() {
   }
 
+  upgradeArticleBodyActive() {
+    this.articleSvc.getAllArticlesFirestore().valueChanges().take(1).subscribe(articles => {
+      this.articles = articles;
+      for (let article of this.articles) {
+        // this.articleSvc.getArticleBodyById(article.bodyId).valueChanges().subscribe((body: any) => {
+        //   article.body = body.body.$value;
+        // });
+        this.dataSvc.upgradeMainArticleBody(article.bodyId, article.articleId, article.version, article.lastEditorId);
+      }
+    });
+  }
+  addLastEditorToArticles() {
+    this.articleSvc.getAllArticlesFirestore().valueChanges().take(1).subscribe(articles => {
+      this.articles = articles;
+      for (let article of this.articles) {
+        this.articleSvc.getArchivedArticlesById(article.articleId).valueChanges().subscribe(history => {
+          if (history.length > 0) {
+            let mainSet = false;
+            article.history = history.reverse();
+            for (let item of article.history) {
+              this.articleSvc.getArchivedArticleBodyById(item.bodyId).valueChanges().subscribe((body: any) => {
+                if (body) {
+                  // this.dataSvc.addLastEditorToArchive(article.articleId, item.version.toString(), body.nextEditorId);
+                  // if (!mainSet) {
+                  //   this.dataSvc.addLastEditorToArticle(article.articleId, body.nextEditorId);
+                  // }
+                }
+                // item.body = body;
+                // if (!mainSet) {
+                //   //article.lastEditorId = body.nextEditorId;
+                //   mainSet = true;
+                // }
+                // //item.lastEditorId = body.nextEditorId;
+              });
+            }
+          }
+          else {
+            this.dataSvc.addLastEditorToArticle(article.articleId, article.authorId);
+          }
+        });
+      }
+    });
+  }
+
   transferArticleHistory() {
     this.articleSvc.getAllArticles().subscribe(articles => {
       this.articles = articles;

@@ -19,9 +19,32 @@ export class DataCleanupService {
     private userSvc: UserService
   ) { }
 
+  upgradeMainArticleBody(bodyId, articleId, version, lastEditorId) {
+    const bodyDoc = this.articleSvc.getArticleBodyById(bodyId);
+    bodyDoc.valueChanges().subscribe((depBody: any) => {
+      const body = depBody.body.$value;
+      const newBody = {
+        articleId: articleId,
+        body: body,
+        nextEditorId: lastEditorId,
+        version: version
+      };
+      bodyDoc.set(newBody);
+    });
+  }
 
-  transferArticleHistory(article: any, articleId: string, bodyLog: any, bodyId: string) {
+  addLastEditorToArticle(articleId, lastEditorId) {
+    const articleDoc = this.articleSvc.getArticleById(articleId);
+    articleDoc.update({
+      lastEditorId: lastEditorId
+    });
+  }
 
+  addLastEditorToArchive(articleId, version, lastEditorId) {
+    const archiveDoc = this.articleSvc.getArchivedArticlesById(articleId).doc(version);
+    archiveDoc.update({
+      lastEditorId: lastEditorId
+    });
   }
 
 
@@ -120,7 +143,7 @@ export class DataCleanupService {
         const articleEditorRef = this.articleSvc.getArticleById(articleId).collection('editors').doc(authorId).ref;
         const userArticleEditedRef = this.articleSvc.getArticlesEditedByUid(authorId).doc(articleId).ref;
         const userArticleAuthoredRef = this.articleSvc.getArticlesAuthoredByUid(article.authorId).doc(articleId).ref;
-        let updatedArticleObject: any = this.articleSvc.updateObjectFromArticle(article, articleId);
+        let updatedArticleObject: any = this.articleSvc.updateObjectFromArticle(article, articleId, authorId);
         updatedArticleObject.version = originalArticle.version;
         updatedArticleObject.lastUpdated = article.lastUpdated;
         updatedArticleObject.timestamp = article.timestamp;

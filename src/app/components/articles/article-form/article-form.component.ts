@@ -27,12 +27,16 @@ export class ArticleFormComponent implements OnInit {
       introduction: ['', Validators.required],
       body: ['', Validators.required],
       tags: [[]],
-      bodyKey: '',
-      lastUpdated: 0,
+      bodyId: '',
+      lastUpdated: null,
       timestamp: 0,
       version: 1,
-      articleKey: '',
-      authorKey: ''
+      articleId: '',
+      authorId: '',
+      lastEditorId: '',
+      commentCount: 0,
+      viewCount: 0,
+      isFeatured: false
     });
 
     this.ckeditorContent = ``;

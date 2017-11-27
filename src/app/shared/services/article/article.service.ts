@@ -48,7 +48,7 @@ export class ArticleService {
   }
 
   getArchivedArticlesById(articleId: string) {
-    return this.getArticleById(articleId).collection('history');
+    return this.getArticleById(articleId).collection('history', ref => ref.orderBy('version'));
   }
 
   getArticlesEditedByUid(userId: string) {
@@ -114,9 +114,32 @@ export class ArticleService {
       });
   }
 
+  incrementArticleViewCount(articleId: string, version: number) {
+    const articleDoc = this.getArticleById(articleId);
+    const historyArticleDoc = this.getArchivedArticlesById(articleId).doc(version.toString());
+    let newCount = 0;
+    this.afs.firestore.runTransaction(transaction => {
+      return transaction.get(articleDoc.ref).then(doc => {
+        newCount = doc.data().viewCount + 1;
+        transaction.update(articleDoc.ref, { viewCount: newCount });
+        historyArticleDoc.snapshotChanges().take(1).subscribe(history => {
+          if (history.payload.exists)
+            transaction.update(historyArticleDoc.ref, { viewCount: newCount });
+        });
+      })
+        .then(() => {
+          // console.log('view count is now ' + newCount)
+        })
+        .catch((err) => {
+          console.log('view count increment failed');
+          console.error(err);
+        });
+    });
+  }
+
   createNewArticle(author: UserInfoOpen, authorId: string, article: any) {
-    this.createNewArticleFirestore(author, authorId, article);
-    return this.createNewArticleFirebase(authorId, article);
+    return this.createNewArticleFirestore(author, authorId, article);
+    // return this.createNewArticleFirebase(authorId, article);
   }
 
   createNewArticleFirestore(author: UserInfoOpen, authorId: string, article: any) {
@@ -127,9 +150,10 @@ export class ArticleService {
     const bodyId = this.afs.createId();
     newArticle.bodyId = bodyId;
     const articleId = this.afs.createId();
-
+    newArticle.articleId = articleId;
     const bodyRef = this.getArticleBodyById(bodyId).ref;
-    batch.set(bodyRef, { body: article.body });
+    const newBody = this.dbObjectFromBody(article.body, articleId, 1, authorId);
+    batch.set(bodyRef, newBody);
 
     const articleRef = this.getArticleById(articleId).ref;
     batch.set(articleRef, newArticle);
@@ -195,43 +219,42 @@ export class ArticleService {
   }
 
   updateArticle(editorId: string, editor: UserInfoOpen, article: ArticleDetailFirestore, articleId: string) {
-    this.updateArticleFirebase(editorId, article);
+    //return this.updateArticleFirebase(editorId, article);
     return this.updateArticleFirestore(editorId, editor, article, articleId);
   }
+
   updateArticleFirestore(editorId: string, editor: UserInfoOpen, article: ArticleDetailFirestore, articleId: string) {
     return new Promise(resolve => {
       let batch = this.afs.firestore.batch();
+      //  Wondering if we should stop using this and just get the lastest from history...
       const articleDoc = this.getArticleById(articleId);
 
       articleDoc.valueChanges().first()
         .subscribe((oldArticle: ArticleDetailFirestore) => {
+          const newBodyId = this.afs.createId();
+          const archiveArticleObject = this.updateObjectFromArticle(oldArticle, articleId, oldArticle.lastEditorId);
+          let updatedArticleObject: any = this.updateObjectFromArticle(article, articleId, editorId);
+          updatedArticleObject.version = article.version + 1;
+          updatedArticleObject.lastUpdated = this.fsServerTimestamp();
+          updatedArticleObject.bodyId = newBodyId;
           //  Would like to make global tags processing atomic as well.
           this.processGlobalTags(article.tags, oldArticle.tags, articleId);
           const archiveDoc = this.getArchivedArticlesById(articleId).doc(oldArticle.version.toString());
-          const archiveArticleObject = this.updateObjectFromArticle(oldArticle, articleId);
+          const currentDoc = this.getArchivedArticlesById(articleId).doc(updatedArticleObject.version.toString());
           const currentBodyDoc = this.getArticleBodyById(oldArticle.bodyId);
-          const newBodyId = this.afs.createId();
           const newBodyDoc = this.getArticleBodyById(newBodyId);
           const archiveBodyDoc = this.getArchivedArticleBodyById(oldArticle.bodyId);
           const articleEditorRef = this.getArticleById(articleId).collection('editors').doc(editorId).ref;
           const userArticleEditedRef = this.getArticlesEditedByUid(editorId).doc(articleId).ref;
-          let updatedArticleObject: any = this.updateObjectFromArticle(article, articleId);
-          updatedArticleObject.version = article.version + 1;
-          updatedArticleObject.lastUpdated = this.fsServerTimestamp();
-          updatedArticleObject.bodyId = newBodyId;
+
 
           currentBodyDoc.valueChanges().first()
             .subscribe((body: ArticleBodyFirestore) => {
-              const bodyLogObject: any = {
-                body: body.body,
-                articleId: articleId,
-                version: oldArticle.version,
-                nextEditorId: editorId
-              };
-
+              const bodyLogObject: any = this.dbObjectFromBody(body.body, articleId, oldArticle.version, oldArticle.lastEditorId);
+              const newBodyObject: any = this.dbObjectFromBody(article.body, articleId, updatedArticleObject.version, editorId);
               batch.set(archiveDoc.ref, archiveArticleObject);
               batch.set(archiveBodyDoc.ref, bodyLogObject);
-              batch.set(newBodyDoc.ref, { body: article.body });
+              batch.set(newBodyDoc.ref, newBodyObject);
               batch.delete(currentBodyDoc.ref);
               batch.set(articleEditorRef, {
                 editorId: editorId,
@@ -241,6 +264,7 @@ export class ArticleService {
                 timestamp: this.fsServerTimestamp(),
                 articleId: articleId
               });
+              batch.set(currentDoc.ref, updatedArticleObject);
               batch.update(articleDoc.ref, updatedArticleObject);
 
               batch.commit()
@@ -377,11 +401,17 @@ export class ArticleService {
   }
 
   setFeaturedArticle(articleKey: string) {
-    this.afd.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+    //  Firestore way:
+    this.getArticleById(articleKey).update({ isFeatured: true });
+    //  Firebase way:
+    // this.afd.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
   }
 
   unsetFeaturedArticle(articleKey: string) {
-    firebase.database().ref('articleData/featuredArticles').child(articleKey).remove();
+    //  Firestore way:
+    this.getArticleById(articleKey).update({ isFeatured: false });
+    //  Firebase way:
+    // firebase.database().ref('articleData/featuredArticles').child(articleKey).remove();
   }
 
   getAllFeatured() {
@@ -523,9 +553,19 @@ export class ArticleService {
       tagsRef.update(tagsFieldDeleter);
   }
 
-  updateObjectFromArticle(article: ArticleDetailFirestore, articleId: string) {
+  dbObjectFromBody(body, articleId, version, editorId) {
+    return {
+      body: body,
+      articleId: articleId,
+      version: version,
+      nextEditorId: editorId
+    };
+  }
+
+  updateObjectFromArticle(article: ArticleDetailFirestore, articleId: string, lastEditorId: string) {
     return {
       authorId: article.authorId,
+      lastEditorId: lastEditorId,
       bodyId: article.bodyId,
       title: article.title,
       introduction: article.introduction,
@@ -542,11 +582,12 @@ export class ArticleService {
 
   newObjectFromArticle(article: ArticleDetailFirestore, authorId) {
     return {
+      authorId: authorId,
+      lastEditorId: authorId,
       title: article.title,
       introduction: article.introduction,
       tags: article.tags,
       version: 1,
-      authorId: authorId,
       commentCount: 0,
       viewCount: 0,
       isFeatured: false,

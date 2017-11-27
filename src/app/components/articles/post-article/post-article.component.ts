@@ -38,11 +38,13 @@ export class PostArticleComponent implements OnInit {
   }
 
   save(article) {
-    const articleKey = this.articleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article);
-    if (this.selectedFiles) {
-      this.sendImgToUploadSvc(articleKey);
-    }
-    this.router.navigate([`articledetail/${articleKey}`]);
+    this.articleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article).then(articleId => {
+      if (this.selectedFiles) {
+        this.sendImgToUploadSvc(articleId);
+      }
+      this.router.navigate([`articledetail/${articleId}`]);
+    });
+
 
     //  Firestore way:
     // return this.fsArticleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article)
