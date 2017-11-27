@@ -2,8 +2,7 @@
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
 .suggestionsContainer {
-  min-height: 800px;
-  margin-top: 50px;
+  height: calc( 100vh - 248px);
 }
 
 h3 {
@@ -59,11 +58,5 @@ h3 {
   }
   span.selected {
     color: #C4275F;
-  }
-}
-
-@media only screen and (max-width:768px) {
-  #add-suggestions-wrapper {
-    margin-top: 90px;
   }
 }

@@ -2,17 +2,18 @@
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
 .suggestionContainer {
-  height: 100%;
+  height: calc(100vh - 248px);
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
 .buttonWrapper {
   display: flex;
   justify-content: center;
-  button {
-    @include medium-button();
-  }
+}
+
+.suggestion-submit {
+  @include medium-button();
 }
