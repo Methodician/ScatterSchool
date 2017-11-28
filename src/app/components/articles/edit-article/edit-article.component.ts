@@ -42,8 +42,10 @@ export class EditArticleComponent implements OnInit {
       //  Firestore way:
       this.articleSvc.getArticleById(this.key).valueChanges().subscribe((articleToEdit: ArticleDetailFirestore) => {
         this.articleSvc.getArticleBodyById(articleToEdit.bodyId).valueChanges().subscribe(articleBody => {
-          articleToEdit.body = articleBody.body;
-          this.article = articleToEdit;
+          if (articleBody) {
+            articleToEdit.body = articleBody.body;
+            this.article = articleToEdit;
+          }
         });
       });
       //  Firebase way:

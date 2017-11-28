@@ -149,8 +149,10 @@ export class ArticleDetailComponent implements OnInit {
   getArticleBody(articleData: any) {
     //  Firestore way:
     this.articleSvc.getArticleBodyById(articleData.bodyId).valueChanges().subscribe((articleBody: ArticleBodyFirestore) => {
-      articleData.body = articleBody.body;
-      this.article = articleData;
+      if (articleBody) {
+        articleData.body = articleBody.body;
+        this.article = articleData;
+      }
     });
     //  Firebase way:
     // this.articleSvc.getArticleBodyByKey(articleData.bodyKey).subscribe(articleBody => {

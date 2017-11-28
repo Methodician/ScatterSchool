@@ -115,26 +115,27 @@ export class ArticleService {
   }
 
   incrementArticleViewCount(articleId: string, version: number) {
-    const articleDoc = this.getArticleById(articleId);
-    const historyArticleDoc = this.getArchivedArticlesById(articleId).doc(version.toString());
-    let newCount = 0;
-    this.afs.firestore.runTransaction(transaction => {
-      return transaction.get(articleDoc.ref).then(doc => {
-        newCount = doc.data().viewCount + 1;
-        transaction.update(articleDoc.ref, { viewCount: newCount });
-        historyArticleDoc.snapshotChanges().take(1).subscribe(history => {
-          if (history.payload.exists)
-            transaction.update(historyArticleDoc.ref, { viewCount: newCount });
-        });
-      })
-        .then(() => {
-          // console.log('view count is now ' + newCount)
-        })
-        .catch((err) => {
-          console.log('view count increment failed');
-          console.error(err);
-        });
-    });
+    //  Breaks with current security rules
+    // const articleDoc = this.getArticleById(articleId);
+    // const historyArticleDoc = this.getArchivedArticlesById(articleId).doc(version.toString());
+    // let newCount = 0;
+    // this.afs.firestore.runTransaction(transaction => {
+    //   return transaction.get(articleDoc.ref).then(doc => {
+    //     newCount = doc.data().viewCount + 1;
+    //     transaction.update(articleDoc.ref, { viewCount: newCount });
+    //     historyArticleDoc.snapshotChanges().take(1).subscribe(history => {
+    //       if (history.payload.exists)
+    //         transaction.update(historyArticleDoc.ref, { viewCount: newCount });
+    //     });
+    //   })
+    //     .then(() => {
+    //       // console.log('view count is now ' + newCount)
+    //     })
+    //     .catch((err) => {
+    //       console.log('view count increment failed');
+    //       console.error(err);
+    //     });
+    // });
   }
 
   createNewArticle(author: UserInfoOpen, authorId: string, article: any) {
