@@ -146,7 +146,6 @@ export class ArticleService {
     let batch = this.afs.firestore.batch();
     let newArticle: any = this.newObjectFromArticle(article, authorId);
 
-    //  Attempting to refactor in atomic way:
     const bodyId = this.afs.createId();
     newArticle.bodyId = bodyId;
     const articleId = this.afs.createId();
