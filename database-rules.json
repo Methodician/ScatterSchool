@@ -1,130 +1,131 @@
 // to deploy rules (file must be included in firebase.json) use: 
 // firebase deploy --only database
 {
-    "rules": {
-      "commentData": {
-        "comments": {
-          ".read": "true",
-            "$uid": {
-            ".write": "auth.uid == newData.child('authorKey').val()"
-          }  
+  "rules": {
+    "commentData": {
+      "comments": {
+        ".read": "true",
+        "$uid": {
+          ".write": "auth.uid == newData.child('authorKey').val()"
         },
-        "commentsPerUser": {
-          "$uid": {
-            ".read": "true",
-            ".write": "auth.uid == $uid"
-          }
-        },
-        "commentsPerParent": {
-          ".read": "true",
-          ".write": "auth != null"
-        },
-        "commentsPerArticle": {
-            ".read": "true",
-          ".write": "auth != null"
-        },
-        "repliesPerComment": {
-            ".read": "true",
-          ".write": "auth != null"
-          }
+        ".indexOn": "parentKey"
       },
-      "articleData": {
-       ".read": "true",
-       ".write": "auth.uid != null"
-      },
-      "chatData": {
-              ".write": "auth.uid != null",
-        "chats": {
-          "$chat_id": {
-            ".read": "data.hasChild('members/'+auth.uid)",
-              ".write": "root.child('chatData/chats').child($chat_id).child('members').child(auth.uid).exists()"
-          }
-        },
-        "chatsPerMember": {
-          "$user_id": {
-            ".read": "auth.uid == $user_id",
-            ".write": "auth.uid != null"
-          }
-        },
-        "messagesPerChat": {
-          ".write": "!data.exists()",
-          "$chat_id": {
-               ".read": "root.child('chatData/chats').child($chat_id).child('members').child(auth.uid).exists()",
-                   ".write": "root.child('chatData/chats').child($chat_id).child('members').child(auth.uid).exists()" 
-          }
+      "commentsPerUser": {
+        "$uid": {
+          ".read": "true",
+          ".write": "auth.uid == $uid"
         }
       },
-      "presenceData": {
-        "users": {
-          "$userKey": {
-                   ".read": "true",
-                 ".write": "auth.uid == $userKey"     
-          }
+      "commentsPerParent": {
+        ".read": "true",
+        ".write": "auth != null"
+      },
+      "commentsPerArticle": {
+        ".read": "true",
+        ".write": "auth != null"
+      },
+      "repliesPerComment": {
+        ".read": "true",
+        ".write": "auth != null"
+      }
+    },
+    "articleData": {
+      ".read": "true",
+      ".write": "auth.uid != null"
+    },
+    "chatData": {
+      ".write": "auth.uid != null",
+      "chats": {
+        "$chat_id": {
+          ".read": "data.hasChild('members/'+auth.uid)",
+          ".write": "root.child('chatData/chats').child($chat_id).child('members').child(auth.uid).exists()"
         }
       },
-      "suggestionData": {
-        "suggestions": {
-            ".read": "true",
-           ".write": "auth.uid != null",
-        },
-        "suggestionVotesPerUser": {
+      "chatsPerMember": {
+        "$user_id": {
+          ".read": "auth.uid == $user_id",
+          ".write": "auth.uid != null"
+        }
+      },
+      "messagesPerChat": {
+        ".write": "!data.exists()",
+        "$chat_id": {
+          ".read": "root.child('chatData/chats').child($chat_id).child('members').child(auth.uid).exists()",
+          ".write": "root.child('chatData/chats').child($chat_id).child('members').child(auth.uid).exists()"
+        }
+      }
+    },
+    "presenceData": {
+      "users": {
+        "$userKey": {
+          ".read": "true",
+          ".write": "auth.uid == $userKey"
+        }
+      }
+    },
+    "suggestionData": {
+      "suggestions": {
+        ".read": "true",
+        ".write": "auth.uid != null",
+      },
+      "suggestionVotesPerUser": {
+        "$userKey": {
+          ".read": "auth.uid == $userKey",
+          ".write": "auth.uid == $userKey"
+        }
+      },
+      "userVotesPerSuggestion": {
+        "$suggestionKey": {
           "$userKey": {
             ".read": "auth.uid == $userKey",
             ".write": "auth.uid == $userKey"
           }
-        },
-        "userVotesPerSuggestion": {
-          "$suggestionKey": {
-            "$userKey": {
-              ".read": "auth.uid == $userKey",
-              ".write": "auth.uid == $userKey"
-            }
-          }
+        }
+      }
+    },
+    "uploads": {
+      "articleCoverImages": {
+        ".read": "true",
+        ".write": "auth.uid != null"
+      },
+      "profileImages": {
+        "$userKey": {
+          ".read": "true",
+          ".write": "auth.uid == $userKey"
+        }
+      }
+    },
+    "userInfo": {
+      "accessLevel": {
+        ".read": "true",
+        ".write": "false"
+      },
+      "articleBookmarksPerUser": {
+        "$userKey": {
+          ".read": "auth.uid == $userKey",
+          ".write": "auth.uid == $userKey"
         }
       },
-      "uploads": {
-              "articleCoverImages": {
-          ".read": "true",
-          ".write": "auth.uid != null"
-        },
-        "profileImages": {
-          "$userKey": {
-            ".read": "true",
-              ".write": "auth.uid == $userKey" 
-          }
-        }
-      },
-      "userInfo": {
-        "accessLevel": {
-               ".read": "true",
-               ".write": "false"   
-        },
-           "articleBookmarksPerUser": {
-          "$userKey": {
-               ".read": "auth.uid == $userKey",
-                   ".write": "auth.uid == $userKey" 
-          }   
-        },
-        "followersPerUser": {
-          "$userKey": {
-               ".read": "auth.uid != null",
-              "$followerKey": {
-                ".write": "$followerKey == auth.uid"
-              }
-          }   
-        },
-        "open": {
-          ".read": "true",
-          "$userKey": {
-                ".write": "auth.uid == $userKey"  
-          }    	   
-        },
-        "usersPerFollower": {
+      "followersPerUser": {
+        "$userKey": {
+          ".read": "auth.uid != null",
           "$followerKey": {
-            ".read": "true",
-                ".write": "auth.uid == $followerKey"
+            ".write": "$followerKey == auth.uid"
           }
+        }
+      },
+      "open": {
+        ".read": "true",
+        "$userKey": {
+          ".write": "auth.uid == $userKey"
+        }
+      },
+      "usersPerFollower": {
+        "$followerKey": {
+          ".read": "true",
+          ".write": "auth.uid == $followerKey"
         }
       }
     }
   }
+}

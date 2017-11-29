@@ -1,6 +1,8 @@
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'app-article-history',
@@ -24,11 +26,19 @@ export class ArticleHistoryComponent implements OnInit {
     this.route.params.subscribe(params => {
       if (params['key']) {
         this.articleKey = params['key'];
-        this.articleSvc.getArticleHistoryByKey(this.articleKey).subscribe(history => {
+        //  Firestore way:
+        this.articleSvc.getArchivedArticlesById(this.articleKey).valueChanges().subscribe(history => {
           this.articleHistory = history;
           this.articleCount = history.length;
           this.curentArticleIndex = history.length - 1;
         });
+
+        //  Firebase way:
+        // this.articleSvc.getArticleHistoryByKey(this.articleKey).subscribe(history => {
+        //   this.articleHistory = history;
+        //   this.articleCount = history.length;
+        //   this.curentArticleIndex = history.length - 1;
+        // });
       }
     })
   }

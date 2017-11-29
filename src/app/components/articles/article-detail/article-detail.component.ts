@@ -4,6 +4,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { UserService } from 'app/shared/services/user/user.service';
+import { ArticleDetailFirestore, ArticleBodyFirestore } from 'app/shared/class/article-info';
 
 @Component({
   selector: 'app-article-detail',
@@ -24,6 +25,7 @@ export class ArticleDetailComponent implements OnInit {
   userInfo = null;
   profileImageUrl;
   user = null;
+  viewIncremented = false;
 
   constructor(
     private articleSvc: ArticleService,
@@ -40,16 +42,15 @@ export class ArticleDetailComponent implements OnInit {
       this.route.params.subscribe(params => {
         if (params['key'])
           this.articleKey = params['key'];
-
-        this.checkIfFeatured();
+        //this.checkIfFeatured();
         this.getArticleData();
       });
     }
     else {
-      this.checkIfFeatured();
+      //this.checkIfFeatured();
       this.getArticleBody(this.articleData);
-      this.getAuthor(this.articleData.authorKey);
-      this.getProfileImage(this.articleData.authorKey);
+      this.getAuthor(this.articleData.authorId);
+      this.getProfileImage(this.articleData.authorId);
     }
     this.userSvc.userInfo$.subscribe(user => {
       if (user.exists()) {
@@ -107,6 +108,7 @@ export class ArticleDetailComponent implements OnInit {
 
   }
 
+  //  Firebase, not Firestore...
   checkIfFeatured() {
     this.articleSvc.isArticleFeatured(this.articleKey).subscribe(featured => {
       this.isArticleFeatured = featured;
@@ -114,12 +116,25 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   getArticleData() {
-    this.articleSvc.getArticleByKey(this.articleKey).subscribe(articleData => {
+    //  Firestore way:
+    this.articleSvc.getArticleById(this.articleKey).valueChanges().subscribe((articleData: ArticleDetailFirestore) => {
+      if (!this.viewIncremented && !this.editingPreview) {
+        this.articleSvc.incrementArticleViewCount(this.articleKey, articleData.version);
+        this.viewIncremented = true;
+      }
       this.getArticleBody(articleData);
-      this.getAuthor(articleData.authorKey);
-      this.getProfileImage(articleData.authorKey);
+      this.getAuthor(articleData.authorId);
+      this.getProfileImage(articleData.authorId);
       this.getArticleCoverImage(this.articleKey)
-    });
+    })
+    //  Firebase way:
+    // this.articleSvc.getArticleByKey(this.articleKey).subscribe(articleData => {
+    //   this.articleSvc.incrementArticleViewCount(this.articleKey, articleData.version);
+    //   this.getArticleBody(articleData);
+    //   this.getAuthor(articleData.authorKey);
+    //   this.getProfileImage(articleData.authorKey);
+    //   this.getArticleCoverImage(this.articleKey)
+    // });
   }
 
   getArticleCoverImage(articleKey) {
@@ -132,10 +147,18 @@ export class ArticleDetailComponent implements OnInit {
   }
 
   getArticleBody(articleData: any) {
-    this.articleSvc.getArticleBodyByKey(articleData.bodyKey).subscribe(articleBody => {
-      articleData.body = articleBody.$value;
-      this.article = articleData;
+    //  Firestore way:
+    this.articleSvc.getArticleBodyById(articleData.bodyId).valueChanges().subscribe((articleBody: ArticleBodyFirestore) => {
+      if (articleBody) {
+        articleData.body = articleBody.body;
+        this.article = articleData;
+      }
     });
+    //  Firebase way:
+    // this.articleSvc.getArticleBodyByKey(articleData.bodyKey).subscribe(articleBody => {
+    //   articleData.body = articleBody.$value;
+    //   this.article = articleData;
+    // });
   }
 
   getAuthor(authorKey: string) {

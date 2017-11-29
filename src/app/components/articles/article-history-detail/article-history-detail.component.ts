@@ -4,6 +4,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { UserService } from 'app/shared/services/user/user.service';
+import { ArticleDetailFirestore, ArticleBodyFirestore } from 'app/shared/class/article-info';
 
 @Component({
   selector: 'app-article-history-detail',
@@ -33,8 +34,8 @@ export class ArticleHistoryDetailComponent implements OnInit {
 
   ngOnInit() {
     this.getArticleBody(this.articleData);
-    this.getAuthor(this.articleData.authorKey);
-    this.getProfileImage(this.articleData.authorKey);
+    this.getAuthor(this.articleData.authorId);
+    this.getProfileImage(this.articleData.authorId);
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -44,11 +45,17 @@ export class ArticleHistoryDetailComponent implements OnInit {
     }
   }
 
-  getArticleBody(articleData: any) {
-    this.articleSvc.getArticleBodyFromArchiveByKey(articleData.bodyKey).subscribe(articleBody => {
-      articleData.body = articleBody.$value;
+  getArticleBody(articleData: ArticleDetailFirestore) {
+    //  Firestore way: 
+    this.articleSvc.getArchivedArticleBodyById(articleData.bodyId).valueChanges().subscribe((body: ArticleBodyFirestore) => {
+      articleData.body = body.body;
       this.article = articleData;
     });
+    //  Firebase way:
+    // this.articleSvc.getArticleBodyFromArchiveByKey(articleData.bodyKey).subscribe(articleBody => {
+    //   articleData.body = articleBody.$value;
+    //   this.article = articleData;
+    // });
   }
 
   getAuthor(authorKey: string) {
