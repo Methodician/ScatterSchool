@@ -7,6 +7,7 @@ import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import { UserInfoOpen } from 'app/shared/class/user-info';
+import { error } from 'util';
 
 @Injectable()
 export class ArticleService {
@@ -114,29 +115,6 @@ export class ArticleService {
       });
   }
 
-  incrementArticleViewCount(articleId: string, version: number) {
-    //  Breaks with current security rules
-    // const articleDoc = this.getArticleById(articleId);
-    // const historyArticleDoc = this.getArchivedArticlesById(articleId).doc(version.toString());
-    // let newCount = 0;
-    // this.afs.firestore.runTransaction(transaction => {
-    //   return transaction.get(articleDoc.ref).then(doc => {
-    //     newCount = doc.data().viewCount + 1;
-    //     transaction.update(articleDoc.ref, { viewCount: newCount });
-    //     historyArticleDoc.snapshotChanges().take(1).subscribe(history => {
-    //       if (history.payload.exists)
-    //         transaction.update(historyArticleDoc.ref, { viewCount: newCount });
-    //     });
-    //   })
-    //     .then(() => {
-    //       // console.log('view count is now ' + newCount)
-    //     })
-    //     .catch((err) => {
-    //       console.log('view count increment failed');
-    //       console.error(err);
-    //     });
-    // });
-  }
 
   createNewArticle(author: UserInfoOpen, authorId: string, article: any) {
     return this.createNewArticleFirestore(author, authorId, article);
@@ -390,6 +368,68 @@ export class ArticleService {
     this.afd.object(`articleData/articles/${articleKey}`).take(1).subscribe(article => {
       this.afd.object(`articleData/articleArchive/${articleKey}/${article.version}`).set(article);
     });
+  }
+
+  captureArticleView(articleId: string, version: number, viewerUid: string) {
+    const viewFromSession = new Date(sessionStorage.getItem(`view:${articleId}`));
+    const msPerMinute = 60000;
+    const twoMinutesBack = new Date(new Date().valueOf() - 2 * msPerMinute);
+    return new Promise<any>(resolve => {
+      if (viewFromSession < twoMinutesBack) {
+        sessionStorage.setItem(`view:${articleId}`, new Date().toString());
+        const articleDoc = this.getArticleById(articleId);
+        const viewEntryObject = {
+          articleId: articleId,
+          viewerUid: viewerUid,
+          articleVersion: version,
+          viewStart: this.fsServerTimestamp()
+        }
+        articleDoc.collection('views').add(viewEntryObject)
+          .then(docRef => {
+            const viewId = docRef.id
+            sessionStorage.setItem('currentViewId', viewId)
+            resolve(viewId);
+          })
+          .catch(err => {
+            resolve(err);
+          });
+      }
+    });
+    //  Breaks with current security rules so opting for cloud functions and more detailed supplemental logging up front
+    // const articleDoc = this.getArticleById(articleId);
+    // const historyArticleDoc = this.getArchivedArticlesById(articleId).doc(version.toString());
+    // let newCount = 0;
+    // this.afs.firestore.runTransaction(transaction => {
+    //   return transaction.get(articleDoc.ref).then(doc => {
+    //     newCount = doc.data().viewCount + 1;
+    //     transaction.update(articleDoc.ref, { viewCount: newCount });
+    //     historyArticleDoc.snapshotChanges().take(1).subscribe(history => {
+    //       if (history.payload.exists)
+    //         transaction.update(historyArticleDoc.ref, { viewCount: newCount });
+    //     });
+    //   })
+    //     .then(() => {
+    //       // console.log('view count is now ' + newCount)
+    //     })
+    //     .catch((err) => {
+    //       console.log('view count increment failed');
+    //       console.error(err);
+    //     });
+    // });
+  }
+
+  captureArticleUnView(articleId: string, viewId: string, viewerUid: string, version: number) {
+    //  TOUGH: Not registered when browser refreshed or closed or navigate away from app.
+    //  Consider using beforeUnload S/O article: https://stackoverflow.com/questions/37642589/how-can-we-detect-when-user-closes-browser/37642657#37642657 
+    //  Consider using session storage as started in captureAricleView - maybe can reliably track viewId and timing or something...
+    const viewFromSession = new Date(sessionStorage.getItem(`unView:${articleId}`));
+    const msPerMinute = 60000;
+    const twoMinutesBack = new Date(new Date().valueOf() - 2 * msPerMinute);
+    if (viewFromSession < twoMinutesBack) {
+      sessionStorage.setItem(`unView:${articleId}`, new Date().toString());
+      const articleDoc = this.getArticleById(articleId);
+      return articleDoc.collection('views').doc(viewId).update({ viewEnd: this.fsServerTimestamp() });
+    }
   }
 
   isArticleFeatured(articleKey: string) {

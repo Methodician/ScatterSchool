@@ -5,16 +5,21 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { UserService } from 'app/shared/services/user/user.service';
 import { ArticleDetailFirestore, ArticleBodyFirestore } from 'app/shared/class/article-info';
+import { UserInfoOpen } from 'app/shared/class/user-info';
+import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
 @Component({
   selector: 'app-article-detail',
   templateUrl: './article-detail.component.html',
   styleUrls: ['./article-detail.component.scss']
 })
-export class ArticleDetailComponent implements OnInit {
+export class ArticleDetailComponent implements OnInit, OnDestroy {
+
   articleKey: string;
+  viewId: string = '';
   isArticleBookmarked: boolean;
   isArticleFeatured: boolean;
+
   @Input() articleData: any;
   @Input() editingPreview = false;
   author;
@@ -22,10 +27,13 @@ export class ArticleDetailComponent implements OnInit {
   articleCoverImageUrl: string;
   iFollow: any;
   followsMe: any;
-  userInfo = null;
+  // userInfo = null;
   profileImageUrl;
-  user = null;
+  user: UserInfoOpen = null;
   viewIncremented = false;
+
+
+
 
   constructor(
     private articleSvc: ArticleService,
@@ -52,13 +60,20 @@ export class ArticleDetailComponent implements OnInit {
       this.getAuthor(this.articleData.authorId);
       this.getProfileImage(this.articleData.authorId);
     }
-    this.userSvc.userInfo$.subscribe(user => {
+    this.userSvc.userInfo$.subscribe((user: UserInfoOpen) => {
       if (user.exists()) {
         this.user = user;
         this.checkIfBookmarked();
       }
     })
 
+  }
+
+  ngOnDestroy() {
+    if (this.viewId) {
+      let currentUser = this.user ? this.user.$key : 'anonymous';
+      this.articleSvc.captureArticleUnView(this.articleKey, this.viewId, currentUser, this.article.version);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -108,7 +123,7 @@ export class ArticleDetailComponent implements OnInit {
 
   }
 
-  //  Firebase, not Firestore...
+  //  Firebase, not Firestore... dep, delete soon if not used.
   checkIfFeatured() {
     this.articleSvc.isArticleFeatured(this.articleKey).subscribe(featured => {
       this.isArticleFeatured = featured;
@@ -119,8 +134,17 @@ export class ArticleDetailComponent implements OnInit {
     //  Firestore way:
     this.articleSvc.getArticleById(this.articleKey).valueChanges().subscribe((articleData: ArticleDetailFirestore) => {
       if (!this.viewIncremented && !this.editingPreview) {
-        this.articleSvc.incrementArticleViewCount(this.articleKey, articleData.version);
-        this.viewIncremented = true;
+        this.articleSvc.captureArticleView(this.articleKey, articleData.version, (this.user ? this.user.$key : 'anonymous'))
+          .then(id => {
+            if (id) {
+              this.viewId = id;
+              this.viewIncremented = true;
+            }
+          })
+          .catch(err => {
+            console.error(err);
+          });
+
       }
       this.getArticleBody(articleData);
       this.getAuthor(articleData.authorId);
