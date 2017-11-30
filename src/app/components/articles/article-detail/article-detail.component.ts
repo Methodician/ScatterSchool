@@ -71,8 +71,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     if (this.viewId) {
-      let currentUser = this.user ? this.user.$key : 'anonymous';
-      this.articleSvc.captureArticleUnView(this.articleKey, this.viewId, currentUser, this.article.version);
+      this.articleSvc.captureArticleUnView(this.articleKey, this.viewId);
     }
   }
 
@@ -134,7 +133,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
     //  Firestore way:
     this.articleSvc.getArticleById(this.articleKey).valueChanges().subscribe((articleData: ArticleDetailFirestore) => {
       if (!this.viewIncremented && !this.editingPreview) {
-        this.articleSvc.captureArticleView(this.articleKey, articleData.version, (this.user ? this.user.$key : 'anonymous'))
+        this.articleSvc.captureArticleView(this.articleKey, articleData.version, this.user)
           .then(id => {
             if (id) {
               this.viewId = id;

@@ -234,6 +234,7 @@ export class ArticleService {
               batch.set(archiveBodyDoc.ref, bodyLogObject);
               batch.set(newBodyDoc.ref, newBodyObject);
               batch.delete(currentBodyDoc.ref);
+              //  Maybe these associations belong in cloud functions...
               batch.set(articleEditorRef, {
                 editorId: editorId,
                 name: editor.displayName()
@@ -242,6 +243,7 @@ export class ArticleService {
                 timestamp: this.fsServerTimestamp(),
                 articleId: articleId
               });
+              //  Maybe history duplications belong in could functions...
               batch.set(currentDoc.ref, updatedArticleObject);
               batch.update(articleDoc.ref, updatedArticleObject);
 
@@ -250,8 +252,14 @@ export class ArticleService {
                   resolve(true);
                 })
                 .catch(err => {
-                  alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
-                  resolve(err);
+                  if (err.code == 'permission-denied') {
+                    alert('There was a problem saving your article related to access permissions. If that doesn\'t sound quite right, please submit a bug report to the ScatterSchool github page or just share a screenshot of this message with the dev team at https://flight.run. Thanks! Error: ' + err);
+                    resolve(err);
+                  }
+                  else {
+                    alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
+                    resolve(err);
+                  }
                 });
             });
 
@@ -370,7 +378,7 @@ export class ArticleService {
     });
   }
 
-  captureArticleView(articleId: string, version: number, viewerUid: string) {
+  captureArticleView(articleId: string, version: number, viewer: UserInfoOpen) {
     const viewFromSession = new Date(sessionStorage.getItem(`view:${articleId}`));
     const msPerMinute = 60000;
     const twoMinutesBack = new Date(new Date().valueOf() - 2 * msPerMinute);
@@ -380,7 +388,7 @@ export class ArticleService {
         const articleDoc = this.getArticleById(articleId);
         const viewEntryObject = {
           articleId: articleId,
-          viewerUid: viewerUid,
+          viewerUid: (viewer ? viewer.$key : 'anonymous'),
           articleVersion: version,
           viewStart: this.fsServerTimestamp()
         }
@@ -395,30 +403,9 @@ export class ArticleService {
           });
       }
     });
-    //  Breaks with current security rules so opting for cloud functions and more detailed supplemental logging up front
-    // const articleDoc = this.getArticleById(articleId);
-    // const historyArticleDoc = this.getArchivedArticlesById(articleId).doc(version.toString());
-    // let newCount = 0;
-    // this.afs.firestore.runTransaction(transaction => {
-    //   return transaction.get(articleDoc.ref).then(doc => {
-    //     newCount = doc.data().viewCount + 1;
-    //     transaction.update(articleDoc.ref, { viewCount: newCount });
-    //     historyArticleDoc.snapshotChanges().take(1).subscribe(history => {
-    //       if (history.payload.exists)
-    //         transaction.update(historyArticleDoc.ref, { viewCount: newCount });
-    //     });
-    //   })
-    //     .then(() => {
-    //       // console.log('view count is now ' + newCount)
-    //     })
-    //     .catch((err) => {
-    //       console.log('view count increment failed');
-    //       console.error(err);
-    //     });
-    // });
   }
 
-  captureArticleUnView(articleId: string, viewId: string, viewerUid: string, version: number) {
+  captureArticleUnView(articleId: string, viewId: string) {
     //  TOUGH: Not registered when browser refreshed or closed or navigate away from app.
     //  Consider using beforeUnload S/O article: https://stackoverflow.com/questions/37642589/how-can-we-detect-when-user-closes-browser/37642657#37642657 
     //  Consider using session storage as started in captureAricleView - maybe can reliably track viewId and timing or something...

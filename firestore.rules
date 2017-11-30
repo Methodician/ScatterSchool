@@ -11,5 +11,13 @@ service cloud.firestore {
     match /articleData/articles/articles/{articleId}/unViews/{viewId} {
       allow write: if true;
     }
+    match /userData/{userId} {
+    	allow read: if true;
+      allow write: if request.auth.uid == userId;
+      match /{childPath=**} {
+      	allow read: if true;
+      	allow write: if request.auth.uid == userId;
+      }
+    }
   }
 }

@@ -1,100 +1,55 @@
 //  IMPORTANT: Do not edit index.js or your changes will be lost - use src/index.ts - index.js is transpiled from src/index.ts
 
 import * as functions from 'firebase-functions';
-// const functions = require('firebase-functions');
 import * as admin from 'firebase-admin';
-// const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
 //-------------v Article View Logging v-------------
-//  What a mess! This was a lot harder than I expected
-//  I spent most of the time trying to use transactions but that didn't seem to work...
-//  I think there is a better way, possibly batch updates or transactions.
 export const captureView = functions.firestore.document('articleData/articles/articles/{articleId}/views/{pushId}')
-    .onWrite(event => {
+    .onCreate(event => {
+        //  Probably not needed since changed from onWrite to onCreate...
         if (event.data.data().viewEnd) {
             console.log('this is a view end event, nothing was incremented.');
             return 'nothing';
         }
+
         const db = admin.firestore();
-        const data = event.data.data();
         const articleId = event.params.articleId;
-        const articleVersion = data.articleVersion;
         const articleRef = db.doc(`articleData/articles/articles/${articleId}`);
-        const articleHistoryRef = db.doc(`articleData/articles/articles/${articleId}/history/${articleVersion}`);
-        return articleRef.get().then(article => {
-            let newCount = article.data().viewCount + 1;
-            return articleRef.update({ viewCount: newCount })
-                .then(success => {
-                    console.log('Article view count was updated from ' + article.data().viewCount + ' to ' + newCount);
-                    articleHistoryRef.get()
-                        .then(hist => {
-                            if (hist) {
-                                articleHistoryRef.update({ viewCount: newCount })
-                                    .then(success => {
-                                        console.log('History view count was updated from ' + article.data().viewCount + ' to ' + newCount);
-                                        return newCount;
-                                    })
-                                    .catch(err => {
-                                        console.log("There article probably has no history", err);
-                                        return newCount;
-                                    });
-                            }
-                        })
-                        .catch(err => {
-                            console.log('I think this will only execute if no history', err);
-                            return newCount;
-                        });
+        return db.runTransaction(transaction => {
+            return transaction.get(articleRef).then(article => {
+                let newCount = article.data().viewCount + 1;
+                transaction.update(articleRef, { viewCount: newCount });
+            })
+                .then(() => {
+                    return console.log('view count updated');
                 })
                 .catch(err => {
-                    console.log('I think this will execute if there is a real issue with the main article', err);
-                    return newCount;
+                    return console.log('View count could not be updated', err);
                 });
         });
     });
-//  I CAN'T FOR THE LIFE OF ME GET THE TRANSACTION TO ACTUALLY EXECUTE UPDATES EVEN THOUGH THERE ARE NO ERRORS
-// return db.runTransaction(transaction => {
-//     return transaction.get(articleRef).then(article => {
-//         let newCount = article.data().viewCount + 1;
-//         transaction.get(articleHistoryRef).then(hist => {
-//             if (hist.exists) {
-//                 transaction.update(articleRef, { viewCount: newCount });
-//                 transaction.update(articleHistoryRef, { viewCount: newCount });
-//                 return console.log('updated history - ', hist.data());
-//             }
-//             transaction.update(articleRef, { viewCount: newCount });
-//             return console.log('only updated article - ', article.data());
-//         })
-//             .catch(err => console.log(err));
-//     })
-//         .then(() => {
-//             return console.log('view count updated');
-//         })
-//         .catch(err => {
-//             return console.log('view count could not be updated', err);
-//         });
-// });
-// db.runTransaction(transaction => {
-//     return transaction.get(articleRef).then(article => {
-//         console.log('article:', article.data());
-//         let newCount = article.data().viewCount + 1;
-//         // transaction.update(articleRef, { viewCount: newCount });
-//         transaction.get(articleHistoryRef).then(hist => {
-//             if (hist.exists) {
-//                 transaction.update(articleRef, { viewCount: newCount });
-//                 return transaction.update(articleHistoryRef, { viewCount: newCount });
-//             }
-//             else
-//                 return transaction.update(articleRef, { viewCount: newCount });
-//         })
-//     })
-//  Turns out not neede with current usage.
-//  Decided against logging viewEnds separately, opting to just store a viewStart and viewEnd timestamp
-// export const captureUnView = functions.firestore.document('articleData/articles/articles/{articleId}/unViews/{pushId}')
-//     .onWrite(event => {
-//         //console.log(event);
-//         //return console.log('Article unView captured');
-//     });
+
+export const propagateView = functions.firestore.document('articleData/articles/articles/{articleId}')
+    .onUpdate(event => {
+        const newViews = event.data.data().viewCount;
+        const oldViews = event.data.previous.data().viewCount;
+        if (newViews == oldViews)
+            return 'nothing';
+
+        const db = admin.firestore();
+        const articleId = event.params.articleId;
+        const articleVersion = event.data.data().version;
+        const historyRef = db.doc(`articleData/articles/articles/${articleId}/history/${articleVersion}`);
+        return historyRef.update({ viewCount: newViews })
+            .then(success => {
+                return console.log('History view count updated');
+            })
+            .catch(err => {
+                return console.log("There probably wasn't any article history to update.", err);
+            });
+    });
+
 //-------------^ Article View Logging ^-------------
 
 //-------------v CommentAssociations v-------------
