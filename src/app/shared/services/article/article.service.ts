@@ -116,12 +116,13 @@ export class ArticleService {
   }
 
 
-  createNewArticle(author: UserInfoOpen, authorId: string, article: any) {
-    return this.createNewArticleFirestore(author, authorId, article);
+  async createNewArticle(author: UserInfoOpen, authorId: string, article: any) {
+    const articleId = await this.createNewArticleFirestore(author, authorId, article);
+    return articleId;
     // return this.createNewArticleFirebase(authorId, article);
   }
 
-  createNewArticleFirestore(author: UserInfoOpen, authorId: string, article: any) {
+  async createNewArticleFirestore(author: UserInfoOpen, authorId: string, article: any) {
     let batch = this.afs.firestore.batch();
     let newArticle: any = this.newObjectFromArticle(article, authorId);
 
@@ -158,13 +159,22 @@ export class ArticleService {
       this.addGlobalTagFirestore(tag);
     }
 
-    return batch.commit()
-      .then(success => {
-        return articleId;
-      })
-      .catch(err => {
-        alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
-      });
+    try{
+      await batch.commit();
+      return articleId;
+    }
+    catch (err){
+      alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
+      return err.toString();
+    }
+
+    // return batch.commit()
+    //   .then(success => {
+    //     return articleId;
+    //   })
+    //   .catch(err => {
+    //     alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
+    //   });
   }
 
   createNewArticleFirebase(authorKey: string, article: any) {
@@ -378,31 +388,51 @@ export class ArticleService {
     });
   }
 
-  captureArticleView(articleId: string, version: number, viewer: UserInfoOpen) {
+  async captureArticleView(articleId: string, version: number, viewer: UserInfoOpen) {
     const viewFromSession = new Date(sessionStorage.getItem(`view:${articleId}`));
     const msPerMinute = 60000;
     const twoMinutesBack = new Date(new Date().valueOf() - 2 * msPerMinute);
-    return new Promise<any>(resolve => {
-      if (viewFromSession < twoMinutesBack) {
+      if(viewFromSession < twoMinutesBack){
         sessionStorage.setItem(`view:${articleId}`, new Date().toString());
-        const articleDoc = this.getArticleById(articleId);
-        const viewEntryObject = {
-          articleId: articleId,
-          viewerUid: (viewer ? viewer.$key : 'anonymous'),
-          articleVersion: version,
-          viewStart: this.fsServerTimestamp()
-        }
-        articleDoc.collection('views').add(viewEntryObject)
-          .then(docRef => {
-            const viewId = docRef.id
-            sessionStorage.setItem('currentViewId', viewId)
-            resolve(viewId);
-          })
-          .catch(err => {
-            resolve(err);
-          });
+          const articleDoc = this.getArticleById(articleId);
+          const viewEntryObject = {
+            articleId: articleId,
+            viewerUid: (viewer ? viewer.$key : 'anonymous'),
+            articleVersion: version,
+            viewStart: this.fsServerTimestamp()
+          }
+          try{
+            const docRef = await articleDoc.collection('views').add(viewEntryObject);
+            const viewId = docRef.id;
+            sessionStorage.setItem('currentViewId', viewId);
+            return viewId;
+          }
+          catch (err){
+            return err;
+          }
       }
-    });
+    
+    // return new Promise<any>(resolve => {
+    //   if (viewFromSession < twoMinutesBack) {
+    //     sessionStorage.setItem(`view:${articleId}`, new Date().toString());
+    //     const articleDoc = this.getArticleById(articleId);
+    //     const viewEntryObject = {
+    //       articleId: articleId,
+    //       viewerUid: (viewer ? viewer.$key : 'anonymous'),
+    //       articleVersion: version,
+    //       viewStart: this.fsServerTimestamp()
+    //     }
+    //     articleDoc.collection('views').add(viewEntryObject)
+    //       .then(docRef => {
+    //         const viewId = docRef.id
+    //         sessionStorage.setItem('currentViewId', viewId)
+    //         resolve(viewId);
+    //       })
+    //       .catch(err => {
+    //         resolve(err);
+    //       });
+    //   }
+    // });
   }
 
   captureArticleUnView(articleId: string, viewId: string) {

@@ -37,24 +37,18 @@ export class PostArticleComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
-  save(article) {
-    this.articleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article).then(articleId => {
-      if (this.selectedFiles) {
-        this.sendImgToUploadSvc(articleId);
-      }
-      this.router.navigate([`articledetail/${articleId}`]);
-    });
+  async save(article) {
+    const articleId = await this.articleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article);
+    if(this.selectedFiles)
+      this.sendImgToUploadSvc(articleId);
+    this.router.navigate([`articledetail/${articleId}`]);
 
-
-    //  Firestore way:
-    // return this.fsArticleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article)
-    // .then(articleId => {
+    // this.articleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article).then(articleId => {
     //   if (this.selectedFiles) {
     //     this.sendImgToUploadSvc(articleId);
-    //     this.router.navigate([`articledetail/${articleId}`]);
     //   }
-    // })
-    // .catch(err => console.log(err));
+    //   this.router.navigate([`articledetail/${articleId}`]);
+    // });
   }
 
   sendImgToUploadSvc(articleKey) {

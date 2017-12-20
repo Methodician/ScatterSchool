@@ -18,7 +18,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   articleKey: string;
   viewId: string = '';
   isArticleBookmarked: boolean;
-  isArticleFeatured: boolean;
+  // isArticleFeatured: boolean;
 
   @Input() articleData: any;
   @Input() editingPreview = false;
@@ -113,7 +113,7 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   toggleFeatured() {
     this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
       if (isLoggedIn) {
-        if (this.isArticleFeatured)
+        if (this.article.isFeatured)
           this.articleSvc.unsetFeaturedArticle(this.articleKey);
         else
           this.articleSvc.setFeaturedArticle(this.articleKey);
@@ -123,11 +123,11 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
   }
 
   //  Firebase, not Firestore... dep, delete soon if not used.
-  checkIfFeatured() {
-    this.articleSvc.isArticleFeatured(this.articleKey).subscribe(featured => {
-      this.isArticleFeatured = featured;
-    });
-  }
+  // checkIfFeatured() {
+  //   this.articleSvc.isArticleFeatured(this.articleKey).subscribe(featured => {
+  //     this.isArticleFeatured = featured;
+  //   });
+  // }
 
   getArticleData() {
     //  Firestore way:
