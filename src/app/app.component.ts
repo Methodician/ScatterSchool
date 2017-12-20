@@ -1,6 +1,7 @@
 import { Component, trigger, state, style, transition, animate, ViewChild } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database-deprecated';
 import { ChatService } from 'app/shared/services/chat/chat.service';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-root',
