@@ -159,11 +159,11 @@ export class ArticleService {
       this.addGlobalTagFirestore(tag);
     }
 
-    try{
+    try {
       await batch.commit();
       return articleId;
     }
-    catch (err){
+    catch (err) {
       alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
       return err.toString();
     }
@@ -237,7 +237,7 @@ export class ArticleService {
 
 
           currentBodyDoc.valueChanges().first()
-            .subscribe((body: ArticleBodyFirestore) => {
+            .subscribe(async (body: ArticleBodyFirestore) => {
               const bodyLogObject: any = this.dbObjectFromBody(body.body, articleId, oldArticle.version, oldArticle.lastEditorId);
               const newBodyObject: any = this.dbObjectFromBody(article.body, articleId, updatedArticleObject.version, editorId);
               batch.set(archiveDoc.ref, archiveArticleObject);
@@ -257,20 +257,34 @@ export class ArticleService {
               batch.set(currentDoc.ref, updatedArticleObject);
               batch.update(articleDoc.ref, updatedArticleObject);
 
-              batch.commit()
-                .then(success => {
-                  resolve(true);
-                })
-                .catch(err => {
-                  if (err.code == 'permission-denied') {
-                    alert('There was a problem saving your article related to access permissions. If that doesn\'t sound quite right, please submit a bug report to the ScatterSchool github page or just share a screenshot of this message with the dev team at https://flight.run. Thanks! Error: ' + err);
-                    resolve(err);
-                  }
-                  else {
-                    alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
-                    resolve(err);
-                  }
-                });
+              try {
+                await batch.commit();
+                resolve(true);
+              }
+              catch (err) {
+                if (err.code == 'permission-denied') {
+                  alert('There was a problem saving your article related to access permissions. If that doesn\'t sound quite right, please submit a bug report to the ScatterSchool github page or just share a screenshot of this message with the dev team at https://flight.run. Thanks! Error: ' + err);
+                  resolve(err);
+                }
+                else {
+                  alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
+                  resolve(err);
+                }
+              }
+              // batch.commit()
+              //   .then(success => {
+              //     resolve(true);
+              //   })
+              //   .catch(err => {
+              //     if (err.code == 'permission-denied') {
+              //       alert('There was a problem saving your article related to access permissions. If that doesn\'t sound quite right, please submit a bug report to the ScatterSchool github page or just share a screenshot of this message with the dev team at https://flight.run. Thanks! Error: ' + err);
+              //       resolve(err);
+              //     }
+              //     else {
+              //       alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
+              //       resolve(err);
+              //     }
+              //   });
             });
 
         });
@@ -293,15 +307,17 @@ export class ArticleService {
 
     this.archiveArticle(articleKey);
     this.afd.object(`articleData/articleBodies/${oldBodyKey}`)
-      .take(1).subscribe(body => {
+      .take(1).subscribe(async body => {
         let bodyLogObject: any = {};
         bodyLogObject.body = body.$value;
         bodyLogObject.articleKey = articleKey;
         bodyLogObject.version = article.version;
         bodyLogObject.nextEditorKey = editorKey;
-        this.afd.object(`articleData/articleBodyArchive/${oldBodyKey}`).set(bodyLogObject).then(res => {
-          this.afd.object(`articleData/articleBodies/${oldBodyKey}`).remove();
-        });
+        const res = await this.afd.object(`articleData/articleBodyArchive/${oldBodyKey}`).set(bodyLogObject);
+        this.afd.object(`articleData/articleBodies/${oldBodyKey}`).remove();
+        // this.afd.object(`articleData/articleBodyArchive/${oldBodyKey}`).set(bodyLogObject).then(res => {
+        //   this.afd.object(`articleData/articleBodies/${oldBodyKey}`).remove();
+        // });
         this.afd.object(`articleData/bodysPerArticle/${articleKey}/${oldBodyKey}`).set(firebase.database.ServerValue.TIMESTAMP);
       });
     let bodyKey = this.afd.list('articleData/articleBodies').push(article.body).key;
@@ -392,26 +408,26 @@ export class ArticleService {
     const viewFromSession = new Date(sessionStorage.getItem(`view:${articleId}`));
     const msPerMinute = 60000;
     const twoMinutesBack = new Date(new Date().valueOf() - 2 * msPerMinute);
-      if(viewFromSession < twoMinutesBack){
-        sessionStorage.setItem(`view:${articleId}`, new Date().toString());
-          const articleDoc = this.getArticleById(articleId);
-          const viewEntryObject = {
-            articleId: articleId,
-            viewerUid: (viewer ? viewer.$key : 'anonymous'),
-            articleVersion: version,
-            viewStart: this.fsServerTimestamp()
-          }
-          try{
-            const docRef = await articleDoc.collection('views').add(viewEntryObject);
-            const viewId = docRef.id;
-            sessionStorage.setItem('currentViewId', viewId);
-            return viewId;
-          }
-          catch (err){
-            return err;
-          }
+    if (viewFromSession < twoMinutesBack) {
+      sessionStorage.setItem(`view:${articleId}`, new Date().toString());
+      const articleDoc = this.getArticleById(articleId);
+      const viewEntryObject = {
+        articleId: articleId,
+        viewerUid: (viewer ? viewer.$key : 'anonymous'),
+        articleVersion: version,
+        viewStart: this.fsServerTimestamp()
       }
-    
+      try {
+        const docRef = await articleDoc.collection('views').add(viewEntryObject);
+        const viewId = docRef.id;
+        sessionStorage.setItem('currentViewId', viewId);
+        return viewId;
+      }
+      catch (err) {
+        return err;
+      }
+    }
+
     // return new Promise<any>(resolve => {
     //   if (viewFromSession < twoMinutesBack) {
     //     sessionStorage.setItem(`view:${articleId}`, new Date().toString());
