@@ -73,14 +73,24 @@ export class EditArticleComponent implements OnInit {
     //     });
   }
 
-  edit(article) {
-    this.articleSvc.updateArticle(this.authInfo.$uid, this.userInfo, article, this.key)
-      .then(res => {
-        if (res)
-          this.router.navigate([`articledetail/${article.articleId}`]);
-        else alert('trouble editing the article' + res);
-      })
-      .catch(err => console.log(err));
+  async edit(article) {
+    try {
+      const res = this.articleSvc.updateArticle(this.authInfo.$uid, this.userInfo, article, this.key);
+      if (res)
+        this.router.navigate([`articledetail/${article.articleId}`]);
+      else alert('trouble editing the article' + res);
+    }
+    catch (err) {
+      console.log(err);
+    }
+
+    // this.articleSvc.updateArticle(this.authInfo.$uid, this.userInfo, article, this.key)
+    //   .then(res => {
+    //     if (res)
+    //       this.router.navigate([`articledetail/${article.articleId}`]);
+    //     else alert('trouble editing the article' + res);
+    //   })
+    //   .catch(err => console.log(err));
     // this.articleSvc.updateArticle(this.authInfo.$uid, article)
     // this.router.navigate([`articledetail/${article.articleKey}`]);
   }

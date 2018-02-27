@@ -131,18 +131,29 @@ export class ArticleDetailComponent implements OnInit, OnDestroy {
 
   getArticleData() {
     //  Firestore way:
-    this.articleSvc.getArticleById(this.articleKey).valueChanges().subscribe((articleData: ArticleDetailFirestore) => {
+    this.articleSvc.getArticleById(this.articleKey).valueChanges().subscribe(async (articleData: ArticleDetailFirestore) => {
       if (!this.viewIncremented && !this.editingPreview) {
-        this.articleSvc.captureArticleView(this.articleKey, articleData.version, this.user)
-          .then(id => {
-            if (id) {
-              this.viewId = id;
-              this.viewIncremented = true;
-            }
-          })
-          .catch(err => {
-            console.error(err);
-          });
+        try {
+          const id = await this.articleSvc.captureArticleView(this.articleKey, articleData.version, this.user);
+          if (id) {
+            this.viewId = id;
+            this.viewIncremented = true;
+          }
+        }
+        catch (err) {
+          console.error(err);
+        }
+
+        // this.articleSvc.captureArticleView(this.articleKey, articleData.version, this.user)
+        //   .then(id => {
+        //     if (id) {
+        //       this.viewId = id;
+        //       this.viewIncremented = true;
+        //     }
+        //   })
+        //   .catch(err => {
+        //     console.error(err);
+        //   });
 
       }
       this.getArticleBody(articleData);
