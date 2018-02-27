@@ -11,7 +11,8 @@ import { ArticleService } from 'app/shared/services/article/article.service';
 import { AccountComponent } from 'app/components/account/account/account.component';
 import { AuthService } from 'app/shared/services/auth/auth.service';
 import { HomeComponent } from 'app/components/general/home/home.component';
-import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase as AngularFireDatabaseDeprecated } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -173,6 +174,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
   ],
   providers: [
     AngularFireDatabase,
+    AngularFireDatabaseDeprecated,
     AuthService,
     UserService,
     ArticleService,

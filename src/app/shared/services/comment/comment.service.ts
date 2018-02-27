@@ -1,5 +1,5 @@
 import { Router, Params } from '@angular/router';
-import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 
@@ -39,7 +39,7 @@ export class CommentService {
   updateCommentCount(parentKey, parentType, value) {
     let parentPath = this.getBasePathByParentType(parentType) + parentKey;
 
-    this.db.object(parentPath).$ref.ref.transaction(parent => {
+    this.db.object(parentPath).query.ref.ref.transaction(parent => {
       if (parent) {
         // logic is verbose, but accounts for current data/data added which has not comment count
         if (parent.commentCount) parent.commentCount += value;
@@ -68,12 +68,13 @@ export class CommentService {
     return this.db.list(`commentData/comments`)
   }
 
-  getCommentsByParentKey(parentKey) {
-    return this.db.list(`commentData/comments`, {
-      query: {
-        orderByChild: 'parentKey',
-        equalTo: parentKey
-      }
+  getCommentsByParentKey(parentKey: string) {
+    return this.db.list(`commentData/comments`,
+      ref => ref.orderByChild('parentKey').equalTo(parentKey)
+    ).snapshotChanges().map(comments => {
+      return comments.map(comment => {
+        return { $key: comment.key, ...comment.payload.val() }
+      })
     });
   }
 
