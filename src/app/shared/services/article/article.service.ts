@@ -475,20 +475,20 @@ export class ArticleService {
     return this.findArticlesForKeys(this.afd.list('articleData/featuredArticles'));
   }
 
-  getLatest() {
-    return this.afd.list('articleData/articles', {
-      query: {
-        orderByChild: 'timeStamp',
-        limitToLast: 12
-      }
-    }).map(articles => {
-      articles.map(article => {
-        article.tags = this.tagsArrayFromTagsObject(article.tags);
-        return article;
-      });
-      return articles;
-    });
-  }
+  // getLatest() {
+  //   return this.afd.list('articleData/articles', {
+  //     query: {
+  //       orderByChild: 'timeStamp',
+  //       limitToLast: 12
+  //     }
+  //   }).map(articles => {
+  //     articles.map(article => {
+  //       article.tags = this.tagsArrayFromTagsObject(article.tags);
+  //       return article;
+  //     });
+  //     return articles;
+  //   });
+  // }
 
   getAuthorByKey(authorKey: string) {
     return this.afd.object(`userInfo/open/${authorKey}`);
