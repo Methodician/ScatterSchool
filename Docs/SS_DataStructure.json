@@ -10,7 +10,7 @@
             "TAGONE": true,
             "TAGTWO": true
           },
-          "timeStamp": 123132141244,
+          "timestamp": 123132141244,
           "title": "A wonderful title",
           "version": 1
         },
@@ -23,7 +23,7 @@
             "TAGTWO": true,
             "ANOTHERTAG": true
           },
-          "timeStamp": 123132141244,
+          "timestamp": 123132141244,
           "title": "A better title yet",
           "version": 2
         }
@@ -56,7 +56,7 @@
           "TAGONE": true,
           "TAGTWO": true
         },
-        "timeStamp": 123131312442,
+        "timestamp": 123131312442,
         "title": "it's a title",
         "version": 3
       },
@@ -69,7 +69,7 @@
           "TAGONE": true,
           "TAGTWO": true
         },
-        "timeStamp": 123131312442,
+        "timestamp": 123131312442,
         "title": "it's a title",
         "version": 1
       }

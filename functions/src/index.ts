@@ -1,17 +1,65 @@
 //  IMPORTANT: Do not edit index.js or your changes will be lost - use src/index.ts - index.js is transpiled from src/index.ts
 
-const functions = require('firebase-functions');
-const firebase = require('firebase-admin');
-firebase.initializeApp(functions.config().firebase);
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+admin.initializeApp(functions.config().firebase);
+
+//-------------v Article View Logging v-------------
+export const captureView = functions.firestore.document('articleData/articles/articles/{articleId}/views/{pushId}')
+    .onCreate(event => {
+        //  Probably not needed since changed from onWrite to onCreate...
+        if (event.data.data().viewEnd) {
+            console.log('this is a view end event, nothing was incremented.');
+            return 'nothing';
+        }
+
+        const db = admin.firestore();
+        const articleId = event.params.articleId;
+        const articleRef = db.doc(`articleData/articles/articles/${articleId}`);
+        return db.runTransaction(transaction => {
+            return transaction.get(articleRef).then(article => {
+                let newCount = article.data().viewCount + 1;
+                transaction.update(articleRef, { viewCount: newCount });
+            })
+                .then(() => {
+                    return console.log('view count updated');
+                })
+                .catch(err => {
+                    return console.log('View count could not be updated', err);
+                });
+        });
+    });
+
+export const propagateView = functions.firestore.document('articleData/articles/articles/{articleId}')
+    .onUpdate(event => {
+        const newViews = event.data.data().viewCount;
+        const oldViews = event.data.previous.data().viewCount;
+        if (newViews == oldViews)
+            return 'nothing';
+
+        const db = admin.firestore();
+        const articleId = event.params.articleId;
+        const articleVersion = event.data.data().version;
+        const historyRef = db.doc(`articleData/articles/articles/${articleId}/history/${articleVersion}`);
+        return historyRef.update({ viewCount: newViews })
+            .then(success => {
+                return console.log('History view count updated');
+            })
+            .catch(err => {
+                return console.log("There probably wasn't any article history to update.", err);
+            });
+    });
+
+//-------------^ Article View Logging ^-------------
 
 //-------------v CommentAssociations v-------------
-exports.makeCommentAssociations = functions.database.ref('/commentData/comments/{pushId}')
+export const makeCommentAssociations = functions.database.ref('/commentData/comments/{pushId}')
     .onWrite(event => {
         const newCommentKey = event.data.key;
         const newCommentValue = event.data.val();
 
         commentAssociations({
-            rootRef: firebase.database().ref(),
+            rootRef: admin.database().ref(),
             commentKey: newCommentKey,
             commentValue: newCommentValue
         }).then(_ => {

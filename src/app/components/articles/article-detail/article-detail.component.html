@@ -8,21 +8,24 @@
         <follow-btn *ngIf="article" [uid]="article?.authorKey"></follow-btn>
       </div>
       <!-- Feel free to change the date format. Reference here: https://angular.io/api/common/DatePipe  -->
-      <p class="date">Last Updated: {{ article?.lastUpdated | date }}</p>
+      <p class="date">Last Updated: {{ article?.lastUpdated | date }} - Viewed {{ article?.viewCount }} times</p>
     </div>
   </div>
-    <div class="image-wrapper">
-      <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" class="imageDisplay" alt="article's cover image">
-    </div>
+  <div class="image-wrapper">
+    <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" class="imageDisplay" alt="article's cover image">
+  </div>
   <div class="tagsBar" *ngIf="!editingPreview">
     <ul> Tags:
-      <li *ngFor="let tag of article?.tags" class="tag"><a (click)="tagSearch(tag)">{{tag}}</a></li>
+      <li *ngFor="let tag of article?.tags" class="tag">
+        <a (click)="tagSearch(tag)">{{tag}}</a>
+      </li>
     </ul>
   </div>
   <div class="headlineWrapper">
     <h1>{{article?.title}}</h1>
-    <p class="rating">RATING HERE<p>
-    <mat-icon matTooltip="Bookmark this Article" (click)="bookmarkToggle()" class="bookmark-icon" color="primary">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
+    <p class="rating">RATING HERE
+      <p>
+        <mat-icon matTooltip="Bookmark this Article" (click)="bookmarkToggle()" class="bookmark-icon" color="primary">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
   </div>
   <div class="bodyWrapper">
     <p class="intro">{{article?.introduction}}</p>
@@ -31,7 +34,7 @@
   </div>
   <button mat-raised-button color="primary" *ngIf="!editingPreview" (click)="edit()">Edit</button>
   <button mat-raised-button color="primary" *ngIf="!editingPreview" (click)="navigateToHistory()">View History</button>
-  <button mat-raised-button color="primary" *ngIf="!editingPreview" (click)="toggleFeatured()">{{ isArticleFeatured ? 'unfeature article' : 'feature article'}}</button>
+  <button mat-raised-button color="primary" *ngIf="!editingPreview" (click)="toggleFeatured()">{{ article?.isFeatured ? 'unfeature article' : 'feature article'}}</button>
 
 </div>
 <div *ngIf="!editingPreview" class="comment-section-wrapper">

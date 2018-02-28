@@ -116,13 +116,19 @@ export class AuthService {
     return subject.asObservable();
   }
 
-  sendVerificationEmail() {
+  async sendVerificationEmail() {
     let user = this.afAuth.auth.currentUser;
     //console.log('afAuth.auth.currentUser:', user);
-    user.sendEmailVerification().then(() => {
-    }, (error) => {
-      alert('It looks like your verification email was not sent. Please try again or contact support.');
-    });
+    try {
+      await user.sendEmailVerification();
+    }
+    catch (err) {
+      alert('It looks like your verification email was not sent. Please try again or contact support.' + err);
+    }
+    // user.sendEmailVerification().then(() => {
+    // }, (error) => {
+    //   alert('It looks like your verification email was not sent. Please try again or contact support.');
+    // });
   }
 
   isLoggedInCheck(): Observable<boolean> {

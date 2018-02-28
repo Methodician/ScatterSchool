@@ -11,7 +11,8 @@ import { ArticleService } from 'app/shared/services/article/article.service';
 import { AccountComponent } from 'app/components/account/account/account.component';
 import { AuthService } from 'app/shared/services/auth/auth.service';
 import { HomeComponent } from 'app/components/general/home/home.component';
-import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase as AngularFireDatabaseDeprecated } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -80,6 +81,7 @@ import { ArticleHistoryComponent } from 'app/components/articles/article-history
 import { ArticleHistoryDetailComponent } from 'app/components/articles/article-history-detail/article-history-detail.component';
 import { UserInteractionComponent } from 'app/components/user-interaction/user-interaction/user-interaction.component';
 import { ChatListComponent } from 'app/components/user-interaction/chat-list/chat-list.component';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 
 
@@ -148,8 +150,9 @@ import { ChatListComponent } from 'app/components/user-interaction/chat-list/cha
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    // AngularFireModule.initializeApp(fbConfig),
+    //AngularFireModule.initializeApp(fbConfig),
     AngularFireModule.initializeApp(fbConfigDev),
+    AngularFirestoreModule,
     CollapseModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
@@ -171,6 +174,7 @@ import { ChatListComponent } from 'app/components/user-interaction/chat-list/cha
   ],
   providers: [
     AngularFireDatabase,
+    AngularFireDatabaseDeprecated,
     AuthService,
     UserService,
     ArticleService,

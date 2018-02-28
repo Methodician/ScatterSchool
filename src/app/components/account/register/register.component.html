@@ -7,7 +7,7 @@
       <fieldset class="columnOne">
         <!-- Email Input -->
         <mat-form-field color="primary">
-          <input matInput placeholder="*Email:" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" formControlName="email" type="email /">
+          <input matInput placeholder="*Email:" [class.input-error]="isErrorVisible('email','required') || isErrorVisible('email','validEmail')" name="email" formControlName="email" type="email"/>
           <mat-error *ngIf="isErrorVisible('email','required')">We'll need your e-mail address, please.</mat-error>
           <mat-error *ngIf="isErrorVisible('email','validEmail')">Please enter a valid e-mail address.</mat-error>
         </mat-form-field>

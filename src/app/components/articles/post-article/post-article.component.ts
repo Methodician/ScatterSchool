@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Upload } from 'app/shared/class/upload';
+import { UserService } from 'app/shared/services/user/user.service';
+import { UserInfoOpen } from 'app/shared/class/user-info';
 
 @Component({
   selector: 'app-post-article',
@@ -12,6 +14,7 @@ import { Upload } from 'app/shared/class/upload';
 })
 export class PostArticleComponent implements OnInit {
   authInfo = null;
+  userInfo: UserInfoOpen = null;
   article: any;
   selectedFiles;
 
@@ -19,10 +22,14 @@ export class PostArticleComponent implements OnInit {
     private articleSvc: ArticleService,
     private router: Router,
     private authSvc: AuthService,
+    userSvc: UserService,
     private uploadSvc: UploadService
   ) {
     authSvc.authInfo$.subscribe(info => {
       this.authInfo = info;
+    });
+    userSvc.userInfo$.subscribe(user => {
+      this.userInfo = user;
     });
   }
 
@@ -30,12 +37,18 @@ export class PostArticleComponent implements OnInit {
     window.scrollTo(0, 0);
   }
 
-  save(article) {
-    const articleKey = this.articleSvc.createNewArticle(this.authInfo.$uid, article);
-    if (this.selectedFiles) {
-      this.sendImgToUploadSvc(articleKey);
-    }
-    this.router.navigate([`articledetail/${articleKey}`]);
+  async save(article) {
+    const articleId = await this.articleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article);
+    if(this.selectedFiles)
+      this.sendImgToUploadSvc(articleId);
+    this.router.navigate([`articledetail/${articleId}`]);
+
+    // this.articleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article).then(articleId => {
+    //   if (this.selectedFiles) {
+    //     this.sendImgToUploadSvc(articleId);
+    //   }
+    //   this.router.navigate([`articledetail/${articleId}`]);
+    // });
   }
 
   sendImgToUploadSvc(articleKey) {

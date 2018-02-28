@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { UserService } from 'app/shared/services/user/user.service';
 import { AuthService } from 'app/shared/services/auth/auth.service';
+import { ArticleDetailFirestore } from 'app/shared/class/article-info';
 
 @Component({
   selector: 'latest-preview',
@@ -11,7 +12,7 @@ import { AuthService } from 'app/shared/services/auth/auth.service';
   styleUrls: ['./latest-preview.component.scss']
 })
 export class LatestPreviewComponent implements OnInit {
-  @Input() articleData: any;
+  @Input() articleData: ArticleDetailFirestore;
   author;
   profileImageUrl;
   articleCoverImageUrl;
@@ -27,7 +28,7 @@ export class LatestPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.articleSvc.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
+    this.articleSvc.getAuthorByKey(this.articleData.authorId).subscribe(author => {
       this.author = author;
       if (author.$key) this.getProfileImage(author.$key);
     });
@@ -37,15 +38,15 @@ export class LatestPreviewComponent implements OnInit {
         this.checkIfBookmarked();
       }
     });
-    this.getArticleCoverImage(this.articleData.$key);
+    this.getArticleCoverImage(this.articleData.articleId);
   }
 
   navigateToArticleDetail() {
-    this.articleSvc.navigateToArticleDetail(this.articleData.$key);
+    this.articleSvc.navigateToArticleDetail(this.articleData.articleId);
   }
 
   navigateToProfile() {
-    this.articleSvc.navigateToProfile(this.articleData.authorKey);
+    this.articleSvc.navigateToProfile(this.articleData.authorId);
   }
 
   getProfileImage(uid) {
@@ -67,7 +68,7 @@ export class LatestPreviewComponent implements OnInit {
   }
 
   checkIfBookmarked() {
-    this.articleSvc.isBookmarked(this.user.$key, this.articleData.$key).subscribe(bookmark => {
+    this.articleSvc.isBookmarked(this.user.$key, this.articleData.articleId).subscribe(bookmark => {
       this.isArticleBookmarked = bookmark;
     })
   }
@@ -76,9 +77,9 @@ export class LatestPreviewComponent implements OnInit {
     this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
       if (isLoggedIn) {
         if (this.isArticleBookmarked)
-          this.articleSvc.unBookmarkArticle(this.user.$key, this.articleData.$key);
+          this.articleSvc.unBookmarkArticle(this.user.$key, this.articleData.articleId);
         else
-          this.articleSvc.bookmarkArticle(this.user.$key, this.articleData.$key);
+          this.articleSvc.bookmarkArticle(this.user.$key, this.articleData.articleId);
       }
     })
   }

@@ -44,17 +44,27 @@ export class RegisterComponent implements OnInit {
 
     this.authSvc.register(val.email, val.password)
       .subscribe(
-      res => {
+      async res => {
         //console.log('Signup result from RegisterComp:', res);
         delete val.password;
         delete val.confirmPass;
         this.authSvc.sendVerificationEmail();
         alert('Thanks for creating an account! Play nice, make friends, and contribute to the wealth of knowledge we\'re building together.');
-        this.userSvc.createUser(val, res.uid).then(user => {
+        try {
+          await this.userSvc.createUser(val, res.uid);
           if (val.alias) {
             this.authSvc.setDisplayName(val.alias);
           }
-        });
+        }
+        catch (err) {
+          alert('We might not have saved your user info quite right. Woops!' + err);
+        }
+
+        // this.userSvc.createUser(val, res.uid).then(user => {
+        //   if (val.alias) {
+        //     this.authSvc.setDisplayName(val.alias);
+        //   }
+        // });
         this.router.navigateByUrl('/account');
       },
       err => alert(err)
