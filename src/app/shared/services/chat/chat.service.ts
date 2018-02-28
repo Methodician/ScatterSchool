@@ -13,26 +13,25 @@ export class ChatService {// maybe should be renamed to UserInteractionService
 
   //  research compound behavior subjects or subscriptions!!
   userInteractionTabSelected = null;
+  userInteractionWindowExpanded = false;
   userInteractionTabSelected$: BehaviorSubject<number> = new BehaviorSubject(null);
   userInteractionWindowExpanded$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-  userInteractionWindowExpanded = false;
   shouldUpdateSeenCount$: BehaviorSubject<boolean> = new BehaviorSubject(false);
-
   unreadMessages$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
-    private db: AngularFireDatabase
+    private db: AngularFireDatabase,
   ) {
     this.userInteractionTabSelected$.subscribe(tabIndex => {
-      if (tabIndex == 2 && this.userInteractionWindowExpanded)
+      if (tabIndex === 2 && this.userInteractionWindowExpanded) {
         this.shouldUpdateSeenCount$.next(true);
-      else this.shouldUpdateSeenCount$.next(false);
+      } else { this.shouldUpdateSeenCount$.next(false) };
     });
     this.userInteractionWindowExpanded$.subscribe(isOpen => {
-      if (isOpen && this.userInteractionTabSelected == 2)
+      if (isOpen && this.userInteractionTabSelected === 2) {
         this.shouldUpdateSeenCount$.next(true);
-      else this.shouldUpdateSeenCount$.next(false);
-    })
+      } else { this.shouldUpdateSeenCount$.next(false) };
+    });
   }
 
   selectUserInteractionTab(tabIndex: number) {
@@ -46,11 +45,15 @@ export class ChatService {// maybe should be renamed to UserInteractionService
   }
 
   updateTotalMessagesCount(totalMessages) {
-    return this.db.object(`chatData/chats/${this.currentChatKey}`).update({ totalMessagesCount: totalMessages })
+    return this.db
+      .object(`chatData/chats/${this.currentChatKey}`)
+      .update({ totalMessagesCount: totalMessages });
   }
 
   updateMessagesSeenCount(userKey, totalMessages) {
-    return this.db.object(`chatData/chats/${this.currentChatKey}/members/${userKey}`).update({ messagesSeenCount: totalMessages });
+    return this.db
+      .object(`chatData/chats/${this.currentChatKey}/members/${userKey}`)
+      .update({ messagesSeenCount: totalMessages });
   }
 
   getMessagesSeenCount(userKey) {
@@ -93,29 +96,25 @@ export class ChatService {// maybe should be renamed to UserInteractionService
 
   saveMessage(messageData) {
     messageData.timestamp = firebase.database.ServerValue.TIMESTAMP;
-
-    let dbMessageRef = this.getMessagesForCurrentChat().push(messageData);
+    const dbMessageRef = this.getMessagesForCurrentChat().push(messageData);
   }
 
   createChat(users) {
-    let dbChatsRef = this.db.list("chatData/chats");
-    let chatKey = dbChatsRef.push({ timestamp: firebase.database.ServerValue.TIMESTAMP }).key;
+    const dbChatsRef = this.db.list('chatData/chats'),
+          chatKey = dbChatsRef.push({ timestamp: firebase.database.ServerValue.TIMESTAMP }).key,
+          updateObject = {},
+          memberObject = {};
 
-    let updateObject = {};
-    let memberObject = {};
-
-    for (let user of users) {
-      let displayName = user.alias ? user.alias : user.fName;
+    for (const user of users) {
+      const displayName = user.alias ? user.alias : user.fName;
       updateObject[`members/${user.$key}/name`] = displayName;
       updateObject[`members/${user.$key}/messagesSeenCount`] = 0;
       memberObject[`${user.$key}/${chatKey}`] = true;
     }
-  
+
     this.db.object(`chatData/chats/${chatKey}`).update(updateObject);
     this.db.object(`chatData/chatsPerMember`).update(memberObject);
-  
     this.openChat(chatKey);
-
   }
 
   openChat(chatKey: string) {
