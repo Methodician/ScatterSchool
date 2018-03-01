@@ -1,5 +1,5 @@
 import { Router, Params } from '@angular/router';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 
@@ -79,17 +79,24 @@ export class CommentService {
   }
 
   getCommentsByParentKey(parentKey: string) {
-    return this.db.list(`commentData/comments`, ref => {
+    const list = this.db.list(`commentData/comments`, ref => {
       return ref
         .orderByChild('parentKey')
         .equalTo(parentKey);
-    }).snapshotChanges().map(comments => {
-      return comments.map(comment => {
-        return {
-          $key: comment.key,
-          ...comment.payload.val()
-        }
-      })
     });
+    return this.injectKey(list);
+  }
+
+  injectKey(list: AngularFireList<{}>) {
+    return list
+      .snapshotChanges()
+      .map(elements => {
+        return elements.map(element => {
+          return {
+            $key: element.key,
+            ...element.payload.val()
+          };
+        });
+      });
   }
 }
