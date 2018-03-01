@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
-import { AngularFireDatabase, FirebaseObjectObservable, FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { Upload } from '../../class/upload';
 import { UserService } from '../user/user.service';
 import { AuthService } from '../auth/auth.service';
@@ -60,7 +60,7 @@ export class UploadService {
       });
   }
 
-  // delete files form firebase storage 
+  // delete files form firebase storage
   private deleteFileStorage(key, basePath) {
     const storageRef = firebase.storage().ref();
     storageRef.child(`${basePath}/${key}`).delete();
@@ -68,7 +68,9 @@ export class UploadService {
 
   // return an image from the database
   getImage(key, basePath) {
-    return this.afd.object(`${basePath}/${key}`);
+    return this.afd
+      .object(`${basePath}/${key}`)
+      .valueChanges() as any;
   }
 }
 
