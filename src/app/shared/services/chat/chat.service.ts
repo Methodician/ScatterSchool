@@ -1,8 +1,9 @@
 import { BehaviorSubject } from 'rxjs/Rx';
 import { Injectable } from '@angular/core';
-import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { Observable } from 'rxjs/Observable';
+import { AngularFireList } from 'angularfire2/database';
 
 @Injectable()
 export class ChatService {// maybe should be renamed to UserInteractionService
@@ -32,6 +33,30 @@ export class ChatService {// maybe should be renamed to UserInteractionService
         this.shouldUpdateSeenCount$.next(true);
       } else { this.shouldUpdateSeenCount$.next(false) };
     });
+  }
+
+  injectListKeys(list: AngularFireList<{}>) {
+    return list
+      .snapshotChanges()
+      .map(elements => {
+        return elements.map(element => {
+          return {
+            $key: element.key,
+            ...element.payload.val()
+          };
+        });
+      });
+  }
+
+  injectObjectKey(object: AngularFireObject<{}>) {
+    return object
+      .snapshotChanges()
+      .map(element => {
+        return {
+          $key: element.key,
+          ...element.payload.val()
+        };
+      });
   }
 
   selectUserInteractionTab(tabIndex: number) {
@@ -81,13 +106,16 @@ export class ChatService {// maybe should be renamed to UserInteractionService
   }
 
   getUserChatKeys(userKey) {
-    return this.db.list(`chatData/chatsPerMember/${userKey}`)
+    return this.db.list(`chatData/chatsPerMember/${userKey}`);
   }
 
   getChatsByUserKey(userKey) {
-    return this.db.list(`chatData/chatsPerMember/${userKey}`)
+    const list = this.db.list(`chatData/chatsPerMember/${userKey}`);
+    return this.injectListKeys(list)
       .map(userChats => {
-        return userChats.map(chat => this.db.object(`chatData/chats/${chat.$key}`));
+        return userChats.map(chat => {
+          return this.injectObjectKey(this.db.object(`chatData/chats/${chat.$key}`))
+        });
       })
       .flatMap(firebaseObjectObservables => {
         return Observable.combineLatest(firebaseObjectObservables);
@@ -112,8 +140,12 @@ export class ChatService {// maybe should be renamed to UserInteractionService
       memberObject[`${user.$key}/${chatKey}`] = true;
     }
 
-    this.db.object(`chatData/chats/${chatKey}`).update(updateObject);
-    this.db.object(`chatData/chatsPerMember`).update(memberObject);
+    this.db
+      .object(`chatData/chats/${chatKey}`)
+      .update(updateObject);
+    this.db
+      .object(`chatData/chatsPerMember`)
+      .update(memberObject);
     this.openChat(chatKey);
   }
 
