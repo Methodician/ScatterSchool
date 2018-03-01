@@ -1,6 +1,5 @@
 import { Component, Input } from '@angular/core';
 import { SuggestionService } from 'app/shared/services/suggestion/suggestion.service'
-import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { Router } from '@angular/router';
 
 @Component({
@@ -15,5 +14,4 @@ export class SuggestionPreviewComponent {
   @Input() currentUserKey;
 
   constructor(private service: SuggestionService) { }
-
 }

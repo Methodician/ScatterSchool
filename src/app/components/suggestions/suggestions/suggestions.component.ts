@@ -2,7 +2,6 @@ import { Suggestion } from 'app/shared/class/suggestion.model';
 import { AuthService } from 'app/shared/services/auth/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { SuggestionService } from 'app/shared/services/suggestion/suggestion.service'
-import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { SortOptions } from 'app/shared/pipes/suggestion-sort.pipe';
 
 @Component({
@@ -25,7 +24,8 @@ export class SuggestionsComponent implements OnInit {
       this.currentUserKey = (authInfo.$uid) ? authInfo.$uid : null;
     })
 
-    this.suggestionService.getAllSuggestions()
+    this.suggestionService
+      .getAllSuggestions()
       .subscribe(suggestions => {
         this.suggestions = suggestions;
       });
