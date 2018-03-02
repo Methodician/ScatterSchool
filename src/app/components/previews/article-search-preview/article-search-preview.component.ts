@@ -28,7 +28,10 @@ export class ArticleSearchPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.articleSvc.getAuthorByKey(this.articleData.authorKey).subscribe(author => {
+    this.articleSvc
+      .getAuthorByKey(this.articleData.authorId)
+      // .valueChanges()
+      .subscribe(author => {
       this.author = author;
     });
     this.userSvc.userInfo$.subscribe(user => {
@@ -37,38 +40,42 @@ export class ArticleSearchPreviewComponent implements OnInit {
         this.checkIfBookmarked();
       }
     });
-    this.getProfileImage(this.author.$key);
-    this.getArticleCoverImage(this.articleData.$key);
+    this.getProfileImage(this.articleData.authorId);
+    this.getArticleCoverImage(this.articleData.articleId);
   }
 
   navigateToArticleDetail() {
-    this.articleSvc.navigateToArticleDetail(this.articleData.$key);
+    this.articleSvc.navigateToArticleDetail(this.articleData.articleId);
   }
 
   navigateToProfile() {
-    this.articleSvc.navigateToProfile(this.articleData.authorKey);
+    this.articleSvc.navigateToProfile(this.articleData.authorId);
   }
 
   getProfileImage(uid) {
     const basePath = 'uploads/profileImages/';
-    this.uploadSvc.getImage(uid, basePath).subscribe(profileData => {
-      if (profileData.url) {
-        this.profileImageUrl = profileData.url;
-      }
-    });
+    this.uploadSvc
+      .getImage(uid, basePath)
+      .subscribe(profileData => {
+        if (profileData.url) {
+          this.profileImageUrl = profileData.url;
+        }
+      });
   }
 
   getArticleCoverImage(articleKey) {
     const basePath = 'uploads/articleCoverImages';
-    this.uploadSvc.getImage(articleKey, basePath).subscribe(articleData => {
-      if (articleData.url) {
-        this.articleCoverImageUrl = articleData.url;
-      }
-    });
+    this.uploadSvc
+      .getImage(articleKey, basePath)
+      .subscribe(articleData => {
+        if (articleData && articleData.url) {
+          this.articleCoverImageUrl = articleData.url;
+        }
+      });
   }
 
   checkIfBookmarked() {
-    this.articleSvc.isBookmarked(this.user.$key, this.articleData.$key).subscribe(bookmark => {
+    this.articleSvc.isBookmarked(this.user.$key, this.articleData.articleId).subscribe(bookmark => {
       this.isArticleBookmarked = bookmark;
     })
   }
@@ -76,10 +83,11 @@ export class ArticleSearchPreviewComponent implements OnInit {
   bookmarkToggle() {
     this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
       if (isLoggedIn) {
-        if (this.isArticleBookmarked)
-          this.articleSvc.unBookmarkArticle(this.user.$key, this.articleData.$key);
-        else
-          this.articleSvc.bookmarkArticle(this.user.$key, this.articleData.$key);
+        if (this.isArticleBookmarked) {
+          this.articleSvc.unBookmarkArticle(this.user.$key, this.articleData.articleId);
+        } else {
+          this.articleSvc.bookmarkArticle(this.user.$key, this.articleData.articleId);
+        }
       }
     })
   }

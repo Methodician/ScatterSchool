@@ -60,14 +60,14 @@ export class ArticleService {
     return this.afs.collection('userData').doc(userId).collection('articlesAuthored');
   }
 
-  getAllArticles() {
-    return this.afd.list('articleData/articles').map(articles => {
-      return articles.map(article => {
-        article.tags = this.tagsArrayFromTagsObject(article.tags);
-        return article;
-      });
-    });
-  }
+  // getAllArticles() {
+  //   return this.afd.list('articleData/articles').map(articles => {
+  //     return articles.map(article => {
+  //       article.tags = this.tagsArrayFromTagsObject(article.tags);
+  //       return article;
+  //     });
+  //   });
+  // }
 
   getArticleByKey(articleKey: string) {
     return this.afd.object(`articleData/articles/${articleKey}`).map(article => {
