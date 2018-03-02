@@ -21,8 +21,18 @@ export class UserService {
   ) {
     this.authSvc.authInfo$.subscribe(authInfo => {
       this.getUserInfo(authInfo.$uid).subscribe(info => {
-        if (info.$key != 'null') {
-          let userInfo = new UserInfoOpen(info.alias, info.fName, info.lName, info.zipCode, info.$key, info.uid, info.bio, info.city, info.state);
+        if (info.$key !== 'null') {
+          const userInfo = new UserInfoOpen(
+            info.alias,
+            info.fName,
+            info.lName,
+            info.zipCode,
+            info.$key,
+            info.uid,
+            info.bio,
+            info.city,
+            info.state
+          );
           this.userInfo$.next(userInfo);
           this.loggedInUserKey = info.$key;
         }
@@ -55,7 +65,7 @@ export class UserService {
   }
 
   updateUserInfo(userInfo, uid) {
-    let detailsToUpdate = {
+    const detailsToUpdate = {
       alias: userInfo.alias,
       bio: userInfo.bio,
       city: userInfo.city,
@@ -81,9 +91,19 @@ export class UserService {
   UserArrayFromKeyArray(userKeys: Observable<string[]>): Observable<UserInfoOpen[]> {
     return userKeys
       .map(usersPerKey => {
-        return usersPerKey.map((user: any) => {
-          return this.db.object(`userInfo/open/${user.$key}`).map(user => {
-            return new UserInfoOpen(user.alias, user.fName, user.lName, user.zipCode, user.$key, user.$key, user.bio, user.city, user.state);
+        return usersPerKey.map((keyUser: any) => {
+          return this.db.object(`userInfo/open/${keyUser.$key}`).map(user => {
+            return new UserInfoOpen(
+              user.alias,
+              user.fName,
+              user.lName,
+              user.zipCode,
+              user.$key,
+              user.$key,
+              user.bio,
+              user.city,
+              user.state
+            );
           })
         })
       })
@@ -92,14 +112,14 @@ export class UserService {
   }
 
   getUsersFollowed(uid: string): Observable<UserInfoOpen[]> {
-    let usersFollowedKeysList = this.db.list(`userInfo/usersPerFollower/${uid}`);
-    let usersFollowedObservable = this.UserArrayFromKeyArray(usersFollowedKeysList);
+    const usersFollowedKeysList = this.db.list(`userInfo/usersPerFollower/${uid}`);
+    const usersFollowedObservable = this.UserArrayFromKeyArray(usersFollowedKeysList);
     return usersFollowedObservable;
   }
 
   getFollowersOfUser(uid: string): Observable<UserInfoOpen[]> {
-    let followerKeysList = this.db.list(`userInfo/followersPerUser/${uid}`);
-    let followersListObservable = this.UserArrayFromKeyArray(followerKeysList);
+    const followerKeysList = this.db.list(`userInfo/followersPerUser/${uid}`);
+    const followersListObservable = this.UserArrayFromKeyArray(followerKeysList);
     return followersListObservable;
   }
 
