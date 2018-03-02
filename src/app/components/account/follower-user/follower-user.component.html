@@ -1,5 +1,5 @@
 <mat-card (click)="navigateToProfile()">
-  <img [src]="((getProfileImageUrl(user.$key) | async).$value) || '../../assets/images/kid-art.jpg'" mat-card-avatar class="profile-image">
+  <img [src]="photoURL" mat-card-avatar class="profile-image">
   <follow-btn (click)="stopPropagation($event)" [uid]="user.uid"></follow-btn>
   <mat-card-header>
     <mat-card-title>{{ user.displayName() }}</mat-card-title>
