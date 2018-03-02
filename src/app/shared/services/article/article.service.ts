@@ -27,15 +27,30 @@ export class ArticleService {
   }
 
   getAllArticlesFirestore() {
-    return this.afs.collection('articleData').doc('articles').collection('articles')
+    return this.afs
+      .collection('articleData')
+      .doc('articles')
+      .collection('articles');
   }
 
   getLatestArticles() {
-    return this.afs.collection('articleData').doc('articles').collection('articles', ref => ref.orderBy('timestamp', 'desc').limit(12));
+    return this.afs
+    .collection('articleData')
+    .doc('articles')
+    .collection('articles', ref => {
+      return ref
+        .orderBy('timestamp', 'desc')
+        .limit(12);
+    });
   }
 
   getFeaturedArticles() {
-    return this.afs.collection('articleData').doc('articles').collection('articles', ref => ref.where('isFeatured', '==', true));
+    return this.afs
+      .collection('articleData')
+      .doc('articles')
+      .collection('articles', ref => {
+        return ref.where('isFeatured', '==', true)
+      });
   }
   // rtdb version
   // getAllFeatured() {
@@ -71,15 +86,25 @@ export class ArticleService {
   // }
 
   getArchivedArticlesById(articleId: string) {
-    return this.getArticleById(articleId).collection('history', ref => ref.orderBy('version'));
+    return this
+      .getArticleById(articleId)
+      .collection('history', ref => {
+        return ref.orderBy('version');
+      });
   }
 
   getArticlesEditedByUid(userId: string) {
-    return this.afs.collection('userData').doc(userId).collection('articlesEdited');
+    return this.afs
+      .collection('userData')
+      .doc(userId)
+      .collection('articlesEdited');
   }
 
   getArticlesAuthoredByUid(userId: string) {
-    return this.afs.collection('userData').doc(userId).collection('articlesAuthored');
+    return this.afs
+      .collection('userData')
+      .doc(userId)
+      .collection('articlesAuthored');
   }
 
   // getAllArticles() {
@@ -135,8 +160,8 @@ export class ArticleService {
   }
 
   async createNewArticleFirestore(author: UserInfoOpen, authorId: string, article: any) {
-    let batch = this.afs.firestore.batch();
-    let newArticle: any = this.newObjectFromArticle(article, authorId);
+    const batch = this.afs.firestore.batch();
+    const newArticle: any = this.newObjectFromArticle(article, authorId);
 
     const bodyId = this.afs.createId();
     newArticle.bodyId = bodyId;
@@ -149,25 +174,35 @@ export class ArticleService {
     const articleRef = this.getArticleById(articleId).ref;
     batch.set(articleRef, newArticle);
 
-    const articleEditorRef = this.getArticleById(articleId).collection('editors').doc(authorId).ref;
+    const articleEditorRef = this
+      .getArticleById(articleId)
+      .collection('editors')
+      .doc(authorId)
+      .ref;
     batch.set(articleEditorRef, {
       editorId: authorId,
       name: author.displayName()
     });
 
-    const userArticleEditedRef = this.getArticlesEditedByUid(authorId).doc(articleId).ref;
+    const userArticleEditedRef = this
+      .getArticlesEditedByUid(authorId)
+      .doc(articleId)
+      .ref;
     batch.set(userArticleEditedRef, {
       timestamp: this.fsServerTimestamp(),
       articleId: articleId
     });
 
-    const userArticleAuthoredRef = this.getArticlesAuthoredByUid(authorId).doc(articleId).ref;
+    const userArticleAuthoredRef = this
+      .getArticlesAuthoredByUid(authorId)
+      .doc(articleId)
+      .ref;
     batch.set(userArticleAuthoredRef, {
       timestamp: this.fsServerTimestamp(),
       articleId: articleId
     });
 
-    for (let tag of article.tags) {
+    for (const tag of article.tags) {
       this.addGlobalTagFirestore(tag);
     }
 
@@ -175,17 +210,13 @@ export class ArticleService {
       await batch.commit();
       return articleId;
     } catch (err) {
-      alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
+      alert(`
+        There was a problem saving your article.
+        Please share a screenshot of the error with the ScatterSchool dev. team
+        Error: ${err.toString()}
+      `);
       return err.toString();
     }
-
-    // return batch.commit()
-    //   .then(success => {
-    //     return articleId;
-    //   })
-    //   .catch(err => {
-    //     alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
-    //   });
   }
 
   // createNewArticleFirebase(authorKey: string, article: any) {
@@ -224,7 +255,7 @@ export class ArticleService {
 
   updateArticleFirestore(editorId: string, editor: UserInfoOpen, article: ArticleDetailFirestore, articleId: string) {
     return new Promise(resolve => {
-      let batch = this.afs.firestore.batch();
+      const batch = this.afs.firestore.batch();
       //  Wondering if we should stop using this and just get the lastest from history...
       const articleDoc = this.getArticleById(articleId);
 
@@ -271,14 +302,21 @@ export class ArticleService {
               try {
                 await batch.commit();
                 resolve(true);
-              }
-              catch (err) {
-                if (err.code == 'permission-denied') {
-                  alert('There was a problem saving your article related to access permissions. If that doesn\'t sound quite right, please submit a bug report to the ScatterSchool github page or just share a screenshot of this message with the dev team at https://flight.run. Thanks! Error: ' + err);
+              } catch (err) {
+                if (err.code === 'permission-denied') {
+                  alert(`
+                    There was a problem saving your article related to access permissions.
+                    If that doesn\'t sound quite right, please submit a bug report to the ScatterSchool github page
+                    or just share a screenshot of this message with the dev team at https://flight.run. Thanks!
+                    Error: ${err}
+                  `);
                   resolve(err);
-                }
-                else {
-                  alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
+                } else {
+                  alert(`
+                    There was a problem saving your article.
+                    Please share a screenshot of the error with the ScatterSchool dev. team.
+                    Error: ${err.toString()}
+                  `);
                   resolve(err);
                 }
               }
@@ -288,11 +326,20 @@ export class ArticleService {
               //   })
               //   .catch(err => {
               //     if (err.code == 'permission-denied') {
-              //       alert('There was a problem saving your article related to access permissions. If that doesn\'t sound quite right, please submit a bug report to the ScatterSchool github page or just share a screenshot of this message with the dev team at https://flight.run. Thanks! Error: ' + err);
+              //       alert(`
+              //         There was a problem saving your article related to access permissions.
+              //         If that doesn\'t sound quite right, please submit a bug report to the ScatterSchool github page
+              //         or just share a screenshot of this message with the dev team at https://flight.run.
+              //         Thanks! Error: ${err.toString()}
+              //       `);
               //       resolve(err);
               //     }
               //     else {
-              //       alert('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
+              //       alert(`
+              //         There was a problem saving your article.
+              //         Please share a screenshot of the error with the ScatterSchool dev. team.
+              //         Error: ${err.toString()}
+              //      `);
               //       resolve(err);
               //     }
               //   });
@@ -356,22 +403,23 @@ export class ArticleService {
   // }
 
   tagsArrayFromTagsObject(articleTags): string[] {
-    if (articleTags == {} || (articleTags && articleTags.$value && articleTags.$value == null))
-      return null;
+    if (articleTags === {}
+       || articleTags
+       && articleTags.$value
+       && articleTags.$value == null) { return null; }
 
-    let tagArray = [];
-    for (let tag in articleTags) {
-      tagArray.push(tag);
+    const tagArray = [];
+    for (const tag in articleTags) {
+      if (tag) { tagArray.push(tag); }
     }
     return tagArray;
   }
 
   tagsObjectFromStringArray(tagsArray: string[]): object {
-    if (!tagsArray || tagsArray == [])
-      return null;
+    if (!tagsArray || tagsArray === []) { return null; }
 
-    let tagsObject = {};
-    for (let tag of tagsArray) {
+    const tagsObject = {};
+    for (const tag of tagsArray) {
       tagsObject[tag.toUpperCase()] = true;
     }
 
@@ -433,8 +481,7 @@ export class ArticleService {
         const viewId = docRef.id;
         sessionStorage.setItem('currentViewId', viewId);
         return viewId;
-      }
-      catch (err) {
+      } catch (err) {
         return err;
       }
     }
@@ -463,9 +510,10 @@ export class ArticleService {
   }
 
   captureArticleUnView(articleId: string, viewId: string) {
-    //  TOUGH: Not registered when browser refreshed or closed or navigate away from app.
-    //  Consider using beforeUnload S/O article: https://stackoverflow.com/questions/37642589/how-can-we-detect-when-user-closes-browser/37642657#37642657 
-    //  Consider using session storage as started in captureAricleView - maybe can reliably track viewId and timing or something...
+    // TOUGH: Not registered when browser refreshed or closed or navigate away from app.
+    // Consider using beforeUnload S/O article:
+    // https://stackoverflow.com/questions/37642589/how-can-we-detect-when-user-closes-browser/37642657#37642657
+    // Consider using session storage as started in captureAricleView - maybe can reliably track viewId and timing or something...
     const viewFromSession = new Date(sessionStorage.getItem(`unView:${articleId}`));
     const msPerMinute = 60000;
     const twoMinutesBack = new Date(new Date().valueOf() - 2 * msPerMinute);
@@ -486,14 +534,18 @@ export class ArticleService {
 
   setFeaturedArticle(articleKey: string) {
     //  Firestore way:
-    this.getArticleById(articleKey).update({ isFeatured: true });
+    this
+      .getArticleById(articleKey)
+      .update({ isFeatured: true });
     //  Firebase way:
     // this.afd.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
   }
 
   unsetFeaturedArticle(articleKey: string) {
     //  Firestore way:
-    this.getArticleById(articleKey).update({ isFeatured: false });
+    this
+      .getArticleById(articleKey)
+      .update({ isFeatured: false });
     //  Firebase way:
     // firebase.database().ref('articleData/featuredArticles').child(articleKey).remove();
   }
@@ -523,20 +575,26 @@ export class ArticleService {
       .object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`)
       .valueChanges()
       .map(article => {
-        if (article) {
-          return true;
-        } else { return false; }
+        return article ? true : false;
       });
   }
 
   bookmarkArticle(userKey, articleKey) {
-    this.rtdb.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
-    this.rtdb.object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+    this.rtdb
+      .object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`)
+      .set(firebase.database.ServerValue.TIMESTAMP);
+    this.rtdb
+      .object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`)
+      .set(firebase.database.ServerValue.TIMESTAMP);
   }
 
   unBookmarkArticle(userKey, articleKey) {
-    this.rtdb.object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`).remove();
-    this.rtdb.object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`).remove();
+    this.rtdb
+      .object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`)
+      .remove();
+    this.rtdb
+      .object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`)
+      .remove();
   }
 
   // returns each article a particular user has bookmarked
@@ -574,13 +632,14 @@ export class ArticleService {
     // Error is => There must be only one transform for every document,
     // and transform must be after all other operations on the document
     if (newTags) {
-      for (let tag of newTags) {
-        if (!oldTags.includes(tag))
+      for (const tag of newTags) {
+        if (!oldTags.includes(tag)) {
           this.addGlobalTagFirestore(tag, batch);
+        }
       }
     }
     if (oldTags && oldTags.length > 0) {
-      for (let tag of oldTags) {
+      for (const tag of oldTags) {
         if (!newTags.includes(tag)) {
           this.decrementGlobalTag(tag, batch)
         }
@@ -594,51 +653,55 @@ export class ArticleService {
     // and transform must be after all other operations on the document
     const tagsRef = this.getGlobalTags();
     if (this.globalTags) {
-      let gTag = this.globalTags[tag];
+      const gTag = this.globalTags[tag];
       if (gTag !== undefined) {
         gTag.count++;
-        let tagField = {};
+        const tagField = {};
         tagField[tag] = gTag;
-        if (batch)
+        if (batch) {
           batch.update(tagsRef.ref, tagField);
-        else
+        } else {
           tagsRef.update(tagField);
+        }
         return;
       }
     }
-    let newTag = {};
+    const newTag = {};
     newTag[tag] = {
       timestamp: this.fsServerTimestamp(),
       count: 1
     };
-    if (batch)
+    if (batch) {
       batch.update(tagsRef.ref, newTag);
-    else
+    } else {
       tagsRef.update(newTag);
+    }
   }
 
   decrementGlobalTag(tag: any, batch?: firebase.firestore.WriteBatch) {
     const tagsRef = this.getGlobalTags();
     if (this.globalTags) {
-      let gTag = this.globalTags[tag];
+      const gTag = this.globalTags[tag];
       if (gTag !== undefined && gTag.count > 1) {
         gTag.count--;
-        let tagField = {};
+        const tagField = {};
         tagField[tag] = gTag;
-        if (batch)
+        if (batch) {
           batch.update(tagsRef.ref, tagField);
-        else
+        } else {
           tagsRef.update(tagField);
+        }
         return;
       }
     }
     delete this.globalTags[tag]
-    let tagsFieldDeleter = {};
+    const tagsFieldDeleter = {};
     tagsFieldDeleter[tag] = firebase.firestore.FieldValue.delete();
-    if (batch)
+    if (batch) {
       batch.update(tagsRef.ref, tagsFieldDeleter);
-    else
+    } else {
       tagsRef.update(tagsFieldDeleter);
+    }
   }
 
   dbObjectFromBody(body, articleId, version, editorId) {
@@ -693,9 +756,8 @@ export class ArticleService {
           if (tags) {
             this.globalTags = tags;
             // resolve();
-          }
-          else {
-            let seedTag: any = {
+          } else {
+            const seedTag: any = {
               seed: {
                 count: 0,
                 timestamp: new Date()
@@ -706,7 +768,12 @@ export class ArticleService {
                 // resolve();
               })
               .catch((err) => {
-                alert("no tags exist and we can't make them. Is this a new DB instance? Please send a screenshot of this error to the Scatterschool Dev Team!" + err.toString());
+                alert(`
+                  No tags exist and we can't make them.
+                  Is this a new DB instance?
+                  Please send a screenshot of this error to the Scatterschool Dev Team!:
+                  ${err.toString()}
+                `);
               });
           }
         });
@@ -719,19 +786,6 @@ export class ArticleService {
 
   fsServerTimestamp() {
     return firebase.firestore.FieldValue.serverTimestamp();
-  }
-
-  injectListKeys(list: AngularFireList<{}>) {
-    return list
-      .snapshotChanges()
-      .map(elements => {
-        return elements.map(element => {
-          return {
-            $key: element.key,
-            ...element.payload.val()
-          };
-        });
-      });
   }
 
   injectObjectKey(object: AngularFireObject<{}>) {
