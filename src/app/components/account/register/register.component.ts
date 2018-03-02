@@ -42,21 +42,23 @@ export class RegisterComponent implements OnInit {
   register() {
     const val = this.form.value;
 
-    this.authSvc.register(val.email, val.password)
-      .subscribe(
-      async res => {
-        //console.log('Signup result from RegisterComp:', res);
+    this.authSvc
+      .register(val.email, val.password)
+      .subscribe(async res => {
+        // console.log('Signup result from RegisterComp:', res);
         delete val.password;
         delete val.confirmPass;
         this.authSvc.sendVerificationEmail();
-        alert('Thanks for creating an account! Play nice, make friends, and contribute to the wealth of knowledge we\'re building together.');
+        alert(`
+          Thanks for creating an account!
+          Play nice, make friends, and contribute to the wealth of knowledge we\'re building together.`
+        );
         try {
           await this.userSvc.createUser(val, res.uid);
           if (val.alias) {
             this.authSvc.setDisplayName(val.alias);
           }
-        }
-        catch (err) {
+        } catch (err) {
           alert('We might not have saved your user info quite right. Woops!' + err);
         }
 
@@ -66,23 +68,21 @@ export class RegisterComponent implements OnInit {
         //   }
         // });
         this.router.navigateByUrl('/account');
-      },
-      err => alert(err)
-      );
+      }, err => alert(err));
   }
 
   isErrorVisible(field: string, error: string) {
-    let control = this.form.controls[field];
+    const control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
   }
 
   isPasswordMatch() {
     const val = this.form.value;
-    return val.password && val.password == val.confirmPass;
+    return val.password && val.password === val.confirmPass;
   }
 
   isControlDirty(field: string) {
-    let control = this.form.controls[field];
+    const control = this.form.controls[field];
     return control.dirty;
   }
 

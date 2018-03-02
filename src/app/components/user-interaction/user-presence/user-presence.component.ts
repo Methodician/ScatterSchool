@@ -13,14 +13,17 @@ export class UserPresenceComponent implements OnInit {
   constructor(private userSvc: UserService) { }
 
   ngOnInit() {
-    this.userSvc.getUserPresence(this.userKey).subscribe(userPresence => {
-      this.userPresence = userPresence;
-    });
+    this.userSvc
+      .getUserPresence(this.userKey)
+      .valueChanges()
+      .subscribe(userPresence => {
+        this.userPresence = userPresence;
+      });
   }
 
   userState() {
-    if (this.userPresence && this.userPresence.connections) return 'online';
-    if (this.userPresence && this.userPresence.lastOnline) return 'offline';
+    if (this.userPresence && this.userPresence.connections) { return 'online' };
+    if (this.userPresence && this.userPresence.lastOnline) { return 'offline' };
     return false;
   }
 }

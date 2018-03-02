@@ -1,4 +1,4 @@
-//import { DataCleanupService } from 'app/shared/services/data-cleanup.service';
+// import { DataCleanupService } from 'app/shared/services/data-cleanup.service';
 import { Component, OnInit } from '@angular/core';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { UserService } from 'app/shared/services/user/user.service';
@@ -76,40 +76,40 @@ export class DataCleanupComponent implements OnInit {
     });
   }
 
-  transferArticleHistory() {
-    this.articleSvc.getAllArticles().subscribe(articles => {
-      this.articles = articles;
-      for (let article of this.articles) {
-        this.articleSvc.getArticleHistoryByKey(article.$key).subscribe(history => {
-          // article.history = history;
-          if (history) {
-            for (let item of history) {
-              this.dataSvc.getBodyLogObjectFirebase(item.bodyKey).subscribe(bodyLog => {
-                // hist.bodyLog = bodyLog;
-                this.dataSvc.addArticleHistory(bodyLog, bodyLog.$key, item, article.$key);
-              })
-            }
-          }
-        });
-      }
-    });
-  }
+  // transferArticleHistory() {
+  //   this.articleSvc.getAllArticles().subscribe(articles => {
+  //     this.articles = articles;
+  //     for (let article of this.articles) {
+  //       this.articleSvc.getArticleHistoryByKey(article.$key).subscribe(history => {
+  //         // article.history = history;
+  //         if (history) {
+  //           for (let item of history) {
+  //             this.dataSvc.getBodyLogObjectFirebase(item.bodyKey).subscribe(bodyLog => {
+  //               // hist.bodyLog = bodyLog;
+  //               this.dataSvc.addArticleHistory(bodyLog, bodyLog.$key, item, article.$key);
+  //             })
+  //           }
+  //         }
+  //       });
+  //     }
+  //   });
+  // }
 
   transferFeaturedStatus() {
     this.dataSvc.transferFeaturedStatus();
   }
 
-  copyAllToFirestore() {
-    this.articleSvc.getAllArticles().subscribe(articles => {
-      this.articles = articles;
-      for (let article of this.articles) {
-        this.articleSvc.getArticleBodyByKey(article.bodyKey).subscribe(body => {
-          //article.body = body.$value;
-          this.dataSvc.transferArticleFbToFs(article.authorKey, article, body, article.$key);
-          // this.dataSvc.transferArticleFbToFs(article.)
-        })
-      }
-    });
-  }
+  // copyAllToFirestore() {
+  //   this.articleSvc.getAllArticles().subscribe(articles => {
+  //     this.articles = articles;
+  //     for (let article of this.articles) {
+  //       this.articleSvc.getArticleBodyByKey(article.bodyKey).subscribe(body => {
+  //         //article.body = body.$value;
+  //         this.dataSvc.transferArticleFbToFs(article.authorKey, article, body, article.$key);
+  //         // this.dataSvc.transferArticleFbToFs(article.)
+  //       })
+  //     }
+  //   });
+  // }
 
 }

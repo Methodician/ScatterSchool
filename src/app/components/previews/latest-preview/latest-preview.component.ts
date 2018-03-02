@@ -60,11 +60,15 @@ export class LatestPreviewComponent implements OnInit {
 
   getArticleCoverImage(articleKey) {
     const basePath = 'uploads/articleCoverImages';
-    this.uploadSvc.getImage(articleKey, basePath).subscribe(articleData => {
-      if (articleData.url) {
-        this.articleCoverImageUrl = articleData.url;
-      }
-    });
+    this.uploadSvc
+      .getImage(articleKey, basePath)
+      .subscribe(articleData => {
+        if (articleData && articleData.url) {
+          this.articleCoverImageUrl = articleData.url;
+        } else {
+          this.articleCoverImageUrl = 'https://www.fillmurray.com/200/300';
+        }
+      });
   }
 
   checkIfBookmarked() {

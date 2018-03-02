@@ -9,11 +9,9 @@ import { ArticleService } from 'app/shared/services/article/article.service';
   styleUrls: ['./article-search-results.component.scss']
 })
 export class ArticleSearchResultsComponent implements OnInit {
-
   allArticles: any;
   searchResults: any;
   queryString: string;
-
 
   constructor(
     private articleSvc: ArticleService,
@@ -24,21 +22,25 @@ export class ArticleSearchResultsComponent implements OnInit {
 
   ngOnInit() {
     window.scrollTo(0, 0);
-    this.articleSvc.getAllArticles().subscribe(articles => {
-      for (let article of articles) {
-        this.articleSvc.getArticleBodyByKey(article.bodyKey).subscribe(body => {
-          article.body = body.$value;
-        });
-      }
-      this.allArticles = articles;
-      this.route.params.subscribe(params => {
-        if (params['query']) {
-          this.queryString = params['query'];
-          this.searchResults = this.searchPipe.transform(this.allArticles, params['query']);
+    this.articleSvc
+      .getAllArticlesFirestore()
+      .valueChanges()
+      .subscribe(articles => {
+        for (const article of articles as any) {
+          this.articleSvc
+            .getArticleBodyById(article.bodyId)
+            .valueChanges()
+            .subscribe(data => {
+              article.body = data.body;
+            });
         }
-        else console.log('No query found');
-      })
+        this.allArticles = articles;
+        this.route.params.subscribe(params => {
+          if (params['query']) {
+            this.queryString = params['query'];
+            this.searchResults = this.searchPipe.transform(this.allArticles, params['query']);
+          } else { console.log('No query found'); }
+        })
     })
-
   }
 }

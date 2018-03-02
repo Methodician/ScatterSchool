@@ -1,6 +1,6 @@
 import { AuthInfo } from '../../class/auth-info';
 import { UserInfoOpen } from '../../class/user-info';
-import { AngularFireDatabase } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
@@ -16,46 +16,64 @@ export class UserService {
 
   constructor(
     private authSvc: AuthService,
-    private db: AngularFireDatabase,
+    private rtdb: AngularFireDatabase,
     private router: Router
   ) {
     this.authSvc.authInfo$.subscribe(authInfo => {
-      this.getUserInfo(authInfo.$uid).subscribe(info => {
-        if (info.$key != 'null') {
-          let userInfo = new UserInfoOpen(info.alias, info.fName, info.lName, info.zipCode, info.$key, info.uid, info.bio, info.city, info.state);
-          this.userInfo$.next(userInfo);
-          this.loggedInUserKey = info.$key;
-        }
-      })
+      this
+        .getUserInfo(authInfo.$uid)
+        .subscribe(info => {
+          if (info.$key !== 'null') {
+            const userInfo = new UserInfoOpen(
+              info.alias,
+              info.fName,
+              info.lName,
+              info.zipCode,
+              info.$key,
+              info.uid,
+              info.bio,
+              info.city,
+              info.state
+            );
+            this.userInfo$.next(userInfo);
+            this.loggedInUserKey = info.$key;
+          }
+        })
     })
   }
 
   getUserPresence(userKey) {
-    return this.db.object(`presenceData/users/${userKey}`)
+    return this.rtdb.object(`presenceData/users/${userKey}`);
   }
 
   setUserAccess(accessLevel: number, uid: string) {
-    return this.db.object(`userInfo/accessLevel/${uid}`).set(accessLevel);
+    return this.rtdb
+      .object(`userInfo/accessLevel/${uid}`)
+      .set(accessLevel);
   }
 
   createUser(userInfo, uid) {
     this.setUserAccess(10, uid);
-    return this.db.object(`userInfo/open/${uid}`).set(userInfo);
+    return this.rtdb
+      .object(`userInfo/open/${uid}`)
+      .set(userInfo);
   }
 
   getUserList() {
-    return this.db.list('userInfo/open');
+    return this.injectListKeys(this.rtdb.list('userInfo/open'));
   }
 
   getUserInfo(uid) {
-    return this.db.object(`userInfo/open/${uid}`).map(user => {
-      user.uid = uid;
-      return user;
-    })
+    const object = this.injectObjectKey(this.rtdb.object(`userInfo/open/${uid}`));
+    return object
+      .map(user => {
+        user.uid = uid;
+        return user;
+      });
   }
 
   updateUserInfo(userInfo, uid) {
-    let detailsToUpdate = {
+    const detailsToUpdate = {
       alias: userInfo.alias,
       bio: userInfo.bio,
       city: userInfo.city,
@@ -65,41 +83,64 @@ export class UserService {
       state: userInfo.state,
       zipCode: userInfo.zipCode
     }
-    this.db.object(`userInfo/open/${uid}`).update(detailsToUpdate)
+    this.rtdb
+      .object(`userInfo/open/${uid}`)
+      .update(detailsToUpdate);
   }
 
   followUser(userToFollowKey: string) {
-    this.db.object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${userToFollowKey}`).set(firebase.database.ServerValue.TIMESTAMP);
-    this.db.object(`userInfo/followersPerUser/${userToFollowKey}/${this.loggedInUserKey}`).set(firebase.database.ServerValue.TIMESTAMP);
+    this.rtdb
+      .object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${userToFollowKey}`)
+      .set(firebase.database.ServerValue.TIMESTAMP);
+    this.rtdb
+      .object(`userInfo/followersPerUser/${userToFollowKey}/${this.loggedInUserKey}`)
+      .set(firebase.database.ServerValue.TIMESTAMP);
   }
 
   unfollowUser(userToUnfollowKey: string) {
-    this.db.object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${userToUnfollowKey}`).remove();
-    this.db.object(`userInfo/followersPerUser/${userToUnfollowKey}/${this.loggedInUserKey}`).remove();
+    this.rtdb
+      .object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${userToUnfollowKey}`)
+      .remove();
+    this.rtdb
+      .object(`userInfo/followersPerUser/${userToUnfollowKey}/${this.loggedInUserKey}`)
+      .remove();
   }
 
   UserArrayFromKeyArray(userKeys: Observable<string[]>): Observable<UserInfoOpen[]> {
     return userKeys
       .map(usersPerKey => {
-        return usersPerKey.map((user: any) => {
-          return this.db.object(`userInfo/open/${user.$key}`).map(user => {
-            return new UserInfoOpen(user.alias, user.fName, user.lName, user.zipCode, user.$key, user.$key, user.bio, user.city, user.state);
+        return usersPerKey.map((keyUser: any) => {
+          const object = this.injectObjectKey(this.rtdb.object(`userInfo/open/${keyUser.$key}`));
+          return object
+            .map(user => {
+              return new UserInfoOpen(
+                user.alias,
+                user.fName,
+                user.lName,
+                user.zipCode,
+                user.$key,
+                user.$key,
+                user.bio,
+                user.city,
+                user.state
+              );
           })
         })
       })
-      .flatMap(firebaseObjects =>
-        Observable.combineLatest(firebaseObjects));
+      .flatMap(firebaseObjects => {
+        return Observable.combineLatest(firebaseObjects)
+      });
   }
 
   getUsersFollowed(uid: string): Observable<UserInfoOpen[]> {
-    let usersFollowedKeysList = this.db.list(`userInfo/usersPerFollower/${uid}`);
-    let usersFollowedObservable = this.UserArrayFromKeyArray(usersFollowedKeysList);
+    const usersFollowedKeysList = this.injectListKeys(this.rtdb.list(`userInfo/usersPerFollower/${uid}`));
+    const usersFollowedObservable = this.UserArrayFromKeyArray(usersFollowedKeysList);
     return usersFollowedObservable;
   }
 
   getFollowersOfUser(uid: string): Observable<UserInfoOpen[]> {
-    let followerKeysList = this.db.list(`userInfo/followersPerUser/${uid}`);
-    let followersListObservable = this.UserArrayFromKeyArray(followerKeysList);
+    const followerKeysList = this.injectListKeys(this.rtdb.list(`userInfo/followersPerUser/${uid}`));
+    const followersListObservable = this.UserArrayFromKeyArray(followerKeysList);
     return followersListObservable;
   }
 
@@ -108,20 +149,47 @@ export class UserService {
   }
 
   isFollowingUser(uid: string) {
-    return this.db.object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${uid}`).map(res => {
-      if (res.$value) {
-        return true;
-      } return false;
-    });
+    return this.rtdb
+      .object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${uid}`)
+      .valueChanges()
+      .map(res => {
+        return !!res;
+      });
   }
 
   updateUser(userInfo, uid) {
     userInfo.uid = null;
-    return this.db.object(`userInfo/open/${uid}`).set(userInfo);
+    return this.rtdb
+      .object(`userInfo/open/${uid}`)
+      .set(userInfo);
   }
 
   getProfileImageUrl(userKey: string) {
-    return this.db.object(`uploads/profileImages/${userKey}/url`);
+    return this.rtdb.object(`uploads/profileImages/${userKey}/url`);
+  }
+
+  injectObjectKey(object: AngularFireObject<{}>) {
+    return object
+      .snapshotChanges()
+      .map(element => {
+        return {
+          $key: element.key,
+          ...element.payload.val()
+        };
+      });
+  }
+
+  injectListKeys(list: AngularFireList<{}>) {
+    return list
+      .snapshotChanges()
+      .map(elements => {
+        return elements.map(element => {
+          return {
+            $key: element.key,
+            ...element.payload.val()
+          };
+        });
+      });
   }
 
   /*isAdmin() {

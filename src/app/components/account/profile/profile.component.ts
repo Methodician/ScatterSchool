@@ -33,7 +33,7 @@ export class ProfileComponent implements OnInit {
     window.scrollTo(0, 0);
     this.route.params.subscribe(params => {
       if (params['key']) {
-        let uid = params['key'];
+        const uid = params['key'];
         this.getUserInfo(uid);
         this.getArticlesPerAuthor(uid);
         this.getArticlesPerEditor(uid);
@@ -51,26 +51,36 @@ export class ProfileComponent implements OnInit {
   }
 
   getUsersFollowed(uid: string) {
-    this.userSvc.getUsersFollowed(uid).subscribe(followed => {
-      this.usersFollowed = followed;
-    });
+    this.userSvc
+      .getUsersFollowed(uid)
+      .subscribe(followed => {
+        this.usersFollowed = followed;
+      });
   }
 
   getFollowersOfUser(uid: string) {
-    this.userSvc.getFollowersOfUser(uid).subscribe(following => {
-      this.followersOfUser = following;
-    });
+    this.userSvc
+      .getFollowersOfUser(uid)
+      .subscribe(following => {
+        this.followersOfUser = following;
+      });
   }
 
   getArticlesPerAuthor(uid: string) {
-    this.articleSvc.findArticlesPerAuthor(uid).subscribe(articles =>
-      this.articlesAuthored = articles
-    );
+    this.articleSvc
+      .getArticlesAuthoredByUid(uid)
+      .valueChanges()
+      .subscribe(articles =>
+        this.articlesAuthored = articles as ArticleDetailOpen[]
+      );
   }
 
   getArticlesPerEditor(uid: string) {
-    this.articleSvc.findArticlesPerEditor(uid).subscribe(articles =>
-      this.articlesEdited = articles
+    this.articleSvc
+    .getArticlesAuthoredByUid(uid)
+    .valueChanges()
+    .subscribe(articles =>
+      this.articlesEdited = articles as ArticleDetailOpen[]
     );
   }
 

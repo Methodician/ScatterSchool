@@ -11,17 +11,21 @@ import { UserInfoOpen } from 'app/shared/class/user-info';
 })
 export class FollowerUserComponent implements OnInit {
   @Input() user: any;
+  photoURL = '../../../../assets/images/kid-art.jpg';
 
   constructor(private userSvc: UserService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.userSvc
+      .getProfileImageUrl(this.user.uid)
+      .valueChanges()
+      .subscribe(url => {
+        this.photoURL = url as string;
+      })
+  }
 
   navigateToProfile() {
     this.userSvc.navigateToProfile(this.user.uid);
-  }
-
-  getProfileImageUrl(userKey: string) {
-    return this.userSvc.getProfileImageUrl(userKey);
   }
 
   stopPropagation(event) {

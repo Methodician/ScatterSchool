@@ -10,14 +10,14 @@ import { Chat } from 'app/shared/class/chat';
   styleUrls: ['./user-interaction.component.scss']
 })
 export class UserInteractionComponent implements OnInit {
-  @ViewChild("uiTabs") uiTabs;
+  @ViewChild('uiTabs') uiTabs;
   selectedTab: string;
   loggedInUser: UserInfoOpen;
   chatList;
   userList;
   chatSubscription;
   currentChat: Chat;
-  unreadMessages: boolean = false;
+  unreadMessages = false;
   windowExpanded = false;
   constructor(
     private userSvc: UserService,
@@ -38,32 +38,44 @@ export class UserInteractionComponent implements OnInit {
   }
 
   initializeChats(userKey: string) {
-    this.chatSvc.getUserChatKeys(userKey).subscribe(userChatKeys => {
-      if (userChatKeys.length == 0) {
-        this.userSvc.getUserList().subscribe(userList => {
-          this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
-        });
-        this.chatSvc.getChatsByUserKey(userKey).subscribe(chatList => {
-          this.chatList = chatList.reverse();
-          this.checkUnreadMessages();
-        });
-      } else {
-        this.chatSvc.getChatsByUserKey(userKey).subscribe(chatList => {
-          this.chatList = chatList.reverse();
-          this.checkUnreadMessages();
-          this.getUserList();
-        });
-      }
-    })
+    this.chatSvc
+      .getUserChatKeys(userKey)
+      .valueChanges()
+      .subscribe(userChatKeys => {
+          if (userChatKeys.length === 0) {
+            this.userSvc
+              .getUserList()
+              .subscribe(userList => {
+                this.userList = userList.filter(user => user.$key !== this.loggedInUser.$key);
+              });
+            this.chatSvc
+              .getChatsByUserKey(userKey)
+              .subscribe(chatList => {
+                this.chatList = chatList.reverse();
+                this.checkUnreadMessages();
+              });
+          } else {
+            this.chatSvc
+            .getChatsByUserKey(userKey)
+            .subscribe(chatList => {
+              this.chatList = chatList.reverse();
+              this.checkUnreadMessages();
+              this.getUserList();
+            });
+          }
+      });
   }
 
   openCurrentChat() {
     this.chatSvc.currentChatKey$.subscribe(key => {
       if (key) {
-        if (this.chatSubscription) this.chatSubscription.unsubscribe();
-        this.chatSubscription = this.chatSvc.getChatByKey(key).subscribe(chat => {
-          this.currentChat = chat;
-        });
+        if (this.chatSubscription) { this.chatSubscription.unsubscribe() };
+        this.chatSubscription = this.chatSvc
+          .getChatByKey(key)
+          .valueChanges()
+          .subscribe(chat => {
+            this.currentChat = chat as Chat;
+          });
       }
     });
   }
@@ -82,7 +94,7 @@ export class UserInteractionComponent implements OnInit {
   handleRequest(request) {
     switch (request.type) {
       case 'openChat':
-        this.createOrOpenChat(request.payload)
+        this.createOrOpenChat(request.payload);
         return
       case 'addUser':
         this.addUserToChat(request.payload);
@@ -98,6 +110,7 @@ export class UserInteractionComponent implements OnInit {
   }
 
   openChat(chatKey) {
+    console.log('chat opened: ', chatKey)
     this.chatSvc.openChat(chatKey);
     this.openTab('messages');
   }
@@ -106,7 +119,7 @@ export class UserInteractionComponent implements OnInit {
   // would prefer to leave as is, and not render the user list entirely until
   // the user has logged on
   createOrOpenChat(userArray) {
-    let existingChat = this.findExistingChat(userArray);
+    const existingChat = this.findExistingChat(userArray);
     (existingChat) ? this.openChat(existingChat.$key) : this.createChat(userArray);
   }
 
@@ -133,17 +146,22 @@ export class UserInteractionComponent implements OnInit {
 
   toggleWindow() {
     this.windowExpanded = !this.windowExpanded;
-    if (this.windowExpanded && this.unreadMessages && (this.selectedTab != 'messages'))
+    if (
+      this.windowExpanded
+      && this.unreadMessages
+      && (this.selectedTab !== 'messages'
+    )) {
       this.openTab('chats');
+    }
     this.chatSvc.toggleUserInteractionWindow(this.windowExpanded);
   }
 
-  //note: code is intentionally verbose, can be shortened if necessary
+  // note: code is intentionally verbose, can be shortened if necessary
   findExistingChat(queriedUserList) {
-    if (!this.chatList) return false;
+    if (!this.chatList) { return false };
 
     return this.chatList.filter(chat => {
-      let chatMembersLength = Object.keys(chat.members).length;
+      const chatMembersLength = Object.keys(chat.members).length;
       // chat is identical if the queriedUserList is of the same length and contains every memberKey that chat.members contains
       return queriedUserList.length === chatMembersLength
         && queriedUserList.every(user => chat.members[user.$key])
@@ -153,7 +171,7 @@ export class UserInteractionComponent implements OnInit {
   }
 
   addUserToChat(user) {
-    let users = this.membersObjectToUsersArray(this.currentChat.members);
+    const users = this.membersObjectToUsersArray(this.currentChat.members);
     users.push(user);
     this.createOrOpenChat(users)
   }
@@ -172,9 +190,11 @@ export class UserInteractionComponent implements OnInit {
   }
 
   getUserList() {
-    this.userSvc.getUserList().subscribe(userList => {
-      this.userList = userList.filter(user => user.$key != this.loggedInUser.$key);
-    });
+    this.userSvc
+      .getUserList()
+      .subscribe(userList => {
+        this.userList = userList.filter(user => user.$key !== this.loggedInUser.$key);
+      });
   }
 }
 
