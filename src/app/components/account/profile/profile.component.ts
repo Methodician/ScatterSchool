@@ -63,14 +63,20 @@ export class ProfileComponent implements OnInit {
   }
 
   getArticlesPerAuthor(uid: string) {
-    this.articleSvc.findArticlesPerAuthor(uid).subscribe(articles =>
-      this.articlesAuthored = articles
-    );
+    this.articleSvc
+      .getArticlesAuthoredByUid(uid)
+      .valueChanges()
+      .subscribe(articles =>
+        this.articlesAuthored = articles as ArticleDetailOpen[]
+      );
   }
 
   getArticlesPerEditor(uid: string) {
-    this.articleSvc.findArticlesPerEditor(uid).subscribe(articles =>
-      this.articlesEdited = articles
+    this.articleSvc
+    .getArticlesAuthoredByUid(uid)
+    .valueChanges()
+    .subscribe(articles =>
+      this.articlesEdited = articles as ArticleDetailOpen[]
     );
   }
 
