@@ -18,12 +18,14 @@ export class SuggestionVoteComponent implements OnInit, OnChanges {
   constructor(private voteSvc: VoteService, private router: Router) { }
 
   ngOnInit() {
-    this.voteSvc
-      .getSuggestionVoteStateByUser(this.suggestion.$key, this.currentUserKey)
-      .valueChanges()
-      .subscribe(voteState => {
-        this.voteState = (voteState) ? voteState as number : 0;
-      });
+    if (this.currentUserKey) {
+      this.voteSvc
+        .getSuggestionVoteStateByUser(this.suggestion.$key, this.currentUserKey)
+        .valueChanges()
+        .subscribe(voteState => {
+          this.voteState = (voteState) ? voteState as number : 0;
+        });
+    }
   }
 
   ngOnChanges(changes) {
