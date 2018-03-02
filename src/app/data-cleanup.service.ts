@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-
-import { AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable } from 'angularfire2/database-deprecated';
 import { AngularFirestore } from 'angularfire2/firestore';
 import { UserInfoOpen } from 'app/shared/class/user-info';
 import { ArticleService } from 'app/shared/services/article/article.service';
@@ -13,7 +11,6 @@ export class DataCleanupService {
 
 
   constructor(
-    private db: AngularFireDatabase,
     private afs: AngularFirestore,
     private articleSvc: ArticleService,
     private userSvc: UserService
@@ -106,18 +103,18 @@ export class DataCleanupService {
     }
   }
 
-  getBodyLogObjectFirebase(bodyKey) {
-    return this.db.object(`articleData/articleBodyArchive/${bodyKey}`);
-  }
+  // getBodyLogObjectFirebase(bodyKey) {
+  //   return this.db.object(`articleData/articleBodyArchive/${bodyKey}`);
+  // }
 
-  transferFeaturedStatus() {
-    this.db.list('articleData/featuredArticles').subscribe(keys => {
-      for (let key of keys) {
-        const articleDoc = this.afs.doc(`articleData/articles/articles/${key.$key}`);
-        articleDoc.update({ isFeatured: true });
-      }
-    })
-  }
+  // transferFeaturedStatus() {
+  //   this.db.list('articleData/featuredArticles').subscribe(keys => {
+  //     for (let key of keys) {
+  //       const articleDoc = this.afs.doc(`articleData/articles/articles/${key.$key}`);
+  //       articleDoc.update({ isFeatured: true });
+  //     }
+  //   })
+  // }
 
   transferArticleFbToFs(authorId: string, originalArticle: ArticleDetailOpen, body: string, articleId: string) {
     let article: ArticleDetailFirestore = new ArticleDetailFirestore(
@@ -176,21 +173,21 @@ export class DataCleanupService {
     });
   }
 
-  articleNodeIdToKey() {
-    return this.db.list('articleData/articles').subscribe(articles => {
-      for (let article of articles) {
-        if (article.bodyId) {
-          article.bodyKey = article.bodyId;
-          delete (article.bodyId);
-        }
-        if (article.authorId) {
-          article.authorKey = article.authorId;
-          delete (article.authorId);
-        }
-        this.db.object(`articleData/articles/${article.$key}`).set(article);
-      }
-    });
-  }
+  // articleNodeIdToKey() {
+  //   return this.db.list('articleData/articles').subscribe(articles => {
+  //     for (let article of articles) {
+  //       if (article.bodyId) {
+  //         article.bodyKey = article.bodyId;
+  //         delete (article.bodyId);
+  //       }
+  //       if (article.authorId) {
+  //         article.authorKey = article.authorId;
+  //         delete (article.authorId);
+  //       }
+  //       this.db.object(`articleData/articles/${article.$key}`).set(article);
+  //     }
+  //   });
+  // }
 
 
 }
