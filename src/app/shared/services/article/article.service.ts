@@ -2,7 +2,6 @@ import { ArticleDetailOpen, GlobalTag, ArticleDetailFirestore, ArticleBodyFirest
 import { Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
-// import { AngularFireDatabase as AngularFireDatabaseDeprecated } from 'angularfire2/database-deprecated';
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
@@ -14,7 +13,6 @@ import { error } from 'util';
 export class ArticleService {
   globalTags: Iterable<GlobalTag>;
   constructor(
-    // private afd: AngularFireDatabaseDeprecated,
     private rtdb: AngularFireDatabase,
     private afs: AngularFirestore,
     private router: Router
