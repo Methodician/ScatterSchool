@@ -18,8 +18,9 @@ export class FollowerUserComponent implements OnInit {
   ngOnInit() {
     this.userSvc
       .getProfileImageUrl(this.user.uid)
+      .valueChanges()
       .subscribe(url => {
-        if (url) { this.photoURL = url.$value };
+        this.photoURL = url as string;
       })
   }
 

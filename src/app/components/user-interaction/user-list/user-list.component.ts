@@ -9,7 +9,7 @@ import { UserService } from 'app/shared/services/user/user.service';
   styleUrls: ['./user-list.component.scss']
 })
 export class UserListComponent implements OnInit {
-  @Input() userList;
+  @Input() userList: UserInfoOpen[];
   @Input() loggedInUser: UserInfoOpen;
   @Input() currentChat;
   @Output() requestSender = new EventEmitter();
@@ -33,11 +33,5 @@ export class UserListComponent implements OnInit {
 
   displayName(user) {
     return user.alias ? user.alias : user.fName;
-  }
-
-
-
-  getProfileImageUrl(userKey: string) {
-    return this.userSvc.getProfileImageUrl(userKey);
   }
 }
