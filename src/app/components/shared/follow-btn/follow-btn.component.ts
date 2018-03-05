@@ -25,15 +25,17 @@ export class FollowBtnComponent implements OnInit {
   }
 
   click() {
-    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
-      if (isLoggedIn) {
-        if (this.isFollowing) {
-          this.userSvc.unfollowUser(this.uid);
-        } else {
-          this.userSvc.followUser(this.uid);
+    this.authSvc
+      .isLoggedIn()
+      .subscribe(isLoggedIn => {
+        if (isLoggedIn) {
+          if (this.isFollowing) {
+            this.userSvc.unfollowUser(this.uid);
+          } else {
+            this.userSvc.followUser(this.uid);
+          }
         }
-      }
-    })
+      });
   }
 
   isFollowingUser() {
@@ -41,15 +43,16 @@ export class FollowBtnComponent implements OnInit {
   }
 
   checkIfFollowing() {
-    this.userSvc.isFollowingUser(this.uid).subscribe(following => {
-      if (following) {
-        this.buttonText = 'Unfollow';
-        this.isFollowing = true;
-      } else {
-        this.buttonText = 'Follow';
-        this.isFollowing = false;
-      }
-    });
+    this.userSvc
+      .isFollowingUser(this.uid)
+      .subscribe(following => {
+        if (following) {
+          this.buttonText = 'Unfollow';
+          this.isFollowing = true;
+        } else {
+          this.buttonText = 'Follow';
+          this.isFollowing = false;
+        }
+      });
   }
-
 }

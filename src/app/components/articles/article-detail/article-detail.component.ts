@@ -89,7 +89,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   bookmarkToggle() {
     this.authSvc
-      .isLoggedInCheck()
+      .isLoggedIn()
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
           if (this.isArticleBookmarked) {
@@ -111,7 +111,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   toggleFeatured() {
     this.authSvc
-      .isLoggedInCheck()
+      .isLoggedIn()
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
           if (this.article.isFeatured) {
@@ -213,7 +213,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   followClick() {
     this.authSvc
-      .isLoggedInCheck()
+      .isLoggedIn()
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
           this.userSvc.followUser(this.article.authorKey);

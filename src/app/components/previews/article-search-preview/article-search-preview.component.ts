@@ -83,7 +83,7 @@ export class ArticleSearchPreviewComponent implements OnInit {
 
   bookmarkToggle() {
     this.authSvc
-      .isLoggedInCheck()
+      .isLoggedIn()
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
           if (this.isArticleBookmarked) {

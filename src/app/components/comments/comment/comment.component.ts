@@ -68,7 +68,7 @@ export class CommentComponent implements OnInit {
 
   tryShowAddReply(addReply) {
     this.authSvc
-      .isLoggedInCheck()
+      .isLoggedIn()
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
           addReply.toggleReplyForm();

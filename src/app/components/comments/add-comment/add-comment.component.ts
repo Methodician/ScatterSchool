@@ -29,7 +29,7 @@ export class AddCommentComponent implements OnInit {
 
   postComment(commentData) {
     this.authSvc
-      .isLoggedInCheck()
+      .isLoggedIn()
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
           this.saveComment(commentData);
@@ -50,10 +50,12 @@ export class AddCommentComponent implements OnInit {
   }
 
   toggleCommentForm() {
-    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
-      if (isLoggedIn) {
-        this.isFormShowing = !this.isFormShowing;
-      }
-    });
+    this.authSvc
+      .isLoggedIn()
+      .subscribe(isLoggedIn => {
+        if (isLoggedIn) {
+          this.isFormShowing = !this.isFormShowing;
+        }
+      });
   }
 }
