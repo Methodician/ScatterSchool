@@ -53,11 +53,6 @@ export class ArticleHistoryDetailComponent implements OnInit, OnChanges {
         articleData.body = body.body;
         this.article = articleData;
       });
-    //  Firebase way:
-    // this.articleSvc.getArticleBodyFromArchiveByKey(articleData.bodyKey).subscribe(articleBody => {
-    //   articleData.body = articleBody.$value;
-    //   this.article = articleData;
-    // });
   }
 
   getAuthor(authorKey: string) {

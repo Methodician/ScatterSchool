@@ -53,15 +53,6 @@ export class EditArticleComponent implements OnInit {
               }
             });
         });
-      //  Firebase way:
-      // this.articleSvc.getArticleByKey(this.key).subscribe(articleToEdit => {
-      //   let articleBodyKey = articleToEdit.bodyKey;
-      //   this.articleSvc.getArticleBodyByKey(articleBodyKey).subscribe(articleBody => {
-      //     articleToEdit.body = articleBody.$value;
-      //     articleToEdit.articleKey = articleToEdit.$key;
-      //     this.article = articleToEdit;
-      //   })
-      // });
     })
     //  Firestore version:
     // this.route.params.subscribe(params => {

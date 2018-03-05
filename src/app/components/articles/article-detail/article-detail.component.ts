@@ -14,7 +14,6 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
   styleUrls: ['./article-detail.component.scss']
 })
 export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
-  // isArticleFeatured: boolean;
   @Input() articleData: any;
   @Input() editingPreview = false;
   articleKey: string;
@@ -123,13 +122,6 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
       });
   }
 
-  //  Firebase, not Firestore... dep, delete soon if not used.
-  // checkIfFeatured() {
-  //   this.articleSvc.isArticleFeatured(this.articleKey).subscribe(featured => {
-  //     this.isArticleFeatured = featured;
-  //   });
-  // }
-
   getArticleData() {
     //  Firestore way:
     this.articleSvc
@@ -164,14 +156,6 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
         this.getProfileImage(articleData.authorId);
         this.getArticleCoverImage(this.articleKey)
       })
-    //  Firebase way:
-    // this.articleSvc.getArticleByKey(this.articleKey).subscribe(articleData => {
-    //   this.articleSvc.incrementArticleViewCount(this.articleKey, articleData.version);
-    //   this.getArticleBody(articleData);
-    //   this.getAuthor(articleData.authorKey);
-    //   this.getProfileImage(articleData.authorKey);
-    //   this.getArticleCoverImage(this.articleKey)
-    // });
   }
 
   getArticleCoverImage(articleKey) {
@@ -186,7 +170,6 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getArticleBody(articleData: any) {
-    //  Firestore way:
     this.articleSvc
       .getArticleBodyById(articleData.bodyId)
       .valueChanges()
@@ -196,11 +179,6 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
           this.article = articleData;
         }
       });
-    //  Firebase way:
-    // this.articleSvc.getArticleBodyByKey(articleData.bodyKey).subscribe(articleBody => {
-    //   articleData.body = articleBody.$value;
-    //   this.article = articleData;
-    // });
   }
 
   getAuthor(authorKey: string) {

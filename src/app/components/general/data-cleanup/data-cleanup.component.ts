@@ -109,18 +109,4 @@ export class DataCleanupComponent implements OnInit {
   transferFeaturedStatus() {
     // this.dataSvc.transferFeaturedStatus();
   }
-
-  // copyAllToFirestore() {
-  //   this.articleSvc.getAllArticles().subscribe(articles => {
-  //     this.articles = articles;
-  //     for (let article of this.articles) {
-  //       this.articleSvc.getArticleBodyByKey(article.bodyKey).subscribe(body => {
-  //         //article.body = body.$value;
-  //         this.dataSvc.transferArticleFbToFs(article.authorKey, article, body, article.$key);
-  //         // this.dataSvc.transferArticleFbToFs(article.)
-  //       })
-  //     }
-  //   });
-  // }
-
 }

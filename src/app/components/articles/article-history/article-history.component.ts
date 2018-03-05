@@ -34,13 +34,6 @@ export class ArticleHistoryComponent implements OnInit {
             this.articleCount = history.length;
             this.curentArticleIndex = history.length - 1;
           });
-
-        //  Firebase way:
-        // this.articleSvc.getArticleHistoryByKey(this.articleKey).subscribe(history => {
-        //   this.articleHistory = history;
-        //   this.articleCount = history.length;
-        //   this.curentArticleIndex = history.length - 1;
-        // });
       }
     })
   }

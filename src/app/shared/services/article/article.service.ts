@@ -50,38 +50,19 @@ export class ArticleService {
         return ref.where('isFeatured', '==', true)
       });
   }
-  // rtdb version
-  // getAllFeatured() {
-  //   return this.findArticlesForKeys(this.afd.list('articleData/featuredArticles'));
-  // }
 
   getArticleById(articleId: string) {
     return this.afs.doc(`articleData/articles/articles/${articleId}`);
   }
-  // rtdb version
-  // getArticleByKey(articleKey: string) {
-  //   return this.afd.object(`articleData/articles/${articleKey}`).map(article => {
-  //     article.tags = this.tagsArrayFromTagsObject(article.tags);
-  //     return article;
-  //   });
-  // }
 
   getArticleBodyById(bodyId: string): AngularFirestoreDocument<ArticleBodyFirestore> {
     return this.afs.doc(`articleData/bodies/active/${bodyId}`);
   }
-  // rtdb version
-  // getArticleBodyByKey(bodyKey: string) {
-  //   return this.afd.object('articleData/articleBodies/' + bodyKey);
-  // }
 
   // SUGGESTION: archivedArticleBody(bodyId: string) is as self explanatory
   getArchivedArticleBodyById(bodyId: string) {
     return this.afs.doc(`articleData/bodies/history/${bodyId}`);
   }
-  // rtdb version
-  // getArticleBodyFromArchiveByKey(bodyKey: string) {
-  //   return this.afd.object(`articleData/articleBodyArchive/${bodyKey}/body`)
-  // }
 
   getArchivedArticlesById(articleId: string) {
     return this
@@ -105,56 +86,9 @@ export class ArticleService {
       .collection('articlesAuthored');
   }
 
-  // getAllArticles() {
-  //   return this.afd.list('articleData/articles').map(articles => {
-  //     return articles.map(article => {
-  //       article.tags = this.tagsArrayFromTagsObject(article.tags);
-  //       return article;
-  //     });
-  //   });
-  // }
-
-
-
-
-  // findArticlesForKeys(articleKeys$: Observable<any[]>): Observable<ArticleDetailOpen[]> {
-  //   return articleKeys$
-  //     .map(articlesPerKey => articlesPerKey
-  //       .map(article =>
-  //         this.afd.object(`articleData/articles/${article.$key}`)
-  //           .map(article => {
-  //             article.tags = this.tagsArrayFromTagsObject(article.tags);
-  //             return article;
-  //           })))
-  //     .flatMap(firebaseObjects =>
-  //       Observable.combineLatest(firebaseObjects));
-  // }
-
-  // findArticlesPerEditor(editorKey: string): Observable<ArticleDetailOpen[]> {
-  //   return this.findArticlesForKeys(this.afd.list(`articleData/articlesPerEditor/${editorKey}`));
-  // }
-
-  // findArticlesPerAuthor(authorKey: string): Observable<ArticleDetailOpen[]> {
-  //   return this.findArticlesForKeys(this.afd.list(`articleData/articlesPerAuthor/${authorKey}`));
-  // }
-
-
-
-  // getArticleHistoryByKey(articleKey: string) {
-  //   return this.afd.list(`articleData/articleArchive/${articleKey}`)
-  //     .map(articles => {
-  //       return articles.map(article => {
-  //         article.tags = this.tagsArrayFromTagsObject(article.tags);
-  //         return article;
-  //       })
-  //     });
-  // }
-
-
   async createNewArticle(author: UserInfoOpen, authorId: string, article: any) {
     const articleId = await this.createNewArticleFirestore(author, authorId, article);
     return articleId;
-    // return this.createNewArticleFirebase(authorId, article);
   }
 
   async createNewArticleFirestore(author: UserInfoOpen, authorId: string, article: any) {
@@ -217,37 +151,9 @@ export class ArticleService {
     }
   }
 
-  // createNewArticleFirebase(authorKey: string, article: any) {
-
-  //   let bodyKey = this.afd.list('articleData/articleBodies').push(article.body).key;
-  //   let tagsObject = this.tagsObjectFromStringArray(article.tags);
-
-  //   let articleToSave = {
-  //     title: article.title,
-  //     introduction: article.introduction,
-  //     bodyKey: bodyKey,
-  //     tags: tagsObject,
-  //     version: 1,
-  //     authorKey: authorKey,
-  //     timeStamp: firebase.database.ServerValue.TIMESTAMP,
-  //     lastUpdated: firebase.database.ServerValue.TIMESTAMP
-  //   }
-
-  //   let articleKey = this.afd.list('articleData/articles').push(articleToSave).key;
-  //   this.afd.object(`articleData/articlesPerAuthor/${authorKey}/${articleKey}`).set(true);
-
-  //   let tags = article.tags;
-  //   if (tags) {
-  //     for (let tag of tags) {
-  //       this.afd.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
-  //       this.addGlobalTagFirebase(tag);
-  //     }
-  //   }
-  //   return articleKey;
-  // }
-
+  // candidate for refactor
+  // method passes data directly to similarly named method
   updateArticle(editorId: string, editor: UserInfoOpen, article: ArticleDetailFirestore, articleId: string) {
-    // return this.updateArticleFirebase(editorId, article);
     return this.updateArticleFirestore(editorId, editor, article, articleId);
   }
 
@@ -347,64 +253,14 @@ export class ArticleService {
     });
   }
 
-  // updateArticleFirebase(editorKey: string, article: any) {
-  //   const oldBodyKey = article.bodyKey;
-  //   const articleKey = article.articleKey;
-  //   let tagsObject = this.tagsObjectFromStringArray(article.tags);
-
-  //   //  Really wanted to reduce trips to the afd...
-  //   this.afd.object(`articleData/articles/${articleKey}/tags`)
-  //     .map(tags => this.tagsArrayFromTagsObject(tags))
-  //     .subscribe(oldTags => {
-  //       if ((article.tags && article.tags != []) || (oldTags && oldTags != [])) {
-  //         this.processTagsEdit(article.tags, oldTags, articleKey);
-  //       }
-  //     });
-
-  //   this.archiveArticle(articleKey);
-  //   this.afd.object(`articleData/articleBodies/${oldBodyKey}`)
-  //     .take(1).subscribe(async body => {
-  //       let bodyLogObject: any = {};
-  //       bodyLogObject.body = body.$value;
-  //       bodyLogObject.articleKey = articleKey;
-  //       bodyLogObject.version = article.version;
-  //       bodyLogObject.nextEditorKey = editorKey;
-  //       const res = await this.afd.object(`articleData/articleBodyArchive/${oldBodyKey}`).set(bodyLogObject);
-  //       this.afd.object(`articleData/articleBodies/${oldBodyKey}`).remove();
-  //       // this.afd.object(`articleData/articleBodyArchive/${oldBodyKey}`).set(bodyLogObject).then(res => {
-  //       //   this.afd.object(`articleData/articleBodies/${oldBodyKey}`).remove();
-  //       // });
-  //       this.afd.object(`articleData/bodysPerArticle/${articleKey}/${oldBodyKey}`).set(firebase.database.ServerValue.TIMESTAMP);
-  //     });
-  //   let bodyKey = this.afd.list('articleData/articleBodies').push(article.body).key;
-  //   let currentLogObject = {
-  //     body: article.body,
-  //     articleKey: null,
-  //     version: 'current',
-  //     nextEditorKey: null
-  //   };
-  //   this.afd.object(`articleData/articleBodyArchive/${bodyKey}`).set(currentLogObject);
-  //   let articleToUpdate: any = {
-  //     title: article.title,
-  //     introduction: article.introduction,
-  //     bodyKey: bodyKey,
-  //     tags: tagsObject,
-  //     version: article.version + 1,
-  //     lastUpdated: firebase.database.ServerValue.TIMESTAMP
-  //   }
-  //   this.afd.object(`articleData/editorsPerArticle/${articleKey}/${editorKey}`).set(true);
-  //   this.afd.object(`articleData/articlesPerEditor/${editorKey}/${articleKey}`).set(true);
-  //   articleToUpdate.authorKey = article.authorKey;
-  //   this.afd.object(`articleData/articleArchive/${articleKey}/current`).set(articleToUpdate);
-
-  //   return this.afd.object(`articleData/articles/${articleKey}`).update(articleToUpdate);
-  // }
-
+  // candidate for refactor
+  // confusing/verbose validation of parameters
   tagsArrayFromTagsObject(articleTags): string[] {
     if (articleTags === {}
        || articleTags
        && articleTags.$value
-       && articleTags.$value == null) { return null; }
+       && articleTags.$value === null
+      ) { return; }
 
     const tagArray = [];
     for (const tag in articleTags) {
@@ -423,43 +279,6 @@ export class ArticleService {
 
     return tagsObject;
   }
-
-  // addGlobalTagFirebase(tag: string) {
-  //   this.afd.object(`articleData/tags/${tag}`).take(1).subscribe(data => {
-  //     if (!data.$key)
-  //       this.afd.object(`articleData/tags/${tag}`).set(firebase.database.ServerValue.TIMESTAMP);
-  //   });
-  // }
-
-  // processTagsEdit(newTags, oldTags, articleKey) {
-  //   let deletedTags = [];
-
-  //   if (newTags) {
-  //     for (let tag of newTags) {
-  //       this.afd.object(`articleData/articlesPerTag/${tag}/${articleKey}`).set(true);
-  //       this.addGlobalTagFirebase(tag);
-  //     }
-  //   }
-
-  //   if (oldTags && (oldTags && oldTags.$value && oldTags.$value != null)) {
-  //     for (let tag of oldTags) {
-  //       if (!newTags.includes(tag)) {
-  //         deletedTags.push(tag);
-  //       }
-  //     }
-  //   }
-
-  //   for (let tag of deletedTags) {
-  //     this.afd.object(`articleData/articlesPerTag/${tag}/${articleKey}`).remove();
-  //   }
-
-  // }
-
-  // archiveArticle(articleKey) {
-  //   this.afd.object(`articleData/articles/${articleKey}`).take(1).subscribe(article => {
-  //     this.afd.object(`articleData/articleArchive/${articleKey}/${article.version}`).set(article);
-  //   });
-  // }
 
   async captureArticleView(articleId: string, version: number, viewer: UserInfoOpen) {
     const viewFromSession = new Date(sessionStorage.getItem(`view:${articleId}`));
@@ -483,28 +302,6 @@ export class ArticleService {
         return err;
       }
     }
-
-    // return new Promise<any>(resolve => {
-    //   if (viewFromSession < twoMinutesBack) {
-    //     sessionStorage.setItem(`view:${articleId}`, new Date().toString());
-    //     const articleDoc = this.getArticleById(articleId);
-    //     const viewEntryObject = {
-    //       articleId: articleId,
-    //       viewerUid: (viewer ? viewer.$key : 'anonymous'),
-    //       articleVersion: version,
-    //       viewStart: this.fsServerTimestamp()
-    //     }
-    //     articleDoc.collection('views').add(viewEntryObject)
-    //       .then(docRef => {
-    //         const viewId = docRef.id
-    //         sessionStorage.setItem('currentViewId', viewId)
-    //         resolve(viewId);
-    //       })
-    //       .catch(err => {
-    //         resolve(err);
-    //       });
-    //   }
-    // });
   }
 
   captureArticleUnView(articleId: string, viewId: string) {
@@ -522,46 +319,17 @@ export class ArticleService {
     }
   }
 
-  // isArticleFeatured(articleKey: string) {
-  //   return this.afd.object(`articleData/featuredArticles/${articleKey}`).map(res => {
-  //     if (res.$value)
-  //       return true;
-  //     return false;
-  //   });
-  // }
-
   setFeaturedArticle(articleKey: string) {
-    //  Firestore way:
     this
       .getArticleById(articleKey)
       .update({ isFeatured: true });
-    //  Firebase way:
-    // this.afd.object(`articleData/featuredArticles/${articleKey}`).set(firebase.database.ServerValue.TIMESTAMP);
   }
 
   unsetFeaturedArticle(articleKey: string) {
-    //  Firestore way:
     this
       .getArticleById(articleKey)
       .update({ isFeatured: false });
-    //  Firebase way:
-    // firebase.database().ref('articleData/featuredArticles').child(articleKey).remove();
-  }
-
-  // getLatest() {
-  //   return this.afd.list('articleData/articles', {
-  //     query: {
-  //       orderByChild: 'timeStamp',
-  //       limitToLast: 12
-  //     }
-  //   }).map(articles => {
-  //     articles.map(article => {
-  //       article.tags = this.tagsArrayFromTagsObject(article.tags);
-  //       return article;
-  //     });
-  //     return articles;
-  //   });
-  // }
+    }
 
   getAuthorByKey(authorKey: string) {
     const object = this.rtdb.object(`userInfo/open/${authorKey}`);
@@ -594,28 +362,6 @@ export class ArticleService {
       .object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`)
       .remove();
   }
-
-  // returns each article a particular user has bookmarked
-  // getBookmarksByUserKey(userKey) {
-  //   return this.afd.list(`userInfo/articleBookmarksPerUser/${userKey}`)
-  //     .map(bookmark => {
-  //       return bookmark.map(article => this.afd.object(`articleData/articles/${article.$key}`));
-  //     })
-  //     .flatMap(firebaseObjectObservables => {
-  //       return Observable.combineLatest(firebaseObjectObservables)
-  //     });
-  // }
-
-  // returns each user that has bookmarked a particular article
-  // getUsersByArticleKey(articleKey) {
-  //   return this.afd.list(`articleData/userBookmarksPerArticle/${articleKey}`)
-  //     .map(article => {
-  //       return article.map(user => this.afd.object(`userInfo/open/${user.$key}`));
-  //     })
-  //     .flatMap(FirebaseObjectObservable => {
-  //       return Observable.combineLatest(FirebaseObjectObservable)
-  //     });
-  // }
 
   navigateToArticleDetail(articleKey: any) {
     this.router.navigate([`articledetail/${articleKey}`]);
@@ -746,7 +492,6 @@ export class ArticleService {
   }
 
   primeTags() {
-    // return new Promise(resolve => {
     if (!this.globalTags) {
       const tagsRef = this.getGlobalTags();
       tagsRef.valueChanges()
@@ -776,10 +521,6 @@ export class ArticleService {
           }
         });
     }
-    //   else {
-    //     resolve();
-    //   }
-    // });
   }
 
   fsServerTimestamp() {
