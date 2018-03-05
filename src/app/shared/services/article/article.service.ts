@@ -1,4 +1,4 @@
-import { ArticleDetailOpen, GlobalTag, ArticleDetailFirestore, ArticleBodyFirestore } from 'app/shared/class/article-info';
+import { GlobalTag, ArticleDetailFirestore, ArticleBodyFirestore } from 'app/shared/class/article-info';
 import { Input } from '@angular/core';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
@@ -24,7 +24,7 @@ export class ArticleService {
     return this.afs.doc('articleData/tags');
   }
 
-  getAllArticlesFirestore() {
+  getAllArticles() {
     return this.afs
       .collection('articleData')
       .doc('articles')
@@ -51,47 +51,42 @@ export class ArticleService {
       });
   }
 
-  getArticleById(articleId: string) {
+  getArticle(articleId: string) {
     return this.afs.doc(`articleData/articles/articles/${articleId}`);
   }
 
-  getArticleBodyById(bodyId: string): AngularFirestoreDocument<ArticleBodyFirestore> {
+  getArticleBody(bodyId: string): AngularFirestoreDocument<ArticleBodyFirestore> {
     return this.afs.doc(`articleData/bodies/active/${bodyId}`);
   }
 
   // SUGGESTION: archivedArticleBody(bodyId: string) is as self explanatory
-  getArchivedArticleBodyById(bodyId: string) {
+  archivedArticleBody(bodyId: string) {
     return this.afs.doc(`articleData/bodies/history/${bodyId}`);
   }
 
-  getArchivedArticlesById(articleId: string) {
+  articleHistory(articleId: string): AngularFirestoreCollection<ArticleDetailFirestore> {
     return this
-      .getArticleById(articleId)
+      .getArticle(articleId)
       .collection('history', ref => {
         return ref.orderBy('version');
       });
   }
 
-  getArticlesEditedByUid(userId: string) {
+  editedArticlesByUser(userId: string) {
     return this.afs
       .collection('userData')
       .doc(userId)
       .collection('articlesEdited');
   }
 
-  getArticlesAuthoredByUid(userId: string) {
+  articlesByAuthor(userId: string) {
     return this.afs
       .collection('userData')
       .doc(userId)
       .collection('articlesAuthored');
   }
 
-  async createNewArticle(author: UserInfoOpen, authorId: string, article: any) {
-    const articleId = await this.createNewArticleFirestore(author, authorId, article);
-    return articleId;
-  }
-
-  async createNewArticleFirestore(author: UserInfoOpen, authorId: string, article: any) {
+  async createArticle(author: UserInfoOpen, authorId: string, article: any) {
     const batch = this.afs.firestore.batch();
     const newArticle: any = this.newObjectFromArticle(article, authorId);
 
@@ -99,15 +94,15 @@ export class ArticleService {
     newArticle.bodyId = bodyId;
     const articleId = this.afs.createId();
     newArticle.articleId = articleId;
-    const bodyRef = this.getArticleBodyById(bodyId).ref;
+    const bodyRef = this.getArticleBody(bodyId).ref;
     const newBody = this.dbObjectFromBody(article.body, articleId, 1, authorId);
     batch.set(bodyRef, newBody);
 
-    const articleRef = this.getArticleById(articleId).ref;
+    const articleRef = this.getArticle(articleId).ref;
     batch.set(articleRef, newArticle);
 
     const articleEditorRef = this
-      .getArticleById(articleId)
+      .getArticle(articleId)
       .collection('editors')
       .doc(authorId)
       .ref;
@@ -117,7 +112,7 @@ export class ArticleService {
     });
 
     const userArticleEditedRef = this
-      .getArticlesEditedByUid(authorId)
+      .editedArticlesByUser(authorId)
       .doc(articleId)
       .ref;
     batch.set(userArticleEditedRef, {
@@ -126,7 +121,7 @@ export class ArticleService {
     });
 
     const userArticleAuthoredRef = this
-      .getArticlesAuthoredByUid(authorId)
+      .articlesByAuthor(authorId)
       .doc(articleId)
       .ref;
     batch.set(userArticleAuthoredRef, {
@@ -135,7 +130,7 @@ export class ArticleService {
     });
 
     for (const tag of article.tags) {
-      this.addGlobalTagFirestore(tag);
+      this.addGlobalTag(tag);
     }
 
     try {
@@ -151,17 +146,11 @@ export class ArticleService {
     }
   }
 
-  // candidate for refactor
-  // method passes data directly to similarly named method
   updateArticle(editorId: string, editor: UserInfoOpen, article: ArticleDetailFirestore, articleId: string) {
-    return this.updateArticleFirestore(editorId, editor, article, articleId);
-  }
-
-  updateArticleFirestore(editorId: string, editor: UserInfoOpen, article: ArticleDetailFirestore, articleId: string) {
     return new Promise(resolve => {
       const batch = this.afs.firestore.batch();
       //  Wondering if we should stop using this and just get the lastest from history...
-      const articleDoc = this.getArticleById(articleId);
+      const articleDoc = this.getArticle(articleId);
 
       articleDoc.valueChanges().first()
         .subscribe((oldArticle: ArticleDetailFirestore) => {
@@ -173,13 +162,13 @@ export class ArticleService {
           updatedArticleObject.bodyId = newBodyId;
           //  Would like to make global tags processing atomic as well.
           this.processGlobalTags(article.tags, oldArticle.tags, articleId);
-          const archiveDoc = this.getArchivedArticlesById(articleId).doc(oldArticle.version.toString());
-          const currentDoc = this.getArchivedArticlesById(articleId).doc(updatedArticleObject.version.toString());
-          const currentBodyDoc = this.getArticleBodyById(oldArticle.bodyId);
-          const newBodyDoc = this.getArticleBodyById(newBodyId);
-          const archiveBodyDoc = this.getArchivedArticleBodyById(oldArticle.bodyId);
-          const articleEditorRef = this.getArticleById(articleId).collection('editors').doc(editorId).ref;
-          const userArticleEditedRef = this.getArticlesEditedByUid(editorId).doc(articleId).ref;
+          const archiveDoc = this.articleHistory(articleId).doc(oldArticle.version.toString());
+          const currentDoc = this.articleHistory(articleId).doc(updatedArticleObject.version.toString());
+          const currentBodyDoc = this.getArticleBody(oldArticle.bodyId);
+          const newBodyDoc = this.getArticleBody(newBodyId);
+          const archiveBodyDoc = this.archivedArticleBody(oldArticle.bodyId);
+          const articleEditorRef = this.getArticle(articleId).collection('editors').doc(editorId).ref;
+          const userArticleEditedRef = this.editedArticlesByUser(editorId).doc(articleId).ref;
 
 
           currentBodyDoc.valueChanges().first()
@@ -286,7 +275,7 @@ export class ArticleService {
     const twoMinutesBack = new Date(new Date().valueOf() - 2 * msPerMinute);
     if (viewFromSession < twoMinutesBack) {
       sessionStorage.setItem(`view:${articleId}`, new Date().toString());
-      const articleDoc = this.getArticleById(articleId);
+      const articleDoc = this.getArticle(articleId);
       const viewEntryObject = {
         articleId: articleId,
         viewerUid: (viewer ? viewer.$key : 'anonymous'),
@@ -314,24 +303,24 @@ export class ArticleService {
     const twoMinutesBack = new Date(new Date().valueOf() - 2 * msPerMinute);
     if (viewFromSession < twoMinutesBack) {
       sessionStorage.setItem(`unView:${articleId}`, new Date().toString());
-      const articleDoc = this.getArticleById(articleId);
+      const articleDoc = this.getArticle(articleId);
       return articleDoc.collection('views').doc(viewId).update({ viewEnd: this.fsServerTimestamp() });
     }
   }
 
-  setFeaturedArticle(articleKey: string) {
+  featureArticle(articleKey: string) {
     this
-      .getArticleById(articleKey)
+      .getArticle(articleKey)
       .update({ isFeatured: true });
   }
 
-  unsetFeaturedArticle(articleKey: string) {
+  unFeatureArticle(articleKey: string) {
     this
-      .getArticleById(articleKey)
+      .getArticle(articleKey)
       .update({ isFeatured: false });
     }
 
-  getAuthorByKey(authorKey: string) {
+  getAuthor(authorKey: string) {
     const object = this.rtdb.object(`userInfo/open/${authorKey}`);
     return this.injectObjectKey(object);
   }
@@ -378,7 +367,7 @@ export class ArticleService {
     if (newTags) {
       for (const tag of newTags) {
         if (!oldTags.includes(tag)) {
-          this.addGlobalTagFirestore(tag, batch);
+          this.addGlobalTag(tag, batch);
         }
       }
     }
@@ -391,7 +380,7 @@ export class ArticleService {
     }
   }
 
-  addGlobalTagFirestore(tag: any, batch?: firebase.firestore.WriteBatch) {
+  addGlobalTag(tag: any, batch?: firebase.firestore.WriteBatch) {
     // batching does not work.
     // Error is => There must be only one transform for every document,
     // and transform must be after all other operations on the document

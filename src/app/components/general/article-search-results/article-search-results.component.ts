@@ -23,12 +23,12 @@ export class ArticleSearchResultsComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
     this.articleSvc
-      .getAllArticlesFirestore()
+      .getAllArticles()
       .valueChanges()
       .subscribe(articles => {
         for (const article of articles as any) {
           this.articleSvc
-            .getArticleBodyById(article.bodyId)
+            .getArticleBody(article.bodyId)
             .valueChanges()
             .subscribe(data => {
               article.body = data.body;

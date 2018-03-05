@@ -40,11 +40,11 @@ export class EditArticleComponent implements OnInit {
 
       //  Firestore way:
       this.articleSvc
-        .getArticleById(this.key)
+        .getArticle(this.key)
         .valueChanges()
         .subscribe((articleToEdit: ArticleDetailFirestore) => {
           this.articleSvc
-            .getArticleBodyById(articleToEdit.bodyId)
+            .getArticleBody(articleToEdit.bodyId)
             .valueChanges()
             .subscribe(articleBody => {
               if (articleBody) {
@@ -57,10 +57,10 @@ export class EditArticleComponent implements OnInit {
     //  Firestore version:
     // this.route.params.subscribe(params => {
     //   this.key = params['key'];
-    //   this.fsArticleSvc.getArticleById(this.key).valueChanges()
+    //   this.fsArticleSvc.getArticle(this.key).valueChanges()
     //     .subscribe((articleToEdit: ArticleDetailFirestore) => {
     //       let articleBodyId = articleToEdit.bodyId;
-    //       this.fsArticleSvc.getArticleBodyById(articleBodyId).valueChanges()
+    //       this.fsArticleSvc.getArticleBody(articleBodyId).valueChanges()
     //         .subscribe((articleBody: ArticleBodyFirestore) => {
     //           articleToEdit.body = articleBody.body;
     //           articleToEdit.articleId = this.key;

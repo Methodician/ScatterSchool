@@ -16,7 +16,7 @@ export class DataCleanupService {
   ) { }
 
   upgradeMainArticleBody(bodyId, articleId, version, lastEditorId) {
-    const bodyDoc = this.articleSvc.getArticleBodyById(bodyId);
+    const bodyDoc = this.articleSvc.getArticleBody(bodyId);
     bodyDoc
       .valueChanges()
       .subscribe((depBody: any) => {
@@ -32,7 +32,7 @@ export class DataCleanupService {
   }
 
   addLastEditorToArticle(articleId, lastEditorId) {
-    const articleDoc = this.articleSvc.getArticleById(articleId);
+    const articleDoc = this.articleSvc.getArticle(articleId);
     articleDoc.update({
       lastEditorId: lastEditorId
     });
@@ -40,7 +40,7 @@ export class DataCleanupService {
 
   addLastEditorToArchive(articleId, version, lastEditorId) {
     const archiveDoc = this.articleSvc
-      .getArchivedArticlesById(articleId)
+      .articleHistory(articleId)
       .doc(version);
     archiveDoc.update({
       lastEditorId: lastEditorId
@@ -50,16 +50,16 @@ export class DataCleanupService {
 
   addArticleHistory(body: any, bodyId: any, history: any, articleId: string) {
     const batch = this.afs.firestore.batch();
-    const articleDoc = this.articleSvc.getArticleById(articleId);
+    const articleDoc = this.articleSvc.getArticle(articleId);
 
     const archiveDoc = this.articleSvc
-      .getArchivedArticlesById(articleId)
+      .articleHistory(articleId)
       .doc(history.version.toString());
     const archiveArticleObject = this.historyObjectFromFBHistory(history, articleId);
     if (!archiveArticleObject.timestamp.getDate()) {
       archiveArticleObject.timestamp = archiveArticleObject.lastUpdated;
     }
-    const archiveBodyDoc = this.articleSvc.getArchivedArticleBodyById(bodyId);
+    const archiveBodyDoc = this.articleSvc.archivedArticleBody(bodyId);
 
     const bodyLogObject: any = {
       body: body.body,
@@ -145,20 +145,20 @@ export class DataCleanupService {
       this.userSvc.getUserInfo(authorId).subscribe(info => {
         const author: UserInfoOpen = info;
         const batch = this.afs.firestore.batch();
-        const articleDoc = this.articleSvc.getArticleById(articleId);
+        const articleDoc = this.articleSvc.getArticle(articleId);
         this.articleSvc.processGlobalTags(originalArticle.tags, [], articleId);
-        const newBodyDoc = this.articleSvc.getArticleBodyById(article.bodyId);
+        const newBodyDoc = this.articleSvc.getArticleBody(article.bodyId);
         const articleEditorRef = this.articleSvc
-          .getArticleById(articleId)
+          .getArticle(articleId)
           .collection('editors')
           .doc(authorId)
           .ref;
         const userArticleEditedRef = this.articleSvc
-          .getArticlesEditedByUid(authorId)
+          .editedArticlesByUser(authorId)
           .doc(articleId)
           .ref;
         const userArticleAuthoredRef = this.articleSvc
-          .getArticlesAuthoredByUid(article.authorId)
+          .articlesByAuthor(article.authorId)
           .doc(articleId)
           .ref;
         const updatedArticleObject = this.articleSvc.updateObjectFromArticle(article, articleId, authorId);

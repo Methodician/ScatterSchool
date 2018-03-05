@@ -114,9 +114,9 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
           if (this.article.isFeatured) {
-            this.articleSvc.unsetFeaturedArticle(this.articleKey);
+            this.articleSvc.unFeatureArticle(this.articleKey);
           } else {
-            this.articleSvc.setFeaturedArticle(this.articleKey);
+            this.articleSvc.featureArticle(this.articleKey);
           }
         }
       });
@@ -125,8 +125,9 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
   getArticleData() {
     //  Firestore way:
     this.articleSvc
-      .getArticleById(this.articleKey)
+      .getArticle(this.articleKey)
       .valueChanges()
+      // TODO: resolve potential issue with this subscription returning a null value
       .subscribe(async (articleData: ArticleDetailFirestore) => {
         if (!this.viewIncremented && !this.editingPreview) {
           try {
@@ -151,10 +152,12 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
           //   });
 
         }
-        this.getArticleBody(articleData);
-        this.getAuthor(articleData.authorId);
-        this.getProfileImage(articleData.authorId);
-        this.getArticleCoverImage(this.articleKey)
+        if (articleData) {
+          this.getArticleBody(articleData);
+          this.getAuthor(articleData.authorId);
+          this.getProfileImage(articleData.authorId);
+          this.getArticleCoverImage(this.articleKey)
+        }
       })
   }
 
@@ -163,7 +166,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
     this.uploadSvc
       .getImage(articleKey, basePath)
       .subscribe(articleData => {
-        if (articleData.url) {
+        if (articleData && articleData.url) {
           this.articleCoverImageUrl = articleData.url;
         }
       });
@@ -171,7 +174,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   getArticleBody(articleData: any) {
     this.articleSvc
-      .getArticleBodyById(articleData.bodyId)
+      .getArticleBody(articleData.bodyId)
       .valueChanges()
       .subscribe((articleBody: ArticleBodyFirestore) => {
         if (articleBody) {
@@ -183,7 +186,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   getAuthor(authorKey: string) {
     this.articleSvc
-      .getAuthorByKey(authorKey)
+      .getAuthor(authorKey)
       .subscribe(author => {
         this.author = author;
       });

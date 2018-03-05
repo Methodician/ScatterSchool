@@ -47,17 +47,19 @@ export class ArticleHistoryDetailComponent implements OnInit, OnChanges {
   getArticleBody(articleData: ArticleDetailFirestore) {
     //  Firestore way:
     this.articleSvc
-      .getArchivedArticleBodyById(articleData.bodyId)
+      .archivedArticleBody(articleData.bodyId)
       .valueChanges()
       .subscribe((body: ArticleBodyFirestore) => {
-        articleData.body = body.body;
-        this.article = articleData;
+        if (body) {
+          articleData.body = body.body;
+          this.article = articleData;
+        }
       });
   }
 
   getAuthor(authorKey: string) {
     this.articleSvc
-      .getAuthorByKey(authorKey)
+      .getAuthor(authorKey)
       .subscribe(author => {
         this.author = author;
       });

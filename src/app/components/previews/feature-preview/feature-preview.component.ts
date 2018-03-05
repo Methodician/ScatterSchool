@@ -23,7 +23,7 @@ export class FeaturePreviewComponent implements OnInit {
 
   ngOnInit() {
     this.articleService
-    .getAuthorByKey(this.articleData.authorId)
+    .getAuthor(this.articleData.authorId)
     .subscribe(author => {
         this.author = author;
       });

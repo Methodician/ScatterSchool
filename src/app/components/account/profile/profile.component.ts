@@ -35,8 +35,8 @@ export class ProfileComponent implements OnInit {
       if (params['key']) {
         const uid = params['key'];
         this.getUserInfo(uid);
-        this.getArticlesPerAuthor(uid);
-        this.getArticlesPerEditor(uid);
+        this.getArticlesByAuthor(uid);
+        this.getArticlesByEditor(uid);
         this.getUsersFollowed(uid);
         this.getFollowersOfUser(uid);
         this.getProfileImage(uid);
@@ -66,18 +66,18 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  getArticlesPerAuthor(uid: string) {
+  getArticlesByAuthor(uid: string) {
     this.articleSvc
-      .getArticlesAuthoredByUid(uid)
+      .articlesByAuthor(uid)
       .valueChanges()
       .subscribe(articles =>
         this.articlesAuthored = articles as ArticleDetailOpen[]
       );
   }
 
-  getArticlesPerEditor(uid: string) {
+  getArticlesByEditor(uid: string) {
     this.articleSvc
-    .getArticlesAuthoredByUid(uid)
+    .editedArticlesByUser(uid)
     .valueChanges()
     .subscribe(articles =>
       this.articlesEdited = articles as ArticleDetailOpen[]

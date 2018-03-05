@@ -32,13 +32,13 @@ export class DataCleanupComponent implements OnInit {
 
   upgradeArticleBodyActive() {
     this.articleSvc
-      .getAllArticlesFirestore()
+      .getAllArticles()
       .valueChanges()
       .take(1)
       .subscribe(articles => {
         this.articles = articles;
         for (const article of this.articles) {
-          // this.articleSvc.getArticleBodyById(article.bodyId).valueChanges().subscribe((body: any) => {
+          // this.articleSvc.getArticleBody(article.bodyId).valueChanges().subscribe((body: any) => {
           //   article.body = body.body.$value;
           // });
           this.dataSvc.upgradeMainArticleBody(article.bodyId, article.articleId, article.version, article.lastEditorId);
@@ -47,14 +47,14 @@ export class DataCleanupComponent implements OnInit {
   }
   addLastEditorToArticles() {
     this.articleSvc
-      .getAllArticlesFirestore()
+      .getAllArticles()
       .valueChanges()
       .take(1)
       .subscribe(articles => {
         this.articles = articles;
         for (const article of this.articles) {
           this.articleSvc
-            .getArchivedArticlesById(article.articleId)
+            .articleHistory(article.articleId)
             .valueChanges()
             .subscribe(history => {
               if (history.length > 0) {
@@ -62,7 +62,7 @@ export class DataCleanupComponent implements OnInit {
                 article.history = history.reverse();
                 for (const item of article.history) {
                   this.articleSvc
-                    .getArchivedArticleBodyById(item.bodyId)
+                    .archivedArticleBody(item.bodyId)
                     .valueChanges()
                     .subscribe((body: any) => {
                       if (body) {

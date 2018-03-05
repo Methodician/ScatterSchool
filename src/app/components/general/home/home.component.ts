@@ -48,7 +48,7 @@ export class HomeComponent implements OnInit {
 
     //  call for All Articles
     this.articleSvc
-      .getAllArticlesFirestore()
+      .getAllArticles()
       .valueChanges()
       .subscribe(response => {
         this.allArticles = response;

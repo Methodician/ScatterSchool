@@ -27,7 +27,7 @@ export class ArticleHistoryComponent implements OnInit {
         this.articleKey = params['key'];
         //  Firestore way:
         this.articleSvc
-          .getArchivedArticlesById(this.articleKey)
+          .articleHistory(this.articleKey)
           .valueChanges()
           .subscribe(history => {
             this.articleHistory = history;
