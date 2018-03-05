@@ -17,12 +17,12 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router
-    //@Inject(FirebaseRef) fbRef
+    // @Inject(FirebaseRef) fbRef
   ) {
     this.afAuth.authState.subscribe(info => {
       if (info) {
         // console.log('AuthState from Auth Service constructor:', info);
-        if (info.uid) this.setUserPresence(info.uid);
+        if (info.uid) { this.setUserPresence(info.uid) };
         this.user$.next(info);
         const authInfo = new AuthInfo(info.uid, info.emailVerified);
         this.authInfo$.next(authInfo);
@@ -31,14 +31,14 @@ export class AuthService {
   }
 
   setUserPresence(userKey) {
-    let user = firebase.database().ref(`presenceData/users/${userKey}`);
-    let connections = user.child('connections');
-    let lastOnline = user.child("lastOnline");
-    let connectionData = firebase.database().ref(`.info/connected`);
+    const user = firebase.database().ref(`presenceData/users/${userKey}`);
+    const connections = user.child('connections');
+    const lastOnline = user.child('lastOnline');
+    const connectionData = firebase.database().ref(`.info/connected`);
 
     connectionData.on('value', snapshot => {
       if (snapshot.val()) {
-        let connection = connections.push();
+        const connection = connections.push();
         this.userPresence = new UserPresence(connection, lastOnline, userKey);
       }
     })
@@ -52,9 +52,9 @@ export class AuthService {
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        if (errorCode == 'auth/wrong-password') {
+        if (errorCode === 'auth/wrong-password') {
           alert('Please enter the correct password.');
-        } else if (errorCode == 'auth/user-not-found') {
+        } else if (errorCode === 'auth/user-not-found') {
           alert('We don\'t have any record of a user with that email address.')
         } else {
           alert(errorMessage);
@@ -79,7 +79,7 @@ export class AuthService {
       .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        if (errorCode == 'auth/weak-password') {
+        if (errorCode === 'auth/weak-password') {
           alert('Your password should be stronger.');
         } else {
           alert(errorMessage);
@@ -88,8 +88,8 @@ export class AuthService {
       }));
   }
   setDisplayName(alias) { // (later create option by making args "(alias, user?)")
-    //let userToSet = user || this.afAuth.auth.currentUser;
-    let userToSet = this.afAuth.auth.currentUser;
+    // let userToSet = user || this.afAuth.auth.currentUser;
+    const userToSet = this.afAuth.auth.currentUser;
     userToSet.updateProfile({ displayName: alias, photoURL: null });
   }
 
@@ -98,12 +98,12 @@ export class AuthService {
 
     promise
       .then(res => {
-        //console.log('Auth Service promise result:', res);
+        // console.log('Auth Service promise result:', res);
         this.afAuth.authState.subscribe(state => {
-          //console.log('Auth State:', state);
+          // console.log('Auth State:', state);
         });
         const authInfo = new AuthInfo(this.afAuth.auth.currentUser.uid, res.emailVerified);
-        //const authInfo = new AuthInfo('figure out how to get uid', false);
+        // const authInfo = new AuthInfo('figure out how to get uid', false);
         this.authInfo$.next(authInfo);
         subject.next(res);
         subject.complete();
@@ -117,12 +117,11 @@ export class AuthService {
   }
 
   async sendVerificationEmail() {
-    let user = this.afAuth.auth.currentUser;
-    //console.log('afAuth.auth.currentUser:', user);
+    const user = this.afAuth.auth.currentUser;
+    // console.log('afAuth.auth.currentUser:', user);
     try {
       await user.sendEmailVerification();
-    }
-    catch (err) {
+    } catch (err) {
       alert('It looks like your verification email was not sent. Please try again or contact support.' + err);
     }
     // user.sendEmailVerification().then(() => {
@@ -138,8 +137,9 @@ export class AuthService {
     ).take(1)
       .do(allowed => {
         if (!allowed) {
-          if (confirm('You must be logged in to do that. Would you like to be redirected?'))
+          if (confirm('You must be logged in to do that. Would you like to be redirected?')) {
             this.router.navigate(['/login']);
+          }
         }
       });
     // return this.authInfo$.asObservable()

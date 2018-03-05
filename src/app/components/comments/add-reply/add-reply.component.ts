@@ -10,21 +10,25 @@ import { Component, OnInit, Input } from '@angular/core';
 export class AddReplyComponent implements OnInit {
   @Input() currentUserInfo;
   @Input() parentCommentKey;
+  isFormShowing = false;
 
-  isFormShowing: boolean = false;
+  constructor(
+    private router: Router,
+    private commentSvc: CommentService
+  ) { }
 
-  constructor(private router: Router, private commentSvc: CommentService) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   postReply(replyData) {
-    if (this.currentUserInfo) this.saveReply(replyData);
-    else this.router.navigate(['login']);
+    if (this.currentUserInfo) {
+      this.saveReply(replyData);
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
   saveReply(replyData) {
-    let comment = {
+    const comment = {
       authorKey: this.currentUserInfo.$key,
       parentKey: this.parentCommentKey,
       parentType: 'comment',

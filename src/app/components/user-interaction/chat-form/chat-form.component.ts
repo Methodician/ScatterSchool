@@ -8,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ChatFormComponent implements OnInit {
   form: FormGroup;
-  maxLength: number = 1000;
+  maxLength = 1000;
 
   constructor(private fb: FormBuilder) { }
 
@@ -35,6 +35,6 @@ export class ChatFormComponent implements OnInit {
   }
 
   clearForm() {
-    this.form.setValue({text: ""});
+    this.form.setValue({text: ''});
   }
 }

@@ -1,7 +1,7 @@
 export class Chat {
-    constructor(
-        public members: object[],
-        public timestamp: number,
-        public totalMessagesCount: number
-    ) { }
+  constructor(
+    public members: object[],
+    public timestamp: number,
+    public totalMessagesCount: number
+  ) {}
 }

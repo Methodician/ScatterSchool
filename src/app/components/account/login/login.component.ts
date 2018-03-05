@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   form: FormGroup;
   authInfo: AuthInfo;
 
@@ -35,15 +34,14 @@ export class LoginComponent implements OnInit {
     const val = this.form.value;
 
     this.authSvc.login(val.email, val.password)
-      .subscribe(
-      res => {
-        //console.log('Login result from LoginComp:', res);
+      .subscribe(res => {
+        // console.log('Login result from LoginComp:', res);
         delete val.password;
-        //this.userSvc.getUserInfo(res.uid).subscribe(res => console.log);
+        // this.userSvc.getUserInfo(res.uid).subscribe(res => console.log);
         this.router.navigateByUrl('/account');
-      },
-      err => alert(err)
-      );
+      }, err => {
+        alert(err)
+      });
   }
 
   isErrorVisible(field: string, error: string) {
@@ -59,5 +57,4 @@ export class LoginComponent implements OnInit {
   formValid() {
     return this.form.valid;
   }
-
 }

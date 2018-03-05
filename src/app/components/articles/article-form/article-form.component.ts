@@ -1,26 +1,24 @@
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-article-form',
   templateUrl: './article-form.component.html',
   styleUrls: ['./article-form.component.scss']
 })
-export class ArticleFormComponent implements OnInit {
-
-  ckeditorContent;
-  @Input()
-  initialValue: any;
+export class ArticleFormComponent implements OnInit, OnChanges {
+  @Input() initialValue: any;
+  ckeditorContent = '';
   titleError: string;
   form: FormGroup;
   formTags = [];
   articleTags = [];
   validator = [this.tagValidation]
 
-  constructor(
-    fb: FormBuilder
-  ) {
-    this.form = fb.group({
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit() {
+    this.form = this.fb.group({
       title: ['',
         [Validators.required, Validators.maxLength(100)]
       ],
@@ -38,18 +36,12 @@ export class ArticleFormComponent implements OnInit {
       viewCount: 0,
       isFeatured: false
     });
-
-    this.ckeditorContent = ``;
-
-  }
-
-  ngOnInit() {
   }
 
   ngOnChanges(changes: SimpleChanges) {
     //  Must make sure form is initalized before checking...
     if (changes['initialValue'] && changes['initialValue'].currentValue) {
-      //console.log(changes);
+      // console.log(changes);
       // We have two methods to set a form's value: setValue and patchValue.
       this.form.patchValue(changes['initialValue'].currentValue);
       this.initializeTags(changes['initialValue'].currentValue.tags);
@@ -59,7 +51,7 @@ export class ArticleFormComponent implements OnInit {
   initializeTags(articleTags) {
     if (articleTags) {
       this.articleTags = articleTags;
-      for (let tag of articleTags) {
+      for (const tag of articleTags) {
         this.formTags.push({ 'display': tag, 'value': tag });
       }
     }
@@ -68,7 +60,7 @@ export class ArticleFormComponent implements OnInit {
   tagValidation(control: FormControl) {
     // regex that allows only alpnanumeric characters and spaces
     const tag = control.value,
-      regexp = new RegExp("^[a-zA-Z0-9 ]*$"),
+      regexp = new RegExp('^[a-zA-Z0-9 ]*$'),
       test = regexp.test(tag);
     return test ? null : { 'alphanumericCheck': true }
   }
@@ -76,19 +68,19 @@ export class ArticleFormComponent implements OnInit {
   onTagAdded($event) {
     this.articleTags.push($event.value.toUpperCase());
     this.form.controls.tags.patchValue(this.articleTags);
-    //this.form.controls.tags.setValue(this.articleTags);
-    //this.form.title[upperTag] = true;
+    // this.form.controls.tags.setValue(this.articleTags);
+    // this.form.title[upperTag] = true;
   }
 
   onTagRemoved($event) {
-    //console.log($event);
-    let tagToRemove = $event.value.toUpperCase();
+    // console.log($event);
+    const tagToRemove = $event.value.toUpperCase();
     this.removeTag(tagToRemove);
     this.form.controls.tags.patchValue(this.articleTags);
   }
 
   removeTag(tag) {
-    let arteTags = this.articleTags;
+    const arteTags = this.articleTags;
     let index = arteTags.indexOf(tag);
 
     while (index !== -1) {
@@ -98,7 +90,7 @@ export class ArticleFormComponent implements OnInit {
   }
 
   isErrorVisible(field: string, error: string) {
-    let control = this.form.controls[field];
+    const control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
   }
 

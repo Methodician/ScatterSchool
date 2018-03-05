@@ -29,9 +29,9 @@ export class FollowBtnComponent implements OnInit {
       if (isLoggedIn) {
         if (this.isFollowing) {
           this.userSvc.unfollowUser(this.uid);
-        }
-        else
+        } else {
           this.userSvc.followUser(this.uid);
+        }
       }
     })
   }
@@ -45,8 +45,7 @@ export class FollowBtnComponent implements OnInit {
       if (following) {
         this.buttonText = 'Unfollow';
         this.isFollowing = true;
-      }
-      else {
+      } else {
         this.buttonText = 'Follow';
         this.isFollowing = false;
       }

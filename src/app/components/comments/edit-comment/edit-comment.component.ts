@@ -16,12 +16,15 @@ export class EditCommentComponent implements OnInit {
   ngOnInit() { }
 
   tryUpdateComment(commentData) {
-    if (this.currentUserInfo) this.updateComment(commentData);
-    else this.router.navigate(['login']);
+    if (this.currentUserInfo) {
+      this.updateComment(commentData);
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
   updateComment(newCommentData) {
-    let comment = {
+    const comment = {
       text: newCommentData.text,
       key: this.initialCommentValue.$key
     }

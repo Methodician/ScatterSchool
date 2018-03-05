@@ -11,7 +11,6 @@ import { DataCleanupService } from 'app/data-cleanup.service';
   styleUrls: ['./data-cleanup.component.scss']
 })
 export class DataCleanupComponent implements OnInit {
-
   articles: any;
   authInfo = null;
   userInfo = null;
@@ -29,51 +28,63 @@ export class DataCleanupComponent implements OnInit {
       this.userInfo = user;
     });
   }
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   upgradeArticleBodyActive() {
-    this.articleSvc.getAllArticlesFirestore().valueChanges().take(1).subscribe(articles => {
-      this.articles = articles;
-      for (let article of this.articles) {
-        // this.articleSvc.getArticleBodyById(article.bodyId).valueChanges().subscribe((body: any) => {
-        //   article.body = body.body.$value;
-        // });
-        this.dataSvc.upgradeMainArticleBody(article.bodyId, article.articleId, article.version, article.lastEditorId);
-      }
-    });
+    this.articleSvc
+      .getAllArticlesFirestore()
+      .valueChanges()
+      .take(1)
+      .subscribe(articles => {
+        this.articles = articles;
+        for (const article of this.articles) {
+          // this.articleSvc.getArticleBodyById(article.bodyId).valueChanges().subscribe((body: any) => {
+          //   article.body = body.body.$value;
+          // });
+          this.dataSvc.upgradeMainArticleBody(article.bodyId, article.articleId, article.version, article.lastEditorId);
+        }
+      });
   }
   addLastEditorToArticles() {
-    this.articleSvc.getAllArticlesFirestore().valueChanges().take(1).subscribe(articles => {
-      this.articles = articles;
-      for (let article of this.articles) {
-        this.articleSvc.getArchivedArticlesById(article.articleId).valueChanges().subscribe(history => {
-          if (history.length > 0) {
-            let mainSet = false;
-            article.history = history.reverse();
-            for (let item of article.history) {
-              this.articleSvc.getArchivedArticleBodyById(item.bodyId).valueChanges().subscribe((body: any) => {
-                if (body) {
-                  // this.dataSvc.addLastEditorToArchive(article.articleId, item.version.toString(), body.nextEditorId);
-                  // if (!mainSet) {
-                  //   this.dataSvc.addLastEditorToArticle(article.articleId, body.nextEditorId);
-                  // }
+    this.articleSvc
+      .getAllArticlesFirestore()
+      .valueChanges()
+      .take(1)
+      .subscribe(articles => {
+        this.articles = articles;
+        for (const article of this.articles) {
+          this.articleSvc
+            .getArchivedArticlesById(article.articleId)
+            .valueChanges()
+            .subscribe(history => {
+              if (history.length > 0) {
+                const mainSet = false;
+                article.history = history.reverse();
+                for (const item of article.history) {
+                  this.articleSvc
+                    .getArchivedArticleBodyById(item.bodyId)
+                    .valueChanges()
+                    .subscribe((body: any) => {
+                      if (body) {
+                        // this.dataSvc.addLastEditorToArchive(article.articleId, item.version.toString(), body.nextEditorId);
+                        // if (!mainSet) {
+                        //   this.dataSvc.addLastEditorToArticle(article.articleId, body.nextEditorId);
+                        // }
+                      }
+                      // item.body = body;
+                      // if (!mainSet) {
+                      //   //article.lastEditorId = body.nextEditorId;
+                      //   mainSet = true;
+                      // }
+                      // //item.lastEditorId = body.nextEditorId;
+                    });
                 }
-                // item.body = body;
-                // if (!mainSet) {
-                //   //article.lastEditorId = body.nextEditorId;
-                //   mainSet = true;
-                // }
-                // //item.lastEditorId = body.nextEditorId;
-              });
-            }
-          }
-          else {
-            this.dataSvc.addLastEditorToArticle(article.articleId, article.authorId);
-          }
-        });
-      }
-    });
+              } else {
+                this.dataSvc.addLastEditorToArticle(article.articleId, article.authorId);
+              }
+            });
+        }
+      });
   }
 
   // transferArticleHistory() {
@@ -96,7 +107,7 @@ export class DataCleanupComponent implements OnInit {
   // }
 
   transferFeaturedStatus() {
-    this.dataSvc.transferFeaturedStatus();
+    // this.dataSvc.transferFeaturedStatus();
   }
 
   // copyAllToFirestore() {

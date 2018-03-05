@@ -12,16 +12,14 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./top-nav.component.scss']
 })
 export class TopNavComponent implements OnInit {
-  //@ViewChild('searchInput') searchInput;
-
-  isCollapsed: boolean = true;
-
+  // @ViewChild('searchInput') searchInput;
+  isCollapsed = true;
   authInfo: AuthInfo = new AuthInfo(null, false);
-  displayName: string = '';
+  displayName = '';
   scrollEvent: any;
   lastScrollY: number;
-  lastScrollDirection: string = 'up';
-  //searchInput: string;
+  lastScrollDirection = 'up';
+  // searchInput: string;
   searchBarState: searchBarFocus = searchBarFocus.inactive;
 
   constructor(
@@ -31,7 +29,7 @@ export class TopNavComponent implements OnInit {
   ) {
     window.onscroll = (event) => {
       this.scrollEvent = event;
-      let currentScrollY = this.scrollEvent.path[1].scrollY;
+      const currentScrollY = this.scrollEvent.path[1].scrollY;
 
       if (currentScrollY > this.lastScrollY) {
         this.lastScrollDirection = 'down';
@@ -64,11 +62,11 @@ export class TopNavComponent implements OnInit {
   }
 
   lastScrolledUp() {
-    return this.lastScrollDirection == 'up' ? true : false;
+    return this.lastScrollDirection === 'up' ? true : false;
   }
 
   searchBarFocus(input?: any) {
-    if (input.value.length == 0) {
+    if (input.value.length === 0) {
       if (this.searchBarState === searchBarFocus.focus) {
         return this.searchBarState = searchBarFocus.inactive;
       } else if (this.searchBarState === searchBarFocus.inactive) {
@@ -77,8 +75,9 @@ export class TopNavComponent implements OnInit {
         }, 100);
         return this.searchBarState = searchBarFocus.focus;
       }
-    } else this.search(input);
-
+    } else {
+      this.search(input);
+    }
   }
 }
 

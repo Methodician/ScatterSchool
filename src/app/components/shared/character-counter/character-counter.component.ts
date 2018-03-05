@@ -12,11 +12,10 @@ export class CharacterCounterComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   characterCountOfMax() {
-    //console.log(this.field.value);
+    // console.log(this.field.value);
     const count = this.field.value.length;
     return `${this.maxLength - count}`;
   }
@@ -25,5 +24,4 @@ export class CharacterCounterComponent implements OnInit {
     const fieldLength: number = this.field.value.length;
     return fieldLength >= this.maxLength;
   }
-
 }

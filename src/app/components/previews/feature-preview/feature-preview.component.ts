@@ -22,9 +22,11 @@ export class FeaturePreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.articleService.getAuthorByKey(this.articleData.authorId).subscribe(author => {
-      this.author = author;
-    });
+    this.articleService
+    .getAuthorByKey(this.articleData.authorId)
+    .subscribe(author => {
+        this.author = author;
+      });
     this.getArticleCoverImage();
   }
 
@@ -38,10 +40,12 @@ export class FeaturePreviewComponent implements OnInit {
 
   getArticleCoverImage() {
     const basePath = 'uploads/articleCoverImages';
-    this.uploadSvc.getImage(this.articleData.articleId, basePath).subscribe(imageData => {
-      if (imageData.url) {
-        this.articleCoverImageUrl = imageData.url;
-      }
-    });
+    this.uploadSvc
+      .getImage(this.articleData.articleId, basePath)
+      .subscribe(imageData => {
+        if (imageData.url) {
+          this.articleCoverImageUrl = imageData.url;
+        }
+      });
   }
 }

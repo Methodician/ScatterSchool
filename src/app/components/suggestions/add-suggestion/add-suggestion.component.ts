@@ -8,9 +8,9 @@ import { Component } from '@angular/core';
 })
 export class AddSuggestionComponent {
 
-  constructor(private service: SuggestionService) { }
+  constructor(private suggestionSvc: SuggestionService) { }
 
   saveSuggestion(formData) {
-    this.service.saveSuggestion(formData);
+    this.suggestionSvc.saveSuggestion(formData);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, trigger, state, style, transition, animate, ViewChild } from '@angular/core';
+import { Component, trigger, state, style, transition, animate, ViewChild, OnInit } from '@angular/core';
 import { ChatService } from 'app/shared/services/chat/chat.service';
 import * as firebase from 'firebase';
 
@@ -19,7 +19,7 @@ import * as firebase from 'firebase';
     ])
   ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild('userInteraction') userInteraction;
   unreadMessages = false;
   throbbing = false;
@@ -30,8 +30,9 @@ export class AppComponent {
   ngOnInit() {
     this.chatSvc.unreadMessages$.subscribe(unread => {
       this.unreadMessages = unread;
-      if (unread)
+      if (unread) {
         this.throb();
+      }
     })
   }
 
@@ -44,14 +45,13 @@ export class AppComponent {
       this.throbState = 'bigger';
       setTimeout(() => {
         this.throbState = 'smaller';
-        if (this.unreadMessages)
+        if (this.unreadMessages) {
           this.throb();
-        else {
+        } else {
           this.throbState = 'sitting';
           this.throbbing = false;
         }
-      }, 675)
+      }, 675);
     }, 675);
-
   }
 }

@@ -6,7 +6,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class SuggestionSortPipe implements PipeTransform {
 
   transform(suggestions: any[], sortType?: SortOptions): any {
-    if (!suggestions) return null;
+    if (!suggestions) {
+      return null;
+    }
     switch (sortType) {
       case SortOptions.upvotes:
         return suggestions.sort((a, b) => {
@@ -23,9 +25,7 @@ export class SuggestionSortPipe implements PipeTransform {
       default:
         return suggestions;
     }
-
   }
-
 }
 
 export enum SortOptions {

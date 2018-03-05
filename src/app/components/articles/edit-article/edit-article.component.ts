@@ -2,7 +2,6 @@ import { AuthService } from 'app/shared/services/auth/auth.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { UserService } from 'app/shared/services/user/user.service';
-
 import { Component, Input, OnInit } from '@angular/core';
 import { ArticleDetailFirestore } from 'app/shared/class/article-info';
 
@@ -22,9 +21,9 @@ export class EditArticleComponent implements OnInit {
   constructor(
     private articleSvc: ArticleService,
     private router: Router,
+    private route: ActivatedRoute,
     authSvc: AuthService,
     userSvc: UserService,
-    private route: ActivatedRoute
   ) {
     authSvc.authInfo$.subscribe(info => {
       this.authInfo = info;
@@ -40,14 +39,20 @@ export class EditArticleComponent implements OnInit {
       this.key = params['key'];
 
       //  Firestore way:
-      this.articleSvc.getArticleById(this.key).valueChanges().subscribe((articleToEdit: ArticleDetailFirestore) => {
-        this.articleSvc.getArticleBodyById(articleToEdit.bodyId).valueChanges().subscribe(articleBody => {
-          if (articleBody) {
-            articleToEdit.body = articleBody.body;
-            this.article = articleToEdit;
-          }
+      this.articleSvc
+        .getArticleById(this.key)
+        .valueChanges()
+        .subscribe((articleToEdit: ArticleDetailFirestore) => {
+          this.articleSvc
+            .getArticleBodyById(articleToEdit.bodyId)
+            .valueChanges()
+            .subscribe(articleBody => {
+              if (articleBody) {
+                articleToEdit.body = articleBody.body;
+                this.article = articleToEdit;
+              }
+            });
         });
-      });
       //  Firebase way:
       // this.articleSvc.getArticleByKey(this.key).subscribe(articleToEdit => {
       //   let articleBodyKey = articleToEdit.bodyKey;
@@ -76,11 +81,12 @@ export class EditArticleComponent implements OnInit {
   async edit(article) {
     try {
       const res = this.articleSvc.updateArticle(this.authInfo.$uid, this.userInfo, article, this.key);
-      if (res)
+      if (res) {
         this.router.navigate([`articledetail/${article.articleId}`]);
-      else alert('trouble editing the article' + res);
-    }
-    catch (err) {
+      } else {
+        alert('trouble editing the article' + res);
+      }
+    } catch (err) {
       console.log(err);
     }
 

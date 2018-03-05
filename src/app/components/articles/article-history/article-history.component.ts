@@ -10,7 +10,6 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./article-history.component.scss']
 })
 export class ArticleHistoryComponent implements OnInit {
-
   articleKey: string;
   articleHistory;
   articleCount;
@@ -27,11 +26,14 @@ export class ArticleHistoryComponent implements OnInit {
       if (params['key']) {
         this.articleKey = params['key'];
         //  Firestore way:
-        this.articleSvc.getArchivedArticlesById(this.articleKey).valueChanges().subscribe(history => {
-          this.articleHistory = history;
-          this.articleCount = history.length;
-          this.curentArticleIndex = history.length - 1;
-        });
+        this.articleSvc
+          .getArchivedArticlesById(this.articleKey)
+          .valueChanges()
+          .subscribe(history => {
+            this.articleHistory = history;
+            this.articleCount = history.length;
+            this.curentArticleIndex = history.length - 1;
+          });
 
         //  Firebase way:
         // this.articleSvc.getArticleHistoryByKey(this.articleKey).subscribe(history => {
@@ -72,16 +74,16 @@ export class ArticleHistoryComponent implements OnInit {
   }
 
   cycleForward() {
-    if (!this.selectNext())
+    if (!this.selectNext()) {
       this.selectFirst();
+    }
   }
 
 
 
   selectedArticle() {
-    if (this.articleHistory)
+    if (this.articleHistory) {
       return this.articleHistory[this.curentArticleIndex];
+    }
   }
-
-
 }
