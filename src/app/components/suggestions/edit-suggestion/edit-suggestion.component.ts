@@ -1,7 +1,7 @@
 import { Suggestion } from 'app/shared/class/suggestion.model';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from "@angular/router";
-import { SuggestionService } from "app/shared/services/suggestion/suggestion.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { SuggestionService } from 'app/shared/services/suggestion/suggestion.service';
 
 @Component({
   selector: 'app-edit-suggestion',
@@ -10,17 +10,18 @@ import { SuggestionService } from "app/shared/services/suggestion/suggestion.ser
 })
 export class EditSuggestionComponent implements OnInit {
   suggestion: Suggestion;
-  constructor(private route: ActivatedRoute, private service: SuggestionService, ) { }
+  constructor(private route: ActivatedRoute, private suggestionSvc: SuggestionService, ) { }
 
   ngOnInit() {
-    let key = this.route.snapshot.params['key'];
-    this.service.getSuggestionByKey(key)
+    const key = this.route.snapshot.params['key'];
+    this.suggestionSvc
+      .getSuggestionByKey(key)
       .subscribe(suggestion => {
         this.suggestion = suggestion;
       });
   }
 
   saveSuggestion(suggestionData) {
-    this.service.updateSuggestion(this.suggestion.$key, suggestionData);
+    this.suggestionSvc.updateSuggestion(this.suggestion.$key, suggestionData);
   }
 }

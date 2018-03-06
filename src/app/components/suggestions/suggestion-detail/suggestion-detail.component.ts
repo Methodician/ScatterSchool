@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { SuggestionService } from "app/shared/services/suggestion/suggestion.service";
+import { ActivatedRoute } from '@angular/router';
+import { SuggestionService } from 'app/shared/services/suggestion/suggestion.service';
 
 @Component({
   selector: 'app-suggestion-detail',
@@ -9,11 +9,12 @@ import { SuggestionService } from "app/shared/services/suggestion/suggestion.ser
 })
 export class SuggestionDetailComponent implements OnInit {
   suggestion;
-  constructor(private route: ActivatedRoute, private service: SuggestionService) { }
+  constructor(private route: ActivatedRoute, private suggestionSvc: SuggestionService) { }
 
   ngOnInit() {
-    let key = this.route.snapshot.params['key'];
-    this.service.getSuggestionByKey(key)
+    const key = this.route.snapshot.params['key'];
+    this.suggestionSvc
+      .getSuggestionByKey(key)
       .subscribe(object => {
         this.suggestion = object;
       });

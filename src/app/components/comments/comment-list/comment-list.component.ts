@@ -1,6 +1,6 @@
 import { UserService } from 'app/shared/services/user/user.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { CommentService } from "app/shared/services/comment/comment.service";
+import { CommentService } from 'app/shared/services/comment/comment.service';
 
 @Component({
   selector: 'comment-list',
@@ -22,8 +22,10 @@ export class CommentListComponent implements OnInit {
       this.currentUserInfo = userInfo;
     });
 
-    this.commentSvc.getCommentsByParentKey(this.parentKey).subscribe(comments => {
-      this.comments = comments
-    });
+    this.commentSvc
+      .getCommentsByParentKey(this.parentKey)
+      .subscribe(comments => {
+        this.comments = comments
+      });
   }
 }

@@ -1,6 +1,6 @@
 import { AuthService } from 'app/shared/services/auth/auth.service';
 import { UploadService } from 'app/shared/services/upload/upload.service';
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { UserService } from 'app/shared/services/user/user.service';
@@ -11,8 +11,7 @@ import { ArticleDetailFirestore, ArticleBodyFirestore } from 'app/shared/class/a
   templateUrl: './article-history-detail.component.html',
   styleUrls: ['./article-history-detail.component.scss', './../article-detail/article-detail.component.scss']
 })
-export class ArticleHistoryDetailComponent implements OnInit {
-
+export class ArticleHistoryDetailComponent implements OnInit, OnChanges {
   @Input() articleKey: string;
   @Input() articleData: any;
   author;
@@ -46,35 +45,38 @@ export class ArticleHistoryDetailComponent implements OnInit {
   }
 
   getArticleBody(articleData: ArticleDetailFirestore) {
-    //  Firestore way: 
-    this.articleSvc.getArchivedArticleBodyById(articleData.bodyId).valueChanges().subscribe((body: ArticleBodyFirestore) => {
-      articleData.body = body.body;
-      this.article = articleData;
-    });
-    //  Firebase way:
-    // this.articleSvc.getArticleBodyFromArchiveByKey(articleData.bodyKey).subscribe(articleBody => {
-    //   articleData.body = articleBody.$value;
-    //   this.article = articleData;
-    // });
+    //  Firestore way:
+    this.articleSvc
+      .archivedArticleBody(articleData.bodyId)
+      .valueChanges()
+      .subscribe((body: ArticleBodyFirestore) => {
+        if (body) {
+          articleData.body = body.body;
+          this.article = articleData;
+        }
+      });
   }
 
   getAuthor(authorKey: string) {
-    this.articleSvc.getAuthorByKey(authorKey).subscribe(author => {
-      this.author = author;
-    });
+    this.articleSvc
+      .getAuthor(authorKey)
+      .subscribe(author => {
+        this.author = author;
+      });
   }
 
   getProfileImage(authorKey) {
     const basePath = 'uploads/profileImages/';
-    this.uploadSvc.getImage(authorKey, basePath).subscribe(profileData => {
-      if (profileData.url) {
-        this.profileImageUrl = profileData.url;
-      }
-    });
+    this.uploadSvc
+      .getImage(authorKey, basePath)
+      .subscribe(profileData => {
+        if (profileData.url) {
+          this.profileImageUrl = profileData.url;
+        }
+      });
   }
 
   navigateToDetail() {
     this.router.navigate([`articledetail/${this.articleKey}`]);
   }
-
 }

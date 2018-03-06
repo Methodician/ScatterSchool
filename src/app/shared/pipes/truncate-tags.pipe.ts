@@ -6,22 +6,23 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class TruncateTagsPipe implements PipeTransform {
 
   transform(inputArray: string[], args?: number): string[] {
-    let max = args ? args : 100;
+    const max = args ? args : 100;
 
-    if (!inputArray || inputArray == [])
-      return null;
+    if (!inputArray || inputArray === []) {
+      return;
+    }
 
     let totalLength = 0;
-    let newArray = [];
+    const newArray = [];
 
-    for (let tag of inputArray) {
+    for (const tag of inputArray) {
       totalLength += tag.length;
-      if (totalLength >= max)
+      if (totalLength >= max) {
         return newArray;
+      }
       newArray.push(tag);
     }
 
     return newArray || null;
   }
-
 }

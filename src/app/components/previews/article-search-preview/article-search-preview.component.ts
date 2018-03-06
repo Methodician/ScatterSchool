@@ -29,8 +29,7 @@ export class ArticleSearchPreviewComponent implements OnInit {
 
   ngOnInit() {
     this.articleSvc
-      .getAuthorByKey(this.articleData.authorId)
-      // .valueChanges()
+      .getAuthor(this.articleData.authorId)
       .subscribe(author => {
       this.author = author;
     });
@@ -75,20 +74,24 @@ export class ArticleSearchPreviewComponent implements OnInit {
   }
 
   checkIfBookmarked() {
-    this.articleSvc.isBookmarked(this.user.$key, this.articleData.articleId).subscribe(bookmark => {
-      this.isArticleBookmarked = bookmark;
-    })
+    this.articleSvc
+      .isBookmarked(this.user.$key, this.articleData.articleId)
+      .subscribe(bookmark => {
+        this.isArticleBookmarked = bookmark;
+      })
   }
 
   bookmarkToggle() {
-    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
-      if (isLoggedIn) {
-        if (this.isArticleBookmarked) {
-          this.articleSvc.unBookmarkArticle(this.user.$key, this.articleData.articleId);
-        } else {
-          this.articleSvc.bookmarkArticle(this.user.$key, this.articleData.articleId);
+    this.authSvc
+      .isLoggedIn()
+      .subscribe(isLoggedIn => {
+        if (isLoggedIn) {
+          if (this.isArticleBookmarked) {
+            this.articleSvc.unBookmarkArticle(this.user.$key, this.articleData.articleId);
+          } else {
+            this.articleSvc.bookmarkArticle(this.user.$key, this.articleData.articleId);
+          }
         }
-      }
-    })
+      })
   }
 }

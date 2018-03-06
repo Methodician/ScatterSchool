@@ -20,7 +20,9 @@ export class RegisterComponent implements OnInit {
     private userSvc: UserService,
     private fb: FormBuilder,
     private router: Router
-  ) {
+  ) {}
+
+  ngOnInit() {
     this.form = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],
@@ -33,9 +35,6 @@ export class RegisterComponent implements OnInit {
       state: '',
       zipCode: ['', Validators.required]
     });
-  }
-
-  ngOnInit() {
     window.scrollTo(0, 0)
   }
 
@@ -89,5 +88,4 @@ export class RegisterComponent implements OnInit {
   formValid() {
     return this.form.valid;
   }
-
 }

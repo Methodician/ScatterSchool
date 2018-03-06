@@ -20,9 +20,11 @@ export class ChatListComponent implements OnInit {
   }
 
   getMemberNames(chat) {
-    let memberNames = "";
-    for (let memberKey in chat.members) {
-      if (memberKey != this.loggedInUser.$key) memberNames += `${chat.members[memberKey].name}, `;
+    let memberNames = '';
+    for (const memberKey in chat.members) {
+      if (memberKey !== this.loggedInUser.$key) {
+        memberNames += `${chat.members[memberKey].name}, `;
+      }
     }
     return memberNames.substr(0, memberNames.length - 2);
   }

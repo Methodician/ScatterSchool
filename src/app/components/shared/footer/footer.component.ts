@@ -13,7 +13,7 @@ import { AuthService } from 'app/shared/services/auth/auth.service';
 export class FooterComponent implements OnInit {
 
   authInfo: AuthInfo = new AuthInfo(null, false);
-  displayName: string = '';
+  displayName = '';
 
   constructor(
     private authSvc: AuthService,

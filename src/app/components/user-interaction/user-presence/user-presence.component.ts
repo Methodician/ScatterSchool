@@ -10,7 +10,7 @@ export class UserPresenceComponent implements OnInit {
   @Input() userKey;
   userPresence;
 
-  constructor(private userSvc: UserService) { }
+  constructor(private userSvc: UserService) {}
 
   ngOnInit() {
     this.userSvc

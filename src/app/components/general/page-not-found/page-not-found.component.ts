@@ -12,7 +12,5 @@ export class PageNotFoundComponent implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
-  }
-
+  ngOnInit() { }
 }

@@ -23,7 +23,9 @@ export class AccountComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
-  ) {
+  ) { }
+
+  ngOnInit() {
     this.form = this.fb.group({
       email: ['', Validators.required],
       fName: ['', Validators.required],
@@ -35,15 +37,12 @@ export class AccountComponent implements OnInit {
       zipCode: ['', Validators.required],
       uid: ''
     });
-    authSvc.authInfo$.subscribe(info => {
+    this.authSvc.authInfo$.subscribe(info => {
       this.loggedInUserKey = info.$uid;
       if (!this.userInfo) {
         this.setUser();
       }
     });
-  }
-
-  ngOnInit() {
     this.route.params.subscribe(params => {
       if (params['key']) {
         this.accountUserKey = params['key'];
@@ -66,10 +65,12 @@ export class AccountComponent implements OnInit {
   }
 
   getUserInfo(uid: string) {
-    this.userSvc.getUserInfo(uid).subscribe(userInfo => {
-      this.userInfo = userInfo;
-      this.form.patchValue(userInfo);
-    });
+    this.userSvc
+      .getUserInfo(uid)
+      .subscribe(userInfo => {
+        this.userInfo = userInfo;
+        this.form.patchValue(userInfo);
+      });
   }
 
   // from register component - service later?

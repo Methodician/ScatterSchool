@@ -1,5 +1,17 @@
 import { AuthGuard } from 'app/shared/routing/guards/auth.guard';
-import { MatButtonModule, MatInputModule, MatToolbarModule, MatIconModule, MatMenuModule, MatProgressSpinnerModule, MatCardModule, MatChipsModule, MatSidenavModule, MatTooltipModule, MatTabsModule } from '@angular/material';
+import {
+  MatButtonModule,
+  MatInputModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatMenuModule,
+  MatProgressSpinnerModule,
+  MatCardModule,
+  MatChipsModule,
+  MatSidenavModule,
+  MatTooltipModule,
+  MatTabsModule
+} from '@angular/material';
 import { UploadService } from 'app/shared/services/upload/upload.service';
 import { Upload } from 'app/shared/class/upload';
 import { CharacterCounterComponent } from 'app/components/shared/character-counter/character-counter.component';
@@ -81,8 +93,6 @@ import { ArticleHistoryDetailComponent } from 'app/components/articles/article-h
 import { UserInteractionComponent } from 'app/components/user-interaction/user-interaction/user-interaction.component';
 import { ChatListComponent } from 'app/components/user-interaction/chat-list/chat-list.component';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-
-
 
 @NgModule({
   declarations: [

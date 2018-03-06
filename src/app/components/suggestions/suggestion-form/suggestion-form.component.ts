@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'suggestion-form',
@@ -7,11 +7,9 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
   styleUrls: ['./suggestion-form.component.scss']
 })
 export class SuggestionFormComponent implements OnInit {
-  
   @Input() initialValue;
-
   form: FormGroup;
-  
+
   constructor(private fb: FormBuilder) {  }
 
   ngOnInit() {
@@ -24,11 +22,11 @@ export class SuggestionFormComponent implements OnInit {
   }
 
   setInitialValue() {
-    if(this.initialValue) {
+    if (this.initialValue) {
       this.form.patchValue(this.initialValue)
     }
   }
-  
+
   get valid() {
     return this.form.valid
   }
@@ -37,7 +35,7 @@ export class SuggestionFormComponent implements OnInit {
     return this.form.value
   }
   isErrorVisible(field: string, error: string) {
-    let control = this.form.controls[field];
+    const control = this.form.controls[field];
     return control.dirty && control.errors && control.errors[error];
   }
 }

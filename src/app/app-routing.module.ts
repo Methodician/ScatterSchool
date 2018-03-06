@@ -16,12 +16,12 @@ import { AboutUsComponent } from 'app/components/general/about-us/about-us.compo
 import { HomeComponent } from 'app/components/general/home/home.component';
 import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SuggestionsComponent } from "app/components/suggestions/suggestions/suggestions.component";
-import { SuggestionDetailComponent } from "app/components/suggestions/suggestion-detail/suggestion-detail.component";
-import { AddSuggestionComponent } from "app/components/suggestions/add-suggestion/add-suggestion.component";
-import { EditSuggestionComponent } from "app/components/suggestions/edit-suggestion/edit-suggestion.component";
-import { ChatComponent } from "app/components/user-interaction/chat/chat.component";
-import { UserListComponent } from "app/components/user-interaction/user-list/user-list.component";
+import { SuggestionsComponent } from 'app/components/suggestions/suggestions/suggestions.component';
+import { SuggestionDetailComponent } from 'app/components/suggestions/suggestion-detail/suggestion-detail.component';
+import { AddSuggestionComponent } from 'app/components/suggestions/add-suggestion/add-suggestion.component';
+import { EditSuggestionComponent } from 'app/components/suggestions/edit-suggestion/edit-suggestion.component';
+import { ChatComponent } from 'app/components/user-interaction/chat/chat.component';
+import { UserListComponent } from 'app/components/user-interaction/user-list/user-list.component';
 
 
 const routes: Routes = [
@@ -134,7 +134,7 @@ const routes: Routes = [
     path: '',
     component: HomeComponent
   },
-  //ATTN: this route MUST live at the end of all the routes in this array.
+  // ATTN: this route MUST live at the end of all the routes in this array.
   {
     path: '**',
     component: PageNotFoundComponent

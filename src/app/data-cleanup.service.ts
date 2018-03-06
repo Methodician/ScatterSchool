@@ -9,7 +9,6 @@ import { UserService } from 'app/shared/services/user/user.service';
 @Injectable()
 export class DataCleanupService {
 
-
   constructor(
     private afs: AngularFirestore,
     private articleSvc: ArticleService,
@@ -17,28 +16,32 @@ export class DataCleanupService {
   ) { }
 
   upgradeMainArticleBody(bodyId, articleId, version, lastEditorId) {
-    const bodyDoc = this.articleSvc.getArticleBodyById(bodyId);
-    bodyDoc.valueChanges().subscribe((depBody: any) => {
-      const body = depBody.body.$value;
-      const newBody = {
-        articleId: articleId,
-        body: body,
-        nextEditorId: lastEditorId,
-        version: version
-      };
-      bodyDoc.set(newBody);
-    });
+    const bodyDoc = this.articleSvc.getArticleBody(bodyId);
+    bodyDoc
+      .valueChanges()
+      .subscribe((depBody: any) => {
+        const body = depBody.body.$value;
+        const newBody = {
+          articleId: articleId,
+          body: body,
+          nextEditorId: lastEditorId,
+          version: version
+        };
+        bodyDoc.set(newBody);
+      });
   }
 
   addLastEditorToArticle(articleId, lastEditorId) {
-    const articleDoc = this.articleSvc.getArticleById(articleId);
+    const articleDoc = this.articleSvc.getArticle(articleId);
     articleDoc.update({
       lastEditorId: lastEditorId
     });
   }
 
   addLastEditorToArchive(articleId, version, lastEditorId) {
-    const archiveDoc = this.articleSvc.getArchivedArticlesById(articleId).doc(version);
+    const archiveDoc = this.articleSvc
+      .articleHistory(articleId)
+      .doc(version);
     archiveDoc.update({
       lastEditorId: lastEditorId
     });
@@ -46,14 +49,17 @@ export class DataCleanupService {
 
 
   addArticleHistory(body: any, bodyId: any, history: any, articleId: string) {
-    let batch = this.afs.firestore.batch();
-    const articleDoc = this.articleSvc.getArticleById(articleId);
+    const batch = this.afs.firestore.batch();
+    const articleDoc = this.articleSvc.getArticle(articleId);
 
-    const archiveDoc = this.articleSvc.getArchivedArticlesById(articleId).doc(history.version.toString());
+    const archiveDoc = this.articleSvc
+      .articleHistory(articleId)
+      .doc(history.version.toString());
     const archiveArticleObject = this.historyObjectFromFBHistory(history, articleId);
-    if (!archiveArticleObject.timestamp.getDate())
+    if (!archiveArticleObject.timestamp.getDate()) {
       archiveArticleObject.timestamp = archiveArticleObject.lastUpdated;
-    const archiveBodyDoc = this.articleSvc.getArchivedArticleBodyById(bodyId);
+    }
+    const archiveBodyDoc = this.articleSvc.archivedArticleBody(bodyId);
 
     const bodyLogObject: any = {
       body: body.body,
@@ -61,8 +67,9 @@ export class DataCleanupService {
       version: body.version,
       nextEditorId: body.nextEditorKey || archiveArticleObject.authorId
     };
-    if (!bodyLogObject.nextEditorId)
-      debugger
+    if (!bodyLogObject.nextEditorId) {
+      debugger; // tslint:disable-line
+    }
 
     batch.set(archiveDoc.ref, archiveArticleObject);
     batch.set(archiveBodyDoc.ref, bodyLogObject);
@@ -81,7 +88,11 @@ export class DataCleanupService {
         console.log('worked for article ' + articleId + ' and body ' + bodyId);
       })
       .catch(err => {
-        console.log('There was a problem saving your article. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
+        console.log(`
+          There was a problem saving your article.
+          Please share a screenshot of the error with the ScatterSchool dev team
+          Error: ${err.toString()}
+        `);
       });
 
   }
@@ -117,7 +128,7 @@ export class DataCleanupService {
   // }
 
   transferArticleFbToFs(authorId: string, originalArticle: ArticleDetailOpen, body: string, articleId: string) {
-    let article: ArticleDetailFirestore = new ArticleDetailFirestore(
+    const article: ArticleDetailFirestore = new ArticleDetailFirestore(
       originalArticle.authorKey,
       originalArticle.bodyKey,
       originalArticle.title,
@@ -132,15 +143,25 @@ export class DataCleanupService {
     );
     return new Promise(resolve => {
       this.userSvc.getUserInfo(authorId).subscribe(info => {
-        let author: UserInfoOpen = info;
-        let batch = this.afs.firestore.batch();
-        const articleDoc = this.articleSvc.getArticleById(articleId);
+        const author: UserInfoOpen = info;
+        const batch = this.afs.firestore.batch();
+        const articleDoc = this.articleSvc.getArticle(articleId);
         this.articleSvc.processGlobalTags(originalArticle.tags, [], articleId);
-        const newBodyDoc = this.articleSvc.getArticleBodyById(article.bodyId);
-        const articleEditorRef = this.articleSvc.getArticleById(articleId).collection('editors').doc(authorId).ref;
-        const userArticleEditedRef = this.articleSvc.getArticlesEditedByUid(authorId).doc(articleId).ref;
-        const userArticleAuthoredRef = this.articleSvc.getArticlesAuthoredByUid(article.authorId).doc(articleId).ref;
-        let updatedArticleObject: any = this.articleSvc.updateObjectFromArticle(article, articleId, authorId);
+        const newBodyDoc = this.articleSvc.getArticleBody(article.bodyId);
+        const articleEditorRef = this.articleSvc
+          .getArticle(articleId)
+          .collection('editors')
+          .doc(authorId)
+          .ref;
+        const userArticleEditedRef = this.articleSvc
+          .editedArticlesByUser(authorId)
+          .doc(articleId)
+          .ref;
+        const userArticleAuthoredRef = this.articleSvc
+          .articlesByAuthor(article.authorId)
+          .doc(articleId)
+          .ref;
+        const updatedArticleObject = this.articleSvc.updateObjectFromArticle(article, articleId, authorId);
         updatedArticleObject.version = originalArticle.version;
         updatedArticleObject.lastUpdated = article.lastUpdated;
         updatedArticleObject.timestamp = article.timestamp;
@@ -166,7 +187,11 @@ export class DataCleanupService {
             resolve(true);
           })
           .catch(err => {
-            alert('There was a problem saving your originalArticle. Please share a screenshot of the error with the ScatterSchool dev. team' + err.toString());
+            alert(`
+              There was a problem saving your article.
+              Please share a screenshot of the error with the ScatterSchool dev team
+              Error: ${err.toString()}
+            `);
             resolve(err);
           });
       });
@@ -188,6 +213,4 @@ export class DataCleanupService {
   //     }
   //   });
   // }
-
-
 }

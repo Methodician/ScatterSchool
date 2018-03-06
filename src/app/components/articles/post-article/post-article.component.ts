@@ -22,8 +22,8 @@ export class PostArticleComponent implements OnInit {
     private articleSvc: ArticleService,
     private router: Router,
     private authSvc: AuthService,
+    private uploadSvc: UploadService,
     userSvc: UserService,
-    private uploadSvc: UploadService
   ) {
     authSvc.authInfo$.subscribe(info => {
       this.authInfo = info;
@@ -38,17 +38,11 @@ export class PostArticleComponent implements OnInit {
   }
 
   async save(article) {
-    const articleId = await this.articleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article);
-    if(this.selectedFiles)
+    const articleId = await this.articleSvc.createArticle(this.userInfo, this.authInfo.$uid, article);
+    if (this.selectedFiles) {
       this.sendImgToUploadSvc(articleId);
+    }
     this.router.navigate([`articledetail/${articleId}`]);
-
-    // this.articleSvc.createNewArticle(this.userInfo, this.authInfo.$uid, article).then(articleId => {
-    //   if (this.selectedFiles) {
-    //     this.sendImgToUploadSvc(articleId);
-    //   }
-    //   this.router.navigate([`articledetail/${articleId}`]);
-    // });
   }
 
   sendImgToUploadSvc(articleKey) {

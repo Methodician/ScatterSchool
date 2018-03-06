@@ -9,8 +9,8 @@ import { Component, OnInit, Input } from '@angular/core';
 export class CommentFormComponent implements OnInit {
   @Input() initialValue;
   form: FormGroup;
-  
-  constructor(private fb: FormBuilder) {  }
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -21,7 +21,7 @@ export class CommentFormComponent implements OnInit {
   }
 
   setInitialValue() {
-    if(this.initialValue) {
+    if (this.initialValue) {
       this.form.patchValue(this.initialValue)
     }
   }
@@ -37,5 +37,4 @@ export class CommentFormComponent implements OnInit {
   get value() {
     return this.form.value
   }
-
 }

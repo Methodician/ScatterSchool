@@ -6,7 +6,6 @@ import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 
-
 @Injectable()
 export class AuthService {
   static UNKNOWN_USER = new AuthInfo(null);
@@ -17,12 +16,11 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private router: Router
-    //@Inject(FirebaseRef) fbRef
+    // @Inject(FirebaseRef) fbRef
   ) {
     this.afAuth.authState.subscribe(info => {
       if (info) {
-        // console.log('AuthState from Auth Service constructor:', info);
-        if (info.uid) this.setUserPresence(info.uid);
+        if (info.uid) { this.setUserPresence(info.uid) };
         this.user$.next(info);
         const authInfo = new AuthInfo(info.uid, info.emailVerified);
         this.authInfo$.next(authInfo);
@@ -31,36 +29,36 @@ export class AuthService {
   }
 
   setUserPresence(userKey) {
-    let user = firebase.database().ref(`presenceData/users/${userKey}`);
-    let connections = user.child('connections');
-    let lastOnline = user.child("lastOnline");
-    let connectionData = firebase.database().ref(`.info/connected`);
+    const connectionData = firebase
+      .database()
+      .ref(`.info/connected`);
+    const user = firebase
+      .database()
+      .ref(`presenceData/users/${userKey}`);
+    const connections = user.child('connections');
+    const lastOnline = user.child('lastOnline');
 
     connectionData.on('value', snapshot => {
       if (snapshot.val()) {
-        let connection = connections.push();
+        const connection = connections.push();
         this.userPresence = new UserPresence(connection, lastOnline, userKey);
       }
-    })
+    });
   }
 
-  /*login(email, password): Observable<FirebaseAuthState> {
-    return this.fromFirebaseAuthPromise(this.auth.login({ email, password }));
-  }*/
   login(email, password) {
-    return this.fromFirebaseAuthPromise(this.afAuth.auth.signInWithEmailAndPassword(email, password)
+    const userPromise = this.afAuth.auth
+      .signInWithEmailAndPassword(email, password)
       .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        if (errorCode == 'auth/wrong-password') {
+        if (error.code === 'auth/wrong-password') {
           alert('Please enter the correct password.');
-        } else if (errorCode == 'auth/user-not-found') {
-          alert('We don\'t have any record of a user with that email address.')
+        } else if (error.code === 'auth/user-not-found') {
+          alert(`We don't have any record of a user with that email address.`)
         } else {
-          alert(errorMessage);
+          alert(error.message);
         }
-        console.log(error);
-      }));
+      });
+    return this.fromFirebaseAuthPromise(userPromise);
   }
 
   logout() {
@@ -75,87 +73,69 @@ export class AuthService {
     return this.fromFirebaseAuthPromise(this.auth.createUser({ email, password }));
   }*/
   register(email, password) {
-    return this.fromFirebaseAuthPromise(this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+    const userPromise = this.afAuth.auth
+      .createUserWithEmailAndPassword(email, password)
       .catch(error => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        if (errorCode == 'auth/weak-password') {
+        if (error.code === 'auth/weak-password') {
           alert('Your password should be stronger.');
         } else {
-          alert(errorMessage);
+          alert(error.message);
         }
-        console.log(error);
-      }));
-  }
-  setDisplayName(alias) { // (later create option by making args "(alias, user?)")
-    //let userToSet = user || this.afAuth.auth.currentUser;
-    let userToSet = this.afAuth.auth.currentUser;
-    userToSet.updateProfile({ displayName: alias, photoURL: null });
-  }
-
-  fromFirebaseAuthPromise(promise): Observable<any> {
-    const subject = new Subject<any>();
-
-    promise
-      .then(res => {
-        //console.log('Auth Service promise result:', res);
-        this.afAuth.authState.subscribe(state => {
-          //console.log('Auth State:', state);
-        });
-        const authInfo = new AuthInfo(this.afAuth.auth.currentUser.uid, res.emailVerified);
-        //const authInfo = new AuthInfo('figure out how to get uid', false);
-        this.authInfo$.next(authInfo);
-        subject.next(res);
-        subject.complete();
-      },
-      err => {
-        this.authInfo$.error(err);
-        subject.error(err);
-        subject.complete();
       });
+    return this.fromFirebaseAuthPromise(userPromise);
+  }
+
+  // later create option by making args "(alias, user?)"
+  setDisplayName(alias) {
+    const userToSet = this.afAuth.auth.currentUser;
+    userToSet.updateProfile({
+      displayName: alias,
+      photoURL: null
+    });
+  }
+
+  // contains both auth creation and promise resolution state updates
+  // candidate for refactor
+  fromFirebaseAuthPromise(promise: Promise<any>): Observable<any> {
+    const subject = new Subject<any>();
+    promise.then(res => {
+      const authInfo = new AuthInfo(this.afAuth.auth.currentUser.uid, res.emailVerified);
+      this.authInfo$.next(authInfo);
+      subject.next(res);
+      subject.complete();
+    }, err => {
+      this.authInfo$.error(err);
+      subject.error(err);
+      subject.complete();
+    });
     return subject.asObservable();
   }
 
   async sendVerificationEmail() {
-    let user = this.afAuth.auth.currentUser;
-    //console.log('afAuth.auth.currentUser:', user);
+    const user = this.afAuth.auth.currentUser;
     try {
       await user.sendEmailVerification();
-    }
-    catch (err) {
+    } catch (err) {
       alert('It looks like your verification email was not sent. Please try again or contact support.' + err);
     }
-    // user.sendEmailVerification().then(() => {
-    // }, (error) => {
-    //   alert('It looks like your verification email was not sent. Please try again or contact support.');
-    // });
   }
 
-  isLoggedInCheck(): Observable<boolean> {
-    return this.afAuth.authState.map(info => {
-      return (info && info.uid) ? true : false;
-    }
-    ).take(1)
+  // candidate for refactor
+  // may unnecessarily double-check user's logged in state
+  isLoggedIn(): Observable<boolean> {
+    return this.afAuth.authState
+      .map(info => !!(info && info.uid)) // verifies user is logged in
+      .take(1)
       .do(allowed => {
-        if (!allowed) {
-          if (confirm('You must be logged in to do that. Would you like to be redirected?'))
-            this.router.navigate(['/login']);
+        if ( !allowed && confirm('You must be logged in to do that. Would you like to be redirected?')) {
+          this.router.navigate(['/login']);
         }
       });
-    // return this.authInfo$.asObservable()
-    //   .map(info => info.isLoggedIn())
-    //   .take(1)
-    //   .do(allowed => {
-    //     if (!allowed) {
-    //       if (confirm('You must be logged in to do that. Would you like to be redirected?'))
-    //         this.router.navigate(['/login']);
-    //     }
-    //   });
   }
 
   //  Doesn't really work, still needs to be an observable unless we want to keep a running isLoggedIn variable around.
   // checkIfLoggedIn() {
-  //   this.isLoggedInCheck().subscribe(isLoggedIn => {
+  //   this.isLoggedIn().subscribe(isLoggedIn => {
   //     return isLoggedIn;
   //   })
   // }

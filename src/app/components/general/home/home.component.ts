@@ -3,7 +3,6 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
 import { ArticleService } from 'app/shared/services/article/article.service';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -25,64 +24,69 @@ export class HomeComponent implements OnInit {
   // async ngOnInit() {
   ngOnInit() {
     // call for Featured Articles
+    // this.articleSvc
+    //   .getFeaturedArticles()
+    //   .valueChanges()
+    //   .subscribe(articles => {
+    //     this.featuredArticles = articles;
+    //   });
     //  different Firestore way (rather diferent observable way - maybe not better):
-    this.articleSvc.getFeaturedArticles().valueChanges()
+    this.articleSvc
+      .getFeaturedArticles()
+      .valueChanges()
       .forEach(articles => {
         this.featuredArticles = articles;
       });
-    //  Firestore way:
-    // this.articleSvc.getFeaturedArticles().valueChanges().subscribe(articles => {
-    //   this.featuredArticles = articles;
-    // });
-    //  Firebase way:
-    // this.articleSvc.getAllFeatured().subscribe(articles => {
-    //   this.featuredArticles = articles;
-    // });
+
     // call For Latest Articles
-    //  Firestore way:
-    this.articleSvc.getLatestArticles().valueChanges().subscribe(latest => {
-      this.latestArticles = latest;
-    });
-    //  Firebase way:
-    // this.articleSvc.getLatest().subscribe(latest => {
-    //   this.latestArticles = latest;
-    // });
+    this.articleSvc
+      .getLatestArticles()
+      .valueChanges()
+      .subscribe(latest => {
+        this.latestArticles = latest;
+      });
+
     //  call for All Articles
-    //  Firestore way:
-    this.articleSvc.getAllArticlesFirestore().valueChanges().subscribe(response => {
-      this.allArticles = response;
-    });
-    //  Firebase way:
-    // this.articleSvc.getAllArticles().subscribe(response => {
-    //   this.allArticles = response;
-    // });
+    this.articleSvc
+      .getAllArticles()
+      .valueChanges()
+      .subscribe(response => {
+        this.allArticles = response;
+      });
   }
 
-  // Methods for toggling between Latest and All Previews 
+  // Methods for toggling between Latest and All Previews
   selectLatest() {
     this.currentSelectedTab = SelectedTab.latest;
   }
+
   selectAll() {
     this.currentSelectedTab = SelectedTab.all;
   }
+
   // Methods for toggling between Featured Article List and Grid Previews
   featuredListView() {
     this.currentSelectedFeaturePreview = SelectedPreview.featuredList;
   }
+
   featuredTileView() {
     this.currentSelectedFeaturePreview = SelectedPreview.featuredTile;
   }
+
   // Methods for toggling between Latest Article List and Grid Preview
   latestListView() {
     this.currentSelectedLatestPreview = SelectedPreview.latestList;
   }
+
   latestTileView() {
     this.currentSelectedLatestPreview = SelectedPreview.latestTile;
   }
-  // Methods for Toggleing between All Article List and Grid Preview
+
+  // Methods for Toggling between All Article List and Grid Preview
   allListView() {
     this.currentSelectedAllPreview = SelectedPreview.allList;
   }
+
   allTileView() {
     this.currentSelectedAllPreview = SelectedPreview.allTile;
   }

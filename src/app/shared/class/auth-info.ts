@@ -1,18 +1,17 @@
 
 export class AuthInfo {
+  constructor(
+    public $uid: string,
+    public emailVerified = false
+  ) { }
 
-    constructor(
-        public $uid: string,
-        public emailVerified = false
-    ) { }
+  isLoggedIn() {
+    // console.log('uid:', this.$uid);
+    return !!this.$uid;
+  }
 
-    isLoggedIn() {
-        //console.log('uid:', this.$uid);
-        return !!this.$uid;
-    }
-
-    isEmailVerified() {
-        //console.log('emailVerified:', this.emailVerified);
-        return !!this.emailVerified;
-    }
+  isEmailVerified() {
+    // console.log('emailVerified:', this.emailVerified);
+    return !!this.emailVerified;
+  }
 }

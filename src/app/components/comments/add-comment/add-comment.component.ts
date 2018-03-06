@@ -11,7 +11,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AddCommentComponent implements OnInit {
   @Input() parentKey;
-  isFormShowing: boolean = false;
+  isFormShowing = false;
 
   currentUserInfo;
   constructor(
@@ -28,16 +28,17 @@ export class AddCommentComponent implements OnInit {
   }
 
   postComment(commentData) {
-    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
-      if (isLoggedIn)
-        this.saveComment(commentData);
-    });
-    /*     if (this.currentUserInfo) this.saveComment(commentData);
-        else this.router.navigate(['login']); */
+    this.authSvc
+      .isLoggedIn()
+      .subscribe(isLoggedIn => {
+        if (isLoggedIn) {
+          this.saveComment(commentData);
+        }
+      });
   }
 
   saveComment(commentData) {
-    let comment = {
+    const comment = {
       authorKey: this.currentUserInfo.uid,
       parentKey: this.parentKey,
       parentType: 'article',
@@ -49,9 +50,12 @@ export class AddCommentComponent implements OnInit {
   }
 
   toggleCommentForm() {
-    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
-      if (isLoggedIn)
-        this.isFormShowing = !this.isFormShowing;
-    });
+    this.authSvc
+      .isLoggedIn()
+      .subscribe(isLoggedIn => {
+        if (isLoggedIn) {
+          this.isFormShowing = !this.isFormShowing;
+        }
+      });
   }
 }

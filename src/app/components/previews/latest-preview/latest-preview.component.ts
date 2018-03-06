@@ -28,16 +28,22 @@ export class LatestPreviewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.articleSvc.getAuthorByKey(this.articleData.authorId).subscribe(author => {
-      this.author = author;
-      if (author.$key) this.getProfileImage(author.$key);
-    });
-    this.userSvc.userInfo$.subscribe(user => {
-      if (user.exists()) {
-        this.user = user;
-        this.checkIfBookmarked();
-      }
-    });
+    this.articleSvc
+      .getAuthor(this.articleData.authorId)
+      .subscribe(author => {
+        this.author = author;
+        if (author.$key) {
+          this.getProfileImage(author.$key);
+        }
+      });
+    this.userSvc
+      .userInfo$
+      .subscribe(user => {
+        if (user.exists()) {
+          this.user = user;
+          this.checkIfBookmarked();
+        }
+      });
     this.getArticleCoverImage(this.articleData.articleId);
   }
 
@@ -51,11 +57,13 @@ export class LatestPreviewComponent implements OnInit {
 
   getProfileImage(uid) {
     const basePath = 'uploads/profileImages/';
-    this.uploadSvc.getImage(uid, basePath).subscribe(profileData => {
-      if (profileData.url) {
-        this.profileImageUrl = profileData.url;
-      }
-    });
+    this.uploadSvc
+      .getImage(uid, basePath)
+      .subscribe(profileData => {
+        if (profileData.url) {
+          this.profileImageUrl = profileData.url;
+        }
+      });
   }
 
   getArticleCoverImage(articleKey) {
@@ -72,20 +80,24 @@ export class LatestPreviewComponent implements OnInit {
   }
 
   checkIfBookmarked() {
-    this.articleSvc.isBookmarked(this.user.$key, this.articleData.articleId).subscribe(bookmark => {
-      this.isArticleBookmarked = bookmark;
-    })
+    this.articleSvc
+    .isBookmarked(this.user.$key, this.articleData.articleId)
+    .subscribe(bookmark => {
+        this.isArticleBookmarked = bookmark;
+      });
   }
 
   bookmarkToggle() {
-    this.authSvc.isLoggedInCheck().subscribe(isLoggedIn => {
-      if (isLoggedIn) {
-        if (this.isArticleBookmarked)
-          this.articleSvc.unBookmarkArticle(this.user.$key, this.articleData.articleId);
-        else
-          this.articleSvc.bookmarkArticle(this.user.$key, this.articleData.articleId);
-      }
-    })
+    this.authSvc
+      .isLoggedIn()
+      .subscribe(isLoggedIn => {
+        if (isLoggedIn) {
+          if (this.isArticleBookmarked) {
+            this.articleSvc.unBookmarkArticle(this.user.$key, this.articleData.articleId);
+          } else {
+            this.articleSvc.bookmarkArticle(this.user.$key, this.articleData.articleId);
+          }
+        }
+      });
   }
-
 }

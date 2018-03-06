@@ -1,4 +1,5 @@
-// NOTE: This component is currently unused. The follower-user component handles displaing information for both followed users and follower users
+// NOTE: This component is currently unused.
+// The follower-user component handles displaing information for both followed users and follower users
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { UserService } from 'app/shared/services/user/user.service';
@@ -19,5 +20,4 @@ export class FollowedUserComponent implements OnInit {
   navigateToProfile() {
     this.userSvc.navigateToProfile(this.user.uid);
   }
-
 }
