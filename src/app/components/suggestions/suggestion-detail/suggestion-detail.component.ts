@@ -15,6 +15,7 @@ export class SuggestionDetailComponent implements OnInit {
     const key = this.route.snapshot.params['key'];
     this.suggestionSvc
       .getSuggestionByKey(key)
+      .valueChanges()
       .subscribe(object => {
         this.suggestion = object;
       });

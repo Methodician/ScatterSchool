@@ -1,5 +1,5 @@
 export class Suggestion {
-  public $key: string;
+  public id: string;
   public title: string;
   public pitch: string;
   public lastUpdated: number;

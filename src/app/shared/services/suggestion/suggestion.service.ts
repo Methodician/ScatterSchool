@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import * as firebase from 'firebase';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+import { Suggestion } from 'app/shared/class/suggestion.model';
 
 
 @Injectable()
@@ -39,12 +40,12 @@ export class SuggestionService {
       });
   }
 
-  getAllSuggestions() {
-    return this.injectListKeys(this.rtdb.list('suggestionData/suggestions'));
+  getAllSuggestions(): AngularFirestoreCollection<Suggestion> {
+    return this.db.collection(`suggestions`);
   };
 
-  getSuggestionByKey(key) {
-    return this.injectObjectKey(this.rtdb.object(`suggestionData/suggestions/${key}`));
+  getSuggestionByKey(suggestionId: string): AngularFirestoreDocument<Suggestion> {
+    return this.db.doc(`suggestions/${suggestionId}`);
   }
 
   saveSuggestion(suggestion) {
@@ -57,10 +58,9 @@ export class SuggestionService {
     this.router.navigate(['suggestions']);
   }
 
-  updateSuggestion(key, paramsToUpdate) {
+  updateSuggestion(suggestionId: string, paramsToUpdate) {
     paramsToUpdate.lastUpdated = firebase.database.ServerValue.TIMESTAMP;
-
-    this.rtdb.object(`suggestionData/suggestions/${key}`).update(paramsToUpdate);
+    this.db.doc(`suggestions/${suggestionId}`).update(paramsToUpdate);
     this.router.navigate(['suggestions']);
   }
 }
