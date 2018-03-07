@@ -20,7 +20,7 @@ export class SuggestionVoteComponent implements OnInit, OnChanges {
   ngOnInit() {
     if (this.currentUserKey) {
       this.voteSvc
-        .getSuggestionVoteStateByUser(this.suggestion.$key, this.currentUserKey)
+        .getVoteState(this.suggestion.id, this.currentUserKey)
         .valueChanges()
         .subscribe(voteState => {
           this.voteState = (voteState) ? voteState as number : 0;
@@ -40,10 +40,11 @@ export class SuggestionVoteComponent implements OnInit, OnChanges {
 
   // sets the current state of a user's vote
   vote(voteNum: number) {
-    this.voteTotal += this.getTotalVoteChange(voteNum)
     // resets the component's vote state to 0 if the current vote state is equal to the vote that was just clicked
     this.voteState = (this.voteState === voteNum) ? 0 : voteNum;
-    this.saveVote();
+    this.voteTotal += this.getTotalVoteChange(voteNum)
+    const vote = new Vote(this.currentUserKey, this.suggestion.id, this.voteState, this.voteTotal);
+    this.voteSvc.saveVote(vote);
   }
 
   getTotalVoteChange(voteNum) {
@@ -52,12 +53,6 @@ export class SuggestionVoteComponent implements OnInit, OnChanges {
       case 1: return voteNum;
       case 2: return this.voteState * -1;
     }
-  }
-
-  // creates new vote object containing current user, suggestion, and vote state data
-  saveVote() {
-    const vote = new Vote(this.currentUserKey, this.suggestion.$key, this.voteState, this.voteTotal);
-    this.voteSvc.makeVote(vote);
   }
 
   // returns boolean, true if given voteState equals current component voteState
