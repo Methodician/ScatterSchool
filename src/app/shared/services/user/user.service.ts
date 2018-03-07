@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 @Injectable()
 export class UserService {
@@ -109,6 +109,10 @@ export class UserService {
     }
     
     this.db.collection('notifications').add(notification);
+  }
+
+  getNotifications(): AngularFirestoreCollection<{}> {
+    return this.db.collection('notifications');
   }
 
   unfollowUser(userToUnfollowKey: string) {
