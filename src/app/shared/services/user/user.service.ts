@@ -105,6 +105,7 @@ export class UserService {
     const notification = {
       userId: userId,
       followerId: followerId,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }
     
     this.db.collection('notifications').add(notification);
