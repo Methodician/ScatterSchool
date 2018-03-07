@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
+import { AngularFirestore } from 'angularfire2/firestore';
 
 @Injectable()
 export class UserService {
@@ -17,7 +18,8 @@ export class UserService {
   constructor(
     private authSvc: AuthService,
     private rtdb: AngularFireDatabase,
-    private router: Router
+    private router: Router,
+    private db: AngularFirestore
   ) {
     this.authSvc.authInfo$.subscribe(authInfo => {
       this
@@ -95,6 +97,17 @@ export class UserService {
     this.rtdb
       .object(`userInfo/followersPerUser/${userToFollowKey}/${this.loggedInUserKey}`)
       .set(firebase.database.ServerValue.TIMESTAMP);
+
+    this.createFollowNotification(this.loggedInUserKey, userToFollowKey);
+  }
+
+  createFollowNotification(userId: string, followerId: string): void {
+    const notification = {
+      userId: userId,
+      followerId: followerId,
+    }
+    
+    this.db.collection('notifications').add(notification);
   }
 
   unfollowUser(userToUnfollowKey: string) {
