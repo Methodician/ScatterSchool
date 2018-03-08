@@ -33,6 +33,7 @@
     "ng2-ckeditor": "^1.1.8",
     "ngx-bootstrap": "^1.7.1",
     "ngx-chips": "^1.6.1",
+    "npm": "^5.7.1",
     "promise-polyfill": "^6.0.2",
     "rxjs": "^5.5.5",
     "webpack": "^3.0.0",

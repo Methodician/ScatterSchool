@@ -1,0 +1,14 @@
+div {
+    position: fixed;
+    top: 200px;
+    right: 10px;
+    width: 300px;
+    height: 500px;
+    overflow-y: scroll;
+    background-color: grey;
+    z-index: 1;
+    p {
+        background-color: white;
+        margin: 2px;
+    }
+}

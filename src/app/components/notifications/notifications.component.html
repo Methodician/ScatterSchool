@@ -1,3 +1,5 @@
-<p>
-  notifications works!
-</p>
+<div>
+  <p *ngFor="let notification of notifications">
+    {{ notification.userId }} followed {{ notification.followerId }} at {{ notification.timestamp }}
+  </p>
+</div>
