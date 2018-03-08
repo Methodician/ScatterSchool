@@ -54,6 +54,7 @@ export class UserService {
 
   createUser(userInfo, uid) {
     this.setUserAccess(10, uid);
+    this.updateUserNames(userInfo);
     return this.rtdb
       .object(`userInfo/open/${uid}`)
       .set(userInfo);
@@ -86,6 +87,7 @@ export class UserService {
     this.rtdb
       .object(`userInfo/open/${uid}`)
       .update(detailsToUpdate);
+    this.updateUserNames(userInfo);
   }
 
   followUser(userToFollowKey: string) {
@@ -159,9 +161,10 @@ export class UserService {
 
   updateUser(userInfo, uid) {
     userInfo.uid = null;
-    return this.rtdb
+    this.rtdb
       .object(`userInfo/open/${uid}`)
       .set(userInfo);
+    this.updateUserNames(userInfo);
   }
 
   getProfileImageUrl(userKey: string) {
@@ -189,6 +192,16 @@ export class UserService {
             ...element.payload.val()
           };
         });
+      });
+  }
+
+  updateUserNames(user: UserInfoOpen){
+    console.log('updating user: ', user);
+    const name = user.alias ? user.alias : user.fName;
+    this.rtdb
+      .object(`userInfo/usernames`)
+      .update({
+        [`${user.$key}`]: name
       });
   }
 
