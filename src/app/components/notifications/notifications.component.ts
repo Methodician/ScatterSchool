@@ -16,14 +16,15 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {
     this.userSvc.userInfo$.subscribe((userInfo: UserInfoOpen) => {
      this.uid = userInfo.uid;
-    });
-   this.userSvc
+     this.userSvc
       .getUserNotifications(this.uid)
       .valueChanges()
       .subscribe(notifications => {
         this.notifications = notifications;
         console.log('notifications: ', notifications);
       });
+    });
+   
   }
 
 }
