@@ -18,7 +18,12 @@ export class NotificationsComponent implements OnInit {
       .subscribe(notifications => {
         this.notifications = notifications;
         console.log('notifications: ', notifications);
-      })
+      });
+  }
+
+  getUserNotifications() {
+    // .isLoggedIn()
+
   }
 
 }

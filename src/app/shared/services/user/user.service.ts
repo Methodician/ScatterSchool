@@ -97,18 +97,21 @@ export class UserService {
     this.rtdb
       .object(`userInfo/followersPerUser/${userToFollowKey}/${this.loggedInUserKey}`)
       .set(firebase.database.ServerValue.TIMESTAMP);
-
+    
     this.createFollowNotification(this.loggedInUserKey, userToFollowKey);
   }
 
-  createFollowNotification(userId: string, followerId: string): void {
+  createFollowNotification(followerId: string, userId: string): void {
+    console.log("this is the follower id", followerId);
     const notification = {
       userId: userId,
       followerId: followerId,
+      followerName: this.userInfo$.value.displayName(),
+      notificationType: "newFollower",
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }
     
-    this.db.collection('notifications').add(notification);
+    this.db.collection(`userData/${userId}/notifications`).add(notification);
   }
 
   getNotifications(): AngularFirestoreCollection<{}> {
