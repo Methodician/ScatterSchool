@@ -116,7 +116,17 @@ export class UserService {
   }
 
   getUserNotifications(userId: string): AngularFirestoreCollection<{}> {
-    return this.db.collection(`userData/${userId}/notifications`);
+    return this.db.collection(`userData/${userId}/notifications`, ref => ref.where('timeViewed', '==', 'null'));
+  }
+
+  // getNewNotificatins(userId: string): AngularFirestoreCollection<{}> {
+  //   this.db.collection(`userData/${userId}/notifications`);
+  //   return
+  // }
+
+
+  viewedUserNotifications() {
+
   }
 
   unfollowUser(userToUnfollowKey: string) {
