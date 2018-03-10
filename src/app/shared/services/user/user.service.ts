@@ -120,7 +120,7 @@ export class UserService {
     return this.db.collection(`userData/${userId}/notifications`, ref => ref.where('timeViewed', '==', null));
   }
 
-  getAllUserNotificatins(userId: string): AngularFirestoreCollection<{}> {
+  getAllUserNotifications(userId: string): AngularFirestoreCollection<{}> {
     return this.db.collection(`userData/${userId}/notifications`);
   }
 
