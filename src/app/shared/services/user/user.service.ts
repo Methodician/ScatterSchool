@@ -1,5 +1,6 @@
 import { AuthInfo } from '../../class/auth-info';
 import { UserInfoOpen } from '../../class/user-info';
+import { Notification } from '../../class/notification';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
@@ -102,15 +103,15 @@ export class UserService {
   }
 
   createFollowNotification(followerId: string, userId: string): void {
-    console.log("this is the follower id", followerId);
+    // const notification: Notification = new Notification(followerId, this.userInfo$.value.displayName(), "newFollower", firebase.firestore.FieldValue.serverTimestamp(), userId, null);
     const notification = {
       userId: userId,
       followerId: followerId,
       followerName: this.userInfo$.value.displayName(),
       notificationType: "newFollower",
-      timestamp: firebase.firestore.FieldValue.serverTimestamp()
-    }
-    
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timeViewed: null
+    }  
     this.db.collection(`userData/${userId}/notifications`).add(notification);
   }
 
