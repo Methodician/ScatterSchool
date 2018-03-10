@@ -9,6 +9,7 @@ import { UserService } from '../../shared/services/user/user.service';
 })
 export class NotificationsComponent implements OnInit {
   notifications: {}[];
+
   uid: string;
 
   constructor(private userSvc: UserService) { }
@@ -19,18 +20,22 @@ export class NotificationsComponent implements OnInit {
 
      if(userInfo.exists()) {
       this.userSvc
-      .getUserNotifications(this.uid)
+      .getNewUserNotifications(this.uid)
       .valueChanges()
       .subscribe(notifications => {
         this.notifications = notifications;
         console.log('notifications: ', notifications);
         });
       }
+
     });
   }
-readNotifications() {
-  
-}
+  // marknotificationsRead() {
+  //   const ids = this.notifications.map(notification => {
+  //     return notification.Id;
+  //   })
+
+  // }
 }
 
 

@@ -103,8 +103,9 @@ export class UserService {
   }
 
   createFollowNotification(followerId: string, userId: string): void {
-    // const notification: Notification = new Notification(followerId, this.userInfo$.value.displayName(), "newFollower", firebase.firestore.FieldValue.serverTimestamp(), userId, null);
+    const id = this.db.createId();
     const notification = {
+      id: id,
       userId: userId,
       followerId: followerId,
       followerName: this.userInfo$.value.displayName(),
@@ -112,21 +113,24 @@ export class UserService {
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       timeViewed: null
     }  
-    this.db.collection(`userData/${userId}/notifications`).add(notification);
+    this.db.doc(`userData/${userId}/notifications/${id}`).set(notification);
   }
 
-  getUserNotifications(userId: string): AngularFirestoreCollection<{}> {
-    return this.db.collection(`userData/${userId}/notifications`, ref => ref.where('timeViewed', '==', 'null'));
+  getNewUserNotifications(userId: string): AngularFirestoreCollection<{}> {
+    return this.db.collection(`userData/${userId}/notifications`, ref => ref.where('timeViewed', '==', null));
   }
 
-  // getNewNotificatins(userId: string): AngularFirestoreCollection<{}> {
-  //   this.db.collection(`userData/${userId}/notifications`);
-  //   return
-  // }
+  getAllUserNotificatins(userId: string): AngularFirestoreCollection<{}> {
+    return this.db.collection(`userData/${userId}/notifications`);
+  }
 
 
-  viewedUserNotifications() {
-
+  setNotificationsViewed(userId: string, notificationIds: string[]) {
+    const batch = this.db.firestore.batch();
+    for (const id of notificationIds) {
+      batch.update(this.db.doc(`userData/${userId}/notifications/${id}`).ref, {timeViewed: firebase.firestore.FieldValue.serverTimestamp()})
+    }
+    batch.commit();
   }
 
   unfollowUser(userToUnfollowKey: string) {
