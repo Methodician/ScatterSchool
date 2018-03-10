@@ -115,10 +115,6 @@ export class UserService {
     this.db.collection(`userData/${userId}/notifications`).add(notification);
   }
 
-  // getNotifications(): AngularFirestoreCollection<{}> {
-  //   return this.db.collection('notifications');
-  // }
-
   getUserNotifications(userId: string): AngularFirestoreCollection<{}> {
     return this.db.collection(`userData/${userId}/notifications`);
   }
