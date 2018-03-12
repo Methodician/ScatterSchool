@@ -1,4 +1,5 @@
 // This is a style sheet that holds all of the template css variables across the sight. 
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700');
 
 // GLOBAL THEME COLORS FOR APP
 $primary-color: #00b8d4;
@@ -10,7 +11,7 @@ $dark-gray: #3E4849;
 $light-grey: #EEEEEE;
 $dark-grey: #757575;
 // GLOBAL TYPOGRAPHY STYLES
-$font-family: STHeitiSC-Light;
+$font-family:'Roboto', sans-serif;
 $letter-spacing: .5px;
 
 // Testing borders "tb" being the key selector
@@ -25,7 +26,7 @@ $tb-cyan: 2px solid cyan;
 // Button styles and variables.
 
 // Global button Styles that aren't specific to button size
-$btn-font-family: STHeitiSC-Light;
+$btn-font-family:'Roboto', sans-serif;
 $btn-border-radius: 5px;
 $btn-letter-spacing: .5px;
 $btn-color: white;
