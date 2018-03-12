@@ -1,5 +1,6 @@
 <!-- Nav Bar container -->
-<div class="navBarWrapper" [ngClass]="lastScrolledUp() ? 'scrolledUp' : 'scrolledDown'">
+<!-- <div class="navBarWrapper" [ngClass]="lastScrolledUp() ? 'scrolledUp' : 'scrolledDown'"> -->
+<div class="navBarWrapper scrolledDown">
   <mat-toolbar>
     <!-- Logo and Title container -->
     <div class="logoWrapper">
@@ -19,6 +20,7 @@
         <input matInput #searchInput placeholder="Search Articles" type="text" (keyup.enter)="search(searchInput)" aria-describedby="basic-addon2">
       </mat-form-field>
     </form>
+    <app-notifications [uid]="uid"></app-notifications>
     <!-- Button Container -->
     <div class="navButtonWrapper">
       <button mat-raised-button color="primary" id="post-article" routerLink="postarticle" class="navButtons">Post an article</button>

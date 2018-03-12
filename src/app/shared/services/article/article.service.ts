@@ -308,10 +308,40 @@ export class ArticleService {
     }
   }
 
-  featureArticle(articleKey: string) {
+  featureArticle(articleKey: string, authorKey: string) {
     this
       .getArticle(articleKey)
       .update({ isFeatured: true });
+    // kb: added this
+    this.createFeatureNotification(authorKey);   
+  }
+  // kb: added this
+  createFeatureNotification(authorId: string):void{
+    const id = this.afs.createId();
+    const notification = {
+      id: id,
+      userId: authorId,
+      followerId: null,
+      followerName: null,
+      notificationType: "articleFeature",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timeViewed: null
+    }  
+    this.afs.doc(`userData/${authorId}/notifications/${id}`).set(notification);
+  }
+
+  createEditNotification(authorId: string):void{
+    const id = this.afs.createId();
+    const notification = {
+      id: id,
+      userId: authorId,
+      followerId: null,
+      followerName: null,
+      notificationType: "articleEdit",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timeViewed: null
+    }  
+    this.afs.doc(`userData/${authorId}/notifications/${id}`).set(notification);
   }
 
   unFeatureArticle(articleKey: string) {

@@ -1,9 +1,10 @@
-div {
+.modal {
+    white-space: normal;
     position: fixed;
     top: 200px;
     right: 10px;
     width: 300px;
-    height: 500px;
+    max-height: 500px;
     overflow-y: scroll;
     background-color: grey;
     z-index: 1;
@@ -11,4 +12,19 @@ div {
         background-color: white;
         margin: 2px;
     }
+}
+
+.recent-modal {
+    white-space: normal;
+    position: fixed;
+    top: 150px;
+    right: 10px;
+    width: 300px;
+    z-index: 1;
+    background-color: peru;
+    color: white;
+    p {
+        margin: 2px;
+    }
+
 }

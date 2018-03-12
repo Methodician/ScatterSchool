@@ -116,10 +116,12 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
           if (this.article.isFeatured) {
             this.articleSvc.unFeatureArticle(this.articleKey);
           } else {
-            this.articleSvc.featureArticle(this.articleKey);
+            //kb: changed this
+            this.articleSvc.featureArticle(this.articleKey, this.author.$key);
           }
         }
       });
+    
   }
 
   getArticleData() {

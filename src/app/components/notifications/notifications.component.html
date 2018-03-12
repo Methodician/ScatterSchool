@@ -1,8 +1,19 @@
-<div>
+<div *ngIf="uid">
+  <!-- <button mat-raised-button (click)="notificationsModalVisible ? notificationsModalVisible = false : notificationsModalVisible = true"> -->
+  <button mat-raised-button (click)="toggleNotificationsModal()">
+    <mat-icon>notifications</mat-icon> <span *ngIf="notifications?.length > 0">{{ notifications.length }}</span>
+  </button>
+</div>
+<div class="modal" *ngIf="notificationsModalVisible">
   <p *ngIf="notifications?.length > 0">
     You have {{ notifications.length }} notification(s).
   </p>
   <p *ngFor="let notification of notifications">
     {{ notification.followerName }} followed you! Date: {{ notification.timestamp }}
+  </p>
+</div>
+<div class="recent-modal" *ngIf="recentModalVisible && notifications?.length > 0">
+  <p>
+    {{notifications[0].followerName}} followed you!
   </p>
 </div>
