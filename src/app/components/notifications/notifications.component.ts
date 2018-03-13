@@ -11,54 +11,60 @@ import { NotificationService } from '../../shared/services/notification/notifica
 export class NotificationsComponent implements OnInit {
   // @Input() uid;
   notifications: {}[];
+  notificationHistory: {}[];
   notificationsModalVisible:boolean = false;
   recentModalVisible:boolean = false;
   mostRecentNotifId:string = '';
   //uid: string;
 
   constructor(
-    private notificationSvc: NotificationService
+    private notificationSvc: NotificationService,
+    private userSvc: UserService
   ) { }
 
   ngOnInit() {
-    // this.userSvc.userInfo$.subscribe((userInfo: UserInfoOpen) => {
-    //  this.uid = userInfo.uid;
+    this.userSvc.userInfo$.subscribe(userInfo => {
+      if (userInfo.exists()) {
+        this.notificationSvc
+          // .getNewUserNotifications(userInfo.uid)
+          .getNotificationHistory(userInfo.uid)
+          .valueChanges()
+          .subscribe(notifications => {
+            this.notifications = notifications;
+          });
 
-    //  if(userInfo.exists()) {
-    //   this.userSvc
-    //   .getNewUserNotifications(this.uid)
-    //   .valueChanges()
-    //   .subscribe(notifications => {
-    //     this.notifications = notifications;
-    //     console.log('notifications: ', notifications);
-    //     console.log('most recent notification', notifications[0]);
-    //     this.showMostRecentNotification(notifications);
-    //     });
-    //   }
-
-    // });
-    if (this.notificationSvc.userInfo.uid)
-    {
-      this.notificationSvc
-        .getNewUserNotifications(this.notificationSvc.userInfo.uid)
-        .valueChanges()
-        .subscribe(notifications => {
-          this.notifications = notifications;
-        })
-    }
+        this.notificationSvc
+          .getAllUserNotifications(userInfo.uid)
+          .valueChanges()
+          .subscribe(notifications => {
+            this.notificationHistory = notifications;
+          });
+      }
+    });
   }
 
   toggleNotificationsModal(){
     if(this.notificationsModalVisible) {
-      let notifArray: string[]= [];
-      this.notifications.forEach(function(n){
-        notifArray.push(n['id']);
-      });
-      this.notificationSvc.setNotificationsViewed(this.notificationSvc.userInfo.uid, notifArray);
       this.notificationsModalVisible = false;
     } else if(this.notifications.length > 0){
       this.notificationsModalVisible = true;
     }
+  }
+
+  markNotificationRead(notificationId: string) {
+    // if this notificiation is selected then set a timestamp to time viewed
+    if(notificationId){
+      console.log("notifId ", notificationId);
+      this.notificationSvc.setNotificationViewed(this.notificationSvc.userInfo.uid, notificationId);
+    }
+  }
+
+  markAllNotificationsRead() {
+    let notifArray: string[]= [];
+      this.notifications.forEach(function(n){
+        notifArray.push(n['id']);
+      });
+      this.notificationSvc.setAllNotificationsViewed(this.notificationSvc.userInfo.uid, notifArray);
   }
 
   // showMostRecentNotification(notifications:{}[]) {

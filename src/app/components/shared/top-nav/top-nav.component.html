@@ -21,7 +21,7 @@
       </mat-form-field>
     </form>
     <!-- <app-notifications [uid]="uid"></app-notifications> -->
-    <app-notifications></app-notifications>
+    <app-notifications *ngIf="userInfo"></app-notifications>
     <!-- Button Container -->
     <div class="navButtonWrapper">
       <button mat-raised-button color="primary" id="post-article" routerLink="postarticle" class="navButtons">Post an article</button>

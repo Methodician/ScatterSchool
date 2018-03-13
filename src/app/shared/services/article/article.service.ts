@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import { UserInfoOpen } from 'app/shared/class/user-info';
 import { error } from 'util';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class ArticleService {
@@ -15,7 +16,8 @@ export class ArticleService {
   constructor(
     private rtdb: AngularFireDatabase,
     private afs: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private notifSvc: NotificationService
   ) {
     this.primeTags();
   }
@@ -132,10 +134,9 @@ export class ArticleService {
     for (const tag of article.tags) {
       this.addGlobalTag(tag);
     }
-
+    this.notifSvc.createNewArticleNotification(authorId, articleId);
     try {
       await batch.commit();
-      this.createNewArticleNotification(authorId);
       return articleId;
     } catch (err) {
       alert(`
@@ -200,7 +201,7 @@ export class ArticleService {
                 await batch.commit();
                 resolve(true);
                 console.log("whooooo", articleOriginalAuthor);
-                this.createEditNotification(articleOriginalAuthor);
+                this.notifSvc.createEditNotification(articleOriginalAuthor, articleId);
               } catch (err) {
                 if (err.code === 'permission-denied') {
                   alert(`
@@ -351,36 +352,36 @@ export class ArticleService {
     this.afs.doc(`userData/${authorId}/notifications/${id}`).set(notification);
   }
 
-  createNewArticleNotification(authorId: string):void{
-    // returns list of followers
-    var userFollowers = [];
-    this.rtdb.list(`userInfo/followersPerUser/${authorId}`)
-      .snapshotChanges()
-      .subscribe(followers => {
-        followers.map(follower =>{
-          userFollowers.push(follower.key);
-          // console.log(follower.payload.key, follower.payload.val());
-        })
-      });
-    userFollowers.forEach(follower => {
-      console.log("this user got notified", follower);
-      this.notifyFollower(follower);
-    })   
-  }
-  // really confusing.
-  notifyFollower(followerId: string):void{
-    const id = this.afs.createId();
-    const notification = {
-      id: id,
-      userId: followerId,
-      followerId: null,
-      followerName: null,
-      notificationType: "followedAuthorNewArticle",
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      timeViewed: null
-    }  
-    this.afs.doc(`userData/${followerId}/notifications/${id}`).set(notification);
-  }
+  // createNewArticleNotification(authorId: string):void{
+  //   // returns list of followers
+  //   var userFollowers = [];
+  //   this.rtdb.list(`userInfo/followersPerUser/${authorId}`)
+  //     .snapshotChanges()
+  //     .subscribe(followers => {
+  //       followers.map(follower =>{
+  //         userFollowers.push(follower.key);
+  //         // console.log(follower.payload.key, follower.payload.val());
+  //       })
+  //     });
+  //   userFollowers.forEach(follower => {
+  //     console.log("this user got notified", follower);
+  //     this.notifyFollower(follower);
+  //   })   
+  // }
+  // // really confusing.
+  // notifyFollower(followerId: string):void{
+  //   const id = this.afs.createId();
+  //   const notification = {
+  //     id: id,
+  //     userId: followerId,
+  //     followerId: null,
+  //     followerName: null,
+  //     notificationType: "followedAuthorNewArticle",
+  //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //     timeViewed: null
+  //   }  
+  //   this.afs.doc(`userData/${followerId}/notifications/${id}`).set(notification);
+  // }
 
   unFeatureArticle(articleKey: string) {
     this

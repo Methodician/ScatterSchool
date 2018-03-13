@@ -1,6 +1,7 @@
 import { AuthService } from 'app/shared/services/auth/auth.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from 'app/shared/services/user/user.service';
+import { NotificationService } from '../../../shared/services/notification/notification.service';
 
 @Component({
   selector: 'follow-btn',
@@ -15,7 +16,8 @@ export class FollowBtnComponent implements OnInit {
 
   constructor(
     private authSvc: AuthService,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private notifSvc: NotificationService
   ) {
 
   }
@@ -33,6 +35,8 @@ export class FollowBtnComponent implements OnInit {
             this.userSvc.unfollowUser(this.uid);
           } else {
             this.userSvc.followUser(this.uid);
+            this.notifSvc
+              .createFollowNotification(this.userSvc.userInfo$.value.uid, this.uid);
           }
         }
       });

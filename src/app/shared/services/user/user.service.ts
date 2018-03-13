@@ -98,40 +98,38 @@ export class UserService {
     this.rtdb
       .object(`userInfo/followersPerUser/${userToFollowKey}/${this.loggedInUserKey}`)
       .set(firebase.database.ServerValue.TIMESTAMP);
-    
-    this.createFollowNotification(this.loggedInUserKey, userToFollowKey);
   }
 
-  createFollowNotification(followerId: string, userId: string): void {
-    const id = this.db.createId();
-    const notification = {
-      id: id,
-      userId: userId,
-      followerId: followerId,
-      followerName: this.userInfo$.value.displayName(),
-      notificationType: "newFollower",
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      timeViewed: null
-    }  
-    this.db.doc(`userData/${userId}/notifications/${id}`).set(notification);
-  }
+  // createFollowNotification(followerId: string, userId: string): void {
+  //   const id = this.db.createId();
+  //   const notification = {
+  //     id: id,
+  //     userId: userId,
+  //     followerId: followerId,
+  //     followerName: this.userInfo$.value.displayName(),
+  //     notificationType: "newFollower",
+  //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+  //     timeViewed: null
+  //   }  
+  //   this.db.doc(`userData/${userId}/notifications/${id}`).set(notification);
+  // }
 
-  getNewUserNotifications(userId: string): AngularFirestoreCollection<{}> {
-    return this.db.collection(`userData/${userId}/notifications`, ref => ref.where('timeViewed', '==', null));
-  }
+  // getNewUserNotifications(userId: string): AngularFirestoreCollection<{}> {
+  //   return this.db.collection(`userData/${userId}/notifications`, ref => ref.where('timeViewed', '==', null));
+  // }
 
-  getAllUserNotifications(userId: string): AngularFirestoreCollection<{}> {
-    return this.db.collection(`userData/${userId}/notifications`);
-  }
+  // getAllUserNotifications(userId: string): AngularFirestoreCollection<{}> {
+  //   return this.db.collection(`userData/${userId}/notifications`);
+  // }
 
 
-  setNotificationsViewed(userId: string, notificationIds: string[]) {
-    const batch = this.db.firestore.batch();
-    for (const id of notificationIds) {
-      batch.update(this.db.doc(`userData/${userId}/notifications/${id}`).ref, {timeViewed: firebase.firestore.FieldValue.serverTimestamp()})
-    }
-    batch.commit();
-  }
+  // setAllNotificationsViewed(userId: string, notificationIds: string[]) {
+  //   const batch = this.db.firestore.batch();
+  //   for (const id of notificationIds) {
+  //     batch.update(this.db.doc(`userData/${userId}/notifications/${id}`).ref, {timeViewed: firebase.firestore.FieldValue.serverTimestamp()})
+  //   }
+  //   batch.commit();
+  // }
 
   unfollowUser(userToUnfollowKey: string) {
     this.rtdb
