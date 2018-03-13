@@ -20,7 +20,8 @@
         <input matInput #searchInput placeholder="Search Articles" type="text" (keyup.enter)="search(searchInput)" aria-describedby="basic-addon2">
       </mat-form-field>
     </form>
-    <app-notifications [uid]="uid"></app-notifications>
+    <!-- <app-notifications [uid]="uid"></app-notifications> -->
+    <app-notifications></app-notifications>
     <!-- Button Container -->
     <div class="navButtonWrapper">
       <button mat-raised-button color="primary" id="post-article" routerLink="postarticle" class="navButtons">Post an article</button>

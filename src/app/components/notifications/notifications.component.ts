@@ -1,21 +1,24 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { UserInfoOpen } from 'app/shared/class/user-info';
 import { UserService } from '../../shared/services/user/user.service';
+import { NotificationService } from '../../shared/services/notification/notification.service';
 
 @Component({
   selector: 'app-notifications',
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss']
 })
-export class NotificationsComponent implements OnInit, OnChanges {
-  @Input() uid;
+export class NotificationsComponent implements OnInit {
+  // @Input() uid;
   notifications: {}[];
   notificationsModalVisible:boolean = false;
   recentModalVisible:boolean = false;
   mostRecentNotifId:string = '';
   //uid: string;
 
-  constructor(private userSvc: UserService) { }
+  constructor(
+    private notificationSvc: NotificationService
+  ) { }
 
   ngOnInit() {
     // this.userSvc.userInfo$.subscribe((userInfo: UserInfoOpen) => {
@@ -34,20 +37,14 @@ export class NotificationsComponent implements OnInit, OnChanges {
     //   }
 
     // });
-  }
-
-  ngOnChanges(){
-    console.log("uid this has an input now", this.uid);
-    if (!!this.uid){
-      this.userSvc
-        .getNewUserNotifications(this.uid)
+    if (this.notificationSvc.userInfo.uid)
+    {
+      this.notificationSvc
+        .getNewUserNotifications(this.notificationSvc.userInfo.uid)
         .valueChanges()
         .subscribe(notifications => {
           this.notifications = notifications;
-          // this.showMostRecentNotification(notifications);
-          console.log('notifications: ', notifications);
-          console.log('most recent notification', notifications[0]);
-        });
+        })
     }
   }
 
@@ -57,7 +54,7 @@ export class NotificationsComponent implements OnInit, OnChanges {
       this.notifications.forEach(function(n){
         notifArray.push(n['id']);
       });
-      this.userSvc.setNotificationsViewed(this.uid, notifArray);
+      this.notificationSvc.setNotificationsViewed(this.notificationSvc.userInfo.uid, notifArray);
       this.notificationsModalVisible = false;
     } else if(this.notifications.length > 0){
       this.notificationsModalVisible = true;
