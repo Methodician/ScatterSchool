@@ -94,7 +94,6 @@ import { UserInteractionComponent } from 'app/components/user-interaction/user-i
 import { ChatListComponent } from 'app/components/user-interaction/chat-list/chat-list.component';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { NotificationsComponent } from './components/notifications/notifications.component';
-import { NotificationService } from './shared/services/notification/notification.service';
 
 @NgModule({
   declarations: [

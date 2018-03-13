@@ -135,6 +135,7 @@ export class ArticleService {
 
     try {
       await batch.commit();
+      this.createNewArticleNotification(authorId);
       return articleId;
     } catch (err) {
       alert(`
@@ -151,9 +152,12 @@ export class ArticleService {
       const batch = this.afs.firestore.batch();
       //  Wondering if we should stop using this and just get the lastest from history...
       const articleDoc = this.getArticle(articleId);
+      // kb
+      let articleOriginalAuthor:string = '';
 
       articleDoc.valueChanges().first()
         .subscribe((oldArticle: ArticleDetailFirestore) => {
+          articleOriginalAuthor = oldArticle.authorId;
           const newBodyId = this.afs.createId();
           const archiveArticleObject = this.updateObjectFromArticle(oldArticle, articleId, oldArticle.lastEditorId);
           const updatedArticleObject: any = this.updateObjectFromArticle(article, articleId, editorId);
@@ -195,6 +199,8 @@ export class ArticleService {
               try {
                 await batch.commit();
                 resolve(true);
+                console.log("whooooo", articleOriginalAuthor);
+                this.createEditNotification(articleOriginalAuthor);
               } catch (err) {
                 if (err.code === 'permission-denied') {
                   alert(`
@@ -313,8 +319,9 @@ export class ArticleService {
       .getArticle(articleKey)
       .update({ isFeatured: true });
     // kb: added this
-    this.createFeatureNotification(authorKey);   
+    this.createFeatureNotification(authorKey);
   }
+
   // kb: added this
   createFeatureNotification(authorId: string):void{
     const id = this.afs.createId();
@@ -342,6 +349,37 @@ export class ArticleService {
       timeViewed: null
     }  
     this.afs.doc(`userData/${authorId}/notifications/${id}`).set(notification);
+  }
+
+  createNewArticleNotification(authorId: string):void{
+    // returns list of followers
+    var userFollowers = [];
+    this.rtdb.list(`userInfo/followersPerUser/${authorId}`)
+      .snapshotChanges()
+      .subscribe(followers => {
+        followers.map(follower =>{
+          userFollowers.push(follower.key);
+          // console.log(follower.payload.key, follower.payload.val());
+        })
+      });
+    userFollowers.forEach(follower => {
+      console.log("this user got notified", follower);
+      this.notifyFollower(follower);
+    })   
+  }
+  // really confusing.
+  notifyFollower(followerId: string):void{
+    const id = this.afs.createId();
+    const notification = {
+      id: id,
+      userId: followerId,
+      followerId: null,
+      followerName: null,
+      notificationType: "followedAuthorNewArticle",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      timeViewed: null
+    }  
+    this.afs.doc(`userData/${followerId}/notifications/${id}`).set(notification);
   }
 
   unFeatureArticle(articleKey: string) {
