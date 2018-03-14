@@ -1,3 +1,6 @@
+@import "../../sass-variables-mixins/vars.scss";
+
+
 .notification-btn {
     height: 40px;
     padding: 0;
@@ -26,8 +29,12 @@
     mat-card{
         // border: 1px solid red;
         display: flex;
+        justify-content: space-between;
         align-items: center;
         margin: 5px 2px;
+        p {
+            margin: 0;
+        }
 
     }
     mat-card-footer {
@@ -40,6 +47,13 @@
         justify-content: space-between;
         button {
             margin: 0 25px;
+        }
+    }
+    .notification-link {
+        color: $accent-color;
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
         }
     }
     // p {
@@ -82,4 +96,5 @@
     mat-card-title {
         font-size: 16px;
     }
+
 }

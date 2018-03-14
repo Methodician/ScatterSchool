@@ -70,8 +70,8 @@ export class NotificationsComponent implements OnInit {
       this.notificationSvc.setAllNotificationsViewed(this.notificationSvc.userInfo.uid, notifArray);
   }
 
-  displayMessage(){
-    return 'hi';
+  navigateToProfile(followerId:string):void {
+    
   }
 
 }
