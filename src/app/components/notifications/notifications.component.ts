@@ -77,6 +77,15 @@ export class NotificationsComponent implements OnInit {
     this.router.navigate([`profile/${followerId}`]);
   }
 
+  navigateToArticleDetail(articleId:string):void {
+    this.router.navigate([`articledetail/${articleId}`]);
+  }
+
+  navigateToArticleHistory(articleId:string):void{
+    console.log("hi", articleId);
+    this.router.navigate([`articlehistory/${articleId}`]);
+  }
+
 }
 
 

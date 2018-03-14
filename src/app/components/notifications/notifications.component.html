@@ -38,9 +38,15 @@
                 <div *ngIf="notification.notificationType == 'newFollower'">
                     <span class="notification-link" (click)="navigateToProfile(notification.followerId)">{{ notification.followerName }}</span> followed you!
                 </div>
-                <div *ngIf="notification.notificationType == 'articleFeatured'">
-                    <a class="notification-link" routerLink="/home/#featured">Your article was featured on the homepage!</a>
-                </div>               
+                <div *ngIf="notification.notificationType == 'articleFeature'">
+                    <span class="notification-link" routerLink="/home">Your article was featured on the homepage!</span>
+                </div>   
+                <div *ngIf="notification.notificationType == 'followerNewArticle'">
+                    Someone you follow wrote a <span class="notification-link" (click)="navigateToArticleDetail(notification.articleId)">new article!</span>
+                </div>                   
+                <div *ngIf="notification.notificationType == 'articleEdit'">
+                    Your <span class="notification-link" (click)="navigateToArticleHistory(notification.articleId)">article</span> recently edited.
+                </div>
                 <p>
                     {{ notification.timestamp }}
                 </p>
