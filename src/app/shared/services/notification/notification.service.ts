@@ -61,6 +61,7 @@ export class NotificationService {
   }
 
   // kb: added this
+  // maybe store the article id here in the future as well
   createFeatureNotification(authorId: string):void{
     const id = this.db.createId();
     const notification = {

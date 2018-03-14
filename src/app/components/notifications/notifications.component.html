@@ -1,4 +1,3 @@
-
 <!-- Notifications button in top-nav -->
 <button mat-raised-button (click)="toggleNotificationsModal()" class="notification-btn" [ngClass]="notifications?.length > 0 ? 'new-notifications' : ''">
   <mat-icon *ngIf="notifications?.length == 0">notifications</mat-icon> 
@@ -12,6 +11,7 @@
 
 <!-- Notifiations modal -->
 <mat-card class="modal" *ngIf="notificationsModalVisible">
+  <!-- Button menu -->
   <div class="button-wrapper">
     <button mat-icon-button (click)="notificationHistoryVisible = true">
         <mat-icon aria-label="Notification History">history</mat-icon>
@@ -23,13 +23,25 @@
         <mat-icon aria-label="Mark All Notifications Read">clear_all</mat-icon>
     </button>
   </div>
+  <!-- Displays notifications -->
   <div class="notification-wrapper">
       <div *ngIf="!notificationHistoryVisible" >
+        <div *ngIf="notifications?.length == 0">
+          <mat-card>
+            <mat-card-subtitle>
+                All caught up on notifications.
+            </mat-card-subtitle>
+          </mat-card>
+        </div>
         <mat-card *ngFor="let notification of notifications">
+            {{displayMessage()}}
             {{ notification.followerName }} followed you! Date: {{ notification.timestamp }}
-            <button align="end" mat-button (click)="markNotificationRead(notification.id)">
-                <mat-icon>clear</mat-icon>
+            <button mat-icon-button (click)="markNotificationRead(notification.id)">
+                <mat-icon aria-label="Mark Notification Read">clear</mat-icon>
             </button>
+            <!-- <button align="end" mat-button (click)="markNotificationRead(notification.id)">
+                <mat-icon>clear</mat-icon>
+            </button> -->
         </mat-card>
       </div>
       <div *ngIf="notificationHistoryVisible" >
@@ -38,14 +50,10 @@
         </mat-card>
       </div>
   </div>
+  <!-- Button to collapse panel -->
  <mat-card-footer>
     <button mat-icon-button (click)="toggleNotificationsModal()">
         <mat-icon aria-label="Collapse notifications panel">expand_less</mat-icon>
     </button>
  </mat-card-footer>
 </mat-card>
-<div class="recent-modal" *ngIf="recentModalVisible && notifications?.length > 0">
-  <p>
-    {{notifications[0].followerName}} followed you!
-  </p>
-</div>
