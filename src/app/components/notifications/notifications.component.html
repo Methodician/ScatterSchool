@@ -13,23 +13,33 @@
 <!-- Notifiations modal -->
 <mat-card class="modal" *ngIf="notificationsModalVisible">
   <div class="button-wrapper">
-    <button mat-icon-button>
+    <button mat-icon-button (click)="notificationHistoryVisible = true">
         <mat-icon aria-label="Notification History">history</mat-icon>
     </button>
-    <button mat-icon-button>
-        <mat-icon aria-label="Mark all notifications read">clear_all</mat-icon>
+    <button mat-icon-button (click)="notificationHistoryVisible = false">
+        <mat-icon aria-label="Unread Notifications">notifications_none</mat-icon>
+    </button>
+    <button mat-icon-button (click)="markAllNotificationsRead()">
+        <mat-icon aria-label="Mark All Notifications Read">clear_all</mat-icon>
     </button>
   </div>
   <div class="notification-wrapper">
-      <mat-card *ngFor="let notification of notifications">
-          {{ notification.followerName }} followed you! Date: {{ notification.timestamp }}
-          <button align="end" mat-button (click)="markNotificationRead(notification.id)">
-              <mat-icon>clear</mat-icon>
-          </button>
+      <div *ngIf="!notificationHistoryVisible" >
+        <mat-card *ngFor="let notification of notifications">
+            {{ notification.followerName }} followed you! Date: {{ notification.timestamp }}
+            <button align="end" mat-button (click)="markNotificationRead(notification.id)">
+                <mat-icon>clear</mat-icon>
+            </button>
         </mat-card>
+      </div>
+      <div *ngIf="notificationHistoryVisible" >
+        <mat-card *ngFor="let notification of notificationHistory">
+            {{ notification.followerName }} followed you! Date: {{ notification.timestamp }}
+        </mat-card>
+      </div>
   </div>
  <mat-card-footer>
-    <button mat-icon-button>
+    <button mat-icon-button (click)="toggleNotificationsModal()">
         <mat-icon aria-label="Collapse notifications panel">expand_less</mat-icon>
     </button>
  </mat-card-footer>

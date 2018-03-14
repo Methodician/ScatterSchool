@@ -12,8 +12,9 @@ export class NotificationsComponent implements OnInit {
   // @Input() uid;
   notifications: {}[];
   notificationHistory: {}[];
+  // ininitializes notification history as not visible
+  notificationHistoryVisible:boolean = false;
   notificationsModalVisible:boolean = false;
-  recentModalVisible:boolean = false;
   mostRecentNotifId:string = '';
   //uid: string;
 
@@ -34,7 +35,7 @@ export class NotificationsComponent implements OnInit {
           });
 
         this.notificationSvc
-          .getAllUserNotifications(userInfo.uid)
+          .getNotificationHistory(userInfo.uid)
           .valueChanges()
           .subscribe(notifications => {
             this.notificationHistory = notifications;
@@ -44,6 +45,7 @@ export class NotificationsComponent implements OnInit {
   }
 
   toggleNotificationsModal(){
+    this.notificationHistoryVisible = false;
     if(this.notificationsModalVisible) {
       this.notificationsModalVisible = false;
     // } else if(this.notifications.length > 0){
@@ -68,22 +70,6 @@ export class NotificationsComponent implements OnInit {
       this.notificationSvc.setAllNotificationsViewed(this.notificationSvc.userInfo.uid, notifArray);
   }
 
-  // showMostRecentNotification(notifications:{}[]) {
-  //   if (notifications.length > 0 && this.mostRecentNotifId != notifications[0]['id']){
-  //     this.recentModalVisible = true;
-  //     this.mostRecentNotifId = notifications[0]['id'];
-  //     setTimeout(()=> {
-  //       this.recentModalVisible = false;
-  //     }, 3000)
-  //   }  
-  // }
-
-  // marknotificationsRead() {
-  //   const ids = this.notifications.map(notification => {
-  //     return notification.Id;
-  //   })
-
-  // }
 }
 
 
