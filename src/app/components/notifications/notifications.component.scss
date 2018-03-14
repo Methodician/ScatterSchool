@@ -18,20 +18,29 @@
     top: 70px;
     right: 200px;
     width: 400px;
-    max-height: 500px;
-    overflow-y: scroll;
+    max-height: 550px;
     // background-color: grey;
     // border: 5px solid yellowgreen;
     // border-radius: 5px;
     z-index: 1;
     mat-card{
         // border: 1px solid red;
+        display: flex;
         margin: 5px 2px;
+
     }
-    mat-card-title {
-        font-size: 16px;
+    mat-card-footer {
+        display: flex;
+        justify-content: center;
+        min-height: 40px;
     }
-    
+    .button-wrapper {
+        display: flex;
+        justify-content: space-between;
+        button {
+            margin: 0 25px;
+        }
+    }
     // p {
     //     background-color: lightgray;
     //     margin: 2px;
@@ -64,4 +73,12 @@
 .icon {
     width: 100%;
     height: 100%;
+}
+
+.notification-wrapper {
+    max-height: 500px;
+    overflow-y: scroll;
+    mat-card-title {
+        font-size: 16px;
+    }
 }
