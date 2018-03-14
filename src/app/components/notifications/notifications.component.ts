@@ -2,6 +2,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { UserInfoOpen } from 'app/shared/class/user-info';
 import { UserService } from '../../shared/services/user/user.service';
 import { NotificationService } from '../../shared/services/notification/notification.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-notifications',
@@ -20,7 +21,8 @@ export class NotificationsComponent implements OnInit {
 
   constructor(
     private notificationSvc: NotificationService,
-    private userSvc: UserService
+    private userSvc: UserService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -71,7 +73,8 @@ export class NotificationsComponent implements OnInit {
   }
 
   navigateToProfile(followerId:string):void {
-    
+    console.log("this is the follower:", followerId);
+    this.router.navigate([`profile/${followerId}`]);
   }
 
 }
