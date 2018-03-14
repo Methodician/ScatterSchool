@@ -319,69 +319,8 @@ export class ArticleService {
     this
       .getArticle(articleKey)
       .update({ isFeatured: true });
-    // kb: added this
-    this.createFeatureNotification(authorKey);
+    this.notifSvc.createFeatureNotification(authorKey);
   }
-
-  // kb: added this
-  createFeatureNotification(authorId: string):void{
-    const id = this.afs.createId();
-    const notification = {
-      id: id,
-      userId: authorId,
-      followerId: null,
-      followerName: null,
-      notificationType: "articleFeature",
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      timeViewed: null
-    }  
-    this.afs.doc(`userData/${authorId}/notifications/${id}`).set(notification);
-  }
-
-  createEditNotification(authorId: string):void{
-    const id = this.afs.createId();
-    const notification = {
-      id: id,
-      userId: authorId,
-      followerId: null,
-      followerName: null,
-      notificationType: "articleEdit",
-      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      timeViewed: null
-    }  
-    this.afs.doc(`userData/${authorId}/notifications/${id}`).set(notification);
-  }
-
-  // createNewArticleNotification(authorId: string):void{
-  //   // returns list of followers
-  //   var userFollowers = [];
-  //   this.rtdb.list(`userInfo/followersPerUser/${authorId}`)
-  //     .snapshotChanges()
-  //     .subscribe(followers => {
-  //       followers.map(follower =>{
-  //         userFollowers.push(follower.key);
-  //         // console.log(follower.payload.key, follower.payload.val());
-  //       })
-  //     });
-  //   userFollowers.forEach(follower => {
-  //     console.log("this user got notified", follower);
-  //     this.notifyFollower(follower);
-  //   })   
-  // }
-  // // really confusing.
-  // notifyFollower(followerId: string):void{
-  //   const id = this.afs.createId();
-  //   const notification = {
-  //     id: id,
-  //     userId: followerId,
-  //     followerId: null,
-  //     followerName: null,
-  //     notificationType: "followedAuthorNewArticle",
-  //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //     timeViewed: null
-  //   }  
-  //   this.afs.doc(`userData/${followerId}/notifications/${id}`).set(notification);
-  // }
 
   unFeatureArticle(articleKey: string) {
     this

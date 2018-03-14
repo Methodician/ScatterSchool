@@ -93,7 +93,7 @@ export class NotificationService {
   createNewArticleNotification(authorId: string, articleId: string):void {
     console.log('creating new article notification');
     // returns list of followers
-    var userFollowers = [];
+    // var userFollowers = [];
     this.rtdb.list(`userInfo/followersPerUser/${authorId}`)
       .snapshotChanges()
       .subscribe(followers => {
