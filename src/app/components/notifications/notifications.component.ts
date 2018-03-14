@@ -26,8 +26,8 @@ export class NotificationsComponent implements OnInit {
     this.userSvc.userInfo$.subscribe(userInfo => {
       if (userInfo.exists()) {
         this.notificationSvc
-          // .getNewUserNotifications(userInfo.uid)
-          .getNotificationHistory(userInfo.uid)
+          .getNewUserNotifications(userInfo.uid)
+          // .getNotificationHistory(userInfo.uid)
           .valueChanges()
           .subscribe(notifications => {
             this.notifications = notifications;
@@ -46,7 +46,8 @@ export class NotificationsComponent implements OnInit {
   toggleNotificationsModal(){
     if(this.notificationsModalVisible) {
       this.notificationsModalVisible = false;
-    } else if(this.notifications.length > 0){
+    // } else if(this.notifications.length > 0){
+    } else {
       this.notificationsModalVisible = true;
     }
   }

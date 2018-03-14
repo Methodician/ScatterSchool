@@ -1,17 +1,75 @@
-<div>
-  <!-- <button mat-raised-button (click)="notificationsModalVisible ? notificationsModalVisible = false : notificationsModalVisible = true"> -->
-  <button mat-raised-button (click)="toggleNotificationsModal()">
-    <mat-icon>notifications</mat-icon> <span *ngIf="notifications?.length > 0">{{ notifications.length }}</span>
-  </button>
-</div>
+
+<!-- Notifications button in top-nav -->
+<button mat-raised-button (click)="toggleNotificationsModal()" class="notification-btn" [ngClass]="notifications?.length > 0 ? 'new-notifications' : ''">
+  <mat-icon *ngIf="notifications?.length == 0">notifications</mat-icon> 
+  <span *ngIf="notifications?.length > 0 && notifications?.length < 9">
+    {{ notifications.length }}
+  </span>
+  <span *ngIf="notifications?.length > 9">
+    9+
+  </span>
+</button>
+
+<!-- Notifiations modal -->
 <div class="modal" *ngIf="notificationsModalVisible">
-  <p *ngIf="notifications?.length > 0">
+  <mat-card>
+    <mat-tab-group>
+      <mat-tab>
+        <!-- <ng-template mat-tab-label>
+          <div class="icon" (click)="toggleNotificationsModal()">
+            <mat-icon>arrow_drop_up</mat-icon>
+          </div>
+        </ng-template> -->
+        <mat-card *ngFor="let notification of notifications">
+          <button align="end" mat-button (click)="markNotificationRead(notification.id)">
+              x
+          </button>
+          {{ notification.followerName }} followed you! Date: {{ notification.timestamp }}
+        </mat-card>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>history</mat-icon>
+        </ng-template>
+        <mat-card *ngFor="let notification of notificationHistory">
+          <mat-card-title>
+            {{ notification.followerName }} followed you!
+          </mat-card-title>
+            {{ notification.timestamp }}
+        </mat-card>
+      </mat-tab>
+      <mat-tab>
+        <ng-template mat-tab-label>
+          <mat-icon>clear_all</mat-icon>
+        </ng-template>
+        <p *ngIf="notifications.length === 0">
+          All notifications marked read.
+        </p>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+  
+  <!-- <div class="modal-nav">
+    <button>
+      <mat-icon (click)="toggleNotificationsModal()">arrow_drop_up</mat-icon>
+    </button>
+    <button>
+      <mat-icon (click)="">history</mat-icon>
+    </button>
+    <button>
+      <mat-icon>clear</mat-icon>
+    </button>
+  </div> -->
+  <!-- <p *ngIf="notifications?.length > 0">
     You have {{ notifications.length }} notification(s).
+  </p>
+  <p *ngIf="notifications.length === 0">
+    You have no new notifications.
   </p>
   <div *ngFor="let notification of notifications">
     <p (click)="markNotificationRead(notification.id)">X</p>
     {{ notification.followerName }} followed you! Date: {{ notification.timestamp }}
-  </div>
+  </div> -->
 </div>
 <div class="recent-modal" *ngIf="recentModalVisible && notifications?.length > 0">
   <p>
