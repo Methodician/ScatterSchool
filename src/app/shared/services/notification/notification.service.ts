@@ -34,7 +34,7 @@ export class NotificationService {
   }
 
   getNewUserNotifications(userId: string) {
-    return this.db.collection(`userData/${userId}/notifications`, ref => ref.where('timeViewed', '==', null));      
+    return this.db.collection(`userData/${userId}/notifications`, ref => ref.where('timeViewed', '==', null).orderBy('timestamp', 'desc'));      
   }
 
   getNotificationHistory(userId: string) {

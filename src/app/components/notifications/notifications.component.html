@@ -10,7 +10,8 @@
 </button>
 
 <!-- Notifiations modal -->
-<mat-card class="modal" *ngIf="notificationsModalVisible">
+<mat-card [@notificationState]="notificationState" class="modal">
+        <!-- <mat-card [@notificationState]="notificationState" class="modal" *ngIf="notificationsModalVisible"> -->
   <!-- Button menu -->
   <div class="button-wrapper">
     <button mat-icon-button (click)="notificationHistoryVisible = true">
@@ -48,7 +49,7 @@
                     Your <span class="notification-link" (click)="navigateToArticleHistory(notification.articleId)">article</span> recently edited.
                 </div>
                 <p>
-                    {{ notification.timestamp }}
+                    {{ formatDate(notification.timestamp) }}
                 </p>
             </div>
             <button mat-icon-button (click)="markNotificationRead(notification.id)">
@@ -75,7 +76,7 @@
                     Your <span class="notification-link" (click)="navigateToArticleHistory(notification.articleId)">article</span> recently edited.
                 </div>
                 <p>
-                    {{ notification.timestamp }}
+                    {{ formatDate(notification.timestamp) }}
                 </p>
             </div>
         </mat-card>
