@@ -66,8 +66,6 @@ export class NotificationService {
     const notification = {
       id: id,
       userId: authorId,
-      followerId: null,
-      followerName: null,
       notificationType: "articleFeature",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       timeViewed: null
@@ -80,8 +78,6 @@ export class NotificationService {
     const notification = {
       id: id,
       userId: authorId,
-      followerId: null,
-      followerName: null,
       articleId: articleId,
       notificationType: "articleEdit",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
@@ -111,10 +107,8 @@ export class NotificationService {
     const notification = {
       id: id,
       userId: followerId,
-      followerId: null,
       authorId: authorId,
       articleId: articleId,
-      followerName: null,
       notificationType: "followerNewArticle",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       timeViewed: null

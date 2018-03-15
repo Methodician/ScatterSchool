@@ -10,7 +10,7 @@
     <!-- Nav Nar content spacer -->
     <span class="flexBoxSpacer"></span>
     <!-- Nav Bar Search Button -->
-    <button mat-raised-button (click)="searchBarFocus(searchInput)" class="searchButton">
+    <button mat-icon-button (click)="searchBarFocus(searchInput)" class="searchButton">
       <mat-icon>search</mat-icon>
     </button>
     <!-- Nav Bar Search Bar -->
@@ -23,7 +23,7 @@
     <!-- <app-notifications [uid]="uid"></app-notifications> -->
     <!-- Button Container -->
     <div class="navButtonWrapper">
-      <button mat-raised-button color="primary" id="post-article" routerLink="postarticle" class="navButtons">Post an article</button>
+      <button mat-raised-button color="primary" id="post-article" routerLink="postarticle" class="navButtons"><mat-icon>edit</mat-icon> Post</button>
       <app-notifications *ngIf="userInfo"></app-notifications>
       <button mat-raised-button color="accent" *ngIf="authInfo.$uid" class="navButtons" [matMenuTriggerFor]="optionMenu"> Hello {{ displayName }}</button>
       <button mat-raised-button color="primary" *ngIf="!authInfo.$uid" routerLink="login" id="sign-in" class="navButtons">Sign In</button>
