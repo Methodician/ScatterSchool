@@ -1,5 +1,6 @@
 <!-- Notifications button in top-nav -->
-<button mat-raised-button (click)="toggleNotificationsModal()" class="notification-btn" [ngClass]="notifications?.length > 0 ? 'new-notifications' : ''">
+<button mat-icon-button *ngIf="notifications" (click)="toggleNotificationsModal()" class="notification-btn" [ngClass]="notifications?.length > 0 ? 'new-notifications' : ''">
+<!-- <button mat-raised-button (click)="toggleNotificationsModal()" class="notification-btn" [ngClass]="notifications?.length > 0 ? 'new-notifications' : ''"> -->
   <mat-icon *ngIf="notifications?.length == 0">notifications</mat-icon> 
   <span *ngIf="notifications?.length > 0 && notifications?.length < 9">
     {{ notifications.length }}
