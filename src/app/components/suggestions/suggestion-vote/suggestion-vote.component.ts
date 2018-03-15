@@ -32,7 +32,8 @@ export class SuggestionVoteComponent implements OnInit, OnChanges {
     if (changes.suggestion) { this.voteTotal = changes.suggestion.currentValue.voteCount };
   }
 
-  //  ToDo: This should let a user know they're not logged in and give them an option to redirect. Maybe should just use the isLoggedIn method to keep things standardized.
+  // TODO: This should let a user know they're not logged in and give them an option to redirect.
+  // Maybe should just use the isLoggedIn method to keep things standardized.
   attemptVote(voteNum) {
     if (this.currentUserKey) {
       this.vote(voteNum)
@@ -42,8 +43,8 @@ export class SuggestionVoteComponent implements OnInit, OnChanges {
   // sets the current state of a user's vote
   vote(voteNum: number) {
     // resets the component's vote state to 0 if the current vote state is equal to the vote that was just clicked
+    this.voteTotal += this.getTotalVoteChange(voteNum);
     this.voteState = (this.voteState === voteNum) ? 0 : voteNum;
-    this.voteTotal += this.getTotalVoteChange(voteNum)
     const vote = new Vote(this.currentUserKey, this.suggestion.id, this.voteState, this.voteTotal);
     this.voteSvc.saveVote(vote);
   }
