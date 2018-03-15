@@ -32,6 +32,7 @@ export class SuggestionVoteComponent implements OnInit, OnChanges {
     if (changes.suggestion) { this.voteTotal = changes.suggestion.currentValue.voteCount };
   }
 
+  //  ToDo: This should let a user know they're not logged in and give them an option to redirect. Maybe should just use the isLoggedIn method to keep things standardized.
   attemptVote(voteNum) {
     if (this.currentUserKey) {
       this.vote(voteNum)
