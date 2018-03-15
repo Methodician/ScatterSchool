@@ -36,13 +36,13 @@
         <mat-card *ngFor="let notification of notifications">
             <div>
                 <div *ngIf="notification.notificationType == 'newFollower'">
-                    <span class="notification-link" (click)="navigateToProfile(notification.followerId)">{{ usernames[notification.followerId] }}</span> followed you!
+                    <span class="notification-link" (click)="navigateToProfile(notification.followerId)">{{ usernames[notification.followerId].name }}</span> followed you!
                 </div>
                 <div *ngIf="notification.notificationType == 'articleFeature'">
                     <span class="notification-link" routerLink="/home">Your article was featured on the homepage!</span>
                 </div>   
                 <div *ngIf="notification.notificationType == 'followerNewArticle'">
-                    {{ usernames[notification.authorId] }} wrote a <span class="notification-link" (click)="navigateToArticleDetail(notification.articleId)">new article!</span>
+                    <span class="notification-link" (click)="navigateToProfile(notification.authorId)">{{ usernames[notification.authorId].name }}</span> wrote a <span class="notification-link" (click)="navigateToArticleDetail(notification.articleId)">new article!</span>
                 </div>                   
                 <div *ngIf="notification.notificationType == 'articleEdit'">
                     Your <span class="notification-link" (click)="navigateToArticleHistory(notification.articleId)">article</span> recently edited.
@@ -52,7 +52,7 @@
                 </p>
             </div>
             <button mat-icon-button (click)="markNotificationRead(notification.id)">
-                <mat-icon aria-label="Mark Notification Read">clear</mat-icon>
+                <mat-icon aria-label="Mark Notification Read" matTooltip="Mark Read">clear</mat-icon>
             </button>
             <!-- <button align="end" mat-button (click)="markNotificationRead(notification.id)">
                 <mat-icon>clear</mat-icon>
@@ -63,13 +63,13 @@
         <mat-card *ngFor="let notification of notificationHistory">
             <div>
                 <div *ngIf="notification.notificationType == 'newFollower'">
-                    <span class="notification-link" (click)="navigateToProfile(notification.followerId)">{{ notification.followerName }}</span> followed you!
+                    <span class="notification-link" (click)="navigateToProfile(notification.followerId)">{{ usernames[notification.followerId].name }}</span> followed you!
                 </div>
                 <div *ngIf="notification.notificationType == 'articleFeature'">
                     <span class="notification-link" routerLink="/home">Your article was featured on the homepage!</span>
                 </div>   
                 <div *ngIf="notification.notificationType == 'followerNewArticle'">
-                    Someone you follow wrote a <span class="notification-link" (click)="navigateToArticleDetail(notification.articleId)">new article!</span>
+                    <span class="notification-link" (click)="navigateToProfile(notification.authorId)">{{ usernames[notification.authorId].name }}</span> wrote a <span class="notification-link" (click)="navigateToArticleDetail(notification.articleId)">new article!</span>
                 </div>                   
                 <div *ngIf="notification.notificationType == 'articleEdit'">
                     Your <span class="notification-link" (click)="navigateToArticleHistory(notification.articleId)">article</span> recently edited.
