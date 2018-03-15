@@ -18,6 +18,7 @@ export class NotificationsComponent implements OnInit {
   notificationsModalVisible:boolean = false;
   mostRecentNotifId:string = '';
   //uid: string;
+  usernames: {};
 
   constructor(
     private notificationSvc: NotificationService,
@@ -28,20 +29,27 @@ export class NotificationsComponent implements OnInit {
   ngOnInit() {
     this.userSvc.userInfo$.subscribe(userInfo => {
       if (userInfo.exists()) {
-        this.notificationSvc
-          .getNewUserNotifications(userInfo.uid)
-          // .getNotificationHistory(userInfo.uid)
+        this.userSvc
+          .getUserNames()
           .valueChanges()
-          .subscribe(notifications => {
-            this.notifications = notifications;
-          });
+          .subscribe(usernames => {
+            console.log('usernames:', usernames);
+            this.usernames = usernames;
+            this.notificationSvc
+              .getNewUserNotifications(userInfo.uid)
+              // .getNotificationHistory(userInfo.uid)
+              .valueChanges()
+              .subscribe(notifications => {
+                this.notifications = notifications;
+              });
 
-        this.notificationSvc
-          .getNotificationHistory(userInfo.uid)
-          .valueChanges()
-          .subscribe(notifications => {
-            this.notificationHistory = notifications;
-          });
+            this.notificationSvc
+              .getNotificationHistory(userInfo.uid)
+              .valueChanges()
+              .subscribe(notifications => {
+                this.notificationHistory = notifications;
+              });    
+              })
       }
     });
   }

@@ -26,7 +26,6 @@ export class NotificationService {
       id: id,
       userId: userId,
       followerId: followerId,
-      followerName: this.userInfo.displayName(),
       notificationType: "newFollower",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       timeViewed: null
@@ -39,8 +38,8 @@ export class NotificationService {
   }
 
   getNotificationHistory(userId: string) {
-    const time = new Date(0)
-    return this.db.collection(`userData/${userId}/notifications`, ref => ref.where('timeViewed', '>', time).orderBy('timeViewed'));
+    const time = new Date(0);
+    return this.db.collection(`userData/${userId}/notifications`, ref => ref.where('timeViewed', '>', time));
   }
 
   getAllUserNotifications(userId: string): AngularFirestoreCollection<{}> {
@@ -92,16 +91,11 @@ export class NotificationService {
   }
 
   createNewArticleNotification(authorId: string, articleId: string):void {
-    console.log('creating new article notification');
-    // returns list of followers
-    // var userFollowers = [];
     this.rtdb.list(`userInfo/followersPerUser/${authorId}`)
       .snapshotChanges()
       .subscribe(followers => {
-        // console.log("followers: ", followers);
-        // debugger;
         followers.map(follower => {
-          this.notifyFollower(follower.key, articleId);
+          this.notifyFollower(follower.key, articleId, authorId);
           // userFollowers.push(follower.key);
           // console.log(follower.payload.key, follower.payload.val());
         })
@@ -112,12 +106,13 @@ export class NotificationService {
     // })   
   }
   // really confusing.
-  notifyFollower(followerId: string, articleId: string):void {
+  notifyFollower(followerId: string, articleId: string, authorId: string):void {
     const id = this.db.createId();
     const notification = {
       id: id,
       userId: followerId,
       followerId: null,
+      authorId: authorId,
       articleId: articleId,
       followerName: null,
       notificationType: "followerNewArticle",
