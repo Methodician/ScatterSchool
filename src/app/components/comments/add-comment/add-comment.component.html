@@ -4,6 +4,7 @@
 <div *ngIf="isFormShowing" class="comment-form-wrapper">
   <app-comment-form #form></app-comment-form>
   <span id="counter">{{form.text.value.length}}</span>
-  <button mat-raised-button color="warn" class="postCommentBtn" [disabled]="!form.valid" (click)="postComment(form.value)">Comment</button>
+  <button mat-raised-button color="warn" [disabled]="!form.valid" (click)="postComment(form.value)">Comment</button>
+  <button mat-raised-button (click)="cancelComment()" id="cancel-comment">Cancel</button>
 </div>
 <hr>
