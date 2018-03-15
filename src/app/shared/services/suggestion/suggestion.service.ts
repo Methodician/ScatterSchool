@@ -16,30 +16,6 @@ export class SuggestionService {
     private db: AngularFirestore
   ) { }
 
-  injectListKeys(list: AngularFireList<{}>) {
-    return list
-      .snapshotChanges()
-      .map(elements => {
-        return elements.map(element => {
-          return {
-            $key: element.key,
-            ...element.payload.val()
-          };
-        });
-      });
-  }
-
-  injectObjectKey(object: AngularFireObject<{}>) {
-    return object
-      .snapshotChanges()
-      .map(element => {
-        return {
-          $key: element.key,
-          ...element.payload.val()
-        };
-      });
-  }
-
   getAllSuggestions(): AngularFirestoreCollection<Suggestion> {
     return this.db.collection(`suggestions`);
   };
@@ -54,13 +30,17 @@ export class SuggestionService {
     suggestion.lastUpdated = firebase.firestore.FieldValue.serverTimestamp();
     suggestion.voteCount = 0;
 
-    this.db.doc(`suggestions/${suggestion.id}`).set(suggestion);
+    this.db
+      .doc(`suggestions/${suggestion.id}`)
+      .set(suggestion);
     this.router.navigate(['suggestions']);
   }
 
   updateSuggestion(suggestionId: string, paramsToUpdate) {
     paramsToUpdate.lastUpdated = firebase.database.ServerValue.TIMESTAMP;
-    this.db.doc(`suggestions/${suggestionId}`).update(paramsToUpdate);
+    this.db
+      .doc(`suggestions/${suggestionId}`)
+      .update(paramsToUpdate);
     this.router.navigate(['suggestions']);
   }
 }

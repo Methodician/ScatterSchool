@@ -6,7 +6,7 @@ export class Vote {
     public voteTotal: number
   ) {}
 
-  getDbVoteStatus() {
+  get dbStatus () {
     return (this.voteStatus === 0) ? null : this.voteStatus;
   }
 }
