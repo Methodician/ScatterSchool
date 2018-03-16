@@ -14,6 +14,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class TopNavComponent implements OnInit {
   // @ViewChild('searchInput') searchInput;
   isCollapsed = true;
+  userInfo: UserInfoOpen;
   authInfo: AuthInfo = new AuthInfo(null, false);
   displayName = '';
   scrollEvent: any;
@@ -21,6 +22,8 @@ export class TopNavComponent implements OnInit {
   lastScrollDirection = 'up';
   // searchInput: string;
   searchBarState: searchBarFocus = searchBarFocus.inactive;
+  // kb
+  // uid: string = '';
 
   constructor(
     private authSvc: AuthService,
@@ -45,8 +48,12 @@ export class TopNavComponent implements OnInit {
       this.authInfo = authInfo;
     });
     this.userSvc.userInfo$.subscribe((userInfo: UserInfoOpen) => {
-      if (userInfo && userInfo.$key) {
+      if (userInfo.exists()) {
+        this.userInfo = userInfo;
         this.displayName = userInfo.alias || userInfo.fName;
+        // kb
+        // console.log("in top nav, userinfo uid", userInfo.uid);
+        // this.uid = userInfo.uid;
       }
     });
   }
