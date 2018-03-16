@@ -200,7 +200,6 @@ export class ArticleService {
               try {
                 await batch.commit();
                 resolve(true);
-                console.log("whooooo", articleOriginalAuthor);
                 this.notifSvc.createEditNotification(articleOriginalAuthor, articleId);
               } catch (err) {
                 if (err.code === 'permission-denied') {
