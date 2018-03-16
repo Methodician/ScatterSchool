@@ -17,8 +17,7 @@ export class UserService {
   constructor(
     private authSvc: AuthService,
     private rtdb: AngularFireDatabase,
-    private router: Router,
-    private db: AngularFirestore
+    private router: Router
   ) {
     this.authSvc.authInfo$.subscribe(authInfo => {
       this
