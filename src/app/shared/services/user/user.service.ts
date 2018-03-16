@@ -1,13 +1,11 @@
 import { AuthInfo } from '../../class/auth-info';
 import { UserInfoOpen } from '../../class/user-info';
-import { Notification } from '../../class/notification';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 
 @Injectable()
 export class UserService {
@@ -99,37 +97,6 @@ export class UserService {
       .object(`userInfo/followersPerUser/${userToFollowKey}/${this.loggedInUserKey}`)
       .set(firebase.database.ServerValue.TIMESTAMP);
   }
-
-  // createFollowNotification(followerId: string, userId: string): void {
-  //   const id = this.db.createId();
-  //   const notification = {
-  //     id: id,
-  //     userId: userId,
-  //     followerId: followerId,
-  //     followerName: this.userInfo$.value.displayName(),
-  //     notificationType: "newFollower",
-  //     timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-  //     timeViewed: null
-  //   }  
-  //   this.db.doc(`userData/${userId}/notifications/${id}`).set(notification);
-  // }
-
-  // getNewUserNotifications(userId: string): AngularFirestoreCollection<{}> {
-  //   return this.db.collection(`userData/${userId}/notifications`, ref => ref.where('timeViewed', '==', null));
-  // }
-
-  // getAllUserNotifications(userId: string): AngularFirestoreCollection<{}> {
-  //   return this.db.collection(`userData/${userId}/notifications`);
-  // }
-
-
-  // setAllNotificationsViewed(userId: string, notificationIds: string[]) {
-  //   const batch = this.db.firestore.batch();
-  //   for (const id of notificationIds) {
-  //     batch.update(this.db.doc(`userData/${userId}/notifications/${id}`).ref, {timeViewed: firebase.firestore.FieldValue.serverTimestamp()})
-  //   }
-  //   batch.commit();
-  // }
 
   unfollowUser(userToUnfollowKey: string) {
     this.rtdb
