@@ -16,8 +16,11 @@
       <span [class.selected]="isSelected('oldest')" (click)="sortBy('oldest')">Oldest</span>
     </div>
     <div class="suggestionLoop">
-      <app-suggestion-preview *ngFor="let suggestion of suggestions | suggestionSort: currentSortOption" [suggestion]="suggestion"
-        [currentUserKey]="currentUserKey"></app-suggestion-preview>
+      <app-suggestion-preview
+        *ngFor="let suggestion of suggestions | suggestionSort: currentSortOption"
+        [suggestion]="suggestion"
+        [currentUserKey]="currentUserKey"
+      ></app-suggestion-preview>
     </div>
   </div>
 </div>

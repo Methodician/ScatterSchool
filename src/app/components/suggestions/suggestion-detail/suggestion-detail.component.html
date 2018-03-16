@@ -3,6 +3,6 @@
     <p>{{suggestion?.pitch}}</p>
     <div class="btnWrapper">
         <button mat-raised-button color="primary" [routerLink]="['/postarticle']">Post an article</button>
-        <button mat-raised-button color="warn" [routerLink]="['/editsuggestion', suggestion?.$key]">Edit</button>
+        <button mat-raised-button color="warn" [routerLink]="['/editsuggestion', suggestion?.id]">Edit</button>
     </div>
 </div>

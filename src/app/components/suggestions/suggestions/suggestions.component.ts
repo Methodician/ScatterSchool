@@ -26,6 +26,7 @@ export class SuggestionsComponent implements OnInit {
 
     this.suggestionService
       .getAllSuggestions()
+      .valueChanges()
       .subscribe(suggestions => {
         this.suggestions = suggestions;
       });
