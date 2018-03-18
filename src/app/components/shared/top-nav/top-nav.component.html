@@ -1,5 +1,5 @@
 <!-- Nav Bar container -->
-<div class="navBarWrapper" [ngClass]="lastScrolledUp() ? 'scrolledUp' : 'scrolledDown'">
+<div class="navBarWrapper" [ngClass]="atPageTop() ? 'scrolledUp' : 'scrolledDown'">
   <mat-toolbar>
     <!-- Logo and Title container -->
     <div class="logoWrapper">
