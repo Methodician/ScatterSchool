@@ -11,14 +11,16 @@ import 'rxjs/add/operator/switchMap';
 })
 export class ArticleHistoryComponent implements OnInit {
   articleKey: string;
-  articleHistory;
+  articleHistory = [];
+  noHistory = false;
   articleCount;
   curentArticleIndex = 0;
   intervalTimer;
 
   constructor(
     private articleSvc: ArticleService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -30,12 +32,24 @@ export class ArticleHistoryComponent implements OnInit {
           .articleHistory(this.articleKey)
           .valueChanges()
           .subscribe(history => {
-            this.articleHistory = history;
-            this.articleCount = history.length;
-            this.curentArticleIndex = history.length - 1;
+            if (history.length > 0) {
+              this.articleHistory = history;
+              this.articleCount = history.length;
+              this.curentArticleIndex = history.length - 1;
+            } else {
+              this.noHistory = true;
+            }
           });
       }
     })
+  }
+
+  get isLoading() {
+    return this.articleHistory.length === 0 && !this.noHistory;
+  }
+
+  get hasHistory() {
+    return this.articleHistory.length > 0;
   }
 
   selectFirst() {
@@ -72,11 +86,15 @@ export class ArticleHistoryComponent implements OnInit {
     }
   }
 
-
-
   selectedArticle() {
     if (this.articleHistory) {
       return this.articleHistory[this.curentArticleIndex];
     }
+  }
+
+
+
+  navigateToArticle() {
+    this.router.navigate([`articledetail/${this.articleKey}`]);
   }
 }
