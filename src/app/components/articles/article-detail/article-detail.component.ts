@@ -127,7 +127,6 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
     this.articleSvc
       .getArticle(this.articleKey)
       .valueChanges()
-      // TODO: resolve potential issue with this subscription returning a null value
       .subscribe(async (articleData: ArticleDetailFirestore) => {
         if (!this.viewIncremented && !this.editingPreview) {
           try {
