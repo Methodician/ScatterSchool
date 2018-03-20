@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { CommentService } from 'app/shared/services/comment/comment.service';
 import { UserService } from 'app/shared/services/user/user.service';
 import { AuthService } from 'app/shared/services/auth/auth.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-add-comment',
@@ -11,6 +11,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class AddCommentComponent implements OnInit {
   @Input() parentKey;
+  @ViewChild('form') commentForm;
   isFormShowing = false;
 
   currentUserInfo;
@@ -47,6 +48,11 @@ export class AddCommentComponent implements OnInit {
 
     this.commentSvc.saveComment(comment);
     this.toggleCommentForm()
+  }
+
+  cancelComment() {
+    this.isFormShowing = false;
+    this.commentForm.form.reset();
   }
 
   toggleCommentForm() {

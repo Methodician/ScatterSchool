@@ -104,6 +104,10 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
     this.router.navigate([`editarticle/${this.articleKey}`]);
   }
 
+  get hasHistory() {
+    return this.articleData && this.articleData.version > 1
+  }
+
   navigateToHistory() {
     this.router.navigate([`articlehistory/${this.articleKey}`]);
   }
@@ -129,7 +133,6 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
     this.articleSvc
       .getArticle(this.articleKey)
       .valueChanges()
-      // TODO: resolve potential issue with this subscription returning a null value
       .subscribe(async (articleData: ArticleDetailFirestore) => {
         if (!this.viewIncremented && !this.editingPreview) {
           try {
@@ -155,6 +158,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
 
         }
         if (articleData) {
+          this.articleData = articleData;
           this.getArticleBody(articleData);
           this.getAuthor(articleData.authorId);
           this.getProfileImage(articleData.authorId);

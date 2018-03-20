@@ -17,9 +17,10 @@ export class TopNavComponent implements OnInit {
   userInfo: UserInfoOpen;
   authInfo: AuthInfo = new AuthInfo(null, false);
   displayName = '';
-  scrollEvent: any;
-  lastScrollY: number;
-  lastScrollDirection = 'up';
+  // scrollEvent: any;
+  scrollTop = 0;
+  // lastScrollY: number;
+  // lastScrollDirection = 'up';
   // searchInput: string;
   searchBarState: searchBarFocus = searchBarFocus.inactive;
   // kb
@@ -31,15 +32,16 @@ export class TopNavComponent implements OnInit {
     private router: Router
   ) {
     window.onscroll = (event) => {
-      this.scrollEvent = event;
-      const currentScrollY = this.scrollEvent.path[1].scrollY;
+      this.scrollTop = (event.target as any).scrollingElement.scrollTop;
+    //   this.scrollEvent = event;
+    //   const currentScrollY = this.scrollEvent.path[1].scrollY;
 
-      if (currentScrollY > this.lastScrollY) {
-        this.lastScrollDirection = 'down';
-      } else if (currentScrollY < this.lastScrollY) {
-        this.lastScrollDirection = 'up';
-      }
-      this.lastScrollY = currentScrollY;
+    //   if (currentScrollY > this.lastScrollY) {
+    //     this.lastScrollDirection = 'down';
+    //   } else if (currentScrollY < this.lastScrollY) {
+    //     this.lastScrollDirection = 'up';
+    //   }
+    //   this.lastScrollY = currentScrollY;
     }
   }
 
@@ -58,6 +60,10 @@ export class TopNavComponent implements OnInit {
     });
   }
 
+  atPageTop() {
+    return !this.scrollTop;
+  }
+
   search(input: any) {
     this.router.navigate([`articlesearch/${input.value}`]);
     input.value = '';
@@ -68,9 +74,9 @@ export class TopNavComponent implements OnInit {
     this.authSvc.logout();
   }
 
-  lastScrolledUp() {
-    return this.lastScrollDirection === 'up' ? true : false;
-  }
+  // lastScrolledUp() {
+  //   return this.lastScrollDirection === 'up' ? true : false;
+  // }
 
   searchBarFocus(input?: any) {
     if (input.value.length === 0) {
