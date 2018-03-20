@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import { UserInfoOpen } from 'app/shared/class/user-info';
 import { error } from 'util';
+import { NotificationService } from '../notification/notification.service';
 
 @Injectable()
 export class ArticleService {
@@ -15,7 +16,8 @@ export class ArticleService {
   constructor(
     private rtdb: AngularFireDatabase,
     private afs: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private notifSvc: NotificationService
   ) {
     this.primeTags();
   }
@@ -132,7 +134,7 @@ export class ArticleService {
     for (const tag of article.tags) {
       this.addGlobalTag(tag);
     }
-
+    this.notifSvc.createNewArticleNotification(authorId, articleId);
     try {
       await batch.commit();
       return articleId;
@@ -151,9 +153,12 @@ export class ArticleService {
       const batch = this.afs.firestore.batch();
       //  Wondering if we should stop using this and just get the lastest from history...
       const articleDoc = this.getArticle(articleId);
+      // kb
+      let articleOriginalAuthor:string = '';
 
       articleDoc.valueChanges().first()
         .subscribe((oldArticle: ArticleDetailFirestore) => {
+          articleOriginalAuthor = oldArticle.authorId;
           const newBodyId = this.afs.createId();
           const archiveArticleObject = this.updateObjectFromArticle(oldArticle, articleId, oldArticle.lastEditorId);
           const updatedArticleObject: any = this.updateObjectFromArticle(article, articleId, editorId);
@@ -195,6 +200,7 @@ export class ArticleService {
               try {
                 await batch.commit();
                 resolve(true);
+                this.notifSvc.createEditNotification(articleOriginalAuthor, articleId);
               } catch (err) {
                 if (err.code === 'permission-denied') {
                   alert(`
@@ -308,10 +314,11 @@ export class ArticleService {
     }
   }
 
-  featureArticle(articleKey: string) {
+  featureArticle(articleKey: string, authorKey: string) {
     this
       .getArticle(articleKey)
       .update({ isFeatured: true });
+    this.notifSvc.createFeatureNotification(authorKey);
   }
 
   unFeatureArticle(articleKey: string) {

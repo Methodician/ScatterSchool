@@ -38,7 +38,7 @@ export class PostArticleComponent implements OnInit {
   }
 
   async save(article) {
-    const articleId = await this.articleSvc.createArticle(this.userInfo, this.authInfo.$uid, article);
+    const articleId = await this.articleSvc.createArticle(this.userInfo, this.authInfo.$uid, article);    
     if (this.selectedFiles) {
       this.sendImgToUploadSvc(articleId);
     }

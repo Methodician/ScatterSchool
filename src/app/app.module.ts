@@ -93,6 +93,8 @@ import { ArticleHistoryDetailComponent } from 'app/components/articles/article-h
 import { UserInteractionComponent } from 'app/components/user-interaction/user-interaction/user-interaction.component';
 import { ChatListComponent } from 'app/components/user-interaction/chat-list/chat-list.component';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { NotificationsComponent } from './components/notifications/notifications.component';
+import { NotificationService } from './shared/services/notification/notification.service';
 
 @NgModule({
   declarations: [
@@ -152,7 +154,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     ArticleHistoryComponent,
     ArticleHistoryDetailComponent,
     UserInteractionComponent,
-    ChatListComponent
+    ChatListComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -193,7 +196,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     CommentService,
     ChatService,
     AuthGuard,
-    ArticleSearchPipe
+    ArticleSearchPipe,
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

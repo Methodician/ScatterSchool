@@ -168,6 +168,10 @@ export class UserService {
     return this.rtdb.object(`uploads/profileImages/${userKey}/url`);
   }
 
+  getUserNames() {
+    return this.rtdb.object('userInfo/usernames');
+  }
+
   injectObjectKey(object: AngularFireObject<{}>) {
     return object
       .snapshotChanges()
