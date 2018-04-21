@@ -1,5 +1,6 @@
 import { Component, trigger, state, style, transition, animate, ViewChild, OnInit } from '@angular/core';
 import { ChatService } from 'app/shared/services/chat/chat.service';
+import { firestoreSettings } from './config';
 import * as firebase from 'firebase';
 
 @Component({
@@ -25,9 +26,13 @@ export class AppComponent implements OnInit {
   throbbing = false;
   throbState = 'sitting';
 
-  constructor(private chatSvc: ChatService) { }
+  constructor(private chatSvc: ChatService) {
+
+  }
 
   ngOnInit() {
+    const firestore = firebase.firestore();
+    firestore.settings(firestoreSettings);
     this.chatSvc.unreadMessages$.subscribe(unread => {
       this.unreadMessages = unread;
       if (unread) {
