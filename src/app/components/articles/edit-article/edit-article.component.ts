@@ -13,10 +13,12 @@ import { ArticleDetailFirestore } from 'app/shared/class/article-info';
 
 export class EditArticleComponent implements OnInit {
   article: any;
+  previewArticle: any;
   key: any;
   routeParams: any;
   authInfo = null;
   userInfo = null;
+  isShowingPreview = false;
 
   constructor(
     private articleSvc: ArticleService,
@@ -31,6 +33,11 @@ export class EditArticleComponent implements OnInit {
     userSvc.userInfo$.subscribe(user => {
       this.userInfo = user;
     });
+  }
+
+  nextClicked(formValue: any) {
+    this.previewArticle = formValue;
+    this.isShowingPreview = true;
   }
 
   ngOnInit() {

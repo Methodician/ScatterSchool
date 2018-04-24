@@ -19,3 +19,14 @@
   justify-content: center;
   align-items: center;
 }
+
+.articleEditWrapper {
+  margin: 0 auto;
+  width: 500px;
+  margin-top: 50px;
+  button {
+    @include medium-button();
+    margin: 10px;
+    display: inline;
+  }
+}

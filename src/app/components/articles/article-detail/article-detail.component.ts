@@ -52,6 +52,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
       this.getArticleBody(this.articleData);
       this.getAuthor(this.articleData.authorId);
       this.getProfileImage(this.articleData.authorId);
+      this.getArticleCoverImage(this.articleData.articleId);
     }
     this.userSvc.userInfo$.subscribe((user: UserInfoOpen) => {
       if (user.exists()) {

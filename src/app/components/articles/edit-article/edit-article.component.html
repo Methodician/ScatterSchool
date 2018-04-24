@@ -1,17 +1,24 @@
-<div class="wrapper">
-	<div>
-		<app-article-form #articleForm [initialValue]="article">
-		</app-article-form>
-		<button mat-raised-button color="warn" (click)="edit(articleForm.value)">Save Changes</button>
+<div class="articleEditWrapper">
+	<div *ngIf="!isShowingPreview">
+		<div class="wrapper">
+			<div>
+				<app-article-form #articleForm [initialValue]="article">
+				</app-article-form>
+				<button mat-raised-button color="warn" (click)="nextClicked(articleForm.value)">Next</button>
+			</div>
+			<div>
+				<app-article-cover-image *ngIf="article" [articleKey]="key"></app-article-cover-image>
+			</div>
+		</div>
 	</div>
-	<div>
-		<app-article-cover-image *ngIf="article" [articleKey]="key"></app-article-cover-image>
+	<br>
+	<br>
+	<div *ngIf="isShowingPreview">
+		<div class="editPreview">
+			<p>Preview</p>
+		</div>
+		<app-article-detail *ngIf="article" [articleData]="previewArticle" [editingPreview]="true"></app-article-detail>
+		<button mat-raised-button color="warn" (click)="isShowingPreview=false">Back</button>
+		<button mat-raised-button color="warn" (click)="edit(previewArticle)">Save</button>
 	</div>
 </div>
-<br>
-<br>
-<div class="editPreview">
-	<p>Preview</p>
-</div>
-
-<app-article-detail *ngIf="article" [articleData]="articleForm.value" [editingPreview]="true"></app-article-detail>
