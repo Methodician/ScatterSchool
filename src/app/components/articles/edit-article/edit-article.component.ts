@@ -4,6 +4,7 @@ import { ArticleService } from 'app/shared/services/article/article.service';
 import { UserService } from 'app/shared/services/user/user.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { ArticleDetailFirestore } from 'app/shared/class/article-info';
+import { DEFAULT_RESIZE_TIME } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-edit-article',
@@ -13,7 +14,7 @@ import { ArticleDetailFirestore } from 'app/shared/class/article-info';
 
 export class EditArticleComponent implements OnInit {
   article: any;
-  previewArticle: any;
+  // previewArticle: any;
   key: any;
   routeParams: any;
   authInfo = null;
@@ -33,11 +34,6 @@ export class EditArticleComponent implements OnInit {
     userSvc.userInfo$.subscribe(user => {
       this.userInfo = user;
     });
-  }
-
-  nextClicked(formValue: any) {
-    this.previewArticle = formValue;
-    this.isShowingPreview = true;
   }
 
   ngOnInit() {
@@ -74,6 +70,16 @@ export class EditArticleComponent implements OnInit {
     //           this.article = articleToEdit;
     //         });
     //     });
+  }
+
+  nextClicked() {
+    this.isShowingPreview = true;
+    window.scrollTo(0, 0)
+  }
+
+  backClicked() {
+    this.isShowingPreview = false;
+    window.scrollTo(0, 0)
   }
 
   async edit(article) {
