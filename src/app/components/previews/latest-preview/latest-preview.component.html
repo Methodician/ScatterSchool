@@ -1,12 +1,15 @@
 <mat-card>
   <!-- Article Image -->
-  <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" alt="article's cover image">
+  <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'"
+       alt="article's cover image">
   <!-- Card Header Container -->
   <mat-card-header>
     <div class="titleWrapper">
-      <mat-card-title class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:40}}</mat-card-title>
+      <mat-card-title class="title"
+                      (click)="navigateToArticleDetail()">{{articleData.title | truncate:40}}</mat-card-title>
     </div>
-    <mat-card-subtitle class="author" (click)="navigateToProfile()">Last Updated on: {{ articleData?.lastUpdated | date }}</mat-card-subtitle>
+    <mat-card-subtitle class="author"
+                       (click)="navigateToProfile()">Last Updated on: {{ articleData?.lastUpdated.toDate() | date }}</mat-card-subtitle>
   </mat-card-header>
   <!-- Card Content -->
   <mat-card-content>
@@ -39,7 +42,9 @@
     <span class="iconSpacer"></span>
     <!-- Article Bookmark Icon -->
     <div>
-      <mat-icon (click)="bookmarkToggle()" class="bookmark-icon" color="primary">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
+      <mat-icon (click)="bookmarkToggle()"
+                class="bookmark-icon"
+                color="primary">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
     </div>
   </mat-card-actions>
 </mat-card>

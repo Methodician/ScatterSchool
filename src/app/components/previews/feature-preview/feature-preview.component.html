@@ -1,49 +1,54 @@
 <mat-card>
-    <!-- Article Image -->
-    <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" alt="article's cover image">
-    <!-- Card Header Container -->
-    <div class="contentWrapper">
-      <mat-card-header>
-        <div class="titleWrapper">
-          <mat-card-title class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:70}}</mat-card-title>
-          <mat-card-subtitle class="author" (click)="navigateToProfile()">Last Updated on: {{ articleData?.lastUpdated | date }}</mat-card-subtitle>
-        </div>
-      </mat-card-header>
-      <!-- Card Content -->
-      <mat-card-content>
-        <p class="author" (click)="navigateToProfile()">By: {{author?.alias | truncate:20}}</p>
-      </mat-card-content>
-    </div>
-    <!-- Flexbox Spacer Span -->
-    <span class="contentSpacer"></span>
-     <!-- Card Footer Action -->
-    <mat-card-actions>
-      <!-- Article Comment Icon -->
-       <div>
-         <span matTooltip="0 Comments">
-           <mat-icon color="primary">comment</mat-icon>
-         </span>
-         <p>0</p>
+  <!-- Article Image -->
+  <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'"
+       alt="article's cover image">
+  <!-- Card Header Container -->
+  <div class="contentWrapper">
+    <mat-card-header>
+      <div class="titleWrapper">
+        <mat-card-title class="title"
+                        (click)="navigateToArticleDetail()">{{articleData.title | truncate:70}}</mat-card-title>
+        <mat-card-subtitle class="author"
+                           (click)="navigateToProfile()">Last Updated on: {{ articleData?.lastUpdated.toDate() | date }}</mat-card-subtitle>
       </div>
-      <!-- Article History Icon -->
-        <div>
-          <span matTooltip="Revised {{articleData.version}} time(s)">
-            <mat-icon color="primary">history</mat-icon>
-          </span>
-          <p>{{articleData.version}}</p>
-        </div>
-        <!-- Article Tags Icon -->
-        <div>
-          <span matTooltip="{{articleData.tags }}">
-            <mat-icon color="primary">label_outline</mat-icon>
-          </span>
-          <p>{{articleData.tags.length}}</p>
-        </div>
-        <!-- Article Bookmark Icon -->
-        <div>
-          <span matTooltip="Bookmark This Article">
-            <mat-icon color="primary" id="bookmarkIcon">bookmark_border</mat-icon>
-          </span>
-        </div>
-      </mat-card-actions>
-    </mat-card>
+    </mat-card-header>
+    <!-- Card Content -->
+    <mat-card-content>
+      <p class="author"
+         (click)="navigateToProfile()">By: {{author?.alias | truncate:20}}</p>
+    </mat-card-content>
+  </div>
+  <!-- Flexbox Spacer Span -->
+  <span class="contentSpacer"></span>
+  <!-- Card Footer Action -->
+  <mat-card-actions>
+    <!-- Article Comment Icon -->
+    <div>
+      <span matTooltip="0 Comments">
+        <mat-icon color="primary">comment</mat-icon>
+      </span>
+      <p>0</p>
+    </div>
+    <!-- Article History Icon -->
+    <div>
+      <span matTooltip="Revised {{articleData.version}} time(s)">
+        <mat-icon color="primary">history</mat-icon>
+      </span>
+      <p>{{articleData.version}}</p>
+    </div>
+    <!-- Article Tags Icon -->
+    <div>
+      <span matTooltip="{{articleData.tags }}">
+        <mat-icon color="primary">label_outline</mat-icon>
+      </span>
+      <p>{{articleData.tags.length}}</p>
+    </div>
+    <!-- Article Bookmark Icon -->
+    <div>
+      <span matTooltip="Bookmark This Article">
+        <mat-icon color="primary"
+                  id="bookmarkIcon">bookmark_border</mat-icon>
+      </span>
+    </div>
+  </mat-card-actions>
+</mat-card>
