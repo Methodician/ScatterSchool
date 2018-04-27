@@ -1,13 +1,14 @@
 <div class="articleEditWrapper">
 	<div [hidden]="isShowingPreview">
 		<div class="wrapper">
+			<!-- <div>
+				<app-article-cover-image *ngIf="article" [articleID]="key"></app-article-cover-image>
+			</div> -->
 			<div>
-				<app-article-form #articleForm [initialValue]="article">
+				<app-article-form #articleForm [initialValue]="article" [articleId]="articleId">
 				</app-article-form>
+				<button mat-raised-button color="warn" (click)="cancelClicked()">Cancel</button>
 				<button mat-raised-button color="warn" (click)="nextClicked()">Next</button>
-			</div>
-			<div>
-				<app-article-cover-image *ngIf="article" [articleKey]="key"></app-article-cover-image>
 			</div>
 		</div>
 	</div>
@@ -17,6 +18,11 @@
 		<div class="cardPreview">
 			<latest-preview *ngIf="article" [articleData]="articleForm.value"></latest-preview>
 			<div class="cardConfirm">
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
 				<p>This is how it will look around the site. Please review your changes and confirm or go back and edit.</p>
 				<br>
 				<button mat-raised-button color="warn" (click)="backClicked()">Back</button>
@@ -28,5 +34,12 @@
 			<p>Preview</p>
 		</div> -->
 		<app-article-detail *ngIf="article" [articleData]="articleForm.value" [editingPreview]="true"></app-article-detail>
+		<div class="tagsBar" *ngIf="!editingPreview">
+			<ul> Tags:
+			  <li *ngFor="let tag of article?.tags" class="tag">
+				<a (click)="tagSearch(tag)">{{tag}}</a>
+			  </li>
+			</ul>
+		</div>
 	</div>
 </div>

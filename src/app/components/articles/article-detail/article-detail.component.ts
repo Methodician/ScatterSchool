@@ -16,7 +16,7 @@ import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
   @Input() articleData: any;
   @Input() editingPreview = false;
-  articleKey: string;
+  articleId: string;
   viewId = '';
   isArticleBookmarked: boolean;
   author;
@@ -42,7 +42,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
     if (!this.editingPreview) {
       this.route.params.subscribe(params => {
         if (params['key']) {
-          this.articleKey = params['key'];
+          this.articleId = params['key'];
         }
         // this.checkIfFeatured();
         this.getArticleData();
@@ -65,7 +65,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnDestroy() {
     if (this.viewId) {
-      this.articleSvc.captureArticleUnView(this.articleKey, this.viewId);
+      this.articleSvc.captureArticleUnView(this.articleId, this.viewId);
     }
   }
 
@@ -81,7 +81,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   checkIfBookmarked() {
     this.articleSvc
-      .isBookmarked(this.user.$key, this.articleKey)
+      .isBookmarked(this.user.$key, this.articleId)
       .subscribe(bookmark => {
         this.isArticleBookmarked = bookmark;
       });
@@ -93,16 +93,16 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
           if (this.isArticleBookmarked) {
-            this.articleSvc.unBookmarkArticle(this.user.$key, this.articleKey);
+            this.articleSvc.unBookmarkArticle(this.user.$key, this.articleId);
           } else {
-            this.articleSvc.bookmarkArticle(this.user.$key, this.articleKey);
+            this.articleSvc.bookmarkArticle(this.user.$key, this.articleId);
           }
         }
       });
   }
 
   edit() {
-    this.router.navigate([`editarticle/${this.articleKey}`]);
+    this.router.navigate([`editarticle/${this.articleId}`]);
   }
 
   get hasHistory() {
@@ -110,7 +110,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   navigateToHistory() {
-    this.router.navigate([`articlehistory/${this.articleKey}`]);
+    this.router.navigate([`articlehistory/${this.articleId}`]);
   }
 
   toggleFeatured() {
@@ -119,10 +119,10 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
       .subscribe(isLoggedIn => {
         if (isLoggedIn) {
           if (this.article.isFeatured) {
-            this.articleSvc.unFeatureArticle(this.articleKey);
+            this.articleSvc.unFeatureArticle(this.articleId);
           } else {
             //kb: changed this
-            this.articleSvc.featureArticle(this.articleKey, this.author.$key);
+            this.articleSvc.featureArticle(this.articleId, this.author.$key);
           }
         }
       });
@@ -132,12 +132,12 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
   getArticleData() {
     //  Firestore way:
     this.articleSvc
-      .getArticle(this.articleKey)
+      .getArticle(this.articleId)
       .valueChanges()
       .subscribe(async (articleData: ArticleDetailFirestore) => {
         if (!this.viewIncremented && !this.editingPreview) {
           try {
-            const id = await this.articleSvc.captureArticleView(this.articleKey, articleData.version, this.user);
+            const id = await this.articleSvc.captureArticleView(this.articleId, articleData.version, this.user);
             if (id) {
               this.viewId = id;
               this.viewIncremented = true;
@@ -146,7 +146,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
             console.error(err);
           }
 
-          // this.articleSvc.captureArticleView(this.articleKey, articleData.version, this.user)
+          // this.articleSvc.captureArticleView(this.articleId, articleData.version, this.user)
           //   .then(id => {
           //     if (id) {
           //       this.viewId = id;
@@ -163,15 +163,15 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
           this.getArticleBody(articleData);
           this.getAuthor(articleData.authorId);
           this.getProfileImage(articleData.authorId);
-          this.getArticleCoverImage(this.articleKey)
+          this.getArticleCoverImage(this.articleId)
         }
       })
   }
 
-  getArticleCoverImage(articleKey) {
+  getArticleCoverImage(articleId) {
     const basePath = 'uploads/articleCoverImages';
     this.uploadSvc
-      .getImage(articleKey, basePath)
+      .getImage(articleId, basePath)
       .subscribe(articleData => {
         if (articleData && articleData.url) {
           this.articleCoverImageUrl = articleData.url;

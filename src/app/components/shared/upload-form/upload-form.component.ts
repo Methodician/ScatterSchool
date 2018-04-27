@@ -16,7 +16,7 @@ export class UploadFormComponent implements OnInit {
   // test: boolean;
   currentUpload: Upload;
   selectedFiles: any;
-  @Input() articleKey;
+  @Input() articleId;
   @Input() uid;
 
   constructor(
@@ -34,9 +34,9 @@ export class UploadFormComponent implements OnInit {
 
   setBasePath() {
     // this.test = true;
-    if (this.articleKey) {
+    if (this.articleId) {
       const basePath = 'uploads/articleCoverImages';
-      this.sendImgToUploadSvc(this.articleKey, basePath);
+      this.sendImgToUploadSvc(this.articleId, basePath);
     } else {
       const basePath = 'uploads/profileImages/';
       this.sendImgToUploadSvc(this.uid, basePath);

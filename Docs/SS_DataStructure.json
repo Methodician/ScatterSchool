@@ -1,7 +1,7 @@
 {
   "articleData": {
     "articleArchive": {
-      "articleKey1": {
+      "articleId1": {
         "1": {
           "authorKey": "authorKey1",
           "bodyKey": "bodyKey1",
@@ -35,19 +35,19 @@
     "articleBodyArchive": {
       "bodyKey1": {
         "body": "<p>This isn't actually in there at time of writing but I think we need it</p>",
-        "articleKey": "articleKey1",
+        "articleId": "articleId1",
         "nextEditorKey": "userKey1",
         "version": 1
       },
       "bodyKey2": {
         "body": "<p>I don't know where I was storing the body text history after edit... if at all!!!</p>",
-        "articleKey": "articleKey1",
+        "articleId": "articleId1",
         "nextEditorKey": "userKey2",
         "version": 2
       }
     },
     "articles": {
-      "articleKey1": {
+      "articleId1": {
         "authorKey": "userKey1",
         "bodyKey": "bodyKey1",
         "introduction": "It's an intro",
@@ -60,7 +60,7 @@
         "title": "it's a title",
         "version": 3
       },
-      "articleKey2": {
+      "articleId2": {
         "authorKey": "userKey2",
         "bodyKey": "bodyKey4",
         "introduction": "It's an intro",
@@ -76,46 +76,46 @@
     },
     "articlesPerAuthor": {
       "userKey1": {
-        "articleKey1": true,
-        "articleKey2": true
+        "articleId1": true,
+        "articleId2": true
       },
       "userKey2": {
-        "articleKey3": true
+        "articleId3": true
       }
     },
     "articlesPerEditor": {
       "userKey1": {
-        "articleKey1": true,
-        "articleKey2": true,
-        "articleKey3": true
+        "articleId1": true,
+        "articleId2": true,
+        "articleId3": true
       },
       "userKey2": {
-        "articleKey3": true
+        "articleId3": true
       }
     },
     "articlesPerTag": {
       "TAGONE": {
-        "articleKey1": true,
-        "articleKey2": true
+        "articleId1": true,
+        "articleId2": true
       },
       "TAGTWO": {
         "artlcleKey2": true
       }
     },
     "bodiesPerArticle": {
-      "articleKey1": {
+      "articleId1": {
         "bodyKey2": 1212312412,
         "bodyKey3": 2123132144
       }
     },
     "editorsPerArticle": {
-      "articleKey3": {
+      "articleId3": {
         "userKey1": true,
         "userKey2": true
       }
     },
     "featuredArticles": {
-      "articleKey3": 1232132141243
+      "articleId3": 1232132141243
     }
   },
   "userData": {
@@ -241,7 +241,7 @@
       }
     },
     "commentsPerArticle": {
-      "articleKey1": {
+      "articleId1": {
         "commentKey1": true,
         "commentKey2": true
       }

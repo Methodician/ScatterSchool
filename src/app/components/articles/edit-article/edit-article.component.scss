@@ -45,3 +45,19 @@
     display: inline;
   }
 }
+
+.tagsBar {
+  position: absolute;
+  top: 800px;
+  left: 46px;
+  padding-top: 10px;
+  border-top: 1px solid $dark-grey;
+  border-bottom: 1px solid $dark-grey;
+  ul {
+    padding: 0;
+    font-family: STHeitiSC-Light;
+    font-size: 14px;
+    list-style: none;
+    color: $dark-grey;
+  }
+}

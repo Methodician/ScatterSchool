@@ -10,7 +10,7 @@ import 'rxjs/add/operator/switchMap';
   styleUrls: ['./article-history.component.scss']
 })
 export class ArticleHistoryComponent implements OnInit {
-  articleKey: string;
+  articleId: string;
   articleHistory = [];
   noHistory = false;
   articleCount;
@@ -26,10 +26,10 @@ export class ArticleHistoryComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe(params => {
       if (params['key']) {
-        this.articleKey = params['key'];
+        this.articleId = params['key'];
         //  Firestore way:
         this.articleSvc
-          .articleHistory(this.articleKey)
+          .articleHistory(this.articleId)
           .valueChanges()
           .subscribe(history => {
             if (history.length > 0) {
@@ -95,6 +95,6 @@ export class ArticleHistoryComponent implements OnInit {
 
 
   navigateToArticle() {
-    this.router.navigate([`articledetail/${this.articleKey}`]);
+    this.router.navigate([`articledetail/${this.articleId}`]);
   }
 }

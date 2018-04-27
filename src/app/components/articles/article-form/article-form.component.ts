@@ -8,6 +8,7 @@ import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/cor
 })
 export class ArticleFormComponent implements OnInit, OnChanges {
   @Input() initialValue: any;
+  @Input() articleId: string;
   ckeditorContent = '';
   titleError: string;
   form: FormGroup;

@@ -45,11 +45,11 @@ export class PostArticleComponent implements OnInit {
     this.router.navigate([`articledetail/${articleId}`]);
   }
 
-  sendImgToUploadSvc(articleKey) {
+  sendImgToUploadSvc(articleId) {
     const file = this.selectedFiles.item(0);
     const basePath = 'uploads/articleCoverImages';
     const currentUpload = new Upload(file);
-    this.uploadSvc.uploadImage(currentUpload, articleKey, basePath);
+    this.uploadSvc.uploadImage(currentUpload, articleId, basePath);
   }
 
   detectFiles(event) {

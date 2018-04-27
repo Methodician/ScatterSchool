@@ -15,7 +15,7 @@ import { DEFAULT_RESIZE_TIME } from '@angular/cdk/scrolling';
 export class EditArticleComponent implements OnInit {
   article: any;
   // previewArticle: any;
-  key: any;
+  articleId: any;
   routeParams: any;
   authInfo = null;
   userInfo = null;
@@ -39,11 +39,11 @@ export class EditArticleComponent implements OnInit {
   ngOnInit() {
     window.scrollTo(0, 0);
     this.route.params.subscribe(params => {
-      this.key = params['key'];
+      this.articleId = params['key'];
 
       //  Firestore way:
       this.articleSvc
-        .getArticle(this.key)
+        .getArticle(this.articleId)
         .valueChanges()
         .subscribe((articleToEdit: ArticleDetailFirestore) => {
           this.articleSvc
@@ -82,9 +82,13 @@ export class EditArticleComponent implements OnInit {
     window.scrollTo(0, 0)
   }
 
+  cancelClicked() {
+    this.router.navigate([`articledetail/${this.articleId}`]);
+  }
+
   async edit(article) {
     try {
-      const res = this.articleSvc.updateArticle(this.authInfo.$uid, this.userInfo, article, this.key);
+      const res = this.articleSvc.updateArticle(this.authInfo.$uid, this.userInfo, article, this.articleId);
       if (res) {
         this.router.navigate([`articledetail/${article.articleId}`]);
       } else {
@@ -102,6 +106,6 @@ export class EditArticleComponent implements OnInit {
     //   })
     //   .catch(err => console.log(err));
     // this.articleSvc.updateArticle(this.authInfo.$uid, article)
-    // this.router.navigate([`articledetail/${article.articleKey}`]);
+    // this.router.navigate([`articledetail/${article.articleId}`]);
   }
 }

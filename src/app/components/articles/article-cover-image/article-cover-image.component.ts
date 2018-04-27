@@ -8,19 +8,19 @@ import { UploadService } from 'app/shared/services/upload/upload.service';
   styleUrls: ['./article-cover-image.component.scss']
 })
 export class ArticleCoverImageComponent implements OnInit {
-  @Input() articleKey;
+  @Input() articleId;
   articleCoverImageUrl;
 
   constructor(private uploadSvc: UploadService) { }
 
   ngOnInit() {
-    this.getArticleCoverImage(this.articleKey);
+    this.getArticleCoverImage(this.articleId);
   }
 
-  getArticleCoverImage(articleKey) {
+  getArticleCoverImage(articleId) {
     const basePath = 'uploads/articleCoverImages';
     this.uploadSvc
-      .getImage(articleKey, basePath)
+      .getImage(articleId, basePath)
       .subscribe(articleData => {
         if (articleData.url) {
           this.articleCoverImageUrl = articleData.url;

@@ -12,7 +12,7 @@ import { ArticleDetailFirestore, ArticleBodyFirestore } from 'app/shared/class/a
   styleUrls: ['./article-history-detail.component.scss', './../article-detail/article-detail.component.scss']
 })
 export class ArticleHistoryDetailComponent implements OnInit, OnChanges {
-  @Input() articleKey: string;
+  @Input() articleId: string;
   @Input() articleData: any;
   author;
   article;
@@ -77,6 +77,6 @@ export class ArticleHistoryDetailComponent implements OnInit, OnChanges {
   }
 
   navigateToDetail() {
-    this.router.navigate([`articledetail/${this.articleKey}`]);
+    this.router.navigate([`articledetail/${this.articleId}`]);
   }
 }

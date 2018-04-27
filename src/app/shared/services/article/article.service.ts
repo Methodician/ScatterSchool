@@ -314,16 +314,16 @@ export class ArticleService {
     }
   }
 
-  featureArticle(articleKey: string, authorKey: string) {
+  featureArticle(articleId: string, authorKey: string) {
     this
-      .getArticle(articleKey)
+      .getArticle(articleId)
       .update({ isFeatured: true });
     this.notifSvc.createFeatureNotification(authorKey);
   }
 
-  unFeatureArticle(articleKey: string) {
+  unFeatureArticle(articleId: string) {
     this
-      .getArticle(articleKey)
+      .getArticle(articleId)
       .update({ isFeatured: false });
     }
 
@@ -332,35 +332,35 @@ export class ArticleService {
     return this.injectObjectKey(object);
   }
 
-  isBookmarked(userKey, articleKey) {
+  isBookmarked(userKey, articleId) {
     return this.rtdb
-      .object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`)
+      .object(`userInfo/articleBookmarksPerUser/${userKey}/${articleId}`)
       .valueChanges()
       .map(article => {
         return article ? true : false;
       });
   }
 
-  bookmarkArticle(userKey, articleKey) {
+  bookmarkArticle(userKey, articleId) {
     this.rtdb
-      .object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`)
+      .object(`userInfo/articleBookmarksPerUser/${userKey}/${articleId}`)
       .set(firebase.database.ServerValue.TIMESTAMP);
     this.rtdb
-      .object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`)
+      .object(`articleData/userBookmarksPerArticle/${articleId}/${userKey}`)
       .set(firebase.database.ServerValue.TIMESTAMP);
   }
 
-  unBookmarkArticle(userKey, articleKey) {
+  unBookmarkArticle(userKey, articleId) {
     this.rtdb
-      .object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`)
+      .object(`userInfo/articleBookmarksPerUser/${userKey}/${articleId}`)
       .remove();
     this.rtdb
-      .object(`articleData/userBookmarksPerArticle/${articleKey}/${userKey}`)
+      .object(`articleData/userBookmarksPerArticle/${articleId}/${userKey}`)
       .remove();
   }
 
-  navigateToArticleDetail(articleKey: any) {
-    this.router.navigate([`articledetail/${articleKey}`]);
+  navigateToArticleDetail(articleId: any) {
+    this.router.navigate([`articledetail/${articleId}`]);
   }
 
   navigateToProfile(uid: any) {

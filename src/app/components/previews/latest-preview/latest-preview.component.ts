@@ -68,10 +68,10 @@ export class LatestPreviewComponent implements OnInit {
       });
   }
 
-  getArticleCoverImage(articleKey) {
+  getArticleCoverImage(articleId) {
     const basePath = 'uploads/articleCoverImages';
     this.uploadSvc
-      .getImage(articleKey, basePath)
+      .getImage(articleId, basePath)
       .subscribe(articleData => {
         if (articleData && articleData.url) {
           this.articleCoverImageUrl = articleData.url;
