@@ -15,7 +15,7 @@
           </mat-form-field>
 
           <div class="tagWrapper">
-              <p>Tags</p>
+              <h4>Tags</h4>
               <tag-input class="ckEditor" [maxItems]="8" [(ngModel)]="formTags" [validators]="validator" (onAdd)="onTagAdded($event)" (onRemove)="onTagRemoved($event)" [ngModelOptions]="{standalone: true}"></tag-input>
           </div>
         </div>

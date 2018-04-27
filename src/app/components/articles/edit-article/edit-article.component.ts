@@ -86,6 +86,10 @@ export class EditArticleComponent implements OnInit {
     this.router.navigate([`articledetail/${this.articleId}`]);
   }
 
+  tagSearch(tag: string) {
+    this.router.navigate([`/articlesearch/${tag}`]);
+  }
+
   async edit(article) {
     try {
       const res = this.articleSvc.updateArticle(this.authInfo.$uid, this.userInfo, article, this.articleId);

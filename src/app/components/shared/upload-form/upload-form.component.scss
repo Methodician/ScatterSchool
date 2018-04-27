@@ -18,10 +18,11 @@ progress {
 
 .upload-wrapper {
   font-family: STHeitiSC-Light;
-  width: 500px;
+  width: 375px;
   margin: 0 auto;
   .btnUpload {
     @include medium-button();
+    margin-top: 10px;
     margin-bottom: 10px;
   }
 }

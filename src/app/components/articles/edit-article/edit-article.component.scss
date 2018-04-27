@@ -1,10 +1,30 @@
 // imports for the variable and mixin files found within the sass-variables-mixins folder
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
-.wrapper {
+.edit-wrapper {
+  height: 100%;
+  width: 95%;
+  margin-left: 2.5%;
   display: flex;
-  flex-direction: column-reverse;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  button {
+    @include medium-button();
+    margin: 10px;
+    display: inline;
+  }
+}
+
+.preview-wrapper {
+  margin: 0 auto;
+  width: 600px;
+  margin-bottom: 100px;
+  button {
+    @include medium-button();
+    margin: 10px;
+    display: inline;
+  }
 }
 
 // .editPreview {
@@ -35,22 +55,10 @@
   margin-right: 20px;
 }
 
-.articleEditWrapper {
-  margin: 0 auto;
-  width: 600px;
-  margin-bottom: 100px;
-  button {
-    @include medium-button();
-    margin: 10px;
-    display: inline;
-  }
-}
-
 .tagsBar {
   position: absolute;
-  top: 800px;
+  top: 750px;
   left: 46px;
-  padding-top: 10px;
   border-top: 1px solid $dark-grey;
   border-bottom: 1px solid $dark-grey;
   ul {
@@ -59,5 +67,22 @@
     font-size: 14px;
     list-style: none;
     color: $dark-grey;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    li {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+  }
+}
+
+.tag {
+  font-family: STHeitiSC-Light;
+  font-size: 14px;
+  list-style: none;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  a {
+    color: $primary-color;
   }
 }
