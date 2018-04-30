@@ -1,5 +1,7 @@
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { MatChipInputEvent } from '@angular/material';
+import { ENTER, COMMA } from '@angular/cdk/keycodes'; 
 
 @Component({
   selector: 'app-article-form',
@@ -13,7 +15,39 @@ export class ArticleFormComponent implements OnInit, OnChanges {
   form: FormGroup;
   formTags = [];
   articleTags = [];
-  validator = [this.tagValidation]
+  validator = [this.tagValidation];
+
+  // kb : for chips
+  visible: boolean = true;
+  selectable: boolean = true;
+  removable : boolean = true;
+  addOnBlur : boolean = true;
+
+  // enter, comma
+  separatorKeysCodes = [ ENTER, COMMA];
+
+  testTags = [{ name: 'Testeroo' }];
+
+  add(event: MatChipInputEvent):void {
+    let input = event.input;
+    let value = event.value;
+
+    if((value || '').trim()) {
+      this.testTags.push({ name: value.trim()});
+    }
+
+    if(input){
+      input.value = '';
+    }
+  }
+
+  remove(testTag:any):void{
+    let index = this.testTags.indexOf(testTag);
+
+    if(index >= 0){
+      this.testTags.splice(index, 1);
+    }
+  }
 
   constructor(private fb: FormBuilder) { }
 
