@@ -1,14 +1,101 @@
-div {
+@import "../../sass-variables-mixins/vars.scss";
+
+
+.notification-btn {
+    background: white;
+    // height: 40px;
+    // padding: 0;
+    // min-width: 40px;
+    // border-radius: 100%;
+    color:#3E4949;
+}
+
+.new-notifications {
+    background-color: #c2185b;
+    color: white;
+    font-weight: bold;
+}
+.modal {
+    font-size: 14px;
+    white-space: normal;
+    position: absolute;
+    top: 70px;
+    right: 200px;
+    width: 400px;
+    max-height: 550px;
+    // background-color: grey;
+    // border: 5px solid yellowgreen;
+    // border-radius: 5px;
+    z-index: 1;
+    mat-card{
+        // border: 1px solid red;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 5px 2px;
+        p {
+            margin: 0;
+        }
+
+    }
+    mat-card-footer {
+        display: flex;
+        justify-content: center;
+        min-height: 40px;
+    }
+    .button-wrapper {
+        display: flex;
+        justify-content: space-between;
+        button {
+            margin: 0 25px;
+        }
+    }
+    .notification-link {
+        color: $accent-color;
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+    // p {
+    //     background-color: lightgray;
+    //     margin: 2px;
+    // }
+}
+
+.modal-nav {
+    display: flex;
+    justify-content: center;
+    button {
+        width: 33%;
+    }
+}
+
+.recent-modal {
+    white-space: normal;
     position: fixed;
-    top: 200px;
+    top: 150px;
     right: 10px;
     width: 300px;
-    height: 500px;
-    overflow-y: scroll;
-    background-color: grey;
     z-index: 1;
+    background-color: peru;
+    color: white;
     p {
-        background-color: white;
         margin: 2px;
     }
+
+}
+
+.icon {
+    width: 100%;
+    height: 100%;
+}
+
+.notification-wrapper {
+    max-height: 500px;
+    overflow-y: scroll;
+    mat-card-title {
+        font-size: 16px;
+    }
+
 }

@@ -3,8 +3,8 @@
   <div class="previewWrapper">
       <vote [suggestion]="suggestion" [currentUserKey]="currentUserKey"></vote>
       <div class="suggestion-content">
-        <h3 [routerLink]="['/suggestion', suggestion.$key]" class="suggestion-title">{{suggestion.title}}</h3>
-        <p class="suggestion-pitch">{{suggestion.pitch}}</p>
+        <h3 [routerLink]="['/suggestion', suggestion.id]" class="suggestion-title">{{ suggestion.title }}</h3>
+        <p class="suggestion-pitch">{{ suggestion.pitch }}</p>
       </div>
   </div>
 </div>

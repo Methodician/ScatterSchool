@@ -85,20 +85,12 @@ export class ChatService {// maybe should be renamed to UserInteractionService
     return this.db.object(`chatData/chats/${this.currentChatKey}/members/${userKey}`);
   }
 
-  getAllMessages() {
-    return this.db.list(`chatData/messages`);
-  }
-
   getMessagesForCurrentChat() {
     return this.db.list(`chatData/messagesPerChat/${this.currentChatKey}`);
   }
 
   getMessagesByKey(chatKey) {
     return this.db.list(`chatData/messagesPerChat/${chatKey}`);
-  }
-
-  getAllChats() {
-    return this.db.list('chatData/chats');
   }
 
   getChatByKey(chatKey) {

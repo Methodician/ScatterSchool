@@ -16,12 +16,13 @@ export class EditSuggestionComponent implements OnInit {
     const key = this.route.snapshot.params['key'];
     this.suggestionSvc
       .getSuggestionByKey(key)
+      .valueChanges()
       .subscribe(suggestion => {
         this.suggestion = suggestion;
       });
   }
 
   saveSuggestion(suggestionData) {
-    this.suggestionSvc.updateSuggestion(this.suggestion.$key, suggestionData);
+    this.suggestionSvc.updateSuggestion(this.suggestion.id, suggestionData);
   }
 }

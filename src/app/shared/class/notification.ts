@@ -1,12 +1,12 @@
 export class Notification {
-    constructor (
+    constructor(
         public followerId: string,
         public followerName: string,
         public notificationType: string,
-        public timestamp: Date,
+        public timestamp: any,
         public userId: string,
-        public timeViewed?: Date
-    ) {}
+        public timeViewed?: any
+    ) { }
 
     readNotification() {
         return !!this.timeViewed;

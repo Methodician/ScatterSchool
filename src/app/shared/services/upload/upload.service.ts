@@ -46,7 +46,7 @@ export class UploadService {
         upload.progress = null;
         // save metadata to live database
         this.saveImageData(upload, key, basePath);
-        alert('success!');
+        // alert('success!');
         return undefined;
       }
     );
@@ -54,9 +54,21 @@ export class UploadService {
 
   // writes metadata to live database
   private saveImageData(upload: Upload, key, basePath) {
+    if (basePath === 'uploads/profileImages/') {
+      this.updateUserData(upload, key);
+    }
     this.afd.object(`${basePath}/${key}`).set(upload)
       .catch(error => {
         console.log(error);
+      });
+  }
+
+  // update public user data with new profile photo url
+  private updateUserData(upload: Upload, key: string): void {
+    this.afd
+      .object(`userInfo/usernames/${key}`)
+      .update({
+        photoURL: upload.url
       });
   }
 

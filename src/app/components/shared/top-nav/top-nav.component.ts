@@ -14,13 +14,17 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 export class TopNavComponent implements OnInit {
   // @ViewChild('searchInput') searchInput;
   isCollapsed = true;
+  userInfo: UserInfoOpen;
   authInfo: AuthInfo = new AuthInfo(null, false);
   displayName = '';
-  scrollEvent: any;
-  lastScrollY: number;
-  lastScrollDirection = 'up';
+  // scrollEvent: any;
+  scrollTop = 0;
+  // lastScrollY: number;
+  // lastScrollDirection = 'up';
   // searchInput: string;
   searchBarState: searchBarFocus = searchBarFocus.inactive;
+  // kb
+  // uid: string = '';
 
   constructor(
     private authSvc: AuthService,
@@ -28,15 +32,16 @@ export class TopNavComponent implements OnInit {
     private router: Router
   ) {
     window.onscroll = (event) => {
-      this.scrollEvent = event;
-      const currentScrollY = this.scrollEvent.path[1].scrollY;
+      this.scrollTop = (event.target as any).scrollingElement.scrollTop;
+    //   this.scrollEvent = event;
+    //   const currentScrollY = this.scrollEvent.path[1].scrollY;
 
-      if (currentScrollY > this.lastScrollY) {
-        this.lastScrollDirection = 'down';
-      } else if (currentScrollY < this.lastScrollY) {
-        this.lastScrollDirection = 'up';
-      }
-      this.lastScrollY = currentScrollY;
+    //   if (currentScrollY > this.lastScrollY) {
+    //     this.lastScrollDirection = 'down';
+    //   } else if (currentScrollY < this.lastScrollY) {
+    //     this.lastScrollDirection = 'up';
+    //   }
+    //   this.lastScrollY = currentScrollY;
     }
   }
 
@@ -45,10 +50,18 @@ export class TopNavComponent implements OnInit {
       this.authInfo = authInfo;
     });
     this.userSvc.userInfo$.subscribe((userInfo: UserInfoOpen) => {
-      if (userInfo && userInfo.$key) {
+      if (userInfo.exists()) {
+        this.userInfo = userInfo;
         this.displayName = userInfo.alias || userInfo.fName;
+        // kb
+        // console.log("in top nav, userinfo uid", userInfo.uid);
+        // this.uid = userInfo.uid;
       }
     });
+  }
+
+  atPageTop() {
+    return !this.scrollTop;
   }
 
   search(input: any) {
@@ -61,9 +74,9 @@ export class TopNavComponent implements OnInit {
     this.authSvc.logout();
   }
 
-  lastScrolledUp() {
-    return this.lastScrollDirection === 'up' ? true : false;
-  }
+  // lastScrolledUp() {
+  //   return this.lastScrollDirection === 'up' ? true : false;
+  // }
 
   searchBarFocus(input?: any) {
     if (input.value.length === 0) {

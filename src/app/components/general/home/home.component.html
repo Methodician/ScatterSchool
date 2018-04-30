@@ -7,21 +7,23 @@
   <div class="bodyBgColor">
     <!-- Featured Articles Container -->
     <div class="featuredArticleWrapper">
-      <div class="featuredOptions">
-        <h2>Featured Articles</h2>
-        <!-- Featured Article Toggle buttons -->
-        <div class="iconWrapper">
-          <mat-icon (click)="featuredListView()" [class.activePreviewState]="currentSelectedFeaturePreview === 1">list</mat-icon>
-          <mat-icon (click)="featuredTileView()" [class.activePreviewState]="currentSelectedFeaturePreview === 2">apps</mat-icon>
+      <div id="featured">
+        <div class="featuredOptions">
+          <h2>Featured Articles</h2>
+          <!-- Featured Article Toggle buttons -->
+          <div class="iconWrapper">
+            <mat-icon (click)="featuredListView()" [class.activePreviewState]="currentSelectedFeaturePreview === 1">list</mat-icon>
+            <mat-icon (click)="featuredTileView()" [class.activePreviewState]="currentSelectedFeaturePreview === 2">apps</mat-icon>
+          </div>
         </div>
-      </div>
-      <!-- List View -->
-      <div class="list" *ngIf="currentSelectedFeaturePreview === 1">
-        <app-feature-preview [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></app-feature-preview>
-      </div>
-      <!-- Grid View -->
-      <div class="grid" *ngIf="currentSelectedFeaturePreview === 2">
-        <latest-preview [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></latest-preview>
+        <!-- List View -->
+        <div class="list" *ngIf="currentSelectedFeaturePreview === 1">
+          <app-feature-preview [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></app-feature-preview>
+        </div>
+        <!-- Grid View -->
+        <div class="grid" *ngIf="currentSelectedFeaturePreview === 2">
+          <latest-preview [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></latest-preview>
+        </div>
       </div>
     </div>
 

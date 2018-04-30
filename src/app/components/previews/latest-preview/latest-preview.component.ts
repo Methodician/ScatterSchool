@@ -60,8 +60,10 @@ export class LatestPreviewComponent implements OnInit {
     this.uploadSvc
       .getImage(uid, basePath)
       .subscribe(profileData => {
-        if (profileData.url) {
+        if (profileData && profileData.url) {
           this.profileImageUrl = profileData.url;
+        } else {
+          this.profileImageUrl = 'https://www.fillmurray.com/200/300';
         }
       });
   }

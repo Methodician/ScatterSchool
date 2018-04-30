@@ -42,6 +42,14 @@ export class HomeComponent implements OnInit {
     this.articleSvc
       .getLatestArticles()
       .valueChanges()
+      //  Possible alternative to converting later
+      // .map(articles => {
+      //   return articles.map((article: any) => {
+      //     article.timestamp = article.timestamp.toDate();
+      //     article.lastUpdated = article.lastUpdated.toDate();
+      //     return article;
+      //   });
+      // })
       .subscribe(latest => {
         this.latestArticles = latest;
       });

@@ -27,7 +27,7 @@ export class ArticleFormComponent implements OnInit, OnChanges {
       tags: [[]],
       bodyId: '',
       lastUpdated: null,
-      timestamp: 0,
+      timestamp: null,
       version: 1,
       articleId: '',
       authorId: '',

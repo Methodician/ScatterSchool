@@ -15,3 +15,7 @@ export const fbConfigDev = {
     storageBucket: 'scatterschool-dev.appspot.com',
     messagingSenderId: '945815872407'
 }
+
+export const firestoreSettings = {
+    timestampsInSnapshots: true
+}
