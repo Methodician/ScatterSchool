@@ -2,6 +2,8 @@ import { Component, trigger, state, style, transition, animate, ViewChild, OnIni
 import { ChatService } from 'app/shared/services/chat/chat.service';
 import { firestoreSettings } from './config';
 import * as firebase from 'firebase';
+import { AngularFirestore } from 'angularfire2/firestore';
+// import firebase from 'firebase'
 
 @Component({
   selector: 'app-root',
@@ -26,13 +28,14 @@ export class AppComponent implements OnInit {
   throbbing = false;
   throbState = 'sitting';
 
-  constructor(private chatSvc: ChatService) {
-
+  constructor(
+    private chatSvc: ChatService,
+    private afs: AngularFirestore,
+  ) {
+    this.afs.firestore.settings({ timestampsInSnapshots: true });
   }
 
   ngOnInit() {
-    const firestore = firebase.firestore();
-    firestore.settings(firestoreSettings);
     this.chatSvc.unreadMessages$.subscribe(unread => {
       this.unreadMessages = unread;
       if (unread) {
