@@ -47,3 +47,13 @@ form {
     margin-bottom: 50px;
   }
 }
+
+.chip-tags {
+  width: 700px;
+  mat-chip {
+    // margin: 10px 5px;
+    }
+  .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip) {
+    margin: 5px;
+  }
+}

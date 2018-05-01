@@ -26,27 +26,34 @@ export class ArticleFormComponent implements OnInit, OnChanges {
   // enter, comma
   separatorKeysCodes = [ ENTER, COMMA];
 
-  testTags = [{ name: 'Testeroo' }];
+  // testTags = [];
 
   add(event: MatChipInputEvent):void {
     let input = event.input;
     let value = event.value;
 
     if((value || '').trim()) {
-      this.testTags.push({ name: value.trim()});
+      this.formTags.push({ display: value.trim()});
     }
+    console.log(this.formTags, "stuffff ", value);
 
     if(input){
       input.value = '';
     }
+    this.articleTags.push(event.value.toUpperCase());
+    this.form.controls.tags.patchValue(this.articleTags);
   }
 
-  remove(testTag:any):void{
-    let index = this.testTags.indexOf(testTag);
+  remove(selectedTag:any):void{
+    let index = this.formTags.indexOf(selectedTag);
 
     if(index >= 0){
-      this.testTags.splice(index, 1);
+      this.formTags.splice(index, 1);
     }
+    // console.log(selectedTag);
+    const tagToRemove = selectedTag.display.toUpperCase();
+    this.removeTag(tagToRemove);
+    this.form.controls.tags.patchValue(this.articleTags);
   }
 
   constructor(private fb: FormBuilder) { }

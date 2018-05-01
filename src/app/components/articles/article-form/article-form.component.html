@@ -24,6 +24,22 @@
 <div class="tagWrapper">
     <h2>Tags</h2>
     <em>Alphenumeric characters and spaces only</em>
-    <tag-input class="ckEditor" [maxItems]="8" [(ngModel)]="formTags" [validators]="validator" (onAdd)="onTagAdded($event)" (onRemove)="onTagRemoved($event)"></tag-input>
+    <mat-form-field class="chip-tags">
+        <mat-chip-list #chipList>
+          <mat-chip *ngFor="let formTag of formTags" [selectable]="selectable"
+                    [removable]="removable" (remove)="remove(formTag)">
+            {{formTag.display}}
+            <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+          </mat-chip>
+          <input placeholder="Enter a new tag..."
+                  [matChipInputFor]="chipList"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  [matChipInputAddOnBlur]="addOnBlur"
+                  (matChipInputTokenEnd)="add($event)" />
+        </mat-chip-list>
+      </mat-form-field>
+    <!-- <tag-input class="ckEditor" [maxItems]="8" [(ngModel)]="formTags" [validators]="validator" (onAdd)="onTagAdded($event)" (onRemove)="onTagRemoved($event)"></tag-input> -->
 </div>
 
+<div>
+</div>
