@@ -5,6 +5,7 @@ import { Injectable, Inject } from '@angular/core';
 import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,7 @@ export class AuthService {
 
   constructor(
     private afAuth: AngularFireAuth,
+    private afDatabase: AngularFireDatabase,
     private router: Router
     // @Inject(FirebaseRef) fbRef
   ) {
@@ -29,11 +31,11 @@ export class AuthService {
   }
 
   setUserPresence(userKey) {
-    const connectionData = firebase
-      .database()
+    const connectionData = this.afDatabase
+      .database
       .ref(`.info/connected`);
-    const user = firebase
-      .database()
+    const user = this.afDatabase
+      .database
       .ref(`presenceData/users/${userKey}`);
     const connections = user.child('connections');
     const lastOnline = user.child('lastOnline');

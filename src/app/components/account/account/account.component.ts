@@ -39,6 +39,7 @@ export class AccountComponent implements OnInit {
     });
     this.authSvc.authInfo$.subscribe(info => {
       this.loggedInUserKey = info.$uid;
+      console.log("this is the logged in user key", this.loggedInUserKey);
       if (!this.userInfo) {
         this.setUser();
       }
@@ -51,6 +52,7 @@ export class AccountComponent implements OnInit {
         this.setUser();
       }
     });
+    console.log("this is the userinfo", this.userInfo);
   }
 
   updateAccountDetails() {
