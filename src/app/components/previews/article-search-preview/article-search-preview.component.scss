@@ -51,7 +51,7 @@ mat-card,
         }
         mat-card-subtitle {
           color: $dark-grey;
-          font-weight: 800;
+          font-weight: bold;
           cursor: pointer;
           margin-bottom: 0 !important;
           @media only screen and (max-width: 940px) {
