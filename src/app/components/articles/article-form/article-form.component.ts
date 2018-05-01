@@ -33,22 +33,23 @@ export class ArticleFormComponent implements OnInit, OnChanges {
     let value = event.value;
 
     if((value || '').trim()) {
-      this.formTags.push({ display: value.trim()});
+      // this.formTags.push({ display: value.trim()});
+      this.articleTags.push(value.toLocaleUpperCase());
+      this.form.controls.tags.patchValue(this.articleTags);
     }
-    console.log(this.formTags, "stuffff ", value);
+    console.log(this.articleTags, "stuffff ", value);
 
     if(input){
       input.value = '';
     }
-    this.articleTags.push(event.value.toUpperCase());
-    this.form.controls.tags.patchValue(this.articleTags);
+    // this.articleTags.push(event.value.toUpperCase());
   }
 
   remove(selectedTag:any):void{
-    let index = this.formTags.indexOf(selectedTag);
+    let index = this.articleTags.indexOf(selectedTag);
 
     if(index >= 0){
-      this.formTags.splice(index, 1);
+      this.articleTags.splice(index, 1);
     }
     // console.log(selectedTag);
     const tagToRemove = selectedTag.display.toUpperCase();
@@ -87,6 +88,7 @@ export class ArticleFormComponent implements OnInit, OnChanges {
       this.form.patchValue(changes['initialValue'].currentValue);
       this.initializeTags(changes['initialValue'].currentValue.tags);
     }
+    console.log("where my changes at");
   }
 
   initializeTags(articleTags) {
