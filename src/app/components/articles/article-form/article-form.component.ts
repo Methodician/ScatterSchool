@@ -45,14 +45,18 @@ export class ArticleFormComponent implements OnInit, OnChanges {
     // this.articleTags.push(event.value.toUpperCase());
   }
 
-  remove(selectedTag:any):void{
-    let index = this.articleTags.indexOf(selectedTag);
-
-    if(index >= 0){
-      this.articleTags.splice(index, 1);
+  remove(selectedTag:any, selectedIndex: number):void{
+    if(selectedIndex){
+      this.articleTags.splice(selectedIndex,1);
     }
+    // let index = this.articleTags.indexOf(selectedTag);
+    console.log(selectedTag);
+
+    // if(index >= 0){
+    //   this.articleTags.splice(index, 1);
+    // }
     // console.log(selectedTag);
-    const tagToRemove = selectedTag.display.toUpperCase();
+    const tagToRemove = selectedTag.toUpperCase();
     this.removeTag(tagToRemove);
     this.form.controls.tags.patchValue(this.articleTags);
   }
@@ -94,9 +98,10 @@ export class ArticleFormComponent implements OnInit, OnChanges {
   initializeTags(articleTags) {
     if (articleTags) {
       this.articleTags = articleTags;
-      for (const tag of articleTags) {
-        this.formTags.push({ 'display': tag, 'value': tag });
-      }
+      console.log(this.articleTags, "initialize");
+      // for (const tag of articleTags) {
+      //   this.formTags.push({ 'display': tag, 'value': tag });
+      // }
     }
   }
 
@@ -123,13 +128,13 @@ export class ArticleFormComponent implements OnInit, OnChanges {
   }
 
   removeTag(tag) {
-    const arteTags = this.articleTags;
-    let index = arteTags.indexOf(tag);
+    // const arteTags = this.articleTags;
+    // let index = arteTags.indexOf(tag);
 
-    while (index !== -1) {
-      arteTags.splice(index, 1);
-      index = arteTags.indexOf(tag);
-    }
+    // while (index !== -1) {
+    //   arteTags.splice(index, 1);
+    //   index = arteTags.indexOf(tag);
+    // }
   }
 
   isErrorVisible(field: string, error: string) {
