@@ -28,22 +28,23 @@ export class AuthService {
     });
   }
 
+  // comment this out due to angularfire incompatibilities
   setUserPresence(userKey) {
-    const connectionData = firebase
-      .database()
-      .ref(`.info/connected`);
-    const user = firebase
-      .database()
-      .ref(`presenceData/users/${userKey}`);
-    const connections = user.child('connections');
-    const lastOnline = user.child('lastOnline');
+    // const connectionData = firebase
+    //   .database()
+    //   .ref(`.info/connected`);
+    // const user = firebase
+    //   .database()
+    //   .ref(`presenceData/users/${userKey}`);
+    // const connections = user.child('connections');
+    // const lastOnline = user.child('lastOnline');
 
-    connectionData.on('value', snapshot => {
-      if (snapshot.val()) {
-        const connection = connections.push();
-        this.userPresence = new UserPresence(connection, lastOnline, userKey);
-      }
-    });
+    // connectionData.on('value', snapshot => {
+    //   if (snapshot.val()) {
+    //     const connection = connections.push();
+    //     this.userPresence = new UserPresence(connection, lastOnline, userKey);
+    //   }
+    // });
   }
 
   login(email, password) {
@@ -62,7 +63,7 @@ export class AuthService {
   }
 
   logout() {
-    this.userPresence.cancelDisconnect();
+    // this.userPresence.cancelDisconnect();
     this.afAuth.auth.signOut();
     this.authInfo$.next(AuthService.UNKNOWN_USER);
     this.user$.next(null);

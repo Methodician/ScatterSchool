@@ -6,15 +6,15 @@ export class UserPresence {
   }
 
   prepareDisconnect() {
-    this.connection.onDisconnect().remove();
-    this.connection.set(true);
-    this.lastOnline.onDisconnect().set(firebase.database.ServerValue.TIMESTAMP);
+    // this.connection.onDisconnect().remove();
+    // this.connection.set(true);
+    // this.lastOnline.onDisconnect().set(firebase.database.ServerValue.TIMESTAMP);
   }
 
   public cancelDisconnect() {
-    this.connection.onDisconnect().cancel();
-    this.connection.remove();
-    this.lastOnline.onDisconnect().cancel();
-    this.lastOnline.set(firebase.database.ServerValue.TIMESTAMP);
+    // this.connection.onDisconnect().cancel();
+    // this.connection.remove();
+    // this.lastOnline.onDisconnect().cancel();
+    // this.lastOnline.set(firebase.database.ServerValue.TIMESTAMP);
   }
 }
