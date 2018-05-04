@@ -32,7 +32,7 @@ export class ArticleFormComponent implements OnInit, OnChanges {
     let input = event.input;
     let value = event.value;
 
-    if((value || '').trim()) {
+    if((value || '').trim() && !this.articleTags.includes(value.toLocaleUpperCase())) {
       // this.formTags.push({ display: value.trim()});
       this.articleTags.push(value.toLocaleUpperCase());
       this.form.controls.tags.patchValue(this.articleTags);
@@ -46,7 +46,7 @@ export class ArticleFormComponent implements OnInit, OnChanges {
   }
 
   remove(selectedTag:any, selectedIndex: number):void{
-    if(selectedIndex){
+    if(selectedIndex || selectedIndex === 0){
       this.articleTags.splice(selectedIndex,1);
     }
     // let index = this.articleTags.indexOf(selectedTag);
