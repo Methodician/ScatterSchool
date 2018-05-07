@@ -3,6 +3,7 @@
 // imports for the variable and mixin files found within the sass-variables-mixins folder
 @import "app/sass-variables-mixins/vars.scss";
 @import "app/sass-variables-mixins/mixins.scss";
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 
 fieldset {
@@ -10,7 +11,9 @@ fieldset {
   }
   
 *, html, body {
-  font-family: STHeitiSC-Light;
+  // font-family: STHeitiSC-Light;
+  font-family: 'Montserrat', sans-serif;
+
 }
 
   

@@ -60,3 +60,8 @@
     letter-spacing: $btn-letter-spacing;
     border-radius: $btn-border-radius;
 }
+
+// media queries
+@mixin respond-to($breakpoint) {
+    @media only screen and (min-width: $breakpoint + px) { @content; }
+  }

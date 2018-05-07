@@ -18,8 +18,8 @@
         </div>
         <!-- List View -->
         <div class="list" *ngIf="currentSelectedFeaturePreview === 1">
-          <!-- <app-article-preview-list [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></app-article-preview-list> -->
-          <app-feature-preview [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></app-feature-preview>
+          <!-- <app-feature-preview [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></app-feature-preview> -->
+          <app-article-preview-list [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></app-article-preview-list>
         </div>
       </div>
     </div>

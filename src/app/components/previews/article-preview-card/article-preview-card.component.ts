@@ -107,7 +107,7 @@ export class ArticlePreviewCardComponent implements OnInit {
   }
 
   hoverArticleCard(){
-    console.log(this.hoverClass, "this is the hover class");
+    // console.log(this.hoverClass, "this is the hover class");
     this.hoverClass = this.hoverClass === '' ? "hover-bg": '';
     this.hoverBg = this.hoverBg === '' ? "rgba(0,184,212, 0.15)": '';
   }

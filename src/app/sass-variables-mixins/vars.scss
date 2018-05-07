@@ -10,7 +10,8 @@ $dark-gray: #3E4849;
 $light-grey: #EEEEEE;
 $dark-grey: #757575;
 // GLOBAL TYPOGRAPHY STYLES
-$font-family: STHeitiSC-Light;
+// $font-family: STHeitiSC-Light;
+$font-family: 'Montserrat', sans-serif;
 $letter-spacing: .5px;
 
 // Testing borders "tb" being the key selector
@@ -44,3 +45,31 @@ $mat-font-size: 14px;
 $lg-height: 50px;
 $lg-width: 145px;
 $lg-font-size: 22px;
+
+// Variables taken from flight.run
+// Variables for media query
+$tablet-portrait-up: 600;
+$tablet-landscape-up: 900;
+$desktop-up: 1200;
+$large-desktop-up: 1800;
+
+//Average screen widths
+$phone-lg: 414;
+$phone-md: 375;
+$phone-sm: 320;
+//iPhone
+$iphone-lg: 414;
+$iphone-md: 375;
+$iphone-sm: 320;
+//Android
+$android-lg: 480;
+$android-md: 411;
+$android-sm: 360;
+
+//General viewport widths
+$tablet-sm: 576;
+$tablet-md: 780;
+$tablet-lg: 992;
+$desktop-sm: 1200;
+$desktop-md: 1440;
+$desktop-lg: 1650;
