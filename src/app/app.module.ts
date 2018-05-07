@@ -96,6 +96,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { NotificationsComponent } from './components/notifications/notifications.component';
 import { NotificationService } from './shared/services/notification/notification.service';
 
+import { AngularFireStorageModule } from 'angularfire2/storage';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -182,7 +184,10 @@ import { NotificationService } from './shared/services/notification/notification
     MatIconModule,
     MatSidenavModule,
     MatTooltipModule,
-    MatTabsModule
+    MatTabsModule,
+    AngularFireStorageModule
+    // for storage
+
   ],
   providers: [
     AngularFireDatabase,
