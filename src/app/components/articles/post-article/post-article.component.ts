@@ -38,13 +38,13 @@ export class PostArticleComponent implements OnInit {
   }
 
   async save(article) {
-    console.log(article);
-    // const articleId = await this.articleSvc.createArticle(this.userInfo, this.authInfo.$uid, article);    
+    // console.log(article);
+    const articleId = await this.articleSvc.createArticle(this.userInfo, this.authInfo.$uid, article);    
     // console.log(article, articleId);
-    // // if (this.selectedFiles) {
-    // //   this.sendImgToUploadSvc(articleId);
-    // // }
-    // // this.router.navigate([`articledetail/${articleId}`]);
+    if (this.selectedFiles) {
+      this.sendImgToUploadSvc(articleId);
+    }
+    this.router.navigate([`articledetail/${articleId}`]);
   }
 
   sendImgToUploadSvc(articleKey) {

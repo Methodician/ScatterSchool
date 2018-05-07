@@ -118,7 +118,8 @@ export class ArticleService {
       .doc(articleId)
       .ref;
     batch.set(userArticleEditedRef, {
-      timestamp: this.fsServerTimestamp(),
+      // timestamp: this.fsServerTimestamp(),
+      timestamp: new Date(),
       articleId: articleId
     });
 
@@ -127,7 +128,8 @@ export class ArticleService {
       .doc(articleId)
       .ref;
     batch.set(userArticleAuthoredRef, {
-      timestamp: this.fsServerTimestamp(),
+      // timestamp: this.fsServerTimestamp(),
+      timestamp: new Date(),
       articleId: articleId
     });
 
@@ -190,7 +192,8 @@ export class ArticleService {
                 name: editor.displayName()
               });
               batch.set(userArticleEditedRef, {
-                timestamp: this.fsServerTimestamp(),
+                // timestamp: this.fsServerTimestamp(),
+                timestamp: new Date(),
                 articleId: articleId
               });
               //  Maybe history duplications belong in could functions...
@@ -408,7 +411,8 @@ export class ArticleService {
     }
     const newTag = {};
     newTag[tag] = {
-      timestamp: this.fsServerTimestamp(),
+      // timestamp: this.fsServerTimestamp(),
+      timestamp: new Date(),
       count: 1
     };
     if (batch) {
@@ -482,8 +486,10 @@ export class ArticleService {
       commentCount: 0,
       viewCount: 0,
       isFeatured: false,
-      timestamp: this.fsServerTimestamp(),
-      lastUpdated: this.fsServerTimestamp()
+      timestamp: new Date(),
+      // timestamp: this.fsServerTimestamp(),
+      lastUpdated: new Date()
+      // lastUpdated: this.fsServerTimestamp()
     }
   }
 
@@ -520,7 +526,7 @@ export class ArticleService {
   }
 
   fsServerTimestamp() {
-    return firebase.firestore.FieldValue.serverTimestamp();
+    // return firebase.firestore.FieldValue.serverTimestamp();
   }
 
   injectObjectKey(object: AngularFireObject<{}>) {
