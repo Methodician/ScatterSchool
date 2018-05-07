@@ -1,6 +1,6 @@
 <div class="homeContainer">
   <div class="heroBgColor">
-    <h1>Empowering the makers and hackers of the world</h1>
+    <h1>EMPOWERING THE MAKERS AND HACKERS OF THE WORLD</h1>
     <h2>A convenience outlet to network, collaborate, and share knowledge with the community you love</h2>
   </div>
 
@@ -12,17 +12,14 @@
           <h2>Featured Articles</h2>
           <!-- Featured Article Toggle buttons -->
           <div class="iconWrapper">
-            <mat-icon (click)="featuredListView()" [class.activePreviewState]="currentSelectedFeaturePreview === 1">list</mat-icon>
-            <mat-icon (click)="featuredTileView()" [class.activePreviewState]="currentSelectedFeaturePreview === 2">apps</mat-icon>
+            <!-- <mat-icon (click)="featuredListView()" [class.activePreviewState]="currentSelectedFeaturePreview === 1">list</mat-icon>
+            <mat-icon (click)="featuredTileView()" [class.activePreviewState]="currentSelectedFeaturePreview === 2">apps</mat-icon> -->
           </div>
         </div>
         <!-- List View -->
         <div class="list" *ngIf="currentSelectedFeaturePreview === 1">
+          <!-- <app-article-preview-list [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></app-article-preview-list> -->
           <app-feature-preview [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></app-feature-preview>
-        </div>
-        <!-- Grid View -->
-        <div class="grid" *ngIf="currentSelectedFeaturePreview === 2">
-          <latest-preview [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></latest-preview>
         </div>
       </div>
     </div>
@@ -38,37 +35,38 @@
         </div>
         <!-- Latest Article List and Grid View Toggle buttons -->
         <div class="latestViewToggle" *ngIf="currentSelectedTab === 1">
-          <mat-icon (click)="latestListView()" [class.activePreviewState]="currentSelectedLatestPreview === 3">list</mat-icon>
-          <mat-icon (click)="latestTileView()" [class.activePreviewState]="currentSelectedLatestPreview === 4">apps</mat-icon>
+          <!-- <mat-icon (click)="latestListView()" [class.activePreviewState]="currentSelectedLatestPreview === 3">list</mat-icon>
+          <mat-icon (click)="latestTileView()" [class.activePreviewState]="currentSelectedLatestPreview === 4">apps</mat-icon> -->
         </div>
         <!-- All Article Grid View Toggle buttons -->
         <div class="allViewToggle" *ngIf="currentSelectedTab === 2">
-          <mat-icon (click)="allListView()" [class.activePreviewState]="currentSelectedAllPreview === 5">list</mat-icon>
-          <mat-icon (click)="allTileView()" [class.activePreviewState]="currentSelectedAllPreview === 6">apps</mat-icon>
+          <!-- <mat-icon (click)="allListView()" [class.activePreviewState]="currentSelectedAllPreview === 5">list</mat-icon>
+          <mat-icon (click)="allTileView()" [class.activePreviewState]="currentSelectedAllPreview === 6">apps</mat-icon> -->
         </div>
       </div>
       <!-- Latest Article Preview -->
       <div *ngIf="currentSelectedTab === 1">
         <!-- Latest Article Grid View -->
         <div class="grid" *ngIf="currentSelectedLatestPreview === 4">
-          <latest-preview [articleData]="article" *ngFor="let article of latestArticles"></latest-preview>
+          <!-- <latest-preview [articleData]="article" *ngFor="let article of latestArticles"></latest-preview> -->
+          <app-article-preview-card [articleData]="article" *ngFor="let article of latestArticles"></app-article-preview-card>
         </div>
         <!-- Latest Article List View -->
-        <div class="list" *ngIf="currentSelectedLatestPreview === 3">
-          <app-feature-preview [articleData]="article" *ngFor="let article of latestArticles"></app-feature-preview>
-        </div>
       </div>
       <!-- All Article Preview -->
       <div *ngIf="currentSelectedTab === 2" class="allArticleWrapper">
         <!-- All Article Grid View -->
         <div class="grid" *ngIf="currentSelectedAllPreview === 6">
-          <latest-preview [articleData]="article" *ngFor="let article of allArticles | reverseArray"></latest-preview>
+          <!-- <latest-preview [articleData]="article" *ngFor="let article of allArticles | reverseArray"></latest-preview> -->
+          <app-article-preview-card [articleData]="article" *ngFor="let article of allArticles | reverseArray"></app-article-preview-card>
         </div>
         <!-- All Article List View -->
-        <div class="list" *ngIf="currentSelectedAllPreview === 5">
+        <!-- <div class="list" *ngIf="currentSelectedAllPreview === 5">
           <app-feature-preview [articleData]="article" *ngFor="let article of allArticles | reverseArray"></app-feature-preview>
-        </div>
+        </div> -->
       </div>
     </div>
+
+
   </div>
 </div>

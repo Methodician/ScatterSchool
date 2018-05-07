@@ -1,0 +1,74 @@
+// imports for the variable and mixin files found within the sass-variables-mixins folder
+@import "../../../sass-variables-mixins/vars.scss";
+@import "../../../sass-variables-mixins/mixins.scss";
+// .overlay:hover {
+//   background: linear-gradient(to right, $primary-color, $primary-color); 
+// }
+.hover-bg {
+  filter: sepia(100) hue-rotate(140deg) saturate(80%) contrast(50%);
+  color: white;
+}
+mat-card {
+  @include size(325px, 300px);
+  background: white;
+  padding: 0;
+  margin: 0 0 20px 0;
+  position: relative;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: all 100ms ease-in;
+  img {
+    @include size(150px, 100%);
+    object-fit: cover;
+  }
+  mat-card-header {
+    min-height: 75px;
+    max-height: 75px;
+  }
+  mat-card-title {
+    @include font-size(20px);
+    margin: 0;
+    color: $primary-color;
+    padding: 15px;
+    cursor: pointer;
+    &:hover {
+      color: $accent-color;
+      text-decoration: underline;
+    }
+  }
+  mat-card-subtitle {
+    padding: 0 15px;
+  }
+  mat-card-content {  
+    padding: 0 15px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  mat-card-actions {
+    @include size(40px, 300px);
+    margin: 0 auto !important;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    // background: rgba(0,184,212,0.20)
+    background: rgb(204,241,247) ;
+  }
+  div {
+    display: flex;
+    padding: 0 5px;
+    align-items: center;
+    p {
+      padding: 0 5px;
+    }
+  }
+  div:first-of-type {
+    padding: 0 5px 0 15px;
+  }
+  div:last-of-type {
+    margin-left: auto;
+    padding: 0 15px 0 5px;
+  }
+}
