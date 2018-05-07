@@ -97,6 +97,7 @@ import { NotificationsComponent } from './components/notifications/notifications
 import { NotificationService } from './shared/services/notification/notification.service';
 
 import { AngularFireStorageModule } from 'angularfire2/storage';
+import { ArticlePreviewCardComponent } from './components/previews/article-preview-card/article-preview-card.component';
 
 @NgModule({
   declarations: [
@@ -157,7 +158,8 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
     ArticleHistoryDetailComponent,
     UserInteractionComponent,
     ChatListComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    ArticlePreviewCardComponent
   ],
   imports: [
     BrowserModule,
