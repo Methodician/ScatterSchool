@@ -165,7 +165,8 @@ export class ArticleService {
           const archiveArticleObject = this.updateObjectFromArticle(oldArticle, articleId, oldArticle.lastEditorId);
           const updatedArticleObject: any = this.updateObjectFromArticle(article, articleId, editorId);
           updatedArticleObject.version = article.version + 1;
-          updatedArticleObject.lastUpdated = this.fsServerTimestamp();
+          updatedArticleObject.lastUpdated = new Date();
+          // updatedArticleObject.lastUpdated = this.fsServerTimestamp();
           updatedArticleObject.bodyId = newBodyId;
           //  Would like to make global tags processing atomic as well.
           this.processGlobalTags(article.tags, oldArticle.tags, articleId);
@@ -289,7 +290,8 @@ export class ArticleService {
         articleId: articleId,
         viewerUid: (viewer ? viewer.$key : 'anonymous'),
         articleVersion: version,
-        viewStart: this.fsServerTimestamp()
+        // viewStart: this.fsServerTimestamp()
+        viewStart: new Date()
       }
       try {
         const docRef = await articleDoc.collection('views').add(viewEntryObject);
@@ -313,7 +315,10 @@ export class ArticleService {
     if (viewFromSession < twoMinutesBack) {
       sessionStorage.setItem(`unView:${articleId}`, new Date().toString());
       const articleDoc = this.getArticle(articleId);
-      return articleDoc.collection('views').doc(viewId).update({ viewEnd: this.fsServerTimestamp() });
+      return articleDoc.collection('views').doc(viewId).update({ 
+        // viewEnd: this.fsServerTimestamp()
+        viewEnd: new Date()
+       });
     }
   }
 
