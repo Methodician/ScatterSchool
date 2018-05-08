@@ -17,11 +17,13 @@
     @include font-size(68px);
     @include font-styles();
     color: $dark-gray;
+    margin-bottom: 0;
   }
   h2 {
     @include font-size(28px);
     @include font-styles();
     color: $dark-gray;
+    margin-bottom: 20px;
   }
   // media queries for responsive hero text
   @media only screen and (max-width:980px) {
@@ -59,10 +61,19 @@
 .bodyBgColor {
   width: 100%;
   background-color: $light-grey;
-  .featuredArticleWrapper {
-    width: 95%;
-    margin-left: 2.5%;
-    .featuredOptions {
+}
+.featuredArticleWrapper {
+  border: $tb-orange;
+  width: 95%;
+  margin-left: 2.5%;
+  padding-top: 20px;
+  h2 {
+    font-size: 28px;
+    color: $dark-gray;
+    @include respond-to($tablet-sm){
+      font-size: 30px;
+    }
+  .featuredOptions {
       height: 100%;
       width: 100%;
       display: flex;
@@ -80,16 +91,6 @@
           @include font-size(30px);
         }
       }
-      .iconWrapper {
-        width: 75px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        mat-icon {
-          cursor: pointer;
-          font-size: 30px;
-        }
-      }
     }
     .grid {
       @include size(100%, 100%);
@@ -101,60 +102,74 @@
       }
     }
   }
-  .latestAndAllWrapper {
-    width: 95%;
-    margin-left: 2.5%;
-    .article-options {
+}
+.latestAndAllWrapper {
+  border: $tb-red;
+  width: 95%;
+  margin-left: 2.5%;
+  .article-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    .header-style {
+      @include font-styles();
+      @include font-size(30px);
+      color: white;
+      cursor: pointer;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-top: 20px;
-      .header-style {
-        @include font-styles();
-        @include font-size(30px);
-        color: white;
-        cursor: pointer;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+      h2 {
+        margin-right: 50px;
+      }
+      @media only screen and (max-width:776px) {
+        @include font-size(20px);
+      }
+      @media only screen and (max-width:680px) {
+        @include font-size(17px);
         h2 {
-          margin-right: 50px;
-        }
-        @media only screen and (max-width:776px) {
-          @include font-size(20px);
-        }
-        @media only screen and (max-width:680px) {
-          @include font-size(17px);
-          h2 {
-            margin-right: 25px;
-          }
-        }
-      }
-      .activeArticleState {
-        color: $primary-color;
-        text-decoration: underline;
-      }
-      .latestViewToggle,
-      .allViewToggle {
-        color: white;
-        width: 75px;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        mat-icon {
-          cursor: pointer;
-          font-size: 30px;
+          margin-right: 25px;
         }
       }
     }
-    .grid {
-      @include size(100%, 100%);
+    .activeArticleState {
+      color: $primary-color;
+      text-decoration: underline;
+    }
+    .latestViewToggle,
+    .allViewToggle {
+      color: white;
+      width: 75px;
       display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      @media only screen and (max-width: 1030px) {
-        justify-content: space-around;
+      justify-content: space-around;
+      align-items: center;
+      mat-icon {
+        cursor: pointer;
+        font-size: 30px;
       }
     }
+  }
+  .grid {
+    border: $tb-lime;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-auto-flow: row;
+    @include respond-to($tablet-sm){
+      border: $tb-cyan;
+      grid-template-columns: 1fr 1fr;
+    }
+    @include respond-to($tablet-lg){
+      border: $tb-red;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+    // @include size(100%, 100%);
+    // display: flex;
+    // justify-content: space-between;
+    // flex-wrap: wrap;
+    // @media only screen and (max-width: 1030px) {
+    //   justify-content: space-around;
+    // }
   }
 }
