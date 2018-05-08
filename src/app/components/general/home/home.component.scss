@@ -89,7 +89,6 @@
   background-color: $light-grey;
 }
 .featuredArticleWrapper {
-  // border: $tb-orange;
   width: 95%;
   margin-left: 2.5%;
   padding-top: 20px;
@@ -99,33 +98,13 @@
     @include respond-to($tablet-sm){
       font-size: 30px;
     }
-  .featuredOptions {
-      height: 100%;
+  }
+  .list {
+    @include respond-to($desktop-sm){
       width: 100%;
-      display: flex;
-      justify-content: space-between;
-      align-content: center;
-      color: white;
-      h2 {
-        @include font-styles();
-        @include font-size(60px);
-        color: $dark-gray;
-        @media only screen and (max-width: 776px) {
-          @include font-size(40px);
-        }
-        @media only screen and (max-width:600px) {
-          @include font-size(30px);
-        }
-      }
-    }
-    .grid {
-      @include size(100%, 100%);
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      @media only screen and (max-width: 1030px) {
-        justify-content: space-around;
-      }
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-auto-rows: auto;
     }
   }
 }

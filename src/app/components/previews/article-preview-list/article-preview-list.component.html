@@ -6,7 +6,7 @@
     alt="article's cover image">
     <div class="content-wrapper" (click)="navigateToArticleDetail()">
       <mat-card-header>
-        <mat-card-title class="longer-title">{{articleData.title | truncate: 70 }}</mat-card-title>
+        <mat-card-title class="longer-title">{{articleData.title | truncate: 60 }}</mat-card-title>
         <mat-card-title class="shorter-title">{{articleData.title | truncate: 30 }}</mat-card-title>
         <mat-card-subtitle>Last Updated: {{articleData?.lastUpdated | date}}</mat-card-subtitle>
       </mat-card-header>

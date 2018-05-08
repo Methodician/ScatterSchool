@@ -19,10 +19,15 @@ mat-card {
   @include respond-to($tablet-sm){
     max-height: 90px;
   }
+  @include respond-to($desktop-sm){
+    min-width: 500px;
+    max-width: 100%;
+  }
   img {
     // height: 90px;
     height: 90px;
     width: 90px;
+    min-width: 90px;
     object-fit: cover;
     object-position: center;
     // height: 90px;
@@ -46,25 +51,28 @@ mat-card {
       @include respond-to($tablet-sm){
         display: none;
       }
-      @include respond-to($tablet-lg){
-        display: block;
-      }
+      // @include respond-to($tablet-lg){
+      //   display: block;
+      // }
     }
     .shorter-title {
       display: none;
       @include respond-to($tablet-sm){
         display: block;
       }
-      @include respond-to($tablet-lg){
-        display: none;
-      }
+      // @include respond-to($tablet-lg){
+      //   display: none;
+      // }
+    }
+    mat-card-header {
+      margin-top: -8px;
     }
     mat-card-title {
       color: $primary-color;
       font-size: 20px;
       margin: 10px 0 16px 0;
       @include respond-to($tablet-sm){
-        margin: 0 0 16px 0;
+        margin: 10px 0 16px 0;
       }
     }
     mat-card-content {
@@ -82,16 +90,16 @@ mat-card {
     align-items: flex-start;
     align-content: flex-start;
     width: 60px;
-    @include respond-to($tablet-lg){
-      min-width: 200px;
-      align-content: center;
-      align-items: center;
-    }
-    @include respond-to($desktop-sm){
-      min-width: 300px;
-      justify-content: space-around;
-      // align-content: stretch;
-    }
+    // @include respond-to($tablet-lg){
+    //   min-width: 200px;
+    //   align-content: center;
+    //   align-items: center;
+    // }
+    // @include respond-to($desktop-sm){
+    //   min-width: 300px;
+    //   justify-content: space-around;
+    //   // align-content: stretch;
+    // }
     div {
       display: flex;
       align-items: center;
