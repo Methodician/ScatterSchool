@@ -130,7 +130,6 @@
   }
 }
 .latestAndAllWrapper {
-  border: $tb-red;
   width: 95%;
   margin-left: 2.5%;
   .article-options {
@@ -177,25 +176,23 @@
     }
   }
   .grid {
-    border: $tb-lime;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     grid-auto-flow: row;
+    justify-items: center;
+    // figure out a mix-in or something to calculate this.
     @include respond-to($tablet-sm){
-      border: $tb-cyan;
       grid-template-columns: 1fr 1fr;
     }
     @include respond-to($tablet-lg){
-      border: $tb-red;
       grid-template-columns: 1fr 1fr 1fr;
     }
-    // @include size(100%, 100%);
-    // display: flex;
-    // justify-content: space-between;
-    // flex-wrap: wrap;
-    // @media only screen and (max-width: 1030px) {
-    //   justify-content: space-around;
-    // }
+    @include respond-to($desktop-sm){
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+    @include respond-to($desktop-lg){
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
   }
 }
