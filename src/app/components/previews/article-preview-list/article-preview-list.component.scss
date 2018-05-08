@@ -85,6 +85,7 @@ mat-card {
     @include respond-to($tablet-lg){
       min-width: 200px;
       align-content: center;
+      align-items: center;
     }
     @include respond-to($desktop-sm){
       min-width: 300px;

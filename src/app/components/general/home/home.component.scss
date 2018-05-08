@@ -7,55 +7,81 @@
 
 .heroBgColor {
   @include size(300px, 100%);
-  background-color: white;
+  background: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   text-align: center;
+  justify-content: center;
+  color: $dark-gray;
   h1 {
-    @include font-size(68px);
-    @include font-styles();
-    color: $dark-gray;
-    margin-bottom: 0;
+    font-size: 28px;
+    @include respond-to($tablet-sm) {
+      font-size: 32px;
+    }
+    @include respond-to($desktop-sm) {
+      font-size: 36px;
+    }
   }
   h2 {
-    @include font-size(28px);
-    @include font-styles();
-    color: $dark-gray;
-    margin-bottom: 20px;
-  }
-  // media queries for responsive hero text
-  @media only screen and (max-width:980px) {
-    h1 {
-      @include font-size(52px);
+    font-size: 24px;
+    @include respond-to($tablet-sm){
+      font-size: 28px;
     }
-    h2 {
-      @include font-size(20px);
+    @include respond-to($desktop-sm){
+      font-size: 32px;
     }
   }
-  @media only screen and (max-width:700px) {
-    h1 {
-      @include font-size(42px);
-    }
-    h2 {
-      @include font-size(18px);
-    }
-  }
-  @media only screen and (max-width:568px) {
-    h1 {
-      @include font-size(32px);
-    }
-    h2 {
-      @include font-size(14px);
-    }
-  }
+  // @include size(300px, 100%);
+  // background-color: white;
+  // display: flex;
+  // flex-direction: column;
+  // justify-content: center;
+  // align-items: center;
+  // text-align: center;
+  // h1 {
+  //   @include font-size(68px);
+  //   @include font-styles();
+  //   color: $dark-gray;
+  //   margin-bottom: 0;
+  // }
+  // h2 {
+  //   @include font-size(28px);
+  //   @include font-styles();
+  //   color: $dark-gray;
+  //   margin-bottom: 20px;
+  // }
+  // // media queries for responsive hero text
+  // @media only screen and (max-width:980px) {
+  //   h1 {
+  //     @include font-size(52px);
+  //   }
+  //   h2 {
+  //     @include font-size(20px);
+  //   }
+  // }
+  // @media only screen and (max-width:700px) {
+  //   h1 {
+  //     @include font-size(42px);
+  //   }
+  //   h2 {
+  //     @include font-size(18px);
+  //   }
+  // }
+  // @media only screen and (max-width:568px) {
+  //   h1 {
+  //     @include font-size(32px);
+  //   }
+  //   h2 {
+  //     @include font-size(14px);
+  //   }
+  // }
 }
 
 @media only screen and (max-width:1200px) {
-  .heroBgColor {
-    height: 250px;
-  }
+  // .heroBgColor {
+  //   height: 250px;
+  // }
 }
 
 .bodyBgColor {
@@ -63,7 +89,7 @@
   background-color: $light-grey;
 }
 .featuredArticleWrapper {
-  border: $tb-orange;
+  // border: $tb-orange;
   width: 95%;
   margin-left: 2.5%;
   padding-top: 20px;

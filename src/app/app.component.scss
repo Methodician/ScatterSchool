@@ -4,8 +4,9 @@
 @import "/sass-variables-mixins/mixins.scss";
 
 #navContainer {
+  // border: $tb-lime;
   background-color: white;
-  @include size(170px, 100%);
+  @include size(55px, 100%);
   overflow-x: hidden;
 }
 
