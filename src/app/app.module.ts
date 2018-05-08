@@ -40,8 +40,6 @@ import { CKEditorModule } from 'ng2-ckeditor';
 import { EditArticleComponent } from 'app/components/articles/edit-article/edit-article.component';
 import { TopNavComponent } from 'app/components/shared/top-nav/top-nav.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { FeaturePreviewComponent } from 'app/components/previews/feature-preview/feature-preview.component';
-import { LatestPreviewComponent } from 'app/components/previews/latest-preview/latest-preview.component';
 import { ArticleSearchPipe } from 'app/shared/pipes/article-search.pipe';
 import { ArticleSearchResultsComponent } from 'app/components/general/article-search-results/article-search-results.component';
 import { ArticleDetailComponent } from 'app/components/articles/article-detail/article-detail.component';
@@ -111,8 +109,6 @@ import { ArticlePreviewListComponent } from './components/previews/article-previ
     ArticleFormComponent,
     EditArticleComponent,
     TopNavComponent,
-    FeaturePreviewComponent,
-    LatestPreviewComponent,
     ArticleSearchPipe,
     ArticleSearchResultsComponent,
     ArticleDetailComponent,
