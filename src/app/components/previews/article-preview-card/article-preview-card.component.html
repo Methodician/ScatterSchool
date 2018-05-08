@@ -2,7 +2,7 @@
   <!-- Article image -->
     <img [class]="hoverClass" (click)="navigateToArticleDetail()" [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../../assets/images/kid-art.jpg'" alt="article's cover image">
     <mat-card-header (click)="navigateToArticleDetail()">
-      <mat-card-title>{{articleData.title | truncate:29}}</mat-card-title>
+      <mat-card-title>{{articleData.title | truncate:27}}</mat-card-title>
       <mat-card-subtitle>Last Updated: {{articleData?.lastUpdated | timeElapsed}}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content (click)="navigateToArticleDetail()">

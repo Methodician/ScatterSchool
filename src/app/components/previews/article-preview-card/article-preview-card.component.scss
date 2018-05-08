@@ -30,6 +30,7 @@ mat-card {
     margin: 0;
     color: $primary-color;
     padding: 15px;
+    white-space: nowrap;
     cursor: pointer;
     &:hover {
       color: $accent-color;

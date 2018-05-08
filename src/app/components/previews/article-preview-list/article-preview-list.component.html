@@ -1,45 +1,37 @@
 <mat-card [style.backgroundColor]="hoverBg" (mouseover)="enterCard()" (mouseout)="exitCard()">
-  <!-- Article Image -->
-  <img [class]="hoverClass" [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" alt="article's cover image">
-  <!-- Card Header Container -->
-  <div class="contentWrapper">
-    <mat-card-header>
-      <div class="titleWrapper">
-        <mat-card-title class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:70}}</mat-card-title>
-        <mat-card-subtitle class="author" (click)="navigateToProfile()">Last Updated on: {{ articleData?.lastUpdated | date }}</mat-card-subtitle>
-      </div>
-    </mat-card-header>
-    <!-- Card Content -->
-    <mat-card-content>
-      <p class="author" (click)="navigateToProfile()">By: {{author?.alias | truncate:20}}</p>
-    </mat-card-content>
-  </div>
-  <!-- Flexbox Spacer Span -->
-  <span class="contentSpacer"></span>
-   <!-- Card Footer Action -->
-  <mat-card-actions>
-    <!-- Article Comment Icon -->
-     <div>
-       <span matTooltip="0 Comments">
-         <mat-icon color="primary">comment</mat-icon>
-       </span>
-       <p>0</p>
+  <img 
+    [class]="hoverClass"
+    [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/image/kid-art.jpg'"
+    (click)="navigateToArticleDetail()"
+    alt="article's cover image">
+    <div class="content-wrapper" (click)="navigateToArticleDetail()">
+      <mat-card-header>
+        <mat-card-title class="longer-title">{{articleData.title | truncate: 70 }}</mat-card-title>
+        <mat-card-title class="shorter-title">{{articleData.title | truncate: 30 }}</mat-card-title>
+        <mat-card-subtitle>Last Updated: {{articleData?.lastUpdated | date}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>By: {{author?.alias | truncate:20}}</p>
+      </mat-card-content>
     </div>
-    <!-- Article History Icon -->
-      <div>
-        <span matTooltip="Revised {{articleData.version}} time(s)">
+    <mat-card-actions>
+      <div matTooltip="{{articleData.commentCount ? article.commentCount : '0'}} comments">
+        <mat-icon color="primary">comment</mat-icon>
+        <p>{{articleData.commentCount ? article.commentCount: '0'}}</p>
+      </div>
+      <!-- Article History Icon -->
+        <div matTooltip="Revised {{articleData.version}} time(s)" >
           <mat-icon color="primary">history</mat-icon>
-        </span>
-        <p>{{articleData.version}}</p>
-      </div>
-      <!-- Article Tags Icon -->
-      <div>
-          <mat-icon matTooltip="{{articleData.tags }}" color="primary">label_outline</mat-icon>
-        <p>{{articleData.tags.length}}</p>
-      </div>
-      <!-- Article Bookmark Icon -->
-      <div>
-          <mat-icon matTooltip="Bookmark This Article" color="primary" id="bookmarkIcon">bookmark_border</mat-icon>
-      </div>
+          <p>{{articleData.version}}</p>
+        </div>
+        <!-- Article Tags Icon -->
+        <div matTooltip="{{articleData.tags }}">
+            <mat-icon color="primary">label_outline</mat-icon>
+            <p>{{articleData.tags.length}}</p>
+        </div>
+        <!-- Article Bookmark Icon -->
+        <div matTooltip="Bookmark This Article">
+            <mat-icon color="primary" id="bookmarkIcon">bookmark_border</mat-icon>
+        </div>
     </mat-card-actions>
-  </mat-card>
+</mat-card>

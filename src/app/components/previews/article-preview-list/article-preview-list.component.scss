@@ -6,122 +6,224 @@
   color: white;
 }
 
-mat-card,
-.mat-card {
-  @include size(90px, 98%);
-  margin-bottom: 20px;
+mat-card {
+  // @include size(90px, 98%);
+  min-height: 90px;
+  width: 98%;
+  margin: 0 0 20px 0;
   display: flex;
-  -webkit-box-orient: horizontal;
-  flex-direction: row;
-  justify-content: flex-start;
-  border-radius: 5px;
+  justify-content: space-between;
+  // align-items: center;
   padding: 0;
-  // @media only screen and (max-width: 940px) {
-  //   img {
-  //     display: none;
-  //   }
-  // }
+  cursor: pointer;
+  @include respond-to($tablet-sm){
+    max-height: 90px;
+  }
   img {
-    @include size(90px, 90px);
+    // height: 90px;
+    height: 90px;
+    width: 90px;
     object-fit: cover;
     object-position: center;
+    // height: 90px;
+    // width: 90px;
     display: none;
-    @include respond-to($tablet-sm) {
-      // margin-right: 20px;
+    @include respond-to($tablet-sm){
       display: block;
     }
+    @include respond-to($tablet-lg){
+      min-width: 150px;
+    }
   }
-  .contentWrapper {
-    @include size(90px, 800px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 0;
-    padding: 0 0 0 10px;
-    mat-card-header {
-      .titleWrapper {
-        width: 100%;
-        mat-card-title {
-          @include font-size(20px);
-          @include font-styles();
-          color: $primary-color;
-          cursor: pointer;
-          @media only screen and (max-width: 940px) {
-            @include font-size(16px);
-          }
-          &:hover {
-            color: $accent-color;
-            text-decoration: underline;
-          }
-        }
-        mat-card-subtitle {
-          color: $dark-grey;
-          font-weight: 800;
-          cursor: pointer;
-          margin-bottom: 0 !important;
-          // @media only screen and (max-width: 940px) {
-          //   @include font-size(10px);
-          // }
-        }
+  .content-wrapper {
+    // border: $tb-red;
+    width: 80%;
+    padding: 0px 0 10px 10px;
+    @include respond-to($tablet-lg){
+      padding: 0 0 10px 20px;
+    }
+    .longer-title {
+      @include respond-to($tablet-sm){
+        display: none;
+      }
+      @include respond-to($tablet-lg){
+        display: block;
       }
     }
-    @media only screen and (max-width:940px) {
-      // margin-left: 20px;
-    }
-  }
-  mat-card-content,
-  .mat-card-content {
-    align-self: flex-start;
-    margin-bottom: 0 !important;
-    p {
-      @include font-size(12px);
-      color: $dark-grey;
-      cursor: pointer;
-      margin-top: 5px;
-      &:hover {
-        color: $accent-color;
-        text-decoration: underline;
+    .shorter-title {
+      display: none;
+      @include respond-to($tablet-sm){
+        display: block;
+      }
+      @include respond-to($tablet-lg){
+        display: none;
       }
     }
-  }
-  .contentSpacer {
-    flex: 1 1 auto;
+    mat-card-title {
+      color: $primary-color;
+      font-size: 20px;
+      margin: 10px 0 16px 0;
+      @include respond-to($tablet-sm){
+        margin: 0 0 16px 0;
+      }
+    }
+    mat-card-content {
+      margin: 0;
+    }
   }
   mat-card-actions {
-    // border: $tb-red;
-    @include size(90px, 250px);
-    margin-left: 0px !important;
-    margin-right: 0px !important;
-    padding-top: 0px !important;
-    display: flex;
-    justify-content: space-around;
     background: rgb(204,241,247) ;
+    padding: 0 5px 0 5px;
+    min-width: 100px;
+    margin: 0 !important;
+    // border: $tb-blue;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    width: 60px;
+    @include respond-to($tablet-lg){
+      min-width: 200px;
+      align-content: center;
+    }
+    @include respond-to($desktop-sm){
+      min-width: 300px;
+      justify-content: space-around;
+      // align-content: stretch;
+    }
     div {
       display: flex;
-      flex-direction: row;
-      justify-content: space-around;
       align-items: center;
-      margin-right: 10px;
-      @media only screen and (max-width: 940px) {
-        margin-right: 5px;
-      }
-      span {
-        mat-icon {
-          cursor: default;
-          @include font-size(30px);
-          @media only screen and (max-width: 940px) {
-            @include font-size(24px);
-          }
-        }
-      }
+      justify-content: center;
+      width: 48px;
+      height: 45px;
       p {
-        margin-left: 5px;
-        color: $dark-grey;
+        margin: 0;
       }
-    }
-    @media only screen and (max-width:940px) {
-      width: 225px;
     }
   }
 }
+// mat-card,
+// .mat-card {
+//   @include size(90px, 98%);
+//   margin-bottom: 20px;
+//   display: flex;
+//   -webkit-box-orient: horizontal;
+//   flex-direction: row;
+//   justify-content: flex-start;
+//   border-radius: 5px;
+//   padding: 0;
+//   cursor: pointer;
+//   img {
+//     @include size(90px, 90px);
+//     object-fit: cover;
+//     object-position: center;
+//     display: none;
+//     @include respond-to($tablet-sm) {
+//       // margin-right: 20px;
+//       display: block;
+//     }
+//   }
+//   .contentWrapper {
+//     // @include size(90px, 800px);
+//     @include size(90px, 80%);
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+//     align-items: flex-start;
+//     margin: 0;
+//     padding: 0 0 0 10px;
+//     mat-card-header {
+//       .titleWrapper {
+//         width: 100%;
+//         mat-card-title {
+//           @include font-size(20px);
+//           @include font-styles();
+//           color: $primary-color;
+//           cursor: pointer;
+//           @media only screen and (max-width: 940px) {
+//             @include font-size(16px);
+//           }
+//           &:hover {
+//             color: $accent-color;
+//             text-decoration: underline;
+//           }
+//         }
+//         mat-card-subtitle {
+//           color: $dark-grey;
+//           font-weight: 800;
+//           cursor: pointer;
+//           margin-bottom: 0 !important;
+//           // @media only screen and (max-width: 940px) {
+//           //   @include font-size(10px);
+//           // }
+//         }
+//       }
+//     }
+//     @media only screen and (max-width:940px) {
+//       // margin-left: 20px;
+//     }
+//   }
+//   mat-card-content,
+//   .mat-card-content {
+//     align-self: flex-start;
+//     margin-bottom: 0 !important;
+//     p {
+//       @include font-size(12px);
+//       color: $dark-grey;
+//       cursor: pointer;
+//       margin-top: 5px;
+//       &:hover {
+//         color: $accent-color;
+//         text-decoration: underline;
+//       }
+//     }
+//   }
+//   .contentSpacer {
+//     @include respond-to($tablet-sm){
+//       flex: 1 1 auto;
+//     }
+//   }
+//   mat-card-actions {
+//     // border: $tb-red;
+//     // @include size(90px, 250px);
+//     // @include size(90px, 300px);
+//     height: 90px;
+//     min-width: 100px;
+//     max-width: 100px;
+//     margin-left: 0px !important;
+//     margin-right: 0px !important;
+//     padding-top: 0px !important;
+//     display: flex;
+//     flex-wrap: wrap;
+//     // justify-content: space-around;
+//     background: rgb(204,241,247) ;
+//     div {
+//       display: flex;
+//       flex-direction: row;
+//       // justify-content: space-around;
+//       align-items: center;
+//       margin: 0 5px;
+//       // margin-right: 10px;
+//       // @media only screen and (max-width: 940px) {
+//       //   margin-right: 5px;
+//       // }
+//       // span {
+//       //   mat-icon {
+//       //     cursor: default;
+//       //     @include font-size(30px);
+//       //     @media only screen and (max-width: 940px) {
+//       //       @include font-size(24px);
+//       //     }
+//       //   }
+//       // }
+//       p {
+//         margin-left: 5px;
+//         color: $dark-grey;
+//       }
+//     }
+//     @media only screen and (max-width:940px) {
+//       width: 225px;
+//     }
+//   }
+// }
