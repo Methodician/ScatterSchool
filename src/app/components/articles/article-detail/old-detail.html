@@ -1,0 +1,45 @@
+<div class="articleDetailWrapper">
+  <div class="userPhotoDateWrapper">
+    <img src="../../assets/images/ss-user-photo-frame.jpg" alt="">
+    <img [src]="profileImageUrl ? profileImageUrl : ''" class="profile-image">
+    <div class="userTextWrapper">
+      <div class="followButtonWrapper">
+        <h4 class="author" (click)="navigateToProfile()">By: {{author?.alias}}</h4>
+        <follow-btn *ngIf="article" [uid]="article?.authorId"></follow-btn>
+      </div>
+      <!-- Feel free to change the date format. Reference here: https://angular.io/api/common/DatePipe  -->
+      <p class="date">Last Updated: {{ article?.lastUpdated | date }} - Viewed {{ article?.viewCount }} times</p>
+    </div>
+  </div>
+  <div class="image-wrapper">
+    <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'" class="imageDisplay" alt="article's cover image">
+  </div>
+  <div class="tagsBar" *ngIf="!editingPreview">
+    <ul> Tags:
+      <li *ngFor="let tag of article?.tags" class="tag">
+        <a (click)="tagSearch(tag)">{{tag}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="headlineWrapper">
+    <h1>{{article?.title}}</h1>
+    <p class="rating">RATING HERE
+      <p>
+        <mat-icon matTooltip="Bookmark this Article" (click)="bookmarkToggle()" class="bookmark-icon" color="primary">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
+  </div>
+  <div class="bodyWrapper">
+    <p class="intro">{{article?.introduction}}</p>
+    <br>
+    <div [innerHTML]="article?.body | safeHtml" class="copyText"></div>
+  </div>
+  <button mat-raised-button color="primary" *ngIf="!editingPreview" (click)="edit()">Edit</button>
+  <button mat-raised-button color="primary" *ngIf="!editingPreview && hasHistory" (click)="navigateToHistory()">View History</button>
+  <button mat-raised-button color="primary" *ngIf="!editingPreview" (click)="toggleFeatured()">{{ article?.isFeatured ? 'unfeature article' : 'feature article'}}</button>
+
+</div>
+<div *ngIf="!editingPreview" class="comment-section-wrapper">
+  <h3>Comments</h3>
+  <hr>
+  <app-add-comment [parentKey]="articleKey"></app-add-comment>
+  <comment-list [parentKey]="articleKey"></comment-list>
+</div>
