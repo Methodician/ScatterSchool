@@ -117,29 +117,28 @@
     align-items: center;
     margin-top: 20px;
     .header-style {
-      @include font-styles();
-      @include font-size(30px);
-      color: white;
-      cursor: pointer;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
       h2 {
-        margin-right: 50px;
-      }
-      @media only screen and (max-width:776px) {
-        @include font-size(20px);
-      }
-      @media only screen and (max-width:680px) {
-        @include font-size(17px);
-        h2 {
-          margin-right: 25px;
+        // color: $dark-gray;
+        font-size: 28px;
+        // margin: auto 10px auto 0;
+        margin-right: 25px;
+        color: $primary-color;
+        cursor: pointer;
+        @include respond-to($tablet-sm){
+          font-size: 30px;
+        }
+        &:hover {
+          text-decoration: underline;
         }
       }
-    }
-    .activeArticleState {
-      color: $primary-color;
-      text-decoration: underline;
+      .activeArticleState {
+        cursor: default !important;
+        color: $dark-gray !important;
+        &:hover {
+          text-decoration: none !important;
+        }
+      }
     }
     .latestViewToggle,
     .allViewToggle {
