@@ -161,13 +161,13 @@
     grid-auto-flow: row;
     justify-items: center;
     // figure out a mix-in or something to calculate this.
-    @include respond-to($tablet-sm){
+    @include respond-to(660){
       grid-template-columns: 1fr 1fr;
     }
     @include respond-to($tablet-lg){
       grid-template-columns: 1fr 1fr 1fr;
     }
-    @include respond-to($desktop-sm){
+    @include respond-to(1300){
       grid-template-columns: 1fr 1fr 1fr 1fr;
     }
     @include respond-to($desktop-lg){

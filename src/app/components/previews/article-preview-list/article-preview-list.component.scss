@@ -51,18 +51,24 @@ mat-card {
       @include respond-to($tablet-sm){
         display: none;
       }
-      // @include respond-to($tablet-lg){
-      //   display: block;
-      // }
+      @include respond-to($tablet-md){
+        display: block;
+      }
+      @include respond-to($desktop-sm){
+        display: none;
+      }
     }
     .shorter-title {
       display: none;
       @include respond-to($tablet-sm){
         display: block;
       }
-      // @include respond-to($tablet-lg){
-      //   display: none;
-      // }
+      @include respond-to($tablet-md){
+        display: none;
+      }
+      @include respond-to($desktop-sm){
+        display: block;
+      }
     }
     mat-card-header {
       margin-top: -8px;
