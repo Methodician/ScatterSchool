@@ -25,7 +25,11 @@ export class AppComponent implements OnInit {
   throbbing = false;
   throbState = 'sitting';
 
-  constructor(private chatSvc: ChatService) { }
+  constructor(private chatSvc: ChatService) { 
+    const firestore = firebase.firestore();
+    const settings = {timestampsInSnapshots: true};
+  firestore.settings(settings);
+  }
 
   ngOnInit() {
     this.chatSvc.unreadMessages$.subscribe(unread => {

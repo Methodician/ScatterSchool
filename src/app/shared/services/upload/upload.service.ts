@@ -40,7 +40,8 @@ export class UploadService {
     task.then(
       (successSnap) => {
         console.log("success", successSnap)
-        upload.url = successSnap.metadata.downloadURLs[0];
+        //upload.url = successSnap.metadata.downloadURLs[0];
+        upload.url = 'hack';
         upload.size = successSnap.metadata.size;
         upload.type = successSnap.metadata.contentType;
         upload.name = successSnap.metadata.name;
