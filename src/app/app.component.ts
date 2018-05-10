@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
   constructor(private chatSvc: ChatService) { 
     const firestore = firebase.firestore();
     const settings = {timestampsInSnapshots: true};
-  firestore.settings(settings);
+    firestore.settings(settings);
   }
 
   ngOnInit() {

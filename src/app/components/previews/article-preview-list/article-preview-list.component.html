@@ -8,7 +8,7 @@
       <mat-card-header>
         <mat-card-title class="longer-title">{{articleData.title | truncate: 60 }}</mat-card-title>
         <mat-card-title class="shorter-title">{{articleData.title | truncate: 20 }}</mat-card-title>
-        <mat-card-subtitle>Last Updated: {{articleData?.lastUpdated | date}}</mat-card-subtitle>
+        <mat-card-subtitle>Last Updated: {{articleData?.lastUpdated.toDate() | date}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>
         <p>By: {{author?.alias | truncate:20}}</p>

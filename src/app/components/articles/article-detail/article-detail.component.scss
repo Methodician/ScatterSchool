@@ -4,7 +4,8 @@
 .article-detail-wrapper {
   height: 100%;
   width: 100%;
-  border: $tb-red;
+  // border: $tb-red;
+  background: $light-gray;
   display: flex;
   justify-content: center;
 }
@@ -105,7 +106,7 @@ mat-card {
   mat-card-footer {
     border: $tb-blue;
     .related-articles {
-      border: $tb-red;
+      // border: $tb-red;
     }
     .discussion {
       background: $primary-color;
