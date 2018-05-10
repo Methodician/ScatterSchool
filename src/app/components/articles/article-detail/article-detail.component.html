@@ -1,7 +1,7 @@
 <div class="article-detail-wrapper">
   <mat-card>
     <div class="article-detail">
-        <img [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../../../assets/images/kid-art.jpg'">
+        <img id="header" [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../../../assets/images/kid-art.jpg'">
         <mat-card-header>
           <mat-card-title>
             <h1>{{article?.title}}</h1>
@@ -20,16 +20,28 @@
           </div>
           <div class="footer">
             <div class="author-img">
-              IMG
+              <img [src]="profileImageUrl ? profileImageUrl : ''">
             </div>
             <div class="author-details">
-              Author.
+              <h3>By {{author?.alias}}</h3>
+              <p>Created {{article?.timestamp | date}}</p>
             </div>
             <div class="icons">
-              @ @ @
+              <div>
+                <mat-icon color="primary">comment</mat-icon>
+                <p>{{articleData?.commentCount ? article.commentCount: '0'}}</p>
+              </div>
+              <div matTooltip="Revised {{articleData?.version}} time(s)">
+                  <mat-icon color="primary">border_color</mat-icon>
+                  <p>{{articleData?.version}}</p>
+              </div>
+              <div>
+                <mat-icon class="bookmark-icon"
+                          color="primary">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
+              </div>
             </div>
-            <button>Edit Article</button>
           </div>
+          <button mat-raised-button color="primary">Edit Article</button>
         </mat-card-content>
     </div>
     <mat-card-footer>
