@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Upload } from '../../class/upload';
 import { UserService } from '../user/user.service';
@@ -27,35 +27,55 @@ export class UploadService {
 
   // ^^ there's a new tutorial https://angularfirebase.com/lessons/firebase-storage-with-angularfire-dropzone-file-uploader/ maybe check this out later.
 
-  uploadImage(upload: Upload, key, basePath) {
+  async uploadImage(upload: Upload, key, basePath) {
     // delete old file from storage
     // this is not working likely.
     if (upload.url) {
       this.deleteFileStorage(key, basePath);
     };
-    // put new file in storage
     const filePath = `${basePath}/${key}`;
-    const task = this.storage.upload(filePath, upload.file);
-    console.log("task", task);
-    task.then(
-      (successSnap) => {
-        console.log("success", successSnap)
-        //upload.url = successSnap.metadata.downloadURLs[0];
-        upload.url = 'hack';
-        upload.size = successSnap.metadata.size;
-        upload.type = successSnap.metadata.contentType;
-        upload.name = successSnap.metadata.name;
-        upload.timeStamp = new Date();
-        upload.progress = null;
-        // save metadata to live database
-        this.saveImageData(upload, key, basePath);
-        // alert('success!');
-      },
-      (err) => {
-        console.log("errors!", err);
+    try {
+      const successSnap2 = await this.storage.upload(filePath, upload.file);
+      const url2 = await successSnap2.ref.getDownloadURL();
+      upload.url = url2;
+      upload.size = successSnap2.metadata.size;
+      upload.type = successSnap2.metadata.contentType;
+      upload.name = successSnap2.metadata.name;
+      upload.timeStamp = firebase.database.ServerValue.TIMESTAMP;
+      upload.progress = null;
+      this.saveImageData(upload, key, basePath);
+    } catch (err) {
+      console.log("errors!", err);
         alert("There was an error saving this image.");
-      }
-    );
+    }
+    
+    // Iteration w/out async/await and then
+    // const task = this.storage.upload(filePath, upload.file);
+    // console.log("task", task);
+    // task.then(
+    //   async (successSnap) => {
+    //     console.log("success", successSnap)
+    //     //upload.url = successSnap.metadata.downloadURLs[0];
+    //     successSnap.ref.getDownloadURL().then(res => {
+    //       upload.url = res;
+    //       upload.size = successSnap.metadata.size;
+    //       upload.type = successSnap.metadata.contentType;
+    //       upload.name = successSnap.metadata.name;
+    //       upload.timeStamp = new Date();
+    //       upload.progress = null;
+    //       // save metadata to live database
+    //       this.saveImageData(upload, key, basePath);
+    //       // alert('success!');
+    //     });
+        
+    //   },
+    //   (err) => {
+    //     console.log("errors!", err);
+    //     alert("There was an error saving this image.");
+    //   }
+    // );
+
+    // Previous Upload without angularfirestorage module
     // const storageRef = firebase.storage().ref();
     // const uploadTask = storageRef.child(`${basePath}/${key}`).put(upload.file);
     // uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
