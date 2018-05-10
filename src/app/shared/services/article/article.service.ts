@@ -118,8 +118,8 @@ export class ArticleService {
       .doc(articleId)
       .ref;
     batch.set(userArticleEditedRef, {
-      // timestamp: this.fsServerTimestamp(),
-      timestamp: new Date(),
+      timestamp: this.fsServerTimestamp(),
+      // timestamp: new Date(),
       articleId: articleId
     });
 
@@ -128,8 +128,8 @@ export class ArticleService {
       .doc(articleId)
       .ref;
     batch.set(userArticleAuthoredRef, {
-      // timestamp: this.fsServerTimestamp(),
-      timestamp: new Date(),
+      timestamp: this.fsServerTimestamp(),
+      // timestamp: new Date(),
       articleId: articleId
     });
 
@@ -165,8 +165,8 @@ export class ArticleService {
           const archiveArticleObject = this.updateObjectFromArticle(oldArticle, articleId, oldArticle.lastEditorId);
           const updatedArticleObject: any = this.updateObjectFromArticle(article, articleId, editorId);
           updatedArticleObject.version = article.version + 1;
-          updatedArticleObject.lastUpdated = new Date();
-          // updatedArticleObject.lastUpdated = this.fsServerTimestamp();
+          // updatedArticleObject.lastUpdated = new Date();
+          updatedArticleObject.lastUpdated = this.fsServerTimestamp();
           updatedArticleObject.bodyId = newBodyId;
           //  Would like to make global tags processing atomic as well.
           this.processGlobalTags(article.tags, oldArticle.tags, articleId);
@@ -193,8 +193,8 @@ export class ArticleService {
                 name: editor.displayName()
               });
               batch.set(userArticleEditedRef, {
-                // timestamp: this.fsServerTimestamp(),
-                timestamp: new Date(),
+                timestamp: this.fsServerTimestamp(),
+                // timestamp: new Date(),
                 articleId: articleId
               });
               //  Maybe history duplications belong in could functions...
@@ -290,8 +290,8 @@ export class ArticleService {
         articleId: articleId,
         viewerUid: (viewer ? viewer.$key : 'anonymous'),
         articleVersion: version,
-        // viewStart: this.fsServerTimestamp()
-        viewStart: new Date()
+        viewStart: this.fsServerTimestamp()
+        // viewStart: new Date()
       }
       try {
         const docRef = await articleDoc.collection('views').add(viewEntryObject);
@@ -316,8 +316,8 @@ export class ArticleService {
       sessionStorage.setItem(`unView:${articleId}`, new Date().toString());
       const articleDoc = this.getArticle(articleId);
       return articleDoc.collection('views').doc(viewId).update({ 
-        // viewEnd: this.fsServerTimestamp()
-        viewEnd: new Date()
+        viewEnd: this.fsServerTimestamp()
+        // viewEnd: new Date()
        });
     }
   }
@@ -416,8 +416,8 @@ export class ArticleService {
     }
     const newTag = {};
     newTag[tag] = {
-      // timestamp: this.fsServerTimestamp(),
-      timestamp: new Date(),
+      timestamp: this.fsServerTimestamp(),
+      // timestamp: new Date(),
       count: 1
     };
     if (batch) {
@@ -491,10 +491,10 @@ export class ArticleService {
       commentCount: 0,
       viewCount: 0,
       isFeatured: false,
-      timestamp: new Date(),
-      // timestamp: this.fsServerTimestamp(),
-      lastUpdated: new Date()
-      // lastUpdated: this.fsServerTimestamp()
+      // timestamp: new Date(),
+      timestamp: this.fsServerTimestamp(),
+      // lastUpdated: new Date()
+      lastUpdated: this.fsServerTimestamp()
     }
   }
 
@@ -531,7 +531,7 @@ export class ArticleService {
   }
 
   fsServerTimestamp() {
-    // return firebase.firestore.FieldValue.serverTimestamp();
+    return firebase.firestore.FieldValue.serverTimestamp();
   }
 
   injectObjectKey(object: AngularFireObject<{}>) {
