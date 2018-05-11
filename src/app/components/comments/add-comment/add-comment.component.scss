@@ -2,20 +2,23 @@
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
 button {
-  @include medium-button();
-  width: 140px;
+  margin: 0 0 20px 0;
 }
+// button {
+//   @include medium-button();
+//   width: 140px;
+// }
 
-#cancel-comment {
-  background-color: gray;
-}
+// #cancel-comment {
+//   background-color: gray;
+// }
 
-#counter {
-  margin-right: 5px;
-}
+// #counter {
+//   margin-right: 5px;
+// }
 
-@media only screen and (max-width:768px) {
-  .comment-form-wrapper {
-    width: 320px;
-  }
-}
+// @media only screen and (max-width:768px) {
+//   .comment-form-wrapper {
+//     width: 320px;
+//   }
+// }

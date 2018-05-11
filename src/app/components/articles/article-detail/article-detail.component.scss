@@ -109,6 +109,13 @@ mat-card {
       // border: $tb-red;
     }
     .discussion {
+      
+      display: flex;
+      justify-content: center;
+      background: $light-gray;
+      .comment-section-wrapper {
+        width: 95%;
+      }
     
     }
   }

@@ -1,4 +1,4 @@
-<!-- <div *ngIf="!isFormShowing">
+<div *ngIf="!isFormShowing">
   <button mat-raised-button color="warn" class="show-comment-form" (click)="toggleCommentForm()">Add Comment</button>
 </div>
 <div *ngIf="isFormShowing" class="comment-form-wrapper">
@@ -7,12 +7,4 @@
   <button mat-raised-button color="warn" [disabled]="!form.valid" (click)="postComment(form.value)">Comment</button>
   <button mat-raised-button (click)="cancelComment()" id="cancel-comment">Cancel</button>
 </div>
-<hr> -->
-<ng-template #showButton>
-  <button mat-raised-button color="warn" (click)="toggleCommentForm()">Comment</button>
-</ng-template>
-<div *ngIf="isFormShowing; else showButton">
-  <app-comment-form #form></app-comment-form>
-  <button mat-raised-button color="warn" [disabled]="!form.valid" (click)="postComment(form.value)">Comment</button>
-  <button mat-raised-button (click)="cancelComment()" id="cancel-comment">Cancel</button>
-</div>
+<hr>

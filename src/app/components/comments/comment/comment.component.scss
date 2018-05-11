@@ -1,14 +1,17 @@
 .comment {
-  width: 500px;
+  // width: 500px;
+  width: 90%;
   padding: 5px 10px 5px 10px;
   display: block;
   margin-bottom: 10px;
   border: 1px solid gray;
   position: relative;
 
-  p.first-child {
-    margin-bottom: 0px;
-  }
+  // Doesn't apply to anything?
+  // p.first-child {
+  //   border: 2px solid red;
+  //   margin-bottom: 0px;
+  // }
 
   p.comment-text {
     white-space: pre-wrap;

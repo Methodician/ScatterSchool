@@ -2,7 +2,9 @@
   <img *ngIf="hasReplies()" src="../../assets/images/chevron.png" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()"/>
 
   <p class="comment-author" (click)="navigateToProfile()">{{ displayName }}</p>
-  <span class="date-updated">comments: {{comment.commentCount ? comment.commentCount : '0'}} {{ comment.lastUpdated | timeElapsed }}</span>
+  <span class="date-updated">
+    <!-- comments: {{comment.commentCount ? comment.commentCount : '0'}}  -->
+    {{ comment.lastUpdated | timeElapsed }}</span>
   
   <p *ngIf="!editShowing" class="comment-text">{{comment.text}}</p>
   <span *ngIf="!editShowing" id="reply-button" (click)="tryShowAddReply(addReply)">Reply</span>
@@ -16,7 +18,8 @@
 </div>
 
 <div class="comment deleted-comment" *ngIf="comment.isDeleted && hasReplies()">
-  <p>Comment deleted.</p>
+    <img *ngIf="hasReplies()" src="../../assets/images/chevron.png" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()"/>
+    <p class="comment-text">Comment deleted.</p>
 </div>
 
 <div class="replies">
