@@ -15,7 +15,7 @@
           <div [innerHtml]="article?.body | safeHtml"></div>
           <div class="tags">
             <mat-chip-list>
-              <mat-chip *ngFor="let tag of article?.tags">{{tag}}</mat-chip>
+              <mat-chip *ngFor="let tag of article?.tags" (click)="getArticlesByTag(tag)">{{tag}}</mat-chip>
             </mat-chip-list>
           </div>
           <div class="footer">
@@ -46,12 +46,10 @@
     </div>
     <mat-card-footer>
       <div class="related-articles">
-        articles
       </div>
       <div class="discussion">
         <div *ngIf="!editingPreview" class="comment-section-wrapper">
-          <h3>Comments</h3>
-          <hr>
+          <h3>Discussion</h3>
           <app-add-comment [parentKey]="articleKey"></app-add-comment>
           <comment-list [parentKey]="articleKey"></comment-list>
         </div>

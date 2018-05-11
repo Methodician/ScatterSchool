@@ -33,6 +33,24 @@ export class ArticleService {
       .collection('articles');
   }
 
+  async getAllArticlesByTag(desiredTag: string){
+    try {
+      const articles = await firebase
+        .firestore()
+        .collection('articleData')
+        .doc('articles')
+        .collection('articles')
+        .get();
+      articles.forEach(function(doc) {
+        console.log(doc.id, " => ", doc.data());
+      });
+      console.log("this was a success.");
+    } catch (error) {
+      console.log("Error getting documents: ", error);
+    };
+    
+  }
+
   getLatestArticles() {
     return this.afs
     .collection('articleData')
