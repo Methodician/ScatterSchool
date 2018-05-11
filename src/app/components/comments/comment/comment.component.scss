@@ -4,7 +4,7 @@
   padding: 5px 10px 5px 10px;
   display: block;
   margin-bottom: 10px;
-  border: 1px solid gray;
+  // border: 1px solid gray;
   position: relative;
 
   // Doesn't apply to anything?
@@ -19,19 +19,22 @@
   }
 
   .toggle-collapse {
+    margin: 0;
     cursor: pointer;
     position: absolute;
-    left: -14px;
-    top: 0px;
-    width: 9px;
-    height: 14px;
-    transition: -webkit-transform .1s ease-in;
-    transition: transform .1s ease-in;
-    transition: transform .1s ease-in, -webkit-transform .1s ease-in;
+    left: -20px;
+    top: 16px;
+    width: 16px;
+    height: 16px;
+    // transition: -webkit-transform .1s ease-in;
+    // transition: transform .1s ease-in;
+    transition: transform 100ms ease-in, -webkit-transform 100ms ease-in;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
 
     &.showing {
-      -webkit-transform: rotate(90deg);
-              transform: rotate(90deg)
+      -webkit-transform: rotate(0);
+      transform: rotate(0);
     }
   }
 

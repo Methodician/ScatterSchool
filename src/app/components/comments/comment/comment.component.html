@@ -1,6 +1,6 @@
 <div class="comment" *ngIf="!comment.isDeleted">
-  <img *ngIf="hasReplies()" src="../../assets/images/chevron.png" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()"/>
-
+  <!-- <img *ngIf="hasReplies()" src="../../assets/images/chevron.png" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()"/> -->
+  <p *ngIf="hasReplies()" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()">&#9660;</p>
   <p class="comment-author" (click)="navigateToProfile()">{{ displayName }}</p>
   <span class="date-updated">
     <!-- comments: {{comment.commentCount ? comment.commentCount : '0'}}  -->
@@ -18,7 +18,8 @@
 </div>
 
 <div class="comment deleted-comment" *ngIf="comment.isDeleted && hasReplies()">
-    <img *ngIf="hasReplies()" src="../../assets/images/chevron.png" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()"/>
+    <!-- <img *ngIf="hasReplies()" src="../../assets/images/chevron.png" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()"/> -->
+    <p *ngIf="hasReplies()" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()">&#9660;</p>
     <p class="comment-text">Comment deleted.</p>
 </div>
 
