@@ -9,10 +9,10 @@
 </div>
 <hr> -->
 <ng-template #showButton>
-  <button mat-raised-button color="warn" (click)="toggleCommentForm()">Comment</button>
+  <button mat-raised-button color="accent" (click)="toggleCommentForm()">Comment</button>
 </ng-template>
-<div *ngIf="isFormShowing; else showButton">
-  <app-comment-form #form></app-comment-form>
-  <button mat-raised-button color="warn" [disabled]="!form.valid" (click)="postComment(form.value)">Comment</button>
-  <button mat-raised-button (click)="cancelComment()" id="cancel-comment">Cancel</button>
+<div class="add-comment" *ngIf="isFormShowing; else showButton">
+  <app-comment-form #form [placeholderText]="'Enter your comment here...'"></app-comment-form>
+  <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="postComment(form.value)">Comment</button>
+  <button mat-raised-button color="warn" (click)="cancelComment()" id="cancel-comment">Cancel</button>
 </div>

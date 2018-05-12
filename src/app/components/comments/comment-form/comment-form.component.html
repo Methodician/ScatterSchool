@@ -1,3 +1,5 @@
 <form [formGroup]="form">
-  <textarea matInput name="text" formControlName="text" class="formControl"></textarea>
+  <mat-form-field>
+    <textarea matInput name="text" [placeholder]="placeholderText" formControlName="text" class="formControl"></textarea>
+  </mat-form-field>
 </form>

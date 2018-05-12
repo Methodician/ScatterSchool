@@ -1,3 +1,6 @@
+@import "../../../sass-variables-mixins/vars.scss";
+@import "../../../sass-variables-mixins/mixins.scss";
+
 .comment {
   // width: 500px;
   width: 90%;
@@ -5,7 +8,33 @@
   display: block;
   margin-bottom: 10px;
   // border: 1px solid gray;
+  border-left: 5px solid $primary-color;
   position: relative;
+  
+  img {
+    width: 25px;
+    height: 25px;
+    object-fit: cover;
+    grid-area: 1/1/span 3/2;
+    // align-self: center;
+    margin: 10px;
+    @include respond-to($tablet-sm){
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+  .comment-content {
+    // border: 2px solid lime;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    grid-template-rows: repeat(3, max-content);
+    .comment-date {
+      font-size: 14px;
+      color: $dark-gray;
+    }
+    
+  }
 
   // Doesn't apply to anything?
   // p.first-child {
@@ -22,8 +51,8 @@
     margin: 0;
     cursor: pointer;
     position: absolute;
-    left: -20px;
-    top: 16px;
+    left: -25px;
+    top: 0px;
     width: 16px;
     height: 16px;
     // transition: -webkit-transform .1s ease-in;
@@ -31,6 +60,7 @@
     transition: transform 100ms ease-in, -webkit-transform 100ms ease-in;
     -webkit-transform: rotate(-90deg);
     transform: rotate(-90deg);
+    color: $accent-color;
 
     &.showing {
       -webkit-transform: rotate(0);
@@ -40,17 +70,21 @@
 
   .comment-author {
     font-weight: bold;
+    margin: 10px 0 0 0;
   }
 }
 
 .comment:hover {
+  // background: green;
   .update-comment {
     display: block;
   }
 }
 
 .deleted-comment {
-  color: gray;
+  color: $dark-gray;
+  border-left: 5px solid gray;
+  // background: gray;
   p {
     text-align: center;
     margin: 0px;
@@ -85,7 +119,7 @@
 }
 
 .update-comment {
-  display: none;
+  // display: none;
   position: absolute;
   right: 5px;
   bottom: 5px;
@@ -115,3 +149,12 @@
   color: grey;
   font-size: 12px;
 }
+
+
+.toplevel {
+  border-left: 5px solid transparent;
+  // background: $light-grey;
+  // border-left: 5px solid $light-grey;
+  // box-shadow: 0 4px 2px -2px ;
+}
+

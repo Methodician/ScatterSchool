@@ -7,12 +7,12 @@
 }
 
 .reply-form {
-  border: $tb-red;
   width: 500px;
   padding: 5px 10px 5px 10px;
   display: block;
   margin-bottom: 10px;
-  border: 1px solid gray;
+  // border: 1px solid gray;
+  border-left: 5px solid $warn-color;
   position: relative;
   .close-reply {
     position: absolute;

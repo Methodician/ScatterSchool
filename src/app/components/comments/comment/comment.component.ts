@@ -18,6 +18,7 @@ export class CommentComponent implements OnInit {
   displayName = '';
   editShowing = false;
   repliesShowing = false;
+  profileImage = '../../../../assets/kid-art.jpg';
 
   constructor(
     private router: Router,
@@ -37,9 +38,21 @@ export class CommentComponent implements OnInit {
       .getUserInfo(this.comment.authorKey)
       .subscribe(userInfo => {
         if (userInfo && userInfo.uid) {
+          // console.log( "this is the user of the comment? ", userInfo);
           this.displayName = userInfo.alias || userInfo.fName;
         }
       });
+
+    // maybe a way to refactor this?
+    this.userSvc
+      .getProfileImageUrl(this.comment.authorKey)
+      .valueChanges()
+      .subscribe( profileImageUrl => {
+        if(profileImageUrl) {
+          this.profileImage = profileImageUrl as string;
+        }
+      })
+
   }
 
   navigateToProfile() {
@@ -82,5 +95,9 @@ export class CommentComponent implements OnInit {
 
   deleteComment() {
     this.commentSvc.deleteComment(this.comment);
+  }
+  
+  isTopLevelComment(){
+    return this.comment.parentType === 'article' ? true : false;
   }
 }

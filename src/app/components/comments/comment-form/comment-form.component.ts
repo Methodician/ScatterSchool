@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CommentFormComponent implements OnInit {
   @Input() initialValue;
+  @Input() placeholderText;
   form: FormGroup;
 
   constructor(private fb: FormBuilder) { }

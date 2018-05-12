@@ -1,12 +1,15 @@
-<div class="comment" *ngIf="!comment.isDeleted">
+<div class="comment" *ngIf="!comment.isDeleted" [class.toplevel]="isTopLevelComment()">
   <!-- <img *ngIf="hasReplies()" src="../../assets/images/chevron.png" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()"/> -->
-  <p *ngIf="hasReplies()" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()">&#9660;</p>
-  <p class="comment-author" (click)="navigateToProfile()">{{ displayName }}</p>
-  <span class="date-updated">
-    <!-- comments: {{comment.commentCount ? comment.commentCount : '0'}}  -->
-    {{ comment.lastUpdated | timeElapsed }}</span>
-  
-  <p *ngIf="!editShowing" class="comment-text">{{comment.text}}</p>
+  <p *ngIf="hasReplies()" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()">{{replies.length}}&#9660;</p>
+  <div class="comment-content">
+    <img [src]="profileImage">
+    <p class="comment-author" (click)="navigateToProfile()">{{ displayName }}</p>
+    <p *ngIf="!editShowing" class="comment-text">{{comment.text}}</p>
+    <p class="comment-date">{{comment.lastUpdated | timeElapsed}}</p>
+    <!-- <span class="date-updated">
+      comments: {{comment.commentCount ? comment.commentCount : '0'}} 
+      {{ comment.lastUpdated | timeElapsed }}</span> -->
+  </div>
   <span *ngIf="!editShowing" id="reply-button" (click)="tryShowAddReply(addReply)">Reply</span>
   
   <app-edit-comment *ngIf="editShowing" [currentUserInfo]="currentUserInfo" [initialCommentValue]="comment"></app-edit-comment>
