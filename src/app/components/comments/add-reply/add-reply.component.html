@@ -3,7 +3,7 @@
   <!-- <img src="../../assets/images/x-out.png" class="close-reply" (click)="toggleReplyForm()"/> -->
   <p class="reply-author">Logged in as: {{ currentUserDisplayName() }}</p>
   <app-comment-form #form [placeholderText]="'Enter your reply here...'"></app-comment-form>
-  <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="postReply(form.value)">Reply</button>
+  <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="postReply(form.value)">Submit</button>
   <button mat-raised-button color="warn" (click)="toggleReplyForm()">Cancel</button>
   <!-- <span>{{form.text.value.length}}</span> -->
 </div>

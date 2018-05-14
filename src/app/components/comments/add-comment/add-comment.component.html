@@ -13,6 +13,6 @@
 </ng-template>
 <div class="add-comment" *ngIf="isFormShowing; else showButton">
   <app-comment-form #form [placeholderText]="'Enter your comment here...'"></app-comment-form>
-  <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="postComment(form.value)">Comment</button>
+  <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="postComment(form.value)">Submit</button>
   <button mat-raised-button color="warn" (click)="cancelComment()" id="cancel-comment">Cancel</button>
 </div>
