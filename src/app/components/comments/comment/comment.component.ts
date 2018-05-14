@@ -76,7 +76,9 @@ export class CommentComponent implements OnInit {
   }
 
   isRepliesShowing() {
-    return this.hasReplies() && !this.repliesShowing;
+    // Don't think this needs the !
+    // return this.hasReplies() && !this.repliesShowing;  
+    return this.hasReplies() && this.repliesShowing;
   }
 
   tryShowAddReply(addReply) {

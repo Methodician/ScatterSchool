@@ -116,6 +116,12 @@ mat-card {
       background: $light-gray;
       .comment-section-wrapper {
         width: 95%;
+        @include respond-to($tablet-md){
+          width: 80%;
+        }
+        @include respond-to($desktop-sm){
+          width: 60%;
+        }
       }
     
     }
