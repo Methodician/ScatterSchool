@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { CommentService } from 'app/shared/services/comment/comment.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-edit-comment',
@@ -10,6 +10,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class EditCommentComponent implements OnInit {
   @Input() currentUserInfo;
   @Input() initialCommentValue;
+  @Output() cancelClickSender = new EventEmitter();
+  @Output() deleteClickSender = new EventEmitter();
+  @Output() editFormButtonClickSender = new EventEmitter();
+  
+
 
   constructor(private commentSvc: CommentService, private router: Router) { }
 
@@ -30,5 +35,17 @@ export class EditCommentComponent implements OnInit {
     }
 
     this.commentSvc.updateComment(comment);
+  }
+
+  editButtonsClicked(buttonName: string){
+    this.editFormButtonClickSender.emit(buttonName);
+  }
+
+  cancelButtonClicked(){
+    this.cancelClickSender.emit();
+  }
+
+  deleteButtonClicked(){
+    this.deleteClickSender.emit();
   }
 }

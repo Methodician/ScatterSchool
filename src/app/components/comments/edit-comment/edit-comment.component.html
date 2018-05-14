@@ -1,3 +1,7 @@
 <app-comment-form #form [initialValue]="initialCommentValue"></app-comment-form>
 <!-- <span>{{form.text.value.length}}</span> -->
-<button mat-raised-button color="accent" [disabled]="!form.valid" (click)="tryUpdateComment(form.value)">Save</button>
+<div id="buttons">
+  <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="tryUpdateComment(form.value)">Submit</button>
+  <button mat-raised-button color="warn" (click)="editButtonsClicked('cancel')">Cancel</button>
+  <button mat-raised-button color="warn" (click)="editButtonsClicked('delete')">Delete</button>
+</div>

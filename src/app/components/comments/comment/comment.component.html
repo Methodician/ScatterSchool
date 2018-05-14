@@ -13,20 +13,22 @@
       comments: {{comment.commentCount ? comment.commentCount : '0'}} 
       {{ comment.lastUpdated | timeElapsed }}</span> -->
   </div>
-  <span *ngIf="!editShowing" id="reply-button" (click)="tryShowAddReply(addReply)">Reply</span>
+  <!-- <span *ngIf="!editShowing" id="reply-button" (click)="tryShowAddReply(addReply)">Reply</span> -->
   
-  <app-edit-comment *ngIf="editShowing" [currentUserInfo]="currentUserInfo" [initialCommentValue]="comment"></app-edit-comment>
+  <app-edit-comment *ngIf="editShowing" [currentUserInfo]="currentUserInfo" [initialCommentValue]="comment" (editFormButtonClickSender)="editFormClicked($event)"></app-edit-comment>
 
-  <div *ngIf="isLoggedInUserComment()" class="update-comment">
-    <span (click)="toggleEdit()" [class.active]="editShowing">{{editShowing ? "Cancel" : "Edit"}}</span> | 
-    <span (click)="deleteComment()">Delete</span>
+  <div *ngIf="!editShowing" class="comment-actions">
+      <span (click)="tryShowAddReply(addReply)">Reply</span>
+      <div class="comment-update" *ngIf="isLoggedInUserComment()">
+          | <span (click)="toggleEdit()" [class.active]="editShowing"> {{editShowing ? "Cancel" : "Edit"}}</span> | 
+          <span (click)="deleteComment()">Delete</span>
+      </div>
   </div>
 </div>
 
 <div class="comment deleted-comment" *ngIf="comment.isDeleted && hasReplies()">
   <div class="replies-toggle">
-    <!-- <p>{{replies?.length > 0 ? replies?.length : ''}}</p> -->
-    <p>999</p>
+    <p>{{replies?.length > 0 ? replies?.length : ''}}</p>
     <p *ngIf="hasReplies()" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()">&#9660;</p>
   </div>
     <!-- <img *ngIf="hasReplies()" src="../../assets/images/chevron.png" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()"/> -->

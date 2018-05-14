@@ -18,7 +18,7 @@ export class CommentComponent implements OnInit {
   displayName = '';
   editShowing = false;
   repliesShowing = false;
-  profileImage = '../../../../assets/kid-art.jpg';
+  profileImage = '../../../../assets/images/kid-art.jpg';
 
   constructor(
     private router: Router,
@@ -96,10 +96,25 @@ export class CommentComponent implements OnInit {
   }
 
   deleteComment() {
+    if(confirm("Are you sure you want to delete this comment?")){
     this.commentSvc.deleteComment(this.comment);
+    }
   }
   
   isTopLevelComment(){
     return this.comment.parentType === 'article' ? true : false;
+  }
+
+  cancelClicked(){
+    this.toggleEdit();
+  }
+
+  editFormClicked(action:string){
+    if (action === 'cancel'){
+      this.toggleEdit();
+    }
+    if (action === 'delete'){
+      this.deleteComment();
+    }
   }
 }

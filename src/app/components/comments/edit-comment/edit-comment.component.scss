@@ -2,6 +2,16 @@
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
 button {
-  @include medium-button();
+  // @include medium-button();
+  @include small-button();
   color: white !important;
+  margin: 0 2px 0 0;
+}
+button:nth-of-type(3) {
+  // border: 2px solid black;
+  margin-left: auto;
+}
+
+#buttons {
+  display: flex;
 }
