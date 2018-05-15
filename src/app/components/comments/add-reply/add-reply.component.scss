@@ -8,13 +8,16 @@
 
 .reply-form {
   // width: 500px;
-  width: 90%;
+  width: 80%;
   padding: 5px 10px 5px 10px;
   display: block;
   margin-bottom: 10px;
   // border: 1px solid gray;
   border-left: 5px solid $warn-color;
   position: relative;
+  @include respond-to($tablet-sm){
+    width: 90%;
+  }
   .close-reply {
     position: absolute;
     left: -20px;

@@ -18,11 +18,16 @@
   <app-edit-comment *ngIf="editShowing" [currentUserInfo]="currentUserInfo" [initialCommentValue]="comment" (editFormButtonClickSender)="editFormClicked($event)"></app-edit-comment>
 
   <div *ngIf="!editShowing" class="comment-actions">
-      <span (click)="tryShowAddReply(addReply)">Reply</span>
+      <span (click)="tryShowAddReply(addReply)"><mat-icon>reply</mat-icon></span>
       <div class="comment-update" *ngIf="isLoggedInUserComment()">
-          | <span (click)="toggleEdit()" [class.active]="editShowing"> {{editShowing ? "Cancel" : "Edit"}}</span> | 
-          <span (click)="deleteComment()">Delete</span>
+         <span (click)="toggleEdit()" [class.active]="editShowing"><mat-icon>edit</mat-icon></span> 
+        <span (click)="deleteComment()"><mat-icon>delete</mat-icon></span>
       </div>
+      <!-- <span (click)="tryShowAddReply(addReply)"><mat-icon>reply</mat-icon></span>
+      <div class="comment-update" *ngIf="isLoggedInUserComment()">
+        | <span (click)="toggleEdit()" [class.active]="editShowing"> {{editShowing ? "Cancel" : "Edit"}}</span> |
+        <span (click)="deleteComment()">Delete</span>
+      </div> -->
   </div>
 </div>
 
@@ -38,6 +43,6 @@
 <div class="replies">
   <app-add-reply #addReply [currentUserInfo]="currentUserInfo" [parentCommentKey]="comment.$key"></app-add-reply>
   <div *ngIf="isRepliesShowing()">
-    <app-comment  *ngFor="let reply of replies" [comment]="reply" [currentUserInfo]="currentUserInfo"></app-comment>
+    <app-comment *ngFor="let reply of replies" [comment]="reply" [currentUserInfo]="currentUserInfo"></app-comment>
   </div>
 </div>

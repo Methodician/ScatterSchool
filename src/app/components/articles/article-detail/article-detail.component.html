@@ -49,8 +49,7 @@
       </div>
       <div class="discussion">
         <div *ngIf="!editingPreview" class="comment-section-wrapper">
-          <h2>Discussion</h2>
-          <app-add-comment [parentKey]="articleKey"></app-add-comment>
+          <app-add-comment [headerTitle]="'Discussion'" [parentKey]="articleKey"></app-add-comment>
           <comment-list [parentKey]="articleKey"></comment-list>
         </div>
       </div>

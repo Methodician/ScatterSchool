@@ -2,12 +2,20 @@
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
 button {
-  margin: 0 0 20px 0;
+  margin: 0 0 20px 20px;
 }
 
 .add-comment {
   width: 90%;
   max-width: 500px;
+  button {
+    margin: 0 5px 20px 0;
+  }
+  
+}
+
+h2 {
+  display: inline-block;
 }
 // button {
 //   @include medium-button();

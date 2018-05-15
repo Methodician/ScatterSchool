@@ -10,6 +10,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
   styleUrls: ['./add-comment.component.scss']
 })
 export class AddCommentComponent implements OnInit {
+  @Input() headerTitle;
   @Input() parentKey;
   @ViewChild('form') commentForm;
   isFormShowing = false;

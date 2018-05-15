@@ -4,9 +4,9 @@
 .comment {
   // width: 500px;
   width: 80%;
-  padding: 5px 10px 30px 0;
+  padding: 5px 10px 20px 0;
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   // border: 1px solid gray;
   position: relative;
   left: 35px;
@@ -51,7 +51,7 @@
     grid-template-rows: repeat(3, max-content);
     .comment-date {
       font-size: 14px;
-      color: $dark-gray;
+      color: gray
     }
     
   }
@@ -104,7 +104,9 @@
 
 .deleted-comment {
   color: $dark-gray;
-  border-left: 5px solid gray;
+  border-left: 5px solid $dark-grey;
+  // border: 1px solid red;
+  padding-top: 20px;
   // background: gray;
   p {
     text-align: center;
@@ -123,7 +125,9 @@
 }
 
 .replies {
-  margin-left: 15px;
+  @include respond-to($tablet-sm){
+    margin-left: 15px;
+  }
 }
 
 .comment-author {
@@ -134,19 +138,27 @@
   }
 }
 
-.postCommentBtn {
-  color: #C4275F;
-  background-color: #fff;
-  border: 1px solid #C4275F;
-  border-radius: 2px;
-  letter-spacing: 0.5px;
-  height: 25px;
-  padding: 0 5px;
-}
+// .postCommentBtn {
+//   color: #C4275F;
+//   background-color: #fff;
+//   border: 1px solid #C4275F;
+//   border-radius: 2px;
+//   letter-spacing: 0.5px;
+//   height: 25px;
+//   padding: 0 5px;
+// }
 
 .replies {
-  margin-left: 15px;
+  // @include respond-to($tablet-sm) {
+    // margin-left: 15px;
+  // }
+
+  app-add-reply {
+    position: relative;
+    left: 35px;
+  }
 }
+
 
 .comment-actions {
   // display: none;
@@ -158,6 +170,7 @@
     cursor: pointer;
     color: #00BE9C;
     font-weight: bold;
+    padding: 0 10px;
   }
 
   span.active {
@@ -185,7 +198,7 @@
 
 
 .toplevel {
-  border-left: 5px solid transparent;
+  border-left: 5px solid white;
   // background: $light-grey;
   // border-radius: 5px;
   // background: $light-grey;
