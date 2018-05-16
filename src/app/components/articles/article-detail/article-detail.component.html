@@ -59,9 +59,12 @@
             <button mat-icon-button color="accent" (click)="prevArticle()">&#10094;</button>
             <button mat-icon-button color="accent" (click)="nextArticle()">&#10095;</button>
         </div>
-        <button (click)="prevArticle()">&#10094;</button>
-        <div></div>
-        <button (click)="nextArticle()">&#10095;</button>
+        <div class="button-wrapper">
+          <button mat-icon-button color="accent" (click)="prevArticle()">&#10094;</button>
+        </div>
+        <div class="button-wrapper">
+          <button mat-icon-button color="accent" (click)="nextArticle()">&#10095;</button>
+        </div>
       </div>
       <div class="discussion">
         <div *ngIf="!editingPreview" class="comment-section-wrapper">

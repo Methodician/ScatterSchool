@@ -131,8 +131,8 @@ mat-card {
       display: grid;
       grid-template-columns: 1fr 300px 1fr;
       grid-template-rows: 350px 1fr;
-      // justify-content: center;
-      // align-content: center;
+      justify-content: center;
+      align-content: center;
       @include respond-to($iphone-lg){
         grid-template-columns: 1fr 340px 1fr;
         grid-template-rows: 350px;
@@ -190,10 +190,18 @@ mat-card {
         }
 
       }
-      button:first-of-type {
+      // button:first-of-type {
+      .button-wrapper {
+        border: 1px solid lime; 
         display: none;
+        button {
+          font-size: 60px;
+        }
         @include respond-to($iphone-lg){
-          display: inline-block;
+          // display: inline-block;
+          display: flex;
+          align-items: center;
+          justify-content: center;
           grid-row-start: 1;
           grid-row-end: 2;
         }
@@ -202,17 +210,18 @@ mat-card {
         // position: absolute;
         // bottom: 0;
       }
-      button:last-of-type{
-       display: none;
-         @include respond-to($iphone-lg){
-           display: inline-block;
-           grid-row-start: 1;
-           grid-row-end: 2;
-           grid-column-start: 3;
-           grid-column-end: 4;
-         }
-         @include respond-to($tablet-sm){
-         } 
+      .button-wrapper:last-of-type{
+      // button:last-of-type{
+      border: 1px solid orange;
+        @include respond-to($iphone-lg){
+        //  display: inline-block;
+          grid-row-start: 1;
+          grid-row-end: 2;
+          grid-column-start: 3;
+          grid-column-end: 4;
+        }
+        @include respond-to($tablet-sm){
+        } 
       }
       h2 {
         // grid-area: title;
