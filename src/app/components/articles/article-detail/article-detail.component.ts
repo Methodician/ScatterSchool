@@ -32,6 +32,8 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
   allArticles: any;
   currentArticle: number = 0;
 
+  SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
+
   constructor(
     private articleSvc: ArticleService,
     private userSvc: UserService,
@@ -250,4 +252,15 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
   positionWrapper():string{
     return `${-320 * this.currentArticle}px`;
   }
+
+  swipe(action = this.SWIPE_ACTION.RIGHT) {
+    if (action === this.SWIPE_ACTION.RIGHT) {
+      this.prevArticle();
+    }
+    if (action === this.SWIPE_ACTION.LEFT) {
+      this.nextArticle();
+    }
+  }
 }
+
+
