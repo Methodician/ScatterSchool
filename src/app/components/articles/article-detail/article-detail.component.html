@@ -45,7 +45,23 @@
         </mat-card-content>
     </div>
     <mat-card-footer>
+      <h2>Related articles</h2>
       <div class="related-articles">
+        <div class="spacer"></div>
+        <div class="content">
+          <div class="articles-wrapper" [style.left]="positionWrapper()">
+            <app-article-preview-card [articleData]="article" *ngFor="let article of allArticles | reverseArray; let i = index">
+            </app-article-preview-card>
+          </div>
+        </div>
+        <div class="spacer"></div>
+        <div id="sm-mobile-bar">
+            <button mat-icon-button color="accent" (click)="prevArticle()">&#10094;</button>
+            <button mat-icon-button color="accent" (click)="nextArticle()">&#10095;</button>
+        </div>
+        <button (click)="prevArticle()">&#10094;</button>
+        <div></div>
+        <button (click)="nextArticle()">&#10095;</button>
       </div>
       <div class="discussion">
         <div *ngIf="!editingPreview" class="comment-section-wrapper">

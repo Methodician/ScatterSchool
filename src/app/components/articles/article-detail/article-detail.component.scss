@@ -105,9 +105,6 @@ mat-card {
   }
   mat-card-footer {
     // border: $tb-blue;
-    .related-articles {
-      // border: $tb-red;
-    }
     .discussion {
 
       display: flex;
@@ -124,6 +121,102 @@ mat-card {
         }
       }
     
+    }
+    // STYLES FOR RELATED ARTICLE SECTION
+    .related-articles {
+      margin: 0 0 50px 0;
+      // background: yellow;
+      width: 100%;
+      // height: 500px;
+      display: grid;
+      grid-template-columns: 1fr 300px 1fr;
+      grid-template-rows: 350px 1fr;
+      // justify-content: center;
+      // align-content: center;
+      @include respond-to($iphone-lg){
+        grid-template-columns: 1fr 340px 1fr;
+        grid-template-rows: 350px;
+      }
+      @include respond-to($tablet-md){
+        grid-template-columns: 1fr 660px 1fr;
+
+      }
+      @include respond-to(1100){
+        grid-template-columns: 1fr 980px 1fr;
+
+      }
+      .spacer {
+        border: 1px solid blue;
+        @include respond-to($iphone-lg){
+          border: 1px solid green;
+          display: none;
+        }
+      }
+      .content {
+        border: 1px solid red;
+        overflow: hidden;
+        position: relative;
+      }
+      .articles-wrapper {
+        height: 100%;
+        display: flex;
+        position: absolute;
+        transition: left 200ms ease-in;
+        @include respond-to($iphone-lg){
+          padding: 0 0 0 20px;
+        }
+      }
+      // bar for buttons to move carousel when screen is too small
+      #sm-mobile-bar {
+        // border: 1px solid salmon;
+        grid-column: 1/4;
+        display: flex;
+        justify-content: space-around;
+        button {
+          display: inline-block;
+          // width: 40%;
+          // height: 50px;
+          // width: 50px;
+          // border-radius: 25px;
+          margin: 10px 10px 0 10px;
+          font-size: 20px;
+          // color: white;
+          // display: flex;
+          // justify-content: center;
+          // align-items: center;
+        }
+        @include respond-to($iphone-lg){
+          display: none;
+        }
+
+      }
+      button:first-of-type {
+        display: none;
+        @include respond-to($iphone-lg){
+          display: inline-block;
+          grid-row-start: 1;
+          grid-row-end: 2;
+        }
+        @include respond-to($tablet-sm){
+         }
+        // position: absolute;
+        // bottom: 0;
+      }
+      button:last-of-type{
+       display: none;
+         @include respond-to($iphone-lg){
+           display: inline-block;
+           grid-row-start: 1;
+           grid-row-end: 2;
+           grid-column-start: 3;
+           grid-column-end: 4;
+         }
+         @include respond-to($tablet-sm){
+         } 
+      }
+      h2 {
+        // grid-area: title;
+      }
     }
   }
 }

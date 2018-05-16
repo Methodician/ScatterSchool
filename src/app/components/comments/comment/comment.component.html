@@ -1,7 +1,7 @@
 <div class="comment" *ngIf="!comment.isDeleted" [class.toplevel]="isTopLevelComment()">
   <div class="replies-toggle">
       <p>{{replies?.length > 0 ? replies?.length : ''}}</p>
-      <p *ngIf="hasReplies()" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()">&#9660;</p>
+      <p *ngIf="hasReplies()" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()">&#8250;</p>
   </div>
   <!-- <img *ngIf="hasReplies()" src="../../assets/images/chevron.png" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()"/> -->
   <div class="comment-content">
@@ -34,7 +34,7 @@
 <div class="comment deleted-comment" *ngIf="comment.isDeleted && hasReplies()">
   <div class="replies-toggle">
     <p>{{replies?.length > 0 ? replies?.length : ''}}</p>
-    <p *ngIf="hasReplies()" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()">&#9660;</p>
+    <p *ngIf="hasReplies()" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()">&#8250;</p>
   </div>
     <!-- <img *ngIf="hasReplies()" src="../../assets/images/chevron.png" class="toggle-collapse" [class.showing]="isRepliesShowing()" (click)="toggleReplies()"/> -->
     <p class="comment-text">Comment deleted.</p>

@@ -28,6 +28,10 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
   user: UserInfoOpen = null;
   viewIncremented = false;
 
+  // kb
+  allArticles: any;
+  currentArticle: number = 0;
+
   constructor(
     private articleSvc: ArticleService,
     private userSvc: UserService,
@@ -60,6 +64,12 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
       }
     })
 
+    this.articleSvc
+    .getFeaturedArticles()
+    .valueChanges()
+    .subscribe(response => {
+      this.allArticles = response;
+    });
   }
 
   ngOnDestroy() {
@@ -225,5 +235,12 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   getArticlesByTag(tag: string){
     this.articleSvc.getAllArticlesByTag(tag);
+  }
+
+  nextArticle(){
+    this.currentArticle++;
+  }
+  positionWrapper():string{
+    return `${-320 * this.currentArticle}px`;
   }
 }

@@ -53,6 +53,8 @@ export class HomeComponent implements OnInit {
       .subscribe(response => {
         this.allArticles = response;
       });
+    
+    console.log("wlak it like i talk it ", this.allArticles);
   }
 
   // Methods for toggling between Latest and All Previews
