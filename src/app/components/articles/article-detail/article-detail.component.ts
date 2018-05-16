@@ -238,7 +238,14 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   nextArticle(){
-    this.currentArticle++;
+    if(this.currentArticle != this.allArticles.length - 1){
+      this.currentArticle++;
+    }
+  }
+  prevArticle(){
+    if(this.currentArticle != 0){
+      this.currentArticle--;
+    }
   }
   positionWrapper():string{
     return `${-320 * this.currentArticle}px`;

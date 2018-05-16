@@ -109,7 +109,7 @@ mat-card {
 
       display: flex;
       justify-content: center;
-      padding: 0 0 50px 20px;
+      padding: 50px 0 50px 20px;
       background: $light-gray;
       .comment-section-wrapper {
         width: 95%;
@@ -124,36 +124,37 @@ mat-card {
     }
     // STYLES FOR RELATED ARTICLE SECTION
     .related-articles {
-      margin: 0 0 50px 0;
+      margin: 50px 0;
       // background: yellow;
       width: 100%;
       // height: 500px;
       display: grid;
-      grid-template-columns: 1fr 300px 1fr;
-      grid-template-rows: 350px 1fr;
+      grid-template-columns: 1fr 304px 1fr;
+      grid-template-rows: 425px 1fr;
       justify-content: center;
       align-content: center;
       @include respond-to($iphone-lg){
-        grid-template-columns: 1fr 340px 1fr;
-        grid-template-rows: 350px;
+        grid-template-columns: 1fr 310px 1fr;
+        grid-template-rows: 425px;
+        // grid-template-rows: 385px;
       }
       @include respond-to($tablet-md){
-        grid-template-columns: 1fr 660px 1fr;
-
+        // grid-template-columns: 1fr 660px 1fr;
+        grid-template-columns: 1fr 635px 1fr;
       }
       @include respond-to(1100){
-        grid-template-columns: 1fr 980px 1fr;
-
+        // grid-template-columns: 1fr 980px 1fr;
+        grid-template-columns: 1fr 960px 1fr;
       }
       .spacer {
-        border: 1px solid blue;
+        // border: 1px solid blue;
         @include respond-to($iphone-lg){
-          border: 1px solid green;
+          // border: 1px solid green;
           display: none;
         }
       }
       .content {
-        border: 1px solid red;
+        // border: 1px solid red;
         overflow: hidden;
         position: relative;
       }
@@ -161,9 +162,14 @@ mat-card {
         height: 100%;
         display: flex;
         position: absolute;
-        transition: left 200ms ease-in;
+        transition: left 300ms ease-in;
         @include respond-to($iphone-lg){
-          padding: 0 0 0 20px;
+          padding: 0 0 0 10px;
+        }
+        app-article-preview-card {
+          // border: 1px solid red;
+          // margin-left: 1px;
+          // margin-right: 2px;
         }
       }
       // bar for buttons to move carousel when screen is too small
@@ -179,7 +185,7 @@ mat-card {
           // width: 50px;
           // border-radius: 25px;
           margin: 10px 10px 0 10px;
-          font-size: 20px;
+          font-size: 30px;
           // color: white;
           // display: flex;
           // justify-content: center;
@@ -192,10 +198,21 @@ mat-card {
       }
       // button:first-of-type {
       .button-wrapper {
-        border: 1px solid lime; 
+        // border: 1px solid lime; 
         display: none;
         button {
+          cursor: pointer;
           font-size: 60px;
+          background: transparent;
+          border: 0;
+          color: $accent-color;
+          outline: 0;
+          &:disabled{
+            color: $dark-grey;
+          }
+          &:active {
+            
+          }
         }
         @include respond-to($iphone-lg){
           // display: inline-block;
@@ -212,7 +229,7 @@ mat-card {
       }
       .button-wrapper:last-of-type{
       // button:last-of-type{
-      border: 1px solid orange;
+      // border: 1px solid orange;
         @include respond-to($iphone-lg){
         //  display: inline-block;
           grid-row-start: 1;
