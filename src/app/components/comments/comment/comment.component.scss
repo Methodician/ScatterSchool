@@ -10,6 +10,10 @@
   // border: 1px solid gray;
   position: relative;
   left: 35px;
+  border-top: 0;
+  border-bottom: 1px solid $dark-gray;
+  border-image: linear-gradient(to right, $primary-color 1px, $dark-gray 2px, $dark-gray, transparent);
+	border-image-slice: 1;
   border-left: 5px solid $primary-color;
   
   img {
@@ -70,24 +74,20 @@
   }
 
   .toggle-collapse {
-    // border: 1px solid red;
     margin: 0;
     cursor: pointer;
-    // position: absolute;
-    // left: -25px;
-    // top: 0px;
-    // width: 16px;
-    // height: 16px;
-    // transition: -webkit-transform .1s ease-in;
-    // transition: transform .1s ease-in;
+    font-size: 36px;
+    font-weight: bold;
     transition: transform 50ms ease-in, -webkit-transform 50ms ease-in;
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
+    -webkit-transform: rotate(0) translateX(0);
+    transform: rotate(0) translateX(0);
     color: $accent-color;
-
     &.showing {
-      -webkit-transform: rotate(0);
-      transform: rotate(0);
+      -webkit-transform: rotate(90deg) translateY(-2px);
+      transform: rotate(90deg) translateY(-2px);
+    }
+    &:hover {
+      color: $accent-color-70;
     }
   }
 
@@ -179,6 +179,10 @@
   }
   .comment-update {
     display: inline-block;
+  }
+  
+  mat-icon:hover {
+    color: $accent-color-70;
   }
 }
 
