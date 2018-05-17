@@ -15,7 +15,8 @@
           <div [innerHtml]="article?.body | safeHtml"></div>
           <div class="tags">
             <mat-chip-list>
-              <mat-chip *ngFor="let tag of article?.tags" (click)="getArticlesByTag(tag)">{{tag}}</mat-chip>
+              <!-- maybe change tagsearch to something? -->
+              <mat-chip *ngFor="let tag of article?.tags" (click)="tagSearch(tag)">{{tag}}</mat-chip>
             </mat-chip-list>
           </div>
           <div class="footer">

@@ -44,7 +44,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
   ) { }
 
   ngOnInit() {
-    window.scrollTo(0, 0)
+    window.scrollTo(0,0);
     if (!this.editingPreview) {
       this.route.params.subscribe(params => {
         if (params['key']) {
