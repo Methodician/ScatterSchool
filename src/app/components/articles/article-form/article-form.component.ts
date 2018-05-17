@@ -92,13 +92,11 @@ export class ArticleFormComponent implements OnInit, OnChanges {
       this.form.patchValue(changes['initialValue'].currentValue);
       this.initializeTags(changes['initialValue'].currentValue.tags);
     }
-    console.log("where my changes at");
   }
 
   initializeTags(articleTags) {
     if (articleTags) {
       this.articleTags = articleTags;
-      console.log(this.articleTags, "initialize");
       // for (const tag of articleTags) {
       //   this.formTags.push({ 'display': tag, 'value': tag });
       // }

@@ -3,6 +3,7 @@ import { UserInfoOpen } from 'app/shared/class/user-info';
 import { UserService } from '../../shared/services/user/user.service';
 import { NotificationService } from '../../shared/services/notification/notification.service';
 import { Router } from '@angular/router';
+import { Timestamp } from '@firebase/firestore-types';
 
 @Component({
   selector: 'app-notifications',
@@ -101,7 +102,10 @@ export class NotificationsComponent implements OnInit {
     this.router.navigate([`articlehistory/${articleId}`]);
   }
 
-  formatDate(timestamp: Date) {
+  formatDate(timestamp: any) {
+    // console.log("what is this ", typeof timestamp, " ", timestamp, " ", new Date(timestamp));
+    timestamp = timestamp.toDate();
+    
     let dd = timestamp.getDate();
     let mm = timestamp.getMonth()+1;
     let yyyy = timestamp.getFullYear();

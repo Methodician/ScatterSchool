@@ -22,8 +22,8 @@ export class ArticleCoverImageComponent implements OnInit {
     this.uploadSvc
       .getImage(articleKey, basePath)
       .subscribe(articleData => {
-        if (articleData.url) {
-          this.articleCoverImageUrl = articleData.url;
+        if (articleData && articleData.hasOwnProperty('url')){
+          this.articleCoverImageUrl = articleData.url;    
         }
       });
   }
