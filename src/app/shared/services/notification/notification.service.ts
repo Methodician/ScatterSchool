@@ -27,8 +27,8 @@ export class NotificationService {
       userId: userId,
       followerId: followerId,
       notificationType: "newFollower",
-      // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      timestamp: new Date(),
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      // timestamp: new Date(),
       timeViewed: null
     }  
     this.db.doc(`userData/${userId}/notifications/${id}`).set(notification);
@@ -58,8 +58,8 @@ export class NotificationService {
 
   setNotificationViewed(userId: string, notificationId: string):void {
     this.db.doc(`userData/${userId}/notifications/${notificationId}`).update({
-      // timeViewed: firebase.firestore.FieldValue.serverTimestamp()
-      timeViewed: new Date()
+      timeViewed: firebase.firestore.FieldValue.serverTimestamp()
+      // timeViewed: new Date()
     });
   }
 
@@ -71,8 +71,8 @@ export class NotificationService {
       id: id,
       userId: authorId,
       notificationType: "articleFeature",
-      timestamp: new Date(),
-      // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      // timestamp: new Date(),
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       timeViewed: null
     }  
     this.db.doc(`userData/${authorId}/notifications/${id}`).set(notification);
@@ -85,8 +85,8 @@ export class NotificationService {
       userId: authorId,
       articleId: articleId,
       notificationType: "articleEdit",
-      timestamp: new Date(),
-      // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      // timestamp: new Date(),
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       timeViewed: null
     }  
     this.db.doc(`userData/${authorId}/notifications/${id}`).set(notification);
@@ -116,8 +116,8 @@ export class NotificationService {
       authorId: authorId,
       articleId: articleId,
       notificationType: "followerNewArticle",
-      // timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-      timestamp: new Date(),
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      // timestamp: new Date(),
       timeViewed: null
     }  
     this.db.doc(`userData/${followerId}/notifications/${id}`).set(notification);

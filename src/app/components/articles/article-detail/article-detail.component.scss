@@ -31,9 +31,6 @@ mat-card {
     height: 200px;
     object-fit: cover;
   }
-  mat-card-header {
-    // border: $tb-yellow;
-  }
   mat-card-content {
     // border: $tb-lime;
     mat-chip {
@@ -87,6 +84,9 @@ mat-card {
           margin-left: auto;
           align-items: center;
         }
+        .bookmark-icon {
+          cursor: pointer;
+        }
         div {
           display: flex;
           justify-content: center;
@@ -105,23 +105,6 @@ mat-card {
   }
   mat-card-footer {
     // border: $tb-blue;
-    .discussion {
-
-      display: flex;
-      justify-content: center;
-      padding: 50px 0 50px 20px;
-      background: $light-gray;
-      .comment-section-wrapper {
-        width: 95%;
-        @include respond-to($tablet-md){
-          width: 80%;
-        }
-        @include respond-to($desktop-sm){
-          width: 60%;
-        }
-      }
-    
-    }
     // STYLES FOR RELATED ARTICLE SECTION
     .related-articles {
       margin: 50px 0;
@@ -211,7 +194,7 @@ mat-card {
             color: $dark-grey;
           }
           &:active {
-            
+            // add style to give user more feedback
           }
         }
         @include respond-to($iphone-lg){
@@ -222,16 +205,9 @@ mat-card {
           grid-row-start: 1;
           grid-row-end: 2;
         }
-        @include respond-to($tablet-sm){
-         }
-        // position: absolute;
-        // bottom: 0;
       }
       .button-wrapper:last-of-type{
-      // button:last-of-type{
-      // border: 1px solid orange;
         @include respond-to($iphone-lg){
-        //  display: inline-block;
           grid-row-start: 1;
           grid-row-end: 2;
           grid-column-start: 3;
@@ -241,9 +217,29 @@ mat-card {
         } 
       }
       h2 {
-        // grid-area: title;
+        @include respond-to($iphone-lg){
+          padding: 0 0 0 10px;
+        }
       }
     }
+    .discussion {
+
+      display: flex;
+      justify-content: center;
+      padding: 50px 0 50px 20px;
+      background: $light-gray;
+      .comment-section-wrapper {
+        width: 95%;
+        @include respond-to($tablet-md){
+          width: 80%;
+        }
+        @include respond-to($desktop-sm){
+          width: 60%;
+        }
+      }
+    
+    }
+    
   }
 }
 // .tagsBar {

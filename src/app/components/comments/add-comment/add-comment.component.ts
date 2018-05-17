@@ -46,7 +46,6 @@ export class AddCommentComponent implements OnInit {
       parentType: 'article',
       text: commentData.text
     }
-
     this.commentSvc.saveComment(comment);
     this.toggleCommentForm()
   }

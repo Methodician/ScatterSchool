@@ -22,6 +22,7 @@ export class CommentService {
       commentCount: 0
     }
     this.db.list('commentData/comments').push(commentToSave);
+    // this.updateCommentCount(commentData.parentKey, commentData.parentType, 1);
   }
 
   // this could be replaced with an enum
@@ -38,7 +39,6 @@ export class CommentService {
 
   updateCommentCount(parentKey, parentType, value) {
     const parentPath = this.getBasePathByParentType(parentType) + parentKey;
-
     this.db.object(parentPath).query.ref.ref.transaction(parent => {
       if (parent) {
         // logic is verbose, but accounts for current data/data added which has not comment count

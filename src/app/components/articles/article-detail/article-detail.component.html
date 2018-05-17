@@ -20,7 +20,7 @@
           </div>
           <div class="footer">
             <div class="author-img">
-              <img [src]="profileImageUrl ? profileImageUrl : ''">
+              <img (click)="navigateToProfile()" [src]="profileImageUrl ? profileImageUrl : ''">
             </div>
             <div class="author-details">
               <h3>By {{author?.alias}}</h3>
@@ -29,7 +29,7 @@
             <div class="icons">
               <div>
                 <mat-icon color="primary">comment</mat-icon>
-                <p>{{articleData?.commentCount ? article.commentCount: '0'}}</p>
+                <p>{{articleData?.commentCount ? article.commentCount : '0'}}</p>
               </div>
               <div matTooltip="Revised {{articleData?.version}} time(s)">
                   <mat-icon color="primary">border_color</mat-icon>
@@ -37,11 +37,14 @@
               </div>
               <div>
                 <mat-icon class="bookmark-icon"
-                          color="primary">{{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}</mat-icon>
+                    (click)="bookmarkToggle()"
+                    color="primary">
+                    {{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}
+                </mat-icon>
               </div>
             </div>
           </div>
-          <button mat-raised-button color="accent">Edit Article</button>
+          <button mat-raised-button color="accent" (click)="edit()">Edit Article</button>
         </mat-card-content>
     </div>
     <mat-card-footer>
