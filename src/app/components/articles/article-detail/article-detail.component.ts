@@ -261,6 +261,11 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
       this.nextArticle();
     }
   }
+
+  scroll(el:any){
+    // make smoother?
+    el.scrollIntoView();
+  }
 }
 
 

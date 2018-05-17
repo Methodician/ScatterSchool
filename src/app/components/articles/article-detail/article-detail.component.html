@@ -28,18 +28,18 @@
               <p>Created {{article?.timestamp?.toDate() | date}}</p>
             </div>
             <div class="icons">
-              <div>
-                <mat-icon color="primary">comment</mat-icon>
+              <div matTooltip="Go to comments" (click)="scroll(discussion)">
+                <mat-icon color="accent">comment</mat-icon>
                 <p>{{articleData?.commentCount ? article.commentCount : '0'}}</p>
               </div>
               <div matTooltip="Revised {{articleData?.version}} time(s)">
-                  <mat-icon color="primary">border_color</mat-icon>
+                  <mat-icon color="accent">border_color</mat-icon>
                   <p>{{articleData?.version}}</p>
               </div>
               <div>
                 <mat-icon class="bookmark-icon"
                     (click)="bookmarkToggle()"
-                    color="primary">
+                    color="accent">
                     {{ isArticleBookmarked ? 'bookmark' : 'bookmark_border' }}
                 </mat-icon>
               </div>
@@ -50,6 +50,7 @@
     </div>
     <mat-card-footer>
       <div class="related-articles">
+        <!-- START CAROUSEL move into its own component -->
         <div class="spacer"></div>
         <div class="content">
           <h2>Related articles</h2>
@@ -75,13 +76,13 @@
         </div>
         <div class="button-wrapper">
           <button (click)="prevArticle()" [disabled]="currentArticle === 0">&#10094;</button>
-          <!-- <button mat-icon-button color="accent" (click)="prevArticle()" [disabled]="currentArticle === 0">&#10094;</button> -->
         </div>
         <div class="button-wrapper">
           <button (click)="nextArticle()" [disabled]="currentArticle === (allArticles?.length - 1)">&#10095;</button>
         </div>
+        <!-- END CAROUSEL -->
       </div>
-      <div class="discussion">
+      <div id="discussion" #discussion>
         <div *ngIf="!editingPreview" class="comment-section-wrapper">
           <app-add-comment [headerTitle]="'Discussion'" [parentKey]="articleKey"></app-add-comment>
           <comment-list [parentKey]="articleKey"></comment-list>
