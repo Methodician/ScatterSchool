@@ -3,6 +3,13 @@
 @import "/sass-variables-mixins/vars.scss";
 @import "/sass-variables-mixins/mixins.scss";
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 2px solid gold;
+}
 #navContainer {
   // border: $tb-lime;
   background-color: white;
@@ -55,4 +62,14 @@
   &.expanded {
     right: 20px;
   }
+}
+
+#wrapper{
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  width: 100%;
+}
+#root {
+  flex: 1;
 }

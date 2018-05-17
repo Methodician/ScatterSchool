@@ -1,17 +1,20 @@
 <!--Container  for nav-bar and top-nav component rendering within the div-->
-<div id="navContainer">
-  <top-nav></top-nav>
-  <!-- <app-notifications></app-notifications> -->
-</div>
+<div id="wrapper">
 
-<!--Root div container with the router-outlet rendering page components within the div-->
-<div id="root">
-  <router-outlet></router-outlet>
-</div>
-
-<!--Footer Container with the footer component rendering within the div-->
-<div id="footerContainer">
-  <footer></footer>
+  <div id="navContainer">
+    <top-nav></top-nav>
+    <!-- <app-notifications></app-notifications> -->
+  </div>
+  
+  <!--Root div container with the router-outlet rendering page components within the div-->
+  <div id="root">
+    <router-outlet></router-outlet>
+  </div>
+  
+  <!--Footer Container with the footer component rendering within the div-->
+  <div id="footerContainer">
+    <footer></footer>
+  </div>
 </div>
 
 <!-- ToDo: put this button in its own conponent so all the animation logic can be taken out of AppComponent -->
