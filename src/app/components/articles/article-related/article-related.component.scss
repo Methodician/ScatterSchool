@@ -1,0 +1,96 @@
+@import "../../../sass-variables-mixins/vars.scss";
+@import "../../../sass-variables-mixins/mixins.scss";
+
+#related-articles {
+  margin: 50px 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 304px 1fr;
+  grid-template-rows: 425px 1fr;
+  justify-content: center;
+  align-content: center;
+  @include respond-to($iphone-lg){
+    grid-template-columns: 1fr 310px 1fr;
+    grid-template-rows: 425px;
+  }
+  @include respond-to($tablet-md){
+    grid-template-columns: 1fr 635px 1fr;
+  }
+  @include respond-to(1100){
+    grid-template-columns: 1fr 960px 1fr;
+  }
+  .spacer {
+    @include respond-to($iphone-lg){
+      display: none;
+    }
+  }
+  .content {
+    overflow: hidden;
+    position: relative;
+  }
+  .articles-wrapper {
+    height: 100%;
+    display: flex;
+    position: absolute;
+    transition: left 300ms ease-in;
+    @include respond-to($iphone-lg){
+      padding: 0 0 0 10px;
+    }
+  }
+  // bar for buttons to move carousel when screen is too small
+  #sm-mobile-bar {
+    grid-column: 1/4;
+    display: flex;
+    justify-content: space-around;
+    button {
+      display: inline-block;
+      margin: 10px 10px 0 10px;
+      font-size: 30px;
+    }
+    @include respond-to($iphone-lg){
+      display: none;
+    }
+  }
+  // Left button
+  .button-wrapper {
+    display: none;
+    button {
+      cursor: pointer;
+      font-size: 60px;
+      background: transparent;
+      border: 0;
+      color: $accent-color;
+      // outline: 0;
+      &:hover {
+        color: $accent-color-70;
+      }
+      &:disabled{
+        color: $dark-grey;
+      }
+      
+    }
+    @include respond-to($iphone-lg){
+      // display: inline-block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      grid-row-start: 1;
+      grid-row-end: 2;
+    }
+  }
+  .button-wrapper:last-of-type{
+    @include respond-to($iphone-lg){
+      grid-row-start: 1;
+      grid-row-end: 2;
+      grid-column-start: 3;
+      grid-column-end: 4;
+    }
+    @include respond-to($tablet-sm){
+    } 
+  }
+  h2 {
+    @include respond-to($iphone-lg){
+      padding: 0 0 0 10px;
+    }
+  }
+}

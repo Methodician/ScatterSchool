@@ -237,10 +237,6 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
       });
   }
 
-  getArticlesByTag(tag: string){
-    this.articleSvc.getAllArticlesByTag(tag);
-  }
-
   nextArticle(){
     if(this.currentArticle != this.allArticles.length - 1){
       this.currentArticle++;

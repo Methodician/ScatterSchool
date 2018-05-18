@@ -49,39 +49,7 @@
         </mat-card-content>
     </div>
     <mat-card-footer>
-      <div *ngIf="!editingPreview" id="related-articles">
-        <!-- START CAROUSEL move into its own component -->
-        <div class="spacer"></div>
-        <div class="content">
-          <h2>Related articles</h2>
-          <div class="articles-wrapper" 
-            [style.left]="positionWrapper()"
-            (swipeleft)="swipe($event.type)"
-            (swiperight)="swipe($event.type)"
-            >
-            <app-article-preview-card [articleData]="article" *ngFor="let article of allArticles | reverseArray; let i = index">
-            </app-article-preview-card>
-          </div>
-        </div>
-        <div class="spacer"></div>
-        <div id="sm-mobile-bar">
-            <button mat-icon-button 
-              color="accent"
-              [disabled]="currentArticle === 0" 
-              (click)="prevArticle()">&#10094;</button>
-            <button mat-icon-button 
-              color="accent"
-              [disabled]="currentArticle === (allArticles?.length - 1)"
-              (click)="nextArticle()">&#10095;</button>
-        </div>
-        <div class="button-wrapper">
-          <button (click)="prevArticle()" [disabled]="currentArticle === 0">&#10094;</button>
-        </div>
-        <div class="button-wrapper">
-          <button (click)="nextArticle()" [disabled]="currentArticle === (allArticles?.length - 1)">&#10095;</button>
-        </div>
-        <!-- END CAROUSEL -->
-      </div>
+      <app-article-related *ngIf="!editingPreview" [parentAllArticles]="allArticles"></app-article-related>
       <div id="discussion" #discussion>
         <div *ngIf="!editingPreview"  class="comment-section-wrapper">
           <app-add-comment [headerTitle]="'Discussion'" [parentKey]="articleKey"></app-add-comment>
