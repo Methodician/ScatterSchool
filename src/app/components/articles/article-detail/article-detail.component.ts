@@ -8,6 +8,8 @@ import { ArticleDetailFirestore, ArticleBodyFirestore } from 'app/shared/class/a
 import { UserInfoOpen } from 'app/shared/class/user-info';
 import { OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 
+import * as smoothscroll from 'smoothscroll-polyfill';
+
 @Component({
   selector: 'app-article-detail',
   templateUrl: './article-detail.component.html',
@@ -41,7 +43,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
     private route: ActivatedRoute,
     private uploadSvc: UploadService,
     private authSvc: AuthService
-  ) { }
+  ) { smoothscroll.polyfill();}
 
   ngOnInit() {
     window.scrollTo(0,0);
@@ -264,7 +266,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
 
   scroll(el:any){
     // make smoother?
-    el.scrollIntoView();
+    el.scrollIntoView({behavior: 'smooth'});
   }
 }
 

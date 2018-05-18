@@ -32,7 +32,7 @@
                 <mat-icon color="accent">comment</mat-icon>
                 <p>{{articleData?.commentCount ? article.commentCount : '0'}}</p>
               </div>
-              <div matTooltip="Revised {{articleData?.version}} time(s)">
+              <div matTooltip="Revised {{articleData?.version}} time(s)" *ngIf="!editingPreview && hasHistory" (click)="navigateToHistory()">
                   <mat-icon color="accent">border_color</mat-icon>
                   <p>{{articleData?.version}}</p>
               </div>
