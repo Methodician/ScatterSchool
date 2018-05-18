@@ -30,6 +30,9 @@
     z-index: 1;
     @include respond-to($tablet-sm){
         width: 400px;
+        right: 100px;
+    }
+    @include respond-to($tablet-md){
         right: 200px;
     }
     mat-card{
@@ -97,7 +100,7 @@
 }
 
 .notification-wrapper {
-    max-height: 500px;
+    max-height: 400px;
     overflow-y: scroll;
     mat-card-title {
         font-size: 16px;

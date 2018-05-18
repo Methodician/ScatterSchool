@@ -56,6 +56,7 @@ mat-card {
         border-radius: 100%;
         overflow: hidden;
         grid-area: 1/1/span 2/2;
+        cursor: pointer;
         img {
           height: 100%;
           width: 100%;
@@ -64,12 +65,19 @@ mat-card {
       }
       .author-details {
         padding: 0 0 0 20px;
-        p {
-          margin-bottom: 0;
-        }
         @include respond-to($tablet-md){
           padding: 0 10px;
           // padding: 0 0 0 10px;
+        }
+        p {
+          margin-bottom: 0;
+        }
+        .span-link {
+          color: $accent-color;
+          cursor: pointer;
+          &:hover{
+            text-decoration: underline;
+          }
         }
       }
       .icons {
@@ -107,7 +115,7 @@ mat-card {
   }
   mat-card-footer {
     // STYLES FOR RELATED ARTICLE SECTION
-    .related-articles {
+    #related-articles {
       margin: 50px 0;
       width: 100%;
       display: grid;

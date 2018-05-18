@@ -11,9 +11,9 @@ import { Timestamp } from '@firebase/firestore-types';
   styleUrls: ['./notifications.component.scss'],
   animations: [
     trigger('notificationState', [ 
-      state('disappear', style({transform: 'translateY(-700px)'})),
+      state('disappear', style({transform: 'translateY(-600px)'})),
       state('appear', style({transform: 'translateY(0)'})),
-      transition( 'disappear <=> appear', animate('675ms ease-in'))
+      transition( 'disappear <=> appear', animate('600ms ease-in-out'))
     ])
   ]
 })

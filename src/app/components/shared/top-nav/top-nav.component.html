@@ -34,16 +34,18 @@
       </button>
       <!-- Option Nav Bar Menu Dropdown  -->
       <mat-menu #optionMenu="matMenu">
-        <button mat-menu-item *ngIf="authInfo.$uid" routerLink="account">Profile</button>
+        <button mat-menu-item *ngIf="authInfo.$uid" (click)="goToProfile()">Profile</button>
+        <button mat-menu-item *ngIf="authInfo.$uid" routerLink="account">Account</button>
         <button mat-menu-item *ngIf="authInfo.$uid" (click)="logout()" id="logout">Log Out</button>
       </mat-menu>
       <!-- Mobile Nav Bar Menu Dropdown  -->
       <mat-menu #mobileMenu="matMenu">
         <button mat-menu-item id="post-article" routerLink="postarticle">Post an article</button>
-        <button mat-menu-item *ngIf="authInfo.$uid" routerLink="account">Profile</button>
-        <button mat-menu-item *ngIf="!authInfo.$uid" routerLink="register" id="sign-up">Sign Up</button>
+        <button mat-menu-item *ngIf="authInfo.$uid" (click)="goToProfile()">Profile</button>
+        <button mat-menu-item *ngIf="authInfo.$uid" routerLink="account">Account</button>
         <button mat-menu-item *ngIf="authInfo.$uid" (click)="logout()" id="logout">Log Out</button>
-        <button mat-menu-item *ngIf="!authInfo.$uid" routerLink="login" id="sign-in">Sign In</button>
+        <button mat-menu-item *ngIf="!authInfo.$uid" routerLink="login" id="sign-in">Log In</button>
+        <button mat-menu-item *ngIf="!authInfo.$uid" routerLink="register" id="sign-up">Register</button>
       </mat-menu>
 
     </div>

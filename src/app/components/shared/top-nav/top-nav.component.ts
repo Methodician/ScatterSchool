@@ -92,6 +92,10 @@ export class TopNavComponent implements OnInit {
       this.search(input);
     }
   }
+
+  goToProfile(){
+    this.userSvc.navigateToProfile(this.userInfo.uid);
+  }
 }
 
 export enum searchBarFocus {
