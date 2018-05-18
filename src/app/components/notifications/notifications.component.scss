@@ -1,5 +1,5 @@
 @import "../../sass-variables-mixins/vars.scss";
-
+@import "../../sass-variables-mixins/mixins.scss";
 
 .notification-btn {
     background: white;
@@ -16,17 +16,22 @@
     font-weight: bold;
 }
 .modal {
+    background: $light-grey;
     font-size: 14px;
     white-space: normal;
     position: absolute;
     top: 70px;
-    right: 200px;
-    width: 400px;
+    right: 10px;
+    width: 275px;
     max-height: 550px;
     // background-color: grey;
     // border: 5px solid yellowgreen;
     // border-radius: 5px;
     z-index: 1;
+    @include respond-to($tablet-sm){
+        width: 400px;
+        right: 200px;
+    }
     mat-card{
         // border: 1px solid red;
         display: flex;

@@ -38,7 +38,8 @@ export class LoginComponent implements OnInit {
         // console.log('Login result from LoginComp:', res);
         delete val.password;
         // this.userSvc.getUserInfo(res.uid).subscribe(res => console.log);
-        this.router.navigateByUrl('/account');
+        // this.router.navigateByUrl('/account');
+        this.router.navigateByUrl('/');
       }, err => {
         alert(err)
       });
