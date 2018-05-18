@@ -3,26 +3,24 @@
 
 .comment {
   // width: 500px;
-  width: 80%;
-  padding: 5px 10px 20px 0;
   display: block;
-  margin-bottom: 20px;
-  // border: 1px solid gray;
   position: relative;
   left: 35px;
+  width: 80%;
+  margin-bottom: 20px;
+  padding: 5px 15px 40px 0;
   border-top: 0;
-  border-bottom: 1px solid $dark-gray;
-  border-image: linear-gradient(to right, $primary-color 1px, $dark-gray 2px, $dark-gray, transparent);
-	border-image-slice: 1;
+  border-bottom: 1px solid $dark-gray-20;
   border-left: 5px solid $primary-color;
-  
+  @include respond-to($tablet-sm){
+    padding: 5px 10px 20px 0;
+  }
   img {
     width: 25px;
     height: 25px;
     border-radius: 12px;
     object-fit: cover;
     grid-area: 1/1/span 3/2;
-    // align-self: center;
     margin: 10px;
     @include respond-to($tablet-sm){
       width: 50px;
@@ -32,7 +30,6 @@
   }
 
   .replies-toggle {
-    // border: 1px solid red;
     position: absolute;
     left: -50px;
     top: 0;
@@ -45,13 +42,10 @@
       font-weight: bold;
       font-size: 18px;
       margin: 15px 0 0 0;
-      // padding-right: 10px;      
-      // border: 1px solid red;
     }
   }
 
   .comment-content {
-    // border: 2px solid lime;
     display: grid;
     grid-template-columns: max-content 1fr;
     grid-template-rows: repeat(3, max-content);
@@ -62,15 +56,8 @@
     
   }
 
-  // Doesn't apply to anything?
-  // p.first-child {
-  //   border: 2px solid red;
-  //   margin-bottom: 0px;
-  // }
-
   p.comment-text {
     white-space: pre-wrap;
-    // font-style: italic;
   }
 
   .toggle-collapse {
@@ -97,19 +84,11 @@
   }
 }
 
-.comment:hover {
-  // background: green;
-  .update-comment {
-    display: block;
-  }
-}
-
 .deleted-comment {
   color: $dark-gray;
   border-left: 5px solid $dark-grey;
-  // border: 1px solid red;
-  padding-top: 20px;
-  // background: gray;
+  padding-top: 25px;
+  padding-bottom: 30px;
   p {
     text-align: center;
     margin: 0px;
@@ -119,16 +98,23 @@
     font-style: italic;
   }
   .replies-toggle {
-    // border: $tb-red;
     p:first-of-type {
       margin: 0;
     }
   }
 }
 
+// Adds the nesting effect
 .replies {
   @include respond-to($tablet-sm){
     margin-left: 15px;
+  }
+  app-add-reply {
+    @include respond-to($tablet-sm){
+      position: relative;
+      left: 20px;
+      padding-left: 0;
+    }
   }
 }
 
@@ -140,59 +126,33 @@
   }
 }
 
-// .postCommentBtn {
-//   color: #C4275F;
-//   background-color: #fff;
-//   border: 1px solid #C4275F;
-//   border-radius: 2px;
-//   letter-spacing: 0.5px;
-//   height: 25px;
-//   padding: 0 5px;
-// }
-
-.replies {
-  // @include respond-to($tablet-sm) {
-    // margin-left: 15px;
-  // }
-
-  app-add-reply {
-    position: relative;
-    left: 35px;
-  }
-}
-
-
 .comment-actions {
   // display: none;
   position: absolute;
   right: 5px;
-  bottom: 5px;
-
-  span {
-    cursor: pointer;
-    color: #00BE9C;
-    font-weight: bold;
-    padding: 0 10px;
-  }
-
+  bottom: 15px;
   span.active {
   }
   .comment-update {
     display: inline-block;
   }
   
-  mat-icon:hover {
-    color: $accent-color-70;
+  mat-icon {
+    color: #00BE9C;
+    padding: 0 10px;
+    cursor: pointer;
+    &:hover {
+      color: $accent-color-70;
+    }
+    &#delete {
+      color: $warn-color;
+      &:hover {
+        color: rgba(196, 39, 95, 0.2);
+      }
+    }
+    
   }
 }
-
-// #reply-button {
-//   color: #00BE9C;
-//   cursor: pointer;
-//   font-weight: bold;
-// }
-
-
 
 .date-updated {
   position: absolute;
@@ -205,10 +165,5 @@
 
 .toplevel {
   border-left: 5px solid transparent;
-  // background: $light-grey;
-  // border-radius: 5px;
-  // background: $light-grey;
-  // border-left: 5px solid $light-grey;
-  // box-shadow: 0 4px 2px -2px ;
 }
 

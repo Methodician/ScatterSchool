@@ -18,16 +18,11 @@
   <app-edit-comment *ngIf="editShowing" [currentUserInfo]="currentUserInfo" [initialCommentValue]="comment" (editFormButtonClickSender)="editFormClicked($event)"></app-edit-comment>
 
   <div *ngIf="!editShowing" class="comment-actions">
-      <span (click)="tryShowAddReply(addReply)"><mat-icon>reply</mat-icon></span>
+      <mat-icon tabindex="0" (click)="tryShowAddReply(addReply)">reply</mat-icon>
       <div class="comment-update" *ngIf="isLoggedInUserComment()">
-         <span (click)="toggleEdit()" [class.active]="editShowing"><mat-icon>edit</mat-icon></span> 
-        <span (click)="deleteComment()"><mat-icon>delete</mat-icon></span>
+        <mat-icon [class.active]="editShow" (click)="toggleEdit()">edit</mat-icon>
+        <mat-icon id="delete" (click)="deleteComment()">delete</mat-icon>
       </div>
-      <!-- <span (click)="tryShowAddReply(addReply)"><mat-icon>reply</mat-icon></span>
-      <div class="comment-update" *ngIf="isLoggedInUserComment()">
-        | <span (click)="toggleEdit()" [class.active]="editShowing"> {{editShowing ? "Cancel" : "Edit"}}</span> |
-        <span (click)="deleteComment()">Delete</span>
-      </div> -->
   </div>
 </div>
 

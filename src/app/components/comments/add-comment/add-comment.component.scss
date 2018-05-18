@@ -1,37 +1,28 @@
 // imports for the variable and mixin files found within the sass-variables-mixins folder
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
+#comment-buttons {
+ display: flex;
+ align-items: center;
+ margin: 0 0 20px 0;
+ mat-icon {
+   cursor: pointer;
+   margin-left: 20px;
+   &:hover {
+    color: rgba(196, 39, 95, 0.2);
+   }
+ }
+}
 button {
-  margin: 0 0 20px 20px;
+  // margin: 0 0 20px 20px;
 }
 
 .add-comment {
   width: 90%;
   max-width: 500px;
-  button {
-    margin: 0 5px 20px 0;
-  }
-  
 }
 
 h2 {
   display: inline-block;
+  margin: 0 20px 20px 0;
 }
-// button {
-//   @include medium-button();
-//   width: 140px;
-// }
-
-// #cancel-comment {
-//   background-color: gray;
-// }
-
-// #counter {
-//   margin-right: 5px;
-// }
-
-// @media only screen and (max-width:768px) {
-//   .comment-form-wrapper {
-//     width: 320px;
-//   }
-// }

@@ -3,7 +3,6 @@
 @import "../../../sass-variables-mixins/mixins.scss";
 button {
   // @include medium-button();
-  @include small-button();
   color: white !important;
   margin: 0 2px 0 0;
 }
@@ -12,6 +11,19 @@ button:nth-of-type(3) {
   margin-left: auto;
 }
 
-#buttons {
+#edit-buttons {
   display: flex;
+  align-items: center;
+  #cancel {
+    padding: 0 0 0 20px;
+  }
+  #delete {
+    margin-left: auto;
+  }
+  #cancel, #delete {
+    cursor: pointer;
+    &:hover{
+      color: rgba(196, 39, 95, 0.2) 
+    }
+  }
 }
