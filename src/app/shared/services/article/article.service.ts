@@ -33,24 +33,6 @@ export class ArticleService {
       .collection('articles');
   }
 
-  async getAllArticlesByTag(desiredTag: string){
-    try {
-      const articles = await firebase
-        .firestore()
-        .collection('articleData')
-        .doc('articles')
-        .collection('articles')
-        .get();
-      articles.forEach(function(doc) {
-        console.log(doc.id, " => ", doc.data());
-      });
-      console.log("this was a success.");
-    } catch (error) {
-      console.log("Error getting documents: ", error);
-    };
-    
-  }
-
   getLatestArticles() {
     return this.afs
     .collection('articleData')
@@ -153,6 +135,7 @@ export class ArticleService {
 
     for (const tag of article.tags) {
       this.addGlobalTag(tag);
+      this.addGlobalTagFB(articleId, tag);
     }
     this.notifSvc.createNewArticleNotification(authorId, articleId);
     try {
@@ -401,13 +384,15 @@ export class ArticleService {
       for (const tag of newTags) {
         if (!oldTags.includes(tag)) {
           this.addGlobalTag(tag, batch);
+          this.addGlobalTagFB(articleId, tag);
         }
       }
     }
     if (oldTags && oldTags.length > 0) {
       for (const tag of oldTags) {
         if (!newTags.includes(tag)) {
-          this.decrementGlobalTag(tag, batch)
+          this.decrementGlobalTag(tag, batch);
+          this.removeGlobalTagFB(articleId, tag);
         }
       }
     }
@@ -525,24 +510,26 @@ export class ArticleService {
             this.globalTags = tags;
             // resolve();
           } else {
-            const seedTag: any = {
-              seed: {
-                count: 0,
-                timestamp: new Date()
-              }
-            }
-            tagsRef.set(seedTag)
-              .then(() => {
-                // resolve();
-              })
-              .catch((err) => {
-                alert(`
-                  No tags exist and we can't make them.
-                  Is this a new DB instance?
-                  Please send a screenshot of this error to the Scatterschool Dev Team!:
-                  ${err.toString()}
-                `);
-              });
+            console.log("tried to re-seed the data");
+            // this is running unexpectedly
+            // const seedTag: any = {
+            //   seed: {
+            //     count: 0,
+            //     timestamp: new Date()
+            //   }
+            // }
+            // tagsRef.set(seedTag)
+            //   .then(() => {
+            //     // resolve();
+            //   })
+            //   .catch((err) => {
+            //     alert(`
+            //       No tags exist and we can't make them.
+            //       Is this a new DB instance?
+            //       Please send a screenshot of this error to the Scatterschool Dev Team!:
+            //       ${err.toString()}
+            //     `);
+            //   });
           }
         });
     }
@@ -561,5 +548,13 @@ export class ArticleService {
           ...element.payload.val()
         };
       });
+  }
+
+  addGlobalTagFB(articleId, tag){
+    this.rtdb.object(`articleData/articlesPerTag/${tag}`).update({[articleId]: firebase.database.ServerValue.TIMESTAMP});
+  }
+
+  removeGlobalTagFB(articleId, tag){
+    this.rtdb.object(`articleData/articlesPerTag/${tag}/${articleId}`).remove();
   }
 }

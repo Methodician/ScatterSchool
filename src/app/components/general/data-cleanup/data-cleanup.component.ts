@@ -30,6 +30,20 @@ export class DataCleanupComponent implements OnInit {
   }
   ngOnInit() { }
 
+  addArticlesPerTag(){
+    this.articleSvc
+      .getAllArticles()
+      .valueChanges()
+      .take(1)
+      .subscribe( articles => {
+        articles.forEach(article => {
+          if (article.hasOwnProperty('tags')){
+            this.dataSvc.addArticlesPerTag(article['articleId'], article['tags']);
+          }
+        });
+      });
+  }
+
   upgradeArticleBodyActive() {
     this.articleSvc
       .getAllArticles()

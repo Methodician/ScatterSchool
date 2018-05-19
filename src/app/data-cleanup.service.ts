@@ -4,16 +4,25 @@ import { UserInfoOpen } from 'app/shared/class/user-info';
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { ArticleDetailFirestore, ArticleBodyFirestore, ArticleDetailOpen } from 'app/shared/class/article-info';
 import { UserService } from 'app/shared/services/user/user.service';
+import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase';
 
 
 @Injectable()
 export class DataCleanupService {
 
   constructor(
+    private afdb: AngularFireDatabase,
     private afs: AngularFirestore,
     private articleSvc: ArticleService,
     private userSvc: UserService
   ) { }
+
+  addArticlesPerTag(articleId:string, tagArr){
+    tagArr.map(tag => {
+      this.afdb.object(`articleData/articlesPerTag/${tag}`).update({[articleId]: firebase.database.ServerValue.TIMESTAMP});
+  });
+  }  
 
   upgradeMainArticleBody(bodyId, articleId, version, lastEditorId) {
     const bodyDoc = this.articleSvc.getArticleBody(bodyId);
