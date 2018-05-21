@@ -20,9 +20,11 @@ export class DataCleanupService {
 
   addArticlesPerTag(articleId:string, tagArr){
     tagArr.map(tag => {
-      this.afdb.object(`articleData/articlesPerTag/${tag}`).update({[articleId]: firebase.database.ServerValue.TIMESTAMP});
+      this.afdb
+      .object(`articleData/articlesPerTag/${tag}`)
+      .update({[articleId]: firebase.database.ServerValue.TIMESTAMP});
   });
-  }  
+  }
 
   upgradeMainArticleBody(bodyId, articleId, version, lastEditorId) {
     const bodyDoc = this.articleSvc.getArticleBody(bodyId);

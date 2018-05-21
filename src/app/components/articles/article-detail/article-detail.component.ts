@@ -33,6 +33,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
   // kb
   allArticles: any;
   currentArticle: number = 0;
+  relatedArticles: any;
 
   SWIPE_ACTION = { LEFT: 'swipeleft', RIGHT: 'swiperight' };
 
@@ -69,7 +70,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
     })
 
     this.articleSvc
-    .getFeaturedArticles()
+    .getAllArticles()
     .valueChanges()
     .subscribe(response => {
       this.allArticles = response;
@@ -200,6 +201,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
         if (articleBody) {
           articleData.body = articleBody.body;
           this.article = articleData;
+          this.relatedArticles = this.articleSvc.getArticlesPerTag(this.article.tags);
         }
       });
   }

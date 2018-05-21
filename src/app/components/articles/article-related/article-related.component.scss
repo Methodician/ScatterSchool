@@ -66,6 +66,7 @@
       }
       &:disabled{
         color: $dark-grey;
+        cursor: not-allowed;
       }
       
     }
@@ -92,5 +93,17 @@
     @include respond-to($iphone-lg){
       padding: 0 0 0 10px;
     }
+  }
+}
+
+.no-related {
+  grid-template-rows: 125px !important;
+  .articles-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  #no-related {
+    font-style: italic;
   }
 }

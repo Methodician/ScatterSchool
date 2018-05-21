@@ -98,7 +98,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { ArticlePreviewCardComponent } from './components/previews/article-preview-card/article-preview-card.component';
 import { ArticlePreviewListComponent } from './components/previews/article-preview-list/article-preview-list.component';
 import { ArticleRelatedComponent } from './components/articles/article-related/article-related.component';
-
+import { ArticleRelatedPipePipe } from './shared/pipes/article-related-pipe.pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -159,7 +159,8 @@ import { ArticleRelatedComponent } from './components/articles/article-related/a
     NotificationsComponent,
     ArticlePreviewCardComponent,
     ArticlePreviewListComponent,
-    ArticleRelatedComponent
+    ArticleRelatedComponent,
+    ArticleRelatedPipePipe
   ],
   imports: [
     BrowserModule,

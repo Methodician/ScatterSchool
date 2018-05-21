@@ -557,4 +557,22 @@ export class ArticleService {
   removeGlobalTagFB(articleId, tag){
     this.rtdb.object(`articleData/articlesPerTag/${tag}/${articleId}`).remove();
   }
+
+    
+  getArticlesPerTag(tagArr){
+    const articlesArray = [];
+    tagArr.map(tag => {
+      this.rtdb
+      .list(`articleData/articlesPerTag/${tag}`)
+      .snapshotChanges()
+      .subscribe(result => {
+        if (result.length > 1){
+          result.map(obj => {
+            articlesArray.push(obj.key);
+          });
+        }
+      });
+    });
+    return articlesArray;
+  }
 }
