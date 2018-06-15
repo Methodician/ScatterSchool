@@ -2,7 +2,6 @@
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
 .editWrapper {
-  font-family: STHeitiSC-Light;
   width: 500px;
   margin: 0 auto;
   h3 {
@@ -17,7 +16,6 @@
     @include medium-button();
   }
 }
-
 @media only screen and (max-width:768px) {
   .editWrapper {
     width: 95%;

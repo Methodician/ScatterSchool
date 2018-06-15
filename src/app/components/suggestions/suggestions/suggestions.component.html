@@ -1,5 +1,4 @@
 <div class="suggestionsContainer">
-
   <div id="add-suggestions-wrapper">
     <div id="add-suggestion-form">
       <p>Want to see a tutorial on CoSourcery? Add a suggestion here and someone in the community may take it on. Perhaps
@@ -7,7 +6,6 @@
       <button mat-raised-button color="primary" [routerLink]="['../postsuggestion']" class="suggestionBtn"> Make a suggestion</button>
     </div>
   </div>
-  
   <div id="suggestions">
     <h3>Suggestions</h3>
     <div id="sort-buttons">
@@ -19,8 +17,8 @@
       <app-suggestion-preview
         *ngFor="let suggestion of suggestions | suggestionSort: currentSortOption"
         [suggestion]="suggestion"
-        [currentUserKey]="currentUserKey"
-      ></app-suggestion-preview>
+        [currentUserKey]="currentUserKey">
+      </app-suggestion-preview>
     </div>
   </div>
 </div>

@@ -8,12 +8,10 @@
   justify-content: flex-start;
   align-items: center;
 }
-
 .buttonWrapper {
   display: flex;
   justify-content: center;
 }
-
 .suggestion-submit {
   @include medium-button();
 }
