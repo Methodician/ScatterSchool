@@ -5,7 +5,6 @@
   padding: 5px;
   border-bottom: 1px solid #263237;
 }
-
 .picTitleWrapper {
   display: flex;
   img {
@@ -14,7 +13,6 @@
     margin-right: 20px;
   }
 }
-
 .dateVersionWrapper {
   display: flex;
   flex-direction: column;
@@ -22,22 +20,18 @@
   align-items: flex-end;
   width: 39%;
 }
-
 .title {
   margin: 0;
   align-self: center;
   font-size: 18px;
 }
-
 .title:hover {
   color: #31C2D7;
   cursor: pointer;
 }
-
 .version {
   color: #00BE9C;
 }
-
 @media only screen and (max-width:768px) {
   .picTitleWrapper img {
     display: none;

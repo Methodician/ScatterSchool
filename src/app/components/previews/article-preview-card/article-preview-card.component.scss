@@ -1,9 +1,6 @@
 // imports for the variable and mixin files found within the sass-variables-mixins folder
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
-// .overlay:hover {
-//   background: linear-gradient(to right, $primary-color, $primary-color); 
-// }
 .hover-bg {
   filter: sepia(100) hue-rotate(140deg) saturate(80%) contrast(50%);
   color: white;
@@ -54,7 +51,6 @@ mat-card {
     bottom: 0;
     display: flex;
     flex-direction: row;
-    // background: rgba(0,184,212,0.20)
     background: rgb(204,241,247) ;
   }
   div {
