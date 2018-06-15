@@ -11,12 +11,10 @@ body {
   border: 2px solid gold;
 }
 #navContainer {
-  // border: $tb-lime;
   background-color: white;
   @include size(55px, 100%);
   overflow-x: hidden;
 }
-
 #toggle-chat {
   height: 65px;
   width: 65px;
@@ -25,29 +23,24 @@ body {
   right: -30px;
   -webkit-transition: right .2s;
   color: white;
-
   @media only screen and (max-width:980px) {
     top: calc(28vh + 1px);
   }
-
   &.expanded {
     right: 289px;
   }
-
   &.unread {
     right: 5px;
     mat-icon {
       margin-right: 0px;
     }
   }
-
   mat-icon {
     margin-top: 5px;
     margin-right: 23px;
     -webkit-transition: margin-right .2s;
   }
 }
-
 #chat {
   padding: 0px;
   position: fixed;
@@ -63,7 +56,6 @@ body {
     right: 20px;
   }
 }
-
 #wrapper{
   display: flex;
   flex-direction: column;

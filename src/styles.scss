@@ -7,16 +7,13 @@
 
 
 fieldset {
-    border: none;
-  }
+  border: none;
+}
   
 *, html, body {
-  // font-family: STHeitiSC-Light;
   font-family: 'Montserrat', sans-serif;
-
 }
 
-  
  html, body {
   height: 100%;
   width: 100%;
@@ -24,17 +21,12 @@ fieldset {
   margin: 0;
   background-color: white;
 }
-
 .mat-card-header-text {
-  // height: auto !important;
   margin: 0 !important;
-  // display: none;
 }
-
 mat-card-actions[_ngcontent-c21] {
   margin-left: 0px !important;
 }
-
 .mat-tab-label {
   min-width: calc(100% / 3) !important;
   padding: 0 !important;
