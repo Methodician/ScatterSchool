@@ -5,12 +5,10 @@
 mat-tab-group {
   height: 500px;
 }
-
 #chats,
 #users {
   overflow-y: scroll;
 }
-
 .loggedIn {
   div {
     @include size(100px, 100%);
@@ -27,7 +25,6 @@ mat-tab-group {
     }
   }
 }
-
 .notLoggedIn {
   div {
     @include size(100px, 100%);
