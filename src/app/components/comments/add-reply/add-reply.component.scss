@@ -5,51 +5,44 @@
   color: #00BE9C;
   cursor: pointer;
 }
-
 .reply-form {
   margin-left: 35px;
-  // width: 500px;
   margin-right: 0;
   width: 77%;
   padding: 5px 0px 5px 15px;
   display: block;
   margin-bottom: 10px;
   border-left: 5px solid $warn-color;
-  // position: relative;
-  // border: 1px solid red;
   @include respond-to($tablet-sm){
     width: 85%;
     padding: 5px 0px 5px 20px;
     margin-left: 0;    
   }
-  .close-reply {
-    position: absolute;
-    left: -20px;
-    top: 0px;
+}
+.close-reply {
+  position: absolute;
+  left: -20px;
+  top: 0px;
+  cursor: pointer;
+  width: 14px;
+  height: 14px;
+}
+.reply-author {
+  cursor: pointer;
+  color: rgb(196, 39, 95);
+  margin-bottom: 5px;
+   :hover {
+    text-decoration: underline;
+  }
+}
+#reply-buttons{
+  display: flex;
+  align-items: center;
+  #cancel {
     cursor: pointer;
-    width: 14px;
-    height: 14px;
-  }
-  button {
-    // @include medium-button();
-  }
-  .reply-author {
-    cursor: pointer;
-    color: rgb(196, 39, 95);
-    margin-bottom: 5px;
-     :hover {
-      text-decoration: underline;
-    }
-  }
-  #reply-buttons{
-    display: flex;
-    align-items: center;
-    #cancel {
-      cursor: pointer;
-      padding: 0 0 0 20px;
-      &:hover{
-        color: rgba(196, 39, 95, 0.2) 
-      }
+    padding: 0 0 0 20px;
+    &:hover{
+      color: rgba(196, 39, 95, 0.2) 
     }
   }
 }
