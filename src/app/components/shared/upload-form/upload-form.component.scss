@@ -4,20 +4,16 @@
 input {
   font-size: 18px;
 }
-
 progress {
   color: #00BE9C;
 }
-
 .uploadForm {
   display: flex;
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #263237;
 }
-
 .upload-wrapper {
-  font-family: STHeitiSC-Light;
   width: 500px;
   margin: 0 auto;
   .btnUpload {
@@ -25,7 +21,6 @@ progress {
     margin-bottom: 10px;
   }
 }
-
 @media only screen and (max-width:768px) {
   input {
     width: 300px;
