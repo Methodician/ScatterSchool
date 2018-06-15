@@ -9,63 +9,62 @@
   align-items: center;
   font-family: STHeitiSC-Light;
   //margin-top: 50px;
-  .titleWrapper {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-    h1 {
-      @include font-styles();
-      @include font-size(40px);
-      color: $dark-gray;
-      @media only screen and (max-width: 776px) {
-        @include font-size(30px);
-      }
-    }
-  }
-  .accountContainer {
-    min-height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    form {
-      margin-right: 100px;
-      fieldset:nth-child(1) {
-        mat-form-field {
-          width: 100%;
-          margin: 10px 0px;
-        }
-      }
-      fieldset:nth-child(2) {
-        table {
-          width: 100%;
-          mat-form-field {
-            width: 98%;
-          }
-        }
-      }
-      fieldset:nth-child(3) {
-        mat-form-field {
-          width: 100%;
-          margin: 10px 0px;
-        }
-      }
-    }
-    .buttonWrapper {
-      display: flex;
-      justify-content: center;
-      button {
-        @include large-button();
-        width: 180px;
-      }
-    }
-    .profileImageWrapper {
-      height: 500px;
-      margin-top: 150px;
+}
+.accountContainer {
+  min-height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.titleWrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  h1 {
+    @include font-styles();
+    @include font-size(40px);
+    color: $dark-gray;
+    @media only screen and (max-width: 776px) {
+      @include font-size(30px);
     }
   }
 }
-
+form {
+  margin-right: 100px;
+  fieldset:nth-child(1) {
+    mat-form-field {
+      width: 100%;
+      margin: 10px 0px;
+    }
+  }
+  fieldset:nth-child(2) {
+    table {
+      width: 100%;
+      mat-form-field {
+        width: 98%;
+      }
+    }
+  }
+  fieldset:nth-child(3) {
+    mat-form-field {
+      width: 100%;
+      margin: 10px 0px;
+    }
+  }
+}
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  button {
+    @include large-button();
+    width: 180px;
+  }
+}
+.profileImageWrapper {
+  height: 500px;
+  margin-top: 150px;
+}
 @media only screen and (max-width:1020px) {
   .accountWrapper {
     height: 1100px;

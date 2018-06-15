@@ -9,11 +9,9 @@ h1 {
   margin-bottom: 20px;
   text-align: center;
 }
-
 button {
   @include large-button();
 }
-
 .loginContainer {
   min-height: calc(100vh - 248px);
   width: 95%;
@@ -22,9 +20,7 @@ button {
   justify-content: center;
   align-items: center;
   padding-bottom: 20px;
-
 }
-
 .loginForm {
   width: 700px;
   display: flex;
@@ -33,7 +29,6 @@ button {
   align-items: center;
   @include font-styles();
 }
-
 .formWrapper {
   display: flex;
   flex-direction: column;
@@ -45,7 +40,6 @@ button {
     font-size: 20px;
   }
 }
-
 .buttonWrapper {
   display: flex;
   justify-content: center;
