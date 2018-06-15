@@ -1,7 +1,6 @@
 img {
   margin-bottom: 40px;
 }
-
 .aboutUsWrapper {
   width: 95%;
   margin:0 auto;
@@ -10,11 +9,9 @@ img {
   flex-direction: column;
   align-items: center;
 }
-
 .aboutUsWrapper * {
   font-family: STHeitiSC-Light;
 }
-
 .aboutUsHeader {
   align-self: flex-start;
   font-size: 30px;
@@ -22,14 +19,12 @@ img {
   cursor: default;
   margin-bottom: 20px;
 }
-
 .copyWrapper {
   width: 600px;
   p {
     font-size: 18px;
   }
 }
-
 @media only screen and (max-width:768px) {
   .copyWrapper {
     width: 80%;
