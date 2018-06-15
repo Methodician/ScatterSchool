@@ -1,27 +1,25 @@
 // imports for the variable and mixin files found within the sass-variables-mixins folder
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
-.articleHistoryWrapper {
-  .articleControlWrapper {
-    width: 350px;
-    margin: 0 auto;
+.articleControlWrapper {
+  width: 350px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .versionWrapper {
+    @include font-styles();
+  }
+  .buttonWrapper {
+    margin-top: 20px;
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    .versionWrapper {
-      @include font-styles();
-    }
-    .buttonWrapper {
-      margin-top: 20px;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-      button {
-        mat-icon {
-          color: white;
-        }
+    button {
+      mat-icon {
+        color: white;
       }
     }
   }

@@ -1,10 +1,8 @@
 form {
   font-family: STHeitiSC-Light;
-
   .formWrapper {
     display: flex;
     flex-direction: column;
-
     mat-form-field {
       width: 95%;
       margin: 10px 0px;
@@ -12,48 +10,35 @@ form {
     }
   }
 }
-
 .ckEditor {
   width: 95%;
   align-self: center;
 }
-
 .tagWrapper {
   width: 95%;
   margin: 0 auto;
   margin-bottom: 50px;
-
-
   h2 {
     color: #243237;
-    font-size: 36.8px;
-    font-size: 2.3rem;
+    font-size: 36px;
     font-weight: 200;
     font-family: STHeitiSC-Light;
     margin-bottom: 20px;
   }
-
   tag-input {
     width: 100% !important;
   }
-
 }
-
-
+.chip-tags {
+  width: 700px;
+  .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip) {
+    margin: 5px;
+  }
+}
 @media only screen and (max-width:768px) {
   .formSection {
     width: 95%;
     margin: 0 auto;
     margin-bottom: 50px;
-  }
-}
-
-.chip-tags {
-  width: 700px;
-  mat-chip {
-    // margin: 10px 5px;
-    }
-  .mat-chip:not(.mat-basic-chip)+.mat-chip:not(.mat-basic-chip) {
-    margin: 5px;
   }
 }

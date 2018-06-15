@@ -8,33 +8,26 @@ button {
   align-items: center;
   justify-content: center;
 }
-
 pre {
   width: 1200px;
-  width: 75rem;
   border: 1px solid #C4275F;
   border-radius: 0;
   background-color: #fff;
   margin: 0 auto;
 }
-
 label {
   color: #243237;
-  font-size: 36.8px;
-  font-size: 2.3rem;
+  font-size: 36px;
   font-weight: 200;
   font-family: STHeitiSC-Light;
   margin-bottom: 30px;
 }
-
 input {
   font-size: 18px;
 }
-
 progress {
   color: #00BE9C;
 }
-
 .postArticleContainer {
   height: 100%;
   width: 95%;
@@ -44,7 +37,6 @@ progress {
   justify-content: center;
   align-items: center;
 }
-
 .uploadForm {
   display: flex;
   margin: 0 auto;
@@ -52,13 +44,11 @@ progress {
   border-bottom: 1px solid #263237;
   width: 500px;
 }
-
 .upload-wrapper {
   font-family: STHeitiSC-Light;
   margin: 0 auto;
   width: 500px;
 }
-
 @media only screen and (max-width:950px) {
   input {
     width: 100%;

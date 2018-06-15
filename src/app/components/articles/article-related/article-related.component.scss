@@ -1,6 +1,5 @@
 @import "../../../sass-variables-mixins/vars.scss";
 @import "../../../sass-variables-mixins/mixins.scss";
-
 #related-articles {
   margin: 50px 0;
   width: 100%;
@@ -60,7 +59,6 @@
       background: transparent;
       border: 0;
       color: $accent-color;
-      // outline: 0;
       &:hover {
         color: $accent-color-70;
       }
@@ -68,10 +66,8 @@
         color: $dark-grey;
         cursor: not-allowed;
       }
-      
     }
     @include respond-to($iphone-lg){
-      // display: inline-block;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -86,8 +82,6 @@
       grid-column-start: 3;
       grid-column-end: 4;
     }
-    @include respond-to($tablet-sm){
-    } 
   }
   h2 {
     @include respond-to($iphone-lg){
@@ -95,7 +89,6 @@
     }
   }
 }
-
 .no-related {
   grid-template-rows: 125px !important;
   .articles-wrapper {
