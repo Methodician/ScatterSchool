@@ -1,4 +1,5 @@
-import { Component, trigger, state, style, transition, animate, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations'
 import { ChatService } from 'app/shared/services/chat/chat.service';
 import * as firebase from 'firebase';
 
@@ -25,9 +26,9 @@ export class AppComponent implements OnInit {
   throbbing = false;
   throbState = 'sitting';
 
-  constructor(private chatSvc: ChatService) { 
+  constructor(private chatSvc: ChatService) {
     const firestore = firebase.firestore();
-    const settings = {timestampsInSnapshots: true};
+    const settings = { timestampsInSnapshots: true };
     firestore.settings(settings);
   }
 

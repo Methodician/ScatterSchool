@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, OnChanges, trigger, state, style, transition, animate } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { trigger, state, style, transition, animate } from '@angular/animations'
 import { UserInfoOpen } from 'app/shared/class/user-info';
 import { UserService } from '../../shared/services/user/user.service';
 import { NotificationService } from '../../shared/services/notification/notification.service';
@@ -10,10 +11,10 @@ import { Timestamp } from '@firebase/firestore-types';
   templateUrl: './notifications.component.html',
   styleUrls: ['./notifications.component.scss'],
   animations: [
-    trigger('notificationState', [ 
-      state('disappear', style({transform: 'translateY(-600px)'})),
-      state('appear', style({transform: 'translateY(0)'})),
-      transition( 'disappear <=> appear', animate('600ms ease-in-out'))
+    trigger('notificationState', [
+      state('disappear', style({ transform: 'translateY(-600px)' })),
+      state('appear', style({ transform: 'translateY(0)' })),
+      transition('disappear <=> appear', animate('600ms ease-in-out'))
     ])
   ]
 })
@@ -22,9 +23,9 @@ export class NotificationsComponent implements OnInit {
   notifications: {}[];
   notificationHistory: {}[];
   // ininitializes notification history as not visible
-  notificationHistoryVisible:boolean = false;
-  notificationsModalVisible:boolean = false;
-  mostRecentNotifId:string = '';
+  notificationHistoryVisible: boolean = false;
+  notificationsModalVisible: boolean = false;
+  mostRecentNotifId: string = '';
   //uid: string;
   usernames: {};
   notificationState: string = 'disappear';
@@ -56,18 +57,18 @@ export class NotificationsComponent implements OnInit {
               .valueChanges()
               .subscribe(notifications => {
                 this.notificationHistory = notifications;
-              });    
-              })
+              });
+          })
       }
     });
   }
 
-  toggleNotificationsModal(){
+  toggleNotificationsModal() {
     this.notificationHistoryVisible = false;
-    if(this.notificationsModalVisible) {
+    if (this.notificationsModalVisible) {
       this.notificationsModalVisible = false;
       this.notificationState = 'disappear';
-    // } else if(this.notifications.length > 0){
+      // } else if(this.notifications.length > 0){
     } else {
       this.notificationsModalVisible = true;
       this.notificationState = 'appear';
@@ -76,38 +77,38 @@ export class NotificationsComponent implements OnInit {
 
   markNotificationRead(notificationId: string) {
     // if this notificiation is selected then set a timestamp to time viewed
-    if(notificationId){
+    if (notificationId) {
       this.notificationSvc.setNotificationViewed(this.notificationSvc.userInfo.uid, notificationId);
     }
   }
 
   markAllNotificationsRead() {
-    let notifArray: string[]= [];
-      this.notifications.forEach(function(n){
-        notifArray.push(n['id']);
-      });
-      this.notificationSvc.setAllNotificationsViewed(this.notificationSvc.userInfo.uid, notifArray);
+    let notifArray: string[] = [];
+    this.notifications.forEach(function (n) {
+      notifArray.push(n['id']);
+    });
+    this.notificationSvc.setAllNotificationsViewed(this.notificationSvc.userInfo.uid, notifArray);
   }
 
-  navigateToProfile(followerId:string):void {
+  navigateToProfile(followerId: string): void {
 
     this.router.navigate([`profile/${followerId}`]);
   }
 
-  navigateToArticleDetail(articleId:string):void {
+  navigateToArticleDetail(articleId: string): void {
     this.router.navigate([`articledetail/${articleId}`]);
   }
 
-  navigateToArticleHistory(articleId:string):void{
+  navigateToArticleHistory(articleId: string): void {
     this.router.navigate([`articlehistory/${articleId}`]);
   }
 
   formatDate(timestamp: any) {
     // console.log("what is this ", typeof timestamp, " ", timestamp, " ", new Date(timestamp));
     timestamp = timestamp.toDate();
-    
+
     let dd = timestamp.getDate();
-    let mm = timestamp.getMonth()+1;
+    let mm = timestamp.getMonth() + 1;
     let yyyy = timestamp.getFullYear();
     let hh = timestamp.getHours();
     let m = timestamp.getMinutes();

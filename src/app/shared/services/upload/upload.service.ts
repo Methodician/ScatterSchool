@@ -7,7 +7,7 @@ import { AuthService } from '../auth/auth.service';
 
 // angularfire2
 import { AngularFireStorage } from 'angularfire2/storage';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class UploadService {

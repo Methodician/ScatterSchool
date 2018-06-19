@@ -1,6 +1,7 @@
 import { Router, Params } from '@angular/router';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import * as firebase from 'firebase';
 
 @Injectable()
@@ -9,7 +10,7 @@ export class CommentService {
   constructor(
     private db: AngularFireDatabase,
     private router: Router
-  ) {}
+  ) { }
 
   saveComment(commentData) {
     const commentToSave = {
@@ -70,7 +71,7 @@ export class CommentService {
   deleteComment(comment) {
     this.db
       .object(`commentData/comments/${comment.$key}`)
-      .update({isDeleted: true});
+      .update({ isDeleted: true });
     this.updateCommentCount(comment.parentKey, comment.parentType, -1);
   }
 
@@ -90,13 +91,13 @@ export class CommentService {
   injectKey(list: AngularFireList<{}>) {
     return list
       .snapshotChanges()
-      .map(elements => {
+      .pipe(map(elements => {
         return elements.map(element => {
           return {
             $key: element.key,
             ...element.payload.val()
           };
         });
-      });
+      }));
   }
 }

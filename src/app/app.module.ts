@@ -27,7 +27,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AppComponent } from './app.component';
@@ -36,7 +36,7 @@ import { RegisterComponent } from 'app/components/account/register/register.comp
 import { LoginComponent } from 'app/components/account/login/login.component';
 import { PostArticleComponent } from 'app/components/articles/post-article/post-article.component';
 import { ArticleFormComponent } from 'app/components/articles/article-form/article-form.component';
-import { CKEditorModule } from 'ng2-ckeditor';
+// import { CKEditorModule } from 'ng2-ckeditor';
 import { EditArticleComponent } from 'app/components/articles/edit-article/edit-article.component';
 import { TopNavComponent } from 'app/components/shared/top-nav/top-nav.component';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
@@ -166,14 +166,14 @@ import { ArticleRelatedPipePipe } from './shared/pipes/article-related-pipe.pipe
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpClientModule,
     // AngularFireModule.initializeApp(fbConfig),
     AngularFireModule.initializeApp(fbConfigDev),
     AngularFirestoreModule,
     CollapseModule.forRoot(),
     AppRoutingModule,
     AngularFireAuthModule,
-    CKEditorModule,
+    // CKEditorModule,
     TagInputModule,
     BrowserAnimationsModule,
     MatButtonModule,

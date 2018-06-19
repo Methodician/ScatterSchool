@@ -5,7 +5,8 @@ import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angular
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
-import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { first, map } from 'rxjs/operators';
 import { UserInfoOpen } from 'app/shared/class/user-info';
 import { error } from 'util';
 import { NotificationService } from '../notification/notification.service';
@@ -35,13 +36,13 @@ export class ArticleService {
 
   getLatestArticles() {
     return this.afs
-    .collection('articleData')
-    .doc('articles')
-    .collection('articles', ref => {
-      return ref
-        .orderBy('timestamp', 'desc')
-        .limit(12);
-    });
+      .collection('articleData')
+      .doc('articles')
+      .collection('articles', ref => {
+        return ref
+          .orderBy('timestamp', 'desc')
+          .limit(12);
+      });
   }
 
   getFeaturedArticles() {
@@ -157,9 +158,9 @@ export class ArticleService {
       //  Wondering if we should stop using this and just get the lastest from history...
       const articleDoc = this.getArticle(articleId);
       // kb
-      let articleOriginalAuthor:string = '';
+      let articleOriginalAuthor: string = '';
 
-      articleDoc.valueChanges().first()
+      articleDoc.valueChanges().pipe(first())
         .subscribe((oldArticle: ArticleDetailFirestore) => {
           articleOriginalAuthor = oldArticle.authorId;
           const newBodyId = this.afs.createId();
@@ -180,7 +181,7 @@ export class ArticleService {
           const userArticleEditedRef = this.editedArticlesByUser(editorId).doc(articleId).ref;
 
 
-          currentBodyDoc.valueChanges().first()
+          currentBodyDoc.valueChanges().pipe(first())
             .subscribe(async (body: ArticleBodyFirestore) => {
               const bodyLogObject: any = this.dbObjectFromBody(body.body, articleId, oldArticle.version, oldArticle.lastEditorId);
               const newBodyObject: any = this.dbObjectFromBody(article.body, articleId, updatedArticleObject.version, editorId);
@@ -257,10 +258,10 @@ export class ArticleService {
   // confusing/verbose validation of parameters
   tagsArrayFromTagsObject(articleTags): string[] {
     if (articleTags === {}
-       || articleTags
-       && articleTags.$value
-       && articleTags.$value === null
-      ) { return; }
+      || articleTags
+      && articleTags.$value
+      && articleTags.$value === null
+    ) { return; }
 
     const tagArray = [];
     for (const tag in articleTags) {
@@ -316,10 +317,10 @@ export class ArticleService {
     if (viewFromSession < twoMinutesBack) {
       sessionStorage.setItem(`unView:${articleId}`, new Date().toString());
       const articleDoc = this.getArticle(articleId);
-      return articleDoc.collection('views').doc(viewId).update({ 
+      return articleDoc.collection('views').doc(viewId).update({
         viewEnd: this.fsServerTimestamp()
         // viewEnd: new Date()
-       });
+      });
     }
   }
 
@@ -334,7 +335,7 @@ export class ArticleService {
     this
       .getArticle(articleKey)
       .update({ isFeatured: false });
-    }
+  }
 
   getAuthor(authorKey: string) {
     const object = this.rtdb.object(`userInfo/open/${authorKey}`);
@@ -345,9 +346,9 @@ export class ArticleService {
     return this.rtdb
       .object(`userInfo/articleBookmarksPerUser/${userKey}/${articleKey}`)
       .valueChanges()
-      .map(article => {
+      .pipe(map(article => {
         return article ? true : false;
-      });
+      }));
   }
 
   bookmarkArticle(userKey, articleKey) {
@@ -542,36 +543,36 @@ export class ArticleService {
   injectObjectKey(object: AngularFireObject<{}>) {
     return object
       .snapshotChanges()
-      .map(element => {
+      .pipe(map(element => {
         return {
           $key: element.key,
           ...element.payload.val()
         };
-      });
+      }));
   }
 
-  addGlobalTagFB(articleId, tag){
-    this.rtdb.object(`articleData/articlesPerTag/${tag}`).update({[articleId]: firebase.database.ServerValue.TIMESTAMP});
+  addGlobalTagFB(articleId, tag) {
+    this.rtdb.object(`articleData/articlesPerTag/${tag}`).update({ [articleId]: firebase.database.ServerValue.TIMESTAMP });
   }
 
-  removeGlobalTagFB(articleId, tag){
+  removeGlobalTagFB(articleId, tag) {
     this.rtdb.object(`articleData/articlesPerTag/${tag}/${articleId}`).remove();
   }
 
-    
-  getArticlesPerTag(tagArr){
+
+  getArticlesPerTag(tagArr) {
     const articlesArray = [];
     tagArr.map(tag => {
       this.rtdb
-      .list(`articleData/articlesPerTag/${tag}`)
-      .snapshotChanges()
-      .subscribe(result => {
-        if (result.length > 1){
-          result.map(obj => {
-            articlesArray.push(obj.key);
-          });
-        }
-      });
+        .list(`articleData/articlesPerTag/${tag}`)
+        .snapshotChanges()
+        .subscribe(result => {
+          if (result.length > 1) {
+            result.map(obj => {
+              articlesArray.push(obj.key);
+            });
+          }
+        });
     });
     return articlesArray;
   }

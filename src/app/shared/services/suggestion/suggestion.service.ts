@@ -1,7 +1,7 @@
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireObject } from 'angularfire2/database';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import * as firebase from 'firebase';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { Suggestion } from 'app/shared/class/suggestion.model';

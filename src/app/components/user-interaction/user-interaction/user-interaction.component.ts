@@ -42,27 +42,27 @@ export class UserInteractionComponent implements OnInit {
       .getUserChatKeys(userKey)
       .valueChanges()
       .subscribe(userChatKeys => {
-          if (userChatKeys.length === 0) {
-            this.userSvc
-              .getUserList()
-              .subscribe(userList => {
-                this.userList = userList.filter(user => user.$key !== this.loggedInUser.$key);
-              });
-            this.chatSvc
-              .getChatsByUserKey(userKey)
-              .subscribe(chatList => {
-                this.chatList = chatList.reverse();
-                this.checkUnreadMessages();
-              });
-          } else {
-            this.chatSvc
+        if (userChatKeys.length === 0) {
+          this.userSvc
+            .getUserList()
+            .subscribe(userList => {
+              this.userList = userList.filter(user => user.$key !== this.loggedInUser.$key);
+            });
+          this.chatSvc
             .getChatsByUserKey(userKey)
-            .subscribe(chatList => {
+            .subscribe((chatList: any) => { // Note: this was throwing an error because it was self-typed as an "OperatorFunction<{}, {}>"
+              this.chatList = chatList.reverse();
+              this.checkUnreadMessages();
+            });
+        } else {
+          this.chatSvc
+            .getChatsByUserKey(userKey)
+            .subscribe((chatList: any) => {
               this.chatList = chatList.reverse();
               this.checkUnreadMessages();
               this.getUserList();
             });
-          }
+        }
       });
   }
 
@@ -150,7 +150,7 @@ export class UserInteractionComponent implements OnInit {
       this.windowExpanded
       && this.unreadMessages
       && (this.selectedTab !== 'messages'
-    )) {
+      )) {
       this.openTab('chats');
     }
     this.chatSvc.toggleUserInteractionWindow(this.windowExpanded);

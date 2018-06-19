@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import 'rxjs/add/operator/switchMap';
+
 import { ArticleService } from 'app/shared/services/article/article.service';
 
 @Component({

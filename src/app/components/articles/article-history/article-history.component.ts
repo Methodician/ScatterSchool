@@ -1,8 +1,8 @@
 import { ArticleService } from 'app/shared/services/article/article.service';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
+
+
 
 @Component({
   selector: 'app-article-history',

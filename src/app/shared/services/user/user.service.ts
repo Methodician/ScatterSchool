@@ -3,7 +3,8 @@ import { UserInfoOpen } from '../../class/user-info';
 import { AngularFireDatabase, AngularFireObject, AngularFireList } from 'angularfire2/database';
 import { AuthService } from './../auth/auth.service';
 import { Injectable } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { map, mergeMap, combineLatest } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { Router } from '@angular/router';
 
@@ -66,10 +67,10 @@ export class UserService {
   getUserInfo(uid) {
     const object = this.injectObjectKey(this.rtdb.object(`userInfo/open/${uid}`));
     return object
-      .map(user => {
+      .pipe(map((user: any) => {
         user.uid = uid;
         return user;
-      });
+      }));
   }
 
   updateUserInfo(userInfo, uid) {
@@ -108,11 +109,11 @@ export class UserService {
 
   UserArrayFromKeyArray(userKeys: Observable<string[]>): Observable<UserInfoOpen[]> {
     return userKeys
-      .map(usersPerKey => {
+      .pipe(map(usersPerKey => {
         return usersPerKey.map((keyUser: any) => {
           const object = this.injectObjectKey(this.rtdb.object(`userInfo/open/${keyUser.$key}`));
           return object
-            .map(user => {
+            .pipe(map((user: any) => {
               return new UserInfoOpen(
                 user.alias,
                 user.fName,
@@ -124,23 +125,26 @@ export class UserService {
                 user.city,
                 user.state
               );
-          })
+            }))
         })
-      })
-      .flatMap(firebaseObjects => {
-        return Observable.combineLatest(firebaseObjects)
-      });
+      }),
+        mergeMap(firebaseObjects => {
+          return combineLatest(firebaseObjects);
+        }));
+    // .flatMap(firebaseObjects => {
+    //   return Observable.combineLatest(firebaseObjects)
+    // });
   }
 
   getUsersFollowed(uid: string): Observable<UserInfoOpen[]> {
     const usersFollowedKeysList = this.injectListKeys(this.rtdb.list(`userInfo/usersPerFollower/${uid}`));
-    const usersFollowedObservable = this.UserArrayFromKeyArray(usersFollowedKeysList);
+    const usersFollowedObservable = this.UserArrayFromKeyArray(usersFollowedKeysList as any);
     return usersFollowedObservable;
   }
 
   getFollowersOfUser(uid: string): Observable<UserInfoOpen[]> {
     const followerKeysList = this.injectListKeys(this.rtdb.list(`userInfo/followersPerUser/${uid}`));
-    const followersListObservable = this.UserArrayFromKeyArray(followerKeysList);
+    const followersListObservable = this.UserArrayFromKeyArray(followerKeysList as any);
     return followersListObservable;
   }
 
@@ -152,9 +156,9 @@ export class UserService {
     return this.rtdb
       .object(`userInfo/usersPerFollower/${this.loggedInUserKey}/${uid}`)
       .valueChanges()
-      .map(res => {
+      .pipe(map(res => {
         return !!res;
-      });
+      }));
   }
 
   updateUser(userInfo, uid) {
@@ -175,25 +179,25 @@ export class UserService {
   injectObjectKey(object: AngularFireObject<{}>) {
     return object
       .snapshotChanges()
-      .map(element => {
+      .pipe(map(element => {
         return {
           $key: element.key,
           ...element.payload.val()
         };
-      });
+      }));
   }
 
   injectListKeys(list: AngularFireList<{}>) {
     return list
       .snapshotChanges()
-      .map(elements => {
+      .pipe(map(elements => {
         return elements.map(element => {
           return {
             $key: element.key,
             ...element.payload.val()
           };
         });
-      });
+      }));
   }
 
   /*isAdmin() {

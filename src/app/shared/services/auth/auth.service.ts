@@ -2,7 +2,8 @@ import { Router } from '@angular/router';
 import { AuthInfo } from '../../class/auth-info';
 import { UserPresence } from '../../class/user-presence';
 import { Injectable, Inject } from '@angular/core';
-import { Observable, Subject, BehaviorSubject } from 'rxjs/Rx';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { first, map, take, tap } from 'rxjs/operators';
 import * as firebase from 'firebase';
 import { AngularFireAuth } from 'angularfire2/auth';
 
@@ -125,14 +126,22 @@ export class AuthService {
   // may unnecessarily double-check user's logged in state
   isLoggedIn(): Observable<boolean> {
     return this.afAuth.authState
-      .map(info => !!(info && info.uid)) // verifies user is logged in
-      .take(1)
-      .do(allowed => {
-        if ( !allowed && confirm('You must be logged in to do that. Would you like to be redirected?')) {
-          this.router.navigate(['/login']);
-        }
-      });
+      .pipe(
+        map(info => !!(info && info.uid)), // verifies user is logged in
+        take(1),
+        tap(allowed => {
+          if (!allowed && confirm('You must be logged in to do that. Would you like to be redirected?')) {
+            this.router.navigate(['/login']);
+          }
+        })
+      );
   }
+  // .do(allowed => {
+  //   if (!allowed && confirm('You must be logged in to do that. Would you like to be redirected?')) {
+  //     this.router.navigate(['/login']);
+  //   }
+  // }));
+  // }
 
   //  Doesn't really work, still needs to be an observable unless we want to keep a running isLoggedIn variable around.
   // checkIfLoggedIn() {
