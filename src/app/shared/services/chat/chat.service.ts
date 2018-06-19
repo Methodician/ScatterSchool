@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import * as firebase from 'firebase';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable, BehaviorSubject, ObservableInput } from 'rxjs';
 import { map, mergeMap, combineLatest } from 'rxjs/operators';
 import { AngularFireList } from 'angularfire2/database';
 
