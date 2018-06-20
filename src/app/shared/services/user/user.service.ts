@@ -128,8 +128,9 @@ export class UserService {
             }))
         })
       }),
-        mergeMap(firebaseObjects => {
-          return combineLatest(firebaseObjects);
+        mergeMap((firebaseObjects: any) => {
+          return firebaseObjects.pipe(val => combineLatest(val));
+          // return combineLatest(firebaseObjects);
         }));
     // .flatMap(firebaseObjects => {
     //   return Observable.combineLatest(firebaseObjects)

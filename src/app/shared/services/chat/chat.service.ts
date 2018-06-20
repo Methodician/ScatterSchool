@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import * as firebase from 'firebase';
 import { Observable, BehaviorSubject, ObservableInput } from 'rxjs';
-import { map, mergeMap, combineLatest } from 'rxjs/operators';
+import { map, mergeMap, flatMap, combineLatest } from 'rxjs/operators';
 import { AngularFireList } from 'angularfire2/database';
 
 @Injectable()
@@ -109,8 +109,9 @@ export class ChatService {// maybe should be renamed to UserInteractionService
           return userChats.map(chat => {
             return this.injectObjectKey(this.db.object(`chatData/chats/${chat.$key}`))
           }),
-            mergeMap(firebaseObjectObservibles => {
-              return combineLatest(firebaseObjectObservibles);
+            flatMap((firebaseObjectObservibles: any) => {
+              return firebaseObjectObservibles.pipe(val => combineLatest(val));
+              // return combineLatest(firebaseObjectObservibles as ObservableInput<{}>[]);
             });
         }));
 
