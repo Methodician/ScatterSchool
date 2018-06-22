@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import * as firebase from 'firebase';
-import { Observable, BehaviorSubject, ObservableInput, observable, of } from 'rxjs';
+import { Observable, BehaviorSubject, ObservableInput, observable, of, Subject } from 'rxjs';
 import { map, mergeMap, combineLatest, merge } from 'rxjs/operators';
 import { AngularFireList } from 'angularfire2/database';
 
@@ -109,74 +109,79 @@ export class ChatService {// maybe should be renamed to UserInteractionService
     return this.db.list(`chatData/chatsPerMember/${userKey}`);
   }
 
-  getChatsByUserKey(userKey) {
-    const listRef = this.db.list(`chatData/chatsPerMember/${userKey}`);
-    const chatKeyList$ = this.injectListKeys(listRef);
-    console.log(chatKeyList$.subscribe);
+  // getChatsByUserKey(userKey) {
+  //   const listRef = this.db.list(`chatData/chatsPerMember/${userKey}`);
+  //   const chatKeyList$ = this.injectListKeys(listRef);
+  //   console.log(chatKeyList$.subscribe);
     
-    const chatList$ = chatKeyList$.pipe(
-      map(chatKeys => {
-        const refs = chatKeys.map(chatKey => {
-          console.log(chatKey);
-          const chatRef = this.db.object(`chatData/chats/${chatKey.$key}`);
-          return this.injectObjectKey(chatRef);
-        });
-        return refs;
-      }));
+  //   const chatList$ = chatKeyList$.pipe(
+  //     map(chatKeys => {
+  //       const refs = chatKeys.map(chatKey => {
+  //         console.log(chatKey);
+  //         const chatRef = this.db.object(`chatData/chats/${chatKey.$key}`);
+  //         return this.injectObjectKey(chatRef);
+  //       });
+  //       return refs;
+  //     }));
  
     //wasn't sure what you were trying to merge together here
     //so I just grabbed a couple of things and got it to "work"
     //Don't have any test data so it returns two empty arrays
     //to the console
  
-    const mergedList$ = chatKeyList$.pipe(
-      combineLatest(chatList$)
-    );
+    // const mergedList$ = chatKeyList$.pipe(
+    //   combineLatest(chatList$)
+    // );
 
-    const mergedSubs = this.testSubjectBoolA.pipe(
-      combineLatest(this.testSubjectBoolB, this.testSubjectBoolC, this.testSubjectNum)
-    );
+    // const mergedSubs = this.testSubjectBoolA.pipe(
+    //   combineLatest(this.testSubjectBoolB, this.testSubjectBoolC, this.testSubjectNum)
+    // );
  
-    mergedList$.subscribe(list => {
-      console.log('mergedList$ sub:', list),
-      console.log(list[0], list[1])
-      this.nextBool();
-    })
+    // mergedList$.subscribe(list => {
+    //   console.log('mergedList$ sub:', list),
+    //   console.log(list[0], list[1])
+    //   this.nextBool();
+    // })
      
-    mergedSubs.subscribe(bools =>{
-      console.log('bools ', bools);
-      console.log('bools 0 ', bools["0"]);
-      console.log('bools.slice(1,2) ', bools.slice(1,2));
+    // mergedSubs.subscribe(bools =>{
+    //   console.log('bools ', bools);
+    //   console.log('bools 0 ', bools["0"]);
+    //   console.log('bools.slice(1,2) ', bools.slice(1,2));
             
       
-    })
-    return mergedList$;
+    // })
+    // return mergedList$;
 
 
     //  ===Takes in user key===
-    // getChatsByUserKey(userKey) {
+    getChatsByUserKey(userKey) {
     //  ===Gets a list of chat keys based on the user key===
-    //   const list = this.db.list(`chatData/chatsPerMember/${userKey}`);
-    //   return this.injectListKeys(list)
-    //  ===Maps key list to a list of chats with their keys===
-    //     .map(userChats => {
-    //       return userChats.map(chat => {
-    //         return this.injectObjectKey(this.db.object(`chatData/chats/${chat.$key}`))
-    //       });
-    //     })
-    //     .flatMap(firebaseObjectObservables => {
-    //       return Observable.combineLatest(firebaseObjectObservables);
-    //     });
-    // }
-  }
+      const list = this.db.list(`chatData/chatsPerMember/${userKey}`);
+      const chatKeyList$ = this.injectListKeys(list);
+      const chatList$ = chatKeyList$.pipe(map(chatKeys => {
+        return chatKeys.map(chat => 
+          this.injectObjectKey(this.db.object(`chatData/chats/${chat.$key}`))
+      )  
+      }))
+      chatList$.subscribe(item =>
+      console.log(item)
+      )
+      return chatList$;
+      
+      
+        // .flatMap(firebaseObjectObservables => {
+        //   return Observable(firebaseObjectObservables);
+        // });
+    }
+  // }
   // FOR TESTING REMOVE
-  nextBool(){
-    console.log('call nextBool');
-    this.testSubjectBoolA.next(true);
-    this.testSubjectBoolB.next(true);
-    this.testSubjectBoolC.next(true);
-    this.testSubjectNum.next(5);
-  }
+  // nextBool(){
+  //   console.log('call nextBool');
+  //   this.testSubjectBoolA.next(true);
+  //   this.testSubjectBoolB.next(true);
+  //   this.testSubjectBoolC.next(true);
+  //   this.testSubjectNum.next(5);
+  // }
 
   saveMessage(messageData) {
     messageData.timestamp = firebase.database.ServerValue.TIMESTAMP;
