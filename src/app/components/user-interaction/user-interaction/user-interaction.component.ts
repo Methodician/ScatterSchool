@@ -37,7 +37,20 @@ export class UserInteractionComponent implements OnInit {
     })
   }
 
+//  FOR TESTING REMOVE
+    testUIC(userKey: string) {
+      this.chatSvc
+      .getUserChatKeys(userKey)
+      .valueChanges()
+      .subscribe(UIC =>{
+        console.log('UIC : ', UIC);
+      })
+}
+
   initializeChats(userKey: string) {
+    // FOR TESTING REMOVE
+    // this.testUIC(userKey);
+    
     this.chatSvc
       .getUserChatKeys(userKey)
       .valueChanges()

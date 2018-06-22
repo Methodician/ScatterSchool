@@ -163,11 +163,11 @@ export class ChatService {// maybe should be renamed to UserInteractionService
           this.injectObjectKey(this.db.object(`chatData/chats/${chat.$key}`))
       )  
       }))
-      console.log(chatList$)
-      
-      chatList$.subscribe(item =>
-      console.log('item : ', item)
-      )
+      // console.log(chatKeyList$.subscribe(item => console.log('ChatKeyListItems: ', item)
+      // ));
+      // chatList$.subscribe(item =>
+      // console.log('item : ', item)
+      // )
       return chatList$;
       
       
@@ -184,6 +184,7 @@ export class ChatService {// maybe should be renamed to UserInteractionService
   //   this.testSubjectBoolC.next(true);
   //   this.testSubjectNum.next(5);
   // }
+
 
   saveMessage(messageData) {
     messageData.timestamp = firebase.database.ServerValue.TIMESTAMP;
