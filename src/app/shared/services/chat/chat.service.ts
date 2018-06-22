@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireObject } from 'angularfire2/database';
 import * as firebase from 'firebase';
-import { Observable, BehaviorSubject, ObservableInput } from 'rxjs';
-import { map, mergeMap, flatMap, combineLatest } from 'rxjs/operators';
+import { Observable, BehaviorSubject, ObservableInput, observable, of } from 'rxjs';
+import { map, mergeMap, combineLatest, merge } from 'rxjs/operators';
 import { AngularFireList } from 'angularfire2/database';
 
 @Injectable()
@@ -19,6 +19,14 @@ export class ChatService {// maybe should be renamed to UserInteractionService
   userInteractionWindowExpanded$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   shouldUpdateSeenCount$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   unreadMessages$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
+
+  // FOR TESTING REMOVE
+  testSubjectNum: BehaviorSubject<number> = new BehaviorSubject(null);
+  testSubjectBoolA: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  testSubjectBoolB: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  testSubjectBoolC: BehaviorSubject<boolean> = new BehaviorSubject(false);
+
 
   constructor(
     private db: AngularFireDatabase,
@@ -102,22 +110,72 @@ export class ChatService {// maybe should be renamed to UserInteractionService
   }
 
   getChatsByUserKey(userKey) {
-    const list = this.db.list(`chatData/chatsPerMember/${userKey}`);
-    return this.injectListKeys(list)
-      .pipe(
-        map(userChats => {
-          return userChats.map(chat => {
-            return this.injectObjectKey(this.db.object(`chatData/chats/${chat.$key}`))
-          }),
-            flatMap((firebaseObjectObservibles: any) => {
-              return firebaseObjectObservibles.pipe(val => combineLatest(val));
-              // return combineLatest(firebaseObjectObservibles as ObservableInput<{}>[]);
-            });
-        }));
+    const listRef = this.db.list(`chatData/chatsPerMember/${userKey}`);
+    const chatKeyList$ = this.injectListKeys(listRef);
+    console.log(chatKeyList$.subscribe);
+    
+    const chatList$ = chatKeyList$.pipe(
+      map(chatKeys => {
+        const refs = chatKeys.map(chatKey => {
+          console.log(chatKey);
+          const chatRef = this.db.object(`chatData/chats/${chatKey.$key}`);
+          return this.injectObjectKey(chatRef);
+        });
+        return refs;
+      }));
+ 
+    //wasn't sure what you were trying to merge together here
+    //so I just grabbed a couple of things and got it to "work"
+    //Don't have any test data so it returns two empty arrays
+    //to the console
+ 
+    const mergedList$ = chatKeyList$.pipe(
+      combineLatest(chatList$)
+    );
 
-    // .flatMap(firebaseObjectObservables => {
-    //   return Observable.combineLatest(firebaseObjectObservables);
-    // });
+    const mergedSubs = this.testSubjectBoolA.pipe(
+      combineLatest(this.testSubjectBoolB, this.testSubjectBoolC, this.testSubjectNum)
+    );
+ 
+    mergedList$.subscribe(list => {
+      console.log('mergedList$ sub:', list),
+      console.log(list[0], list[1])
+      this.nextBool();
+    })
+     
+    mergedSubs.subscribe(bools =>{
+      console.log('bools ', bools);
+      console.log('bools 0 ', bools["0"]);
+      console.log('bools.slice(1,2) ', bools.slice(1,2));
+            
+      
+    })
+    return mergedList$;
+
+
+    //  ===Takes in user key===
+    // getChatsByUserKey(userKey) {
+    //  ===Gets a list of chat keys based on the user key===
+    //   const list = this.db.list(`chatData/chatsPerMember/${userKey}`);
+    //   return this.injectListKeys(list)
+    //  ===Maps key list to a list of chats with their keys===
+    //     .map(userChats => {
+    //       return userChats.map(chat => {
+    //         return this.injectObjectKey(this.db.object(`chatData/chats/${chat.$key}`))
+    //       });
+    //     })
+    //     .flatMap(firebaseObjectObservables => {
+    //       return Observable.combineLatest(firebaseObjectObservables);
+    //     });
+    // }
+  }
+  // FOR TESTING REMOVE
+  nextBool(){
+    console.log('call nextBool');
+    this.testSubjectBoolA.next(true);
+    this.testSubjectBoolB.next(true);
+    this.testSubjectBoolC.next(true);
+    this.testSubjectNum.next(5);
   }
 
   saveMessage(messageData) {

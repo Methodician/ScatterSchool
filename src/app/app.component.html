@@ -5,12 +5,12 @@
     <top-nav></top-nav>
     <!-- <app-notifications></app-notifications> -->
   </div>
-  
+
   <!--Root div container with the router-outlet rendering page components within the div-->
   <div id="root">
     <router-outlet></router-outlet>
   </div>
-  
+
   <!--Footer Container with the footer component rendering within the div-->
   <div id="footerContainer">
     <footer></footer>
@@ -19,11 +19,18 @@
 
 <!-- ToDo: put this button in its own conponent so all the animation logic can be taken out of AppComponent -->
 <div class="chatContainer">
-  <button [@throbState]="throbState" [class.unread]="!userInteraction.windowExpanded && userInteraction.unreadMessages" [class.expanded]="userInteraction.windowExpanded"
-          (click)="userInteraction.toggleWindow()" mat-fab color="warn" id="toggle-chat">
-    <mat-icon class="mat-24" aria-label="Open Chat">chat</mat-icon>
+  <button [@throbState]="throbState"
+          [class.unread]="!userInteraction.windowExpanded && userInteraction.unreadMessages"
+          [class.expanded]="userInteraction.windowExpanded"
+          (click)="userInteraction.toggleWindow()"
+          mat-fab
+          color="warn"
+          id="toggle-chat">
+    <mat-icon class="mat-24"
+              aria-label="Open Chat">chat</mat-icon>
   </button>
-  <mat-card id="chat" [class.expanded]="userInteraction.windowExpanded">
+  <mat-card id="chat"
+            [class.expanded]="userInteraction.windowExpanded">
     <user-interaction #userInteraction></user-interaction>
   </mat-card>
 </div>
