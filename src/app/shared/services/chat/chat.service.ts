@@ -163,8 +163,10 @@ export class ChatService {// maybe should be renamed to UserInteractionService
           this.injectObjectKey(this.db.object(`chatData/chats/${chat.$key}`))
       )  
       }))
+      console.log(chatList$)
+      
       chatList$.subscribe(item =>
-      console.log(item)
+      console.log('item : ', item)
       )
       return chatList$;
       
