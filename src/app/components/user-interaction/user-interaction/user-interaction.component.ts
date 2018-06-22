@@ -51,14 +51,14 @@ export class UserInteractionComponent implements OnInit {
           this.chatSvc
             .getChatsByUserKey(userKey)
             .subscribe((chatList: any) => { // Note: this was throwing an error because it was self-typed as an "OperatorFunction<{}, {}>"
-              this.chatList = chatList.reverse();
+              this.chatList = chatList;
               this.checkUnreadMessages();
             });
         } else {
           this.chatSvc
             .getChatsByUserKey(userKey)
             .subscribe((chatList: any) => {
-              this.chatList = chatList.reverse();
+              this.chatList = chatList;
               this.checkUnreadMessages();
               this.getUserList();
             });
