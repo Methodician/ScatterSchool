@@ -93,6 +93,9 @@ mat-card {
     button {
       margin: 20px 0;
     }
+    #article-intro {
+      color: $warn-color;
+    }
   }
   mat-card-footer {
     #discussion {

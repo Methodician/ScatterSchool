@@ -1,17 +1,17 @@
 <div class="article-detail-wrapper">
   <mat-card>
     <div class="article-detail">
-        <img id="header" [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../../../assets/images/kid-art.jpg'">
         <mat-card-header>
-          <mat-card-title>
-            <h1>{{article?.title}}</h1>
-          </mat-card-title>
           <mat-card-subtitle>
             Last Updated: {{article?.lastUpdated?.toDate() | date}}
           </mat-card-subtitle>
+          <mat-card-title>
+            <h1>{{article?.title}}</h1>
+            <img id="header" [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../../../assets/images/kid-art.jpg'">
+          </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <h3>{{article?.introduction}}</h3>
+          <h3 id="article-intro">{{article?.introduction}}</h3>
           <div [innerHtml]="article?.body | safeHtml"></div>
           <div class="tags">
             <mat-chip-list>
@@ -59,4 +59,3 @@
     </mat-card-footer>
   </mat-card>
 </div>
-
