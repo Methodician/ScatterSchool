@@ -10,7 +10,9 @@
         <h2>Featured Articles</h2>
         <!-- List View -->
         <div class="list" *ngIf="currentSelectedFeaturePreview === 1">
-          <app-article-preview-list [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></app-article-preview-list>
+          <!-- <app-article-preview-list [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></app-article-preview-list> -->
+          <app-article-preview-card [articleData]="article" *ngFor="let article of featuredArticles | reverseArray"></app-article-preview-card>
+
         </div>
       </div>
     </div>
@@ -25,12 +27,16 @@
       </div>
       <!-- Latest Article Preview -->
       <div class="grid" *ngIf="currentSelectedTab === 1">
-          <app-article-preview-card [articleData]="article" *ngFor="let article of latestArticles"></app-article-preview-card>
+          <!-- <app-article-preview-card [articleData]="article" *ngFor="let article of latestArticles"></app-article-preview-card> -->
+          <app-article-preview-list [articleData]="article" *ngFor="let article of latestArticles"></app-article-preview-list>
+
         <!-- Latest Article List View -->
       </div>
       <!-- All Article Preview -->
       <div *ngIf="currentSelectedTab === 2" class="allArticleWrapper grid">
-        <app-article-preview-card [articleData]="article" *ngFor="let article of allArticles | reverseArray"></app-article-preview-card>
+        <!-- <app-article-preview-card [articleData]="article" *ngFor="let article of allArticles | reverseArray"></app-article-preview-card> -->
+        <app-article-preview-list [articleData]="article" *ngFor="let article of allArticles | reverseArray"></app-article-preview-list>
+
       </div>
     </div>
   </div>
