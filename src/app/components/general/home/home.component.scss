@@ -40,6 +40,7 @@
   width: 95%;
   margin-left: 2.5%;
   padding-top: 20px;
+  // padding-left 20 needed for mobile size
   h2 {
     font-size: 28px;
     color: $dark-gray;
@@ -48,10 +49,12 @@
     }
   }
   .list {
+    // make responsives for smaller screen sizes
     @include respond-to($desktop-sm){
       width: 100%;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      // 2 or 3 1fr
+      grid-template-columns: 1fr 1fr 1fr 1fr;
       grid-auto-rows: auto;
     }
   }
@@ -99,6 +102,7 @@
       }
     }
   }
+  // article list grid
   .grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -113,9 +117,10 @@
       grid-template-columns: 1fr 1fr 1fr;
     }
     @include respond-to(1300){
-      grid-template-columns: 1fr 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
     }
     @include respond-to($desktop-lg){
+      // check on larger monitor to check sizing. Otherwise change it to 4 1fr
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
   }
