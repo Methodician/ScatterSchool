@@ -120,8 +120,8 @@
       grid-template-columns: 1fr 1fr 1fr;
     }
     @include respond-to($desktop-lg){
-      // check on larger monitor to check sizing. Otherwise change it to 4 1fr
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+      // sizing of list needs work
+      grid-template-columns: 1fr 1fr 1fr 1fr;
     }
   }
 }
