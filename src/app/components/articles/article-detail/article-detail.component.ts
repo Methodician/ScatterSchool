@@ -44,10 +44,10 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
     private route: ActivatedRoute,
     private uploadSvc: UploadService,
     private authSvc: AuthService
-  ) { smoothscroll.polyfill();}
+  ) { smoothscroll.polyfill(); }
 
   ngOnInit() {
-    window.scrollTo(0,0);
+    window.scrollTo(0, 0);
     if (!this.editingPreview) {
       this.route.params.subscribe(params => {
         if (params['key']) {
@@ -70,11 +70,11 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
     })
 
     this.articleSvc
-    .getAllArticles()
-    .valueChanges()
-    .subscribe(response => {
-      this.allArticles = response;
-    });
+      .getAllArticles()
+      .valueChanges()
+      .subscribe(response => {
+        this.allArticles = response;
+      });
   }
 
   ngOnDestroy() {
@@ -140,7 +140,7 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
           }
         }
       });
-    
+
   }
 
   getArticleData() {
@@ -174,7 +174,9 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
         }
         if (articleData) {
           this.articleData = articleData;
-          this.getArticleBody(articleData);
+          if (!articleData.body || articleData.body == '') {
+            this.getArticleBody(articleData);
+          }
           this.getAuthor(articleData.authorId);
           this.getProfileImage(articleData.authorId);
           this.getArticleCoverImage(this.articleKey)
@@ -239,17 +241,17 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
       });
   }
 
-  nextArticle(){
-    if(this.currentArticle != this.allArticles.length - 1){
+  nextArticle() {
+    if (this.currentArticle != this.allArticles.length - 1) {
       this.currentArticle++;
     }
   }
-  prevArticle(){
-    if(this.currentArticle != 0){
+  prevArticle() {
+    if (this.currentArticle != 0) {
       this.currentArticle--;
     }
   }
-  positionWrapper():string{
+  positionWrapper(): string {
     return `${-320 * this.currentArticle}px`;
   }
 
@@ -262,9 +264,9 @@ export class ArticleDetailComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
-  scroll(el:any){
+  scroll(el: any) {
     // make smoother?
-    el.scrollIntoView({behavior: 'smooth'});
+    el.scrollIntoView({ behavior: 'smooth' });
   }
 }
 
