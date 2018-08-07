@@ -46,14 +46,15 @@ export class UserService {
     return this.rtdb.object(`presenceData/users/${userKey}`);
   }
 
-  setUserAccess(accessLevel: number, uid: string) {
-    return this.rtdb
-      .object(`userInfo/accessLevel/${uid}`)
-      .set(accessLevel);
-  }
+  // setUserAccess(accessLevel: number, uid: string) {
+  //   return this.rtdb
+  //     .object(`userInfo/accessLevel/${uid}`)
+  //     .set(accessLevel);
+  // }
 
   createUser(userInfo, uid) {
-    this.setUserAccess(10, uid);
+    // should be done with cloud function
+    // this.setUserAccess(10, uid);
     return this.rtdb
       .object(`userInfo/open/${uid}`)
       .set(userInfo);
@@ -124,7 +125,7 @@ export class UserService {
                 user.city,
                 user.state
               );
-          })
+            })
         })
       })
       .flatMap(firebaseObjects => {

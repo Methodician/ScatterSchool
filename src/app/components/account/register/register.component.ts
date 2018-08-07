@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
     private userSvc: UserService,
     private fb: FormBuilder,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
           Play nice, make friends, and contribute to the wealth of knowledge we\'re building together.`
         );
         try {
-          await this.userSvc.createUser(val, res.uid);
+          await this.userSvc.createUser(val, res.user.uid);
           if (val.alias) {
             this.authSvc.setDisplayName(val.alias);
           }

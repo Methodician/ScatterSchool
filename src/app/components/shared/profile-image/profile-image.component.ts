@@ -22,7 +22,7 @@ export class ProfileImageComponent implements OnInit {
     this.uploadSvc
       .getImage(uid, basePath)
       .subscribe(profileData => {
-        if (profileData.url) {
+        if (profileData && profileData.url) {
           this.profileImageUrl = profileData.url;
         }
       });
