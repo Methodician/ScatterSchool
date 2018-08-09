@@ -1,10 +1,12 @@
-<mat-card [style.backgroundColor]="hoverBg" (mouseover)="enterCard()" (mouseout)="exitCard()">
-  <img 
-    [class]="hoverClass"
-    [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'"
-    (click)="navigateToArticleDetail()"
-    alt="article's cover image">
-  <div class="content-wrapper" (click)="navigateToArticleDetail()">
+<mat-card [style.backgroundColor]="hoverBg"
+          (mouseover)="enterCard()"
+          (mouseout)="exitCard()">
+  <img [class]="hoverClass"
+       [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../assets/images/kid-art.jpg'"
+       (click)="navigateToArticleDetail()"
+       alt="article's cover image">
+  <div class="content-wrapper"
+       (click)="navigateToArticleDetail()">
     <mat-card-header>
       <mat-card-title class="longer-title">{{articleData.title | truncate: 60 }}</mat-card-title>
       <mat-card-title class="shorter-title">{{articleData.title | truncate: 20 }}</mat-card-title>
@@ -15,12 +17,12 @@
     </mat-card-content>
   </div>
   <mat-card-actions>
-    <div matTooltip="{{articleData.commentCount ? article.commentCount : '0'}} comments">
+    <div matTooltip="{{articleData.commentCount ? articleData.commentCount : '0'}} comments">
       <mat-icon color="primary">comment</mat-icon>
-      <p>{{articleData.commentCount ? article.commentCount: '0'}}</p>
+      <p>{{articleData.commentCount ? articleData.commentCount: '0'}}</p>
     </div>
     <!-- Article History Icon -->
-    <div matTooltip="Revised {{articleData.version}} time(s)" >
+    <div matTooltip="Revised {{articleData.version}} time(s)">
       <mat-icon color="primary">history</mat-icon>
       <p>{{articleData.version}}</p>
     </div>
@@ -31,7 +33,8 @@
     </div>
     <!-- Article Bookmark Icon -->
     <div matTooltip="Bookmark This Article">
-      <mat-icon color="primary" id="bookmarkIcon">bookmark_border</mat-icon>
+      <mat-icon color="primary"
+                id="bookmarkIcon">bookmark_border</mat-icon>
     </div>
   </mat-card-actions>
 </mat-card>

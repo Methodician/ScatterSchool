@@ -1,38 +1,43 @@
-<div id="related-articles" [class.no-related]='hasRelatedArticles()'>
+<div id="related-articles"
+     [class.no-related]='hasRelatedArticles()'>
   <!-- START CAROUSEL move into its own component -->
   <div class="spacer"></div>
   <div class="content">
     <h2>Related articles</h2>
-    <div class="articles-wrapper" 
-      [style.left]="positionWrapper()"
-      (swipeleft)="swipe($event.type)"
-      (swiperight)="swipe($event.type)"
-      >
-      <div *ngIf="parentAllArticles?.length === 0" id="no-related">
+    <div class="articles-wrapper"
+         [style.left]="positionWrapper()"
+         (swipeleft)="swipe($event.type)"
+         (swiperight)="swipe($event.type)">
+      <div *ngIf="parentAllArticles?.length === 0"
+           id="no-related">
         <h3>No articles related to tags.</h3>
       </div>
-      <app-article-preview-card [articleData]="article" *ngFor="let article of parentAllArticles">
+      <app-article-preview-card [articleData]="article"
+                                *ngFor="let article of parentAllArticles">
       </app-article-preview-card>
       <!-- <app-article-preview-card [relatedResult]="result" [articleData]="article" *ngFor="let article of parentAllArticles | articleRelated: relatedArticles as result">
       </app-article-preview-card> -->
     </div>
   </div>
   <div class="spacer"></div>
-  <div id="sm-mobile-bar" *ngIf="!parentAllArticles?.length === 0">
-      <button mat-icon-button 
-        color="accent"
-        [disabled]="currentArticle === 0" 
-        (click)="prevArticle()">&#10094;</button>
-      <button mat-icon-button 
-        color="accent"
-        [disabled]="parentAllArticles?.length === 0 ? true : currentArticle === (parentAllArticles?.length - 1)"
-        (click)="nextArticle()">&#10095;</button>
-  </div> 
-  <div class="button-wrapper">
-    <button (click)="prevArticle()" [disabled]="currentArticle === 0">&#10094;</button>
+  <div id="sm-mobile-bar"
+       *ngIf="!(parentAllArticles?.length === 0)">
+    <button mat-icon-button
+            color="accent"
+            [disabled]="currentArticle === 0"
+            (click)="prevArticle()">&#10094;</button>
+    <button mat-icon-button
+            color="accent"
+            [disabled]="parentAllArticles?.length === 0 ? true : currentArticle === (parentAllArticles?.length - 1)"
+            (click)="nextArticle()">&#10095;</button>
   </div>
   <div class="button-wrapper">
-    <button (click)="nextArticle()" [disabled]="parentAllArticles?.length === 0 ? true : currentArticle === (parentAllArticles?.length - 1)">&#10095;</button>
+    <button (click)="prevArticle()"
+            [disabled]="currentArticle === 0">&#10094;</button>
+  </div>
+  <div class="button-wrapper">
+    <button (click)="nextArticle()"
+            [disabled]="parentAllArticles?.length === 0 ? true : currentArticle === (parentAllArticles?.length - 1)">&#10095;</button>
   </div>
   <!-- END CAROUSEL -->
   <!-- [disabled]="currentArticle === (parentAllArticles?.length - 1)" -->

@@ -17,8 +17,8 @@ export class ArticleDetailFirestore {
     public bodyId: string,
     public title: string,
     public introduction: string,
-    public lastUpdated: Date,
-    public timestamp: Date,
+    public lastUpdated: any,
+    public timestamp: any,
     public version: number,
     public commentCount: number,
     public viewCount: number,
@@ -27,20 +27,20 @@ export class ArticleDetailFirestore {
     public articleId?: string,
     public isFeatured?: boolean,
     public lastEditorId?: string
-  ) {}
+  ) { }
 }
 
 export class ArticleBodyFirestore {
   constructor(
     public body: string
-  ) {}
+  ) { }
 }
 
 export class GlobalTag {
   constructor(
     public count: number,
-    public timestamp: Date
-  ) {}
+    public timestamp: any
+  ) { }
 }
 
 export class ArticleEditorFirestore {
@@ -48,5 +48,5 @@ export class ArticleEditorFirestore {
     public uid: string,
     public name: string,
     public timestamp: number
-  ) {}
+  ) { }
 }
