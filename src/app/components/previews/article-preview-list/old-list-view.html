@@ -1,13 +1,14 @@
-
 <mat-card [style.backgroundColor]="hoverBg" (mouseover)="enterCard()" (mouseout)="exitCard()">
   <!-- Article Image -->
-  <img [class]="hoverClass" [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../../assets/images/kid-art.jpg'" alt="article's cover image">
+  <img [class]="hoverClass" [src]="articleCoverImageUrl ? articleCoverImageUrl : '../../../assets/images/kid-art.jpg'"
+    alt="article's cover image">
   <!-- Card Header Container -->
   <div class="contentWrapper">
     <mat-card-header>
       <div class="titleWrapper">
         <mat-card-title class="title" (click)="navigateToArticleDetail()">{{articleData.title | truncate:70}}</mat-card-title>
-        <mat-card-subtitle class="author" (click)="navigateToProfile()">Last Updated: {{ articleData?.lastUpdated | date }}</mat-card-subtitle>
+        <mat-card-subtitle class="author" (click)="navigateToProfile()">Last Updated: {{
+          articleData?.lastUpdated.toDate() | date }}</mat-card-subtitle>
       </div>
     </mat-card-header>
     <!-- Card Content -->
@@ -17,26 +18,26 @@
   </div>
   <!-- Flexbox Spacer Span -->
   <span class="contentSpacer"></span>
-   <!-- Card Footer Action -->
+  <!-- Card Footer Action -->
   <mat-card-actions>
     <!-- Article Comment Icon -->
-     <div matTooltip="{{articleData.commentCount ? article.commentCount : '0'}} comments">
+    <div matTooltip="{{articleData.commentCount ? article.commentCount : '0'}} comments">
       <mat-icon color="primary">comment</mat-icon>
       <p>{{articleData.commentCount ? article.commentCount: '0'}}</p>
     </div>
     <!-- Article History Icon -->
-      <div matTooltip="Revised {{articleData.version}} time(s)" >
-        <mat-icon color="primary">history</mat-icon>
-        <p>{{articleData.version}}</p>
-      </div>
-      <!-- Article Tags Icon -->
-      <div matTooltip="{{articleData.tags }}">
-          <mat-icon color="primary">label_outline</mat-icon>
-          <p>{{articleData.tags.length}}</p>
-      </div>
-      <!-- Article Bookmark Icon -->
-      <div matTooltip="Bookmark This Article">
-          <mat-icon color="primary" id="bookmarkIcon">bookmark_border</mat-icon>
-      </div>
-    </mat-card-actions>
-  </mat-card>
+    <div matTooltip="Revised {{articleData.version}} time(s)">
+      <mat-icon color="primary">history</mat-icon>
+      <p>{{articleData.version}}</p>
+    </div>
+    <!-- Article Tags Icon -->
+    <div matTooltip="{{articleData.tags }}">
+      <mat-icon color="primary">label_outline</mat-icon>
+      <p>{{articleData.tags.length}}</p>
+    </div>
+    <!-- Article Bookmark Icon -->
+    <div matTooltip="Bookmark This Article">
+      <mat-icon color="primary" id="bookmarkIcon">bookmark_border</mat-icon>
+    </div>
+  </mat-card-actions>
+</mat-card>

@@ -7,7 +7,7 @@
         <h4 class="author">By: {{author?.alias}}</h4>
         <follow-btn *ngIf="article" [uid]="article?.authorKey"></follow-btn>
       </div>
-      <p class="date">Last Updated: {{ article?.lastUpdated | date }}</p>
+      <p class="date">Last Updated: {{ article?.lastUpdated.toDate() | date }}</p>
     </div>
   </div>
   <div class="tagsBar">
